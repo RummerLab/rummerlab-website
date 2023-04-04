@@ -67,46 +67,7 @@
             To view a list of our publications, please visit the
             <a href="https://scholar.google.com/citations?user=ynWS968AAAAJ&hl=en&oi=ao" target="_blank">publications page</a>.
         </p>
-        <div id="tweets-container"></div>
-        <script>
-            async function fetchAndParseTweets() {
-              const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-              const targetUrl = "https://twitter.com/physiologyfish";
-              const response = await fetch(proxyUrl + targetUrl);
           
-              if (response.ok) {
-                const html = await response.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-          
-                const tweets = doc.querySelectorAll("div[data-testid='tweet']");
-                tweets.forEach(tweet => {
-                  const content = tweet.querySelector("div[lang]").textContent;
-                  const time = tweet.querySelector("time").getAttribute("datetime");
-          
-                  const tweetContainer = document.createElement("div");
-                  tweetContainer.classList.add("tweet");
-          
-                  const tweetText = document.createElement("p");
-                  tweetText.textContent = content;
-          
-                  const tweetDate = document.createElement("p");
-                  tweetDate.textContent = new Date(time).toLocaleString();
-          
-                  tweetContainer.appendChild(tweetText);
-                  tweetContainer.appendChild(tweetDate);
-          
-                  document.getElementById("tweets-container").appendChild(tweetContainer);
-                });
-              } else {
-                console.error("Error fetching tweets:", response.status, response.statusText);
-              }
-            }
-          
-            fetchAndParseTweets();
-          </script>
-          
-
         <div id="twitter-timeline">
             <a class="twitter-timeline" data-theme="light" href="https://twitter.com/physiologyfish">Tweets by physiologyfish</a>
         </div>
