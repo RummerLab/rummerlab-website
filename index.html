@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-S1GQ36LLDK"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-S1GQ36LLDK');
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-S1GQ36LLDK');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,65 +19,82 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
         }
+
         header {
             background-color: #333;
             color: white;
             text-align: center;
             padding: 1em;
         }
+
         main {
             padding: 2em;
         }
+
         h1 {
             font-size: 2em;
             margin-bottom: 0.5em;
         }
+
         h2 {
             font-size: 1.5em;
             margin-bottom: 0.5em;
         }
+
         p {
             margin-bottom: 1em;
         }
+
         a {
             color: #1a73e8;
             text-decoration: none;
         }
+
         a:hover {
             text-decoration: underline;
         }
-        
+
         #instafeed {
-            height:150px;
-            text-align:center;
-            overflow:hidden
+            height: 150px;
+            text-align: center;
+            overflow: hidden
         }
+
         #instafeed img {
-            height:150px;
-            width:150px;
-            object-fit:cover
+            height: 150px;
+            width: 150px;
+            object-fit: cover
         }
+
+        #instafeed img:hover {
+            filter: grayscale(100%);
+        }
+
         @media screen and (max-width:800px) {
             #instafeed {
-                height:250px
+                height: 250px
             }
+
             #instafeed img {
-                height:125px;
-                width:125px
+                height: 125px;
+                width: 125px
             }
         }
+
         @media screen and (max-width:600px) {
             #instafeed {
-                height:200px
+                height: 200px
             }
+
             #instafeed img {
-                height:100px;
-                width:100px
+                height: 100px;
+                width: 100px
             }
         }
     </style>
     <script src="https://unpkg.com/instafeed.js@2.0.0/dist/instafeed.js"></script>
 </head>
+
 <body>
     <header>
         <img src="./rummerlab_logo_transparent.png" alt="Rummerlab Logo" style="max-width:200px;">
@@ -85,7 +103,8 @@
     </header>
     <main>
         <h2></h2>
-        <p>See also <a href="https://www.jodierummer.com/">Dr Jodie Rummer</a>'s website and <a href="https://physioshark.org/">Physioshark</a>, a project of RummerLab.</p>
+        <p>See also <a href="https://www.jodierummer.com/">Dr Jodie Rummer</a>'s website and <a
+                href="https://physioshark.org/">Physioshark</a>, a project of RummerLab.</p>
 
         <h2>About Rummerlab</h2>
         <p>
@@ -98,24 +117,26 @@
         <h2>Research Areas</h2>
         <p>
             Our main research areas include:
-            <ul>
-                <li>Physiological responses to environmental stressors</li>
-                <li>Adaptations to climate change and ocean acidification</li>
-                <li>Conservation of aquatic species and ecosystems</li>
-            </ul>
+        <ul>
+            <li>Physiological responses to environmental stressors</li>
+            <li>Adaptations to climate change and ocean acidification</li>
+            <li>Conservation of aquatic species and ecosystems</li>
+        </ul>
         </p>
 
         <h2>Publications</h2>
         <p>
             To view a list of our publications, please visit the
-            <a href="https://scholar.google.com/citations?user=ynWS968AAAAJ&hl=en&oi=ao" target="_blank">publications page</a>.
+            <a href="https://scholar.google.com/citations?user=ynWS968AAAAJ&hl=en&oi=ao" target="_blank">publications
+                page</a>.
         </p>
-          
+
         <div id="twitter-timeline">
-            <a class="twitter-timeline" data-theme="light" href="https://twitter.com/physiologyfish">Tweets by physiologyfish</a>
+            <a class="twitter-timeline" data-theme="light" href="https://twitter.com/physiologyfish">Tweets by
+                physiologyfish</a>
         </div>
         <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        
+
 
         <h2>Contact Us</h2>
         <p>
@@ -124,9 +145,10 @@
         </p>
     </main>
     <footer>
-        
-        <p>Connect with us on <a href="https://www.instagram.com/rummerlab/" target="_blank"><i class="fab fa-instagram icon"></i>Instagram</a>!</p>
-        
+
+        <p>Connect with us on <a href="https://www.instagram.com/rummerlab/" target="_blank"><i
+                    class="fab fa-instagram icon"></i>Instagram</a>!</p>
+
         <script>
             fetch("https://ig.instant-tokens.com/users/1d55f8ff-2133-4175-9f7e-4e9b03aa6dea/instagram/17841403684248284/token?userSecret=frrx8xumpiwf82oj5vjvj")
                 .then(response => {
@@ -155,15 +177,16 @@
                             array.data = array.data.slice(0, 50);
                             return array;
                         },
-                        template: '<a href="\{\{link\}\}"><img src="\{\{image\}\}" alt="\{\{location\}\}" loading="lazy" /></a>'
+                        template: '<a href="\{\{link\}\}" target="_blank"><img src="\{\{image\}\}" alt="\{\{location\}\}" loading="lazy" /></a>'
                     });
                     instafeed.run();
                 })
                 .catch(error => {
                     console.error('Error fetching the Instagram token:', error);
                 });
-        </script>    
+        </script>
         <div id="instafeed"></div>
     </footer>
 </body>
+
 </html>
