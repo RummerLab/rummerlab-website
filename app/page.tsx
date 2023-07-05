@@ -1,7 +1,6 @@
 import Script from 'next/script'
 
 export default function Home() {
-  
   const GA_ID = process.env.NEXT_PUBLIC_GA_ID; 
   return (
     <>
