@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S1GQ36LLDK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-S1GQ36LLDK');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rummerlab - Dr Jodie Rummer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        p {
+            margin-bottom: 1em;
+        }
+
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #instafeed {
+            height: 150px;
+            text-align: center;
+            overflow: hidden
+        }
+
+        #instafeed img {
+            height: 150px;
+            width: 150px;
+            object-fit: cover
+        }
+
+        #instafeed img:hover {
+            filter: grayscale(100%);
+        }
+
+        @media screen and (max-width:800px) {
+            #instafeed {
+                height: 250px
+            }
+
+            #instafeed img {
+                height: 125px;
+                width: 125px
+            }
+        }
+
+        @media screen and (max-width:600px) {
+            #instafeed {
+                height: 200px
+            }
+
+            #instafeed img {
+                height: 100px;
+                width: 100px
+            }
+        }
+    </style>
+    <script src="https://unpkg.com/instafeed.js@2.0.0/dist/instafeed.js"></script>
+</head>
+
+<body>
+    <header>
+        <img src="./images/rummerlab_logo_transparent.png" alt="Rummerlab Logo" style="max-width:200px;">
+        <h1>Rummerlab</h1>
+        <p>Dr Jodie Rummer</p>
+    </header>
+    <main>
+        <h2></h2>
+        <p>See also <a href="https://www.jodierummer.com/">Dr Jodie Rummer</a>'s website and <a
+                href="https://physioshark.org/">Physioshark</a>, a project of RummerLab.</p>
+
+        <h2>About Rummerlab</h2>
+        <p>
+            Rummerlab, led by Dr Jodie Rummer, focuses on researching the physiological
+            processes and adaptations of aquatic animals in response to environmental
+            stressors. Our research aims to understand how these organisms cope with
+            changing conditions and contribute to the conservation of aquatic ecosystems.
+        </p>
+
+        <h2>Research Areas</h2>
+        <p>
+            Our main research areas include:
+        <ul>
+            <li>Physiological responses to environmental stressors</li>
+            <li>Adaptations to climate change and ocean acidification</li>
+            <li>Conservation of aquatic species and ecosystems</li>
+        </ul>
+        </p>
+
+        <h2>Publications</h2>
+        <p>
+            To view a list of our publications, please visit the
+            <a href="https://scholar.google.com/citations?user=ynWS968AAAAJ&hl=en&oi=ao" target="_blank">publications
+                page</a>.
+        </p>
+
+        <h2>Contact Us</h2>
+        <p>
+            If you want to reach out, please feel free
+            to reach out at <a href="mailto:jodierummer@rummerlab.com">jodierummer@rummerlab.com</a>.
+        </p>
+    </main>
+    <footer>
+
+        <p>Connect with us on <a href="https://www.instagram.com/rummerlab/" target="_blank"><i
+                    class="fab fa-instagram icon"></i>Instagram</a>!</p>
+
+        <script>
+            fetch("https://ig.instant-tokens.com/users/1d55f8ff-2133-4175-9f7e-4e9b03aa6dea/instagram/17841403684248284/token?userSecret=frrx8xumpiwf82oj5vjvj")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error fetching the Instagram token: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(json => {
+                    var instafeed = new Instafeed({
+                        accessToken: json.Token,
+                        target: 'instafeed',
+                        limit: 80,
+                        success: function (array) {
+                            function shuffle(a) {
+                                var j, x, i;
+                                for (i = a.length - 1; i > 0; i--) {
+                                    j = Math.floor(Math.random() * (i + 1));
+                                    x = a[i];
+                                    a[i] = a[j];
+                                    a[j] = x;
+                                }
+                                return a;
+                            }
+                            array.data = shuffle(array.data);
+                            array.data = array.data.slice(0, 50);
+                            return array;
+                        },
+                        template: '<a href="\{\{link\}\}" target="_blank"><img src="\{\{image\}\}" alt="\{\{location\}\}" loading="lazy" /></a>'
+                    });
+                    instafeed.run();
+                })
+                .catch(error => {
+                    console.error('Error fetching the Instagram token:', error);
+                });
+        </script>
+        <div id="instafeed"></div>
+    </footer>
+</body>
+
+</html>

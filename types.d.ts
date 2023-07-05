@@ -1,9 +1,3 @@
-type BlogPost = {
-    id: string,
-    title: string,
-    date: string,
-}
-
 export type Publication = {
     title: string;
     authors: string[];
@@ -12,5 +6,4 @@ export type Publication = {
     url: string;
     citations: number;
     excerpt?: string;
-  };
-  
+};
