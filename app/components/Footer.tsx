@@ -3,6 +3,8 @@ import Script from "next/script"
 import { FaInstagram } from "react-icons/fa"
 import '@/public/instafeed.css'
 
+// Add in instagram images https://www.youtube.com/watch?v=kLFSTaCqzdQ
+
 export default function Footer() {
   return (
     <footer className="p-5 text-center bg-gray-200">
