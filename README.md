@@ -1,3 +1,9 @@
 ### Rummerlab
 
-Currently two versions. Html file and the next js project 
+`npm run dev`
+
+`npm run build`
+
+`npm run lint`
+
+`npm update`

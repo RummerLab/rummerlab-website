@@ -5,7 +5,7 @@ export default function Research() {
         <p className="mt-12 mb-12 text-xl text-center dark:text-white">
           Our main research areas include:
         </p>
-        <ul className="mt-12 mb-12 text-xl text-center dark:text-white">
+        <ul className="mt-12 mb-12 text-l text-center dark:text-white">
           <li>Physiological responses to environmental stressors</li>
           <li>Adaptations to climate change and ocean acidification</li>
           <li>Conservation of aquatic species and ecosystems</li>
