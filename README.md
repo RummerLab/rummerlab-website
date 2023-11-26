@@ -1,3 +1,3 @@
 ### Rummerlab
 
-currently two versions. html file and the next Js project 
+Currently two versions. Html file and the next js project 

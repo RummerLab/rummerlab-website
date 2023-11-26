@@ -12,9 +12,10 @@ export default function Footer() {
             <Link href="/">Rummerlab</Link>
         </h1>
         <p className="mb-4">
-            Connect with us on 
+            Connect with us on&nbsp;
             <a href="https://www.instagram.com/rummerlab/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                <FaInstagram /> Instagram
+              <FaInstagram />
+              Instagram
             </a>
             !
         </p>
