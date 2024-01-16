@@ -2,6 +2,7 @@ import Link from "next/link"
 import Script from "next/script"
 import { FaInstagram } from "react-icons/fa"
 import '@/public/styles/instafeed.css'
+import InstagramPosts from "./Instagram"
 
 // Add in instagram images https://www.youtube.com/watch?v=kLFSTaCqzdQ
 
@@ -19,9 +20,7 @@ export default function Footer() {
             </a>
             !
         </p>
-        <Script src="https://unpkg.com/instafeed.js@2.0.0/dist/instafeed.js" />
-        <Script src="/scripts/instafeed.js" />
-        <div id="instafeed"></div>
+        <InstagramPosts />
     </footer>
   );
 };

@@ -1,7 +1,7 @@
 #instafeed {
     height: 150px;
     text-align: center;
-    overflow: hidden
+    overflow: hidden;
 }
 
 #instafeed img {
@@ -17,26 +17,22 @@
 
 @media screen and (max-width:800px) {
     #instafeed {
-        height: 250px
+        height: 250px;
     }
 
     #instafeed img {
         height: 125px;
-        width: 125px
+        width: 125px;
     }
 }
 
 @media screen and (max-width:600px) {
     #instafeed {
-        height: 200px
+        height: 200px;
     }
 
     #instafeed img {
         height: 100px;
-        width: 100px
+        width: 100px;
     }
-}
-
-svg {
-    display: inline-block;
 }
