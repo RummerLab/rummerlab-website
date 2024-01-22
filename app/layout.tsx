@@ -1,7 +1,7 @@
 import './globals.css'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Logo from './components/Logo'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import Logo from '@/components/Logo'
 
 export const metadata = {
   title: "RummerLab",

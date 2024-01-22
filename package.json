@@ -12,6 +12,7 @@
     "@types/node": "^18.19.1",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
+    "cheerio": "^1.0.0-rc.12",
     "google-scholarly-updated": "^1.4.2",
     "next": "latest",
     "react": "^18.2.0",
@@ -22,9 +23,9 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.2.7",
     "eslint": "^8.56.0",
-    "eslint-config-next": "^14.0.4"
+    "eslint-config-next": "^14.0.4",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.2.7"
   }
 }
