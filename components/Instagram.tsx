@@ -2,7 +2,10 @@ import { Key } from 'react';
 import Image from 'next/image';
 import { getLongLivedToken } from '@/lib/metaToken';
 
-async function getInstagramPostData() {
+//const rummerlabId = '3666266808';
+const rummerlabId = null;
+
+async function getInstagramPostData(id: string | null) {
     try {
         //const accessToken = await getLongLivedToken();
         const accessToken = process.env.APP_ACCESS_TOKEN;
@@ -13,8 +16,10 @@ async function getInstagramPostData() {
             throw new Error('Failed to get access token')
         }
 
+        const userId = id ?? 'me';
+
         // Fetch posts using the token
-        const res = await fetch(`https://graph.instagram.com/me/media?fields=caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username&access_token=${accessToken}`, { 
+        const res = await fetch(`https://graph.instagram.com/${userId}/media?fields=caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username&access_token=${accessToken}`, { 
         next: { 
                 revalidate: 604800 // 1 week
             } 
@@ -30,6 +35,8 @@ async function getInstagramPostData() {
         if (!data || !data.data || data.data.length === 0) {
             throw new Error('Failed to parse data')
         }
+
+        console.log('Instagram post data:', data.data);
         
         return data.data || []
     } catch (error) {
@@ -183,7 +190,7 @@ function generateCaption(caption: string) {
 }
 
 export default async function InstagramPosts() {
-    const posts = await getInstagramPostData()
+    const posts = await getInstagramPostData(rummerlabId)
 
     if (!posts || posts.length === 0) {
         return null;
@@ -203,7 +210,7 @@ export default async function InstagramPosts() {
                     const captionText = generateCaption(caption);
     
                     return (
-                        <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="relative group inline-block hover:bg-opacity-90 cursor-pointer">
+                        <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="relative group inline-block hover:bg-opacity-90 hover:grayscale transition duration-150 cursor-pointer">
                             {imageUrl && (
                                 <>
                                     <Image
@@ -211,7 +218,7 @@ export default async function InstagramPosts() {
                                         alt={altText}
                                         width={500}
                                         height={300}
-                                        className="h-37 w-37 inline-block object-cover aspect-square hover:grayscale rounded-sm transition duration-150 md:h-62 md:w-62 sm:h-50 sm:w-50"
+                                        className="h-37 w-37 inline-block object-cover aspect-square rounded-sm md:h-62 md:w-62 sm:h-50 sm:w-50"
                                         loading="lazy" 
                                     />
                                     <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-20 text-white text-sm p-1 transition-opacity duration-150 group-hover:bg-opacity-70">
