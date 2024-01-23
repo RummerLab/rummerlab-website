@@ -41,21 +41,88 @@ async function getInstagramPostData() {
 function mutateCaption(caption: string) {
     let text = caption.split('\n')[0].trim();
     text = text.split("📸")[0].trim();
+    text = text.split("📷")[0].trim();
+    text = text.split("Image by")[0].trim();
     text = text
-    .replaceAll("Repost @rummerjodie with @get_repost","")
-    .replaceAll(" Dr. "," Dr ")
-    .replaceAll("Rummer Lab","RummerLab")
-    .replaceAll("Rummerlab","RummerLab")
-    .replaceAll("@rummerlab","RummerLab")
-    .replaceAll("#rummerlab","RummerLab")
-    .replaceAll("@physioshark","Physioshark")
-    .replaceAll("#physioshark","Physioshark")
-    .replaceAll("@rummerjodie","Dr Jodie Rummer")
-    .replaceAll("@adamtdownie","Adam Downie").replaceAll("Adam Downie Adam Downie","Adam Downie")
-    .replaceAll("@reefhqaquarium","Reef HQ Aquarium")
-    .replaceAll("#meettheteam","Meet The Team:")
-    .replaceAll("#research","Research")
-    .replaceAll("#conservation","Conservation")
+    .replace(/Repost @rummerjodie with @get_repost/gi,"")
+    .replace(/ Dr\. /gi, " Dr ")
+    .replace(/@rummerlab/gi,"RummerLab")
+    .replace(/#rummerlab/gi,"RummerLab")
+    .replace(/Rummer ?Lab/gi,"RummerLab")
+    .replace(/@physioshark/gi,"Physioshark")
+    .replace(/#physioshark/gi,"Physioshark")
+    .replace(/#climatechange/gi,"Climate Change")
+    .replace(/#babysharks/gi,"baby sharks")
+    .replace(/#newyorkcity/gi,"New York City")
+    .replace(/@rummerjodie/gi,"Dr Jodie Rummer")
+    .replace(/Dr. Jodie Rummer (@rummerjodie)/gi,"Dr Jodie Rummer")
+    .replace(/@tomvierus/gi,"Tom Vierus")
+    .replace(/@wildlifeconservationfilmfest|@wcff_org/gi,"Wildlife Conservation FilmFest")
+    .replace(/Wildlife Conservation FilmFest Wildlife Conservation FilmFest/gi,"Wildlife Conservation FilmFest")
+    .replace(/#greatbarrierreef/gi,"Great Barrier Reef")
+    .replace(/#reeffish/gi,"reef fish")
+    .replace(/#marinebiology/gi,"marine biology")
+    .replace(/#marinelife/gi,"marine life")
+    .replace(/#oceanlife/gi,"ocean life")
+    .replace(/#fishareawesome/gi,"fish are awesome")
+    .replace(/#natureisawesome/gi,"nature is awesome")
+    .replace(/#rummerlabproud/gi,"")
+    .replace(/#conphys/gi,"Conservation Physiology")
+    .replace(/Adam Donnie/gi,"Adam Downie")
+    .replace(/@adamtdownie/gi,"Adam Downie").replaceAll("Adam Downie Adam Downie","Adam Downie")
+    .replace(/@adamdownunder/gi,"Adam Oscar")
+    .replace(/@ianbouyoucos/gi,"Ian Bouyoucos")
+    .replace(/@khannan18/gi,"Kelly Hannan")
+    .replace(/@emmhiggins/gi,"Emily Higgins")
+    .replace(/@teish_prescott/gi,"Teish Prescott")
+    .replace(/@wheel_house23/gi,"Carolyn Wheeler")
+    .replace(/@sharkcolin/gi,"Colin Simpfendorfer")
+    .replace(/@thelittleafrican/gi,"Kristy Potgieter")
+    .replace(/@emmhiggins/gi,"Emily Higgins")
+    .replace(/@rachelskubel/gi,"Rachel Skubel")
+    .replace(/@drneilhammer/gi,"Dr Neil Hammerschlag")
+    .replace(/@hesssybille/gi,"Antonius Schoenig")
+    .replace(/@universityofnewengland/gi,"University of New England")
+    .replace(/@newenglandaquarium/gi,"New England Aquarium")
+    .replace(/#tropicalfish/gi,"tropical fish")
+    .replace(/#tigersharks/gi,"tiger sharks")
+    .replace(/#epauletteshark/gi,"epaulette shark")
+    .replace(/#fishphysiology/gi,"fish physiology")
+    .replace(/#orpheusisland/gi,"Orpheus Island")
+    .replace(/@bbcnews/gi,"BBC News")
+    .replace(/@flindersuniversity/gi,"Flinders University")
+    .replace(/@universityofbc/gi,"University of British Columbia")
+    .replace(/@lorealaustralia/gi,"L'Oréal Australia & New Zealand")
+    .replace(/@coral_coe/gi,"CoralCoE")
+    .replace(/@coral.coe/gi,"CoralCoE")
+    .replace(/@reefhqaquarium/gi,"Reef HQ Aquarium")
+    .replace(/@jamescookuniversity/gi,"James Cook University")
+    .replace(/#jamescookuniversity/gi,"James Cook University")
+    .replace(/@villanovau/gi,"Villanova University")
+    .replace(/@university_of_illinois/gi,"University of Illinois")
+    .replace(/@universityofmichigann/gi,"University Of Michigan")
+    .replace(/@carleton_u/gi,"Carleton University")
+    .replace(/@yale/gi,"Yale University")
+    .replace(/@discoverunb/gi,"University of New Brunswick")
+    .replace(/@ucsantacruz/gi,"University of California, Santa Cruz")
+    .replace(/@macquarieuni/gi,"Macquarie University")
+    .replace(/@univmiami/gi,"University of Miami")
+    .replace(/#macquarieuni/gi,"Macquarie University")
+    .replace(/#umiami/gi,"University of Miami")
+    .replace(/#portjacksonshark/gi,"Port Jackson Shark")
+    .replace(/@mcmasteru/gi,"McMaster University")
+    .replace(/@abcradionational/gi,"ABC Radio National")
+    .replace(/@abcradionnational/gi,"ABC Radio National")
+    .replace(/@abcnews_au/gi,"ABC News Australia")
+    .replace(/@UNESCO/gi,"UNESCO")
+    .replace(/#meettheteam/gi,"Meet The Team:")
+    .replace(/#bestteamever/gi,"Best Team Ever")
+    .replace(/#womeninscience/gi,"women in science")
+    .replace(/#research/gi,"research")
+    .replace(/#conservation/gi,"conservation")
+    .replace(/#townsville/gi,"Townsville")
+    .replace(/#queensland/gi,"Queensland")
+    .replace(/#Australia/gi,"Australia")
     .trim();
     return text;
 }
@@ -85,7 +152,6 @@ function truncateSentence(text: string, numberOfCharacters: number) {
 
     return text;
 }
-
   
 function generateAlt(caption: string) {
     let text = caption.split('\n')[0].trim();
@@ -148,7 +214,7 @@ export default async function InstagramPosts() {
                                         loading="lazy" 
                                     />
                                     <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-20 text-white text-sm p-1 transition-opacity duration-150 group-hover:bg-opacity-70">
-                                        {altText}
+                                        {captionText}
                                     </div>
                                 </>
                             )}
