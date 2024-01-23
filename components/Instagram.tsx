@@ -46,6 +46,7 @@ function mutateCaption(caption: string) {
     text = text
     .replace(/Repost @rummerjodie with @get_repost/gi,"")
     .replace(/ Dr\. /gi, " Dr ")
+    .replace(/ w\/ /gi, " with ")
     .replace(/@rummerlab/gi,"RummerLab")
     .replace(/#rummerlab/gi,"RummerLab")
     .replace(/Rummer ?Lab/gi,"RummerLab")
@@ -202,7 +203,7 @@ export default async function InstagramPosts() {
                     const captionText = generateCaption(caption);
     
                     return (
-                        <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="relative group inline-block hover:bg-opacity-90">
+                        <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="relative group inline-block hover:bg-opacity-90 cursor-pointer">
                             {imageUrl && (
                                 <>
                                     <Image
