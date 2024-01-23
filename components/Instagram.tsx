@@ -5,7 +5,7 @@ import { getLongLivedToken } from '@/lib/metaToken';
 async function getInstagramPostData() {
     try {
         //const accessToken = await getLongLivedToken();
-        const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
+        const accessToken = process.env.APP_ACCESS_TOKEN;
         // https://www.youtube.com/watch?v=kLFSTaCqzdQ
         // Get access token: https://developers.facebook.com/apps/362219269878369/instagram-basic-display/basic-display/?business_id=3489130994739818
 

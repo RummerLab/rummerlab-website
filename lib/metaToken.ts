@@ -18,7 +18,7 @@ async function exchangeShortLivedTokenForLongLivedToken() {
   // https://developers.facebook.com/docs/instagram-basic-display-api/reference/refresh_access_token#reading
   // GET https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token={long-lived-access-token}
   try {
-    const shortLivedToken = process.env.SHORT_LIVED_TOKEN;
+    const shortLivedToken = process.env.APP_SHORT_LIVED_TOKEN;
 
     if (!shortLivedToken) {
       console.error("Error getting Meta Token: No short-lived token provided.");
