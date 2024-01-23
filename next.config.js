@@ -4,7 +4,7 @@ const nextConfig = {
     //appDir: true,
   //},
   images: {
-    domains: ['scontent.cdninstagram.com'],
+    domains: ['scontent.cdninstagram.com', 'scontent-iad3-1.cdninstagram.com'],
   },
 }
 
