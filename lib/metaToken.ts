@@ -14,6 +14,9 @@ export async function getLongLivedToken() {
 };
 
 async function exchangeShortLivedTokenForLongLivedToken() {
+  // https://developers.facebook.com/docs/instagram-basic-display-api/reference
+  // https://developers.facebook.com/docs/instagram-basic-display-api/reference/refresh_access_token#reading
+  // GET https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token={long-lived-access-token}
   try {
     const shortLivedToken = process.env.SHORT_LIVED_TOKEN;
 
@@ -22,7 +25,14 @@ async function exchangeShortLivedTokenForLongLivedToken() {
       return null;
     }
 
-    const response = await fetch('https://graph.facebook.com/v18.0/oauth/access_token', {
+    const url = `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${shortLivedToken}`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    /*const response = await fetch('https://graph.facebook.com/v18.0/oauth/access_token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -33,7 +43,7 @@ async function exchangeShortLivedTokenForLongLivedToken() {
         client_secret: process.env.APP_SECRET,
         fb_exchange_token: shortLivedToken,
       }),
-    });
+    });*/
 
     const data = await response.json();
 
@@ -54,6 +64,8 @@ async function exchangeShortLivedTokenForLongLivedToken() {
 async function revalidateLongLivedToken(longLivedToken: string) {
   const appAccessToken = `${process.env.APP_ID}|${process.env.APP_SECRET}`;
 
+  // https://developers.facebook.com/docs/instagram-basic-display-api/reference/refresh_access_token
+  // GET https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token={long-lived-access-token}
   try {
     const response = await fetch(`https://graph.facebook.com/debug_token?input_token=${longLivedToken}&access_token=${appAccessToken}`, {
       method: 'GET',

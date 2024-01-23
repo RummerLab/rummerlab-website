@@ -3,6 +3,9 @@ const nextConfig = {
   //experimental: {
     //appDir: true,
   //},
+  images: {
+    domains: ['scontent.cdninstagram.com'],
+  },
 }
 
 module.exports = nextConfig
