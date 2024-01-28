@@ -252,7 +252,7 @@ async function InstagramScrapedPosts() {
         {posts.map((post: { src: string; alt: string; }) => {
             return (
                 <div key={post.alt} className="flex flex-col items-center justify-center">
-                    <img src={post.src} alt={post.alt} className="h-37 w-37 inline-block object-cover aspect-square rounded-sm md:h-62 md:w-62 sm:h-50 sm:w-50" />
+                    <Image src={post.src} alt={post.alt} className="h-37 w-37 inline-block object-cover aspect-square rounded-sm md:h-62 md:w-62 sm:h-50 sm:w-50" />
                 </div>
             )
         }
