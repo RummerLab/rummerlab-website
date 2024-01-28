@@ -1,6 +1,7 @@
 import { Key } from 'react';
 import Image from 'next/image';
 import { getLongLivedToken } from '@/lib/metaToken';
+import { getInstagramPosts } from '@/lib/instagramScraper';
 
 //const rummerlabId = '3666266808';
 const rummerlabId = null;
@@ -80,6 +81,7 @@ function mutateCaption(caption: string) {
     .replace(/@adamtdownie/gi,"Adam Downie").replaceAll("Adam Downie Adam Downie","Adam Downie")
     .replace(/@adamdownunder/gi,"Adam Oscar")
     .replace(/@ianbouyoucos/gi,"Ian Bouyoucos")
+    .replace(/@josemilio.trujillo.m/gi,"José E Trujillo")
     .replace(/@khannan18/gi,"Kelly Hannan")
     .replace(/@emmhiggins/gi,"Emily Higgins")
     .replace(/@teish_prescott/gi,"Teish Prescott")
@@ -196,6 +198,7 @@ export default async function InstagramPosts() {
         return null;
     }
 
+
     // Filter - The Media's type. Can be IMAGE, VIDEO, or CAROUSEL_ALBUM
     // https://developers.facebook.com/docs/instagram-basic-display-api/reference/media#fields
     //const images = posts.filter((post: { media_type: string; }) => post.media_type === 'IMAGE');
@@ -234,3 +237,26 @@ export default async function InstagramPosts() {
     )
 }
 
+
+
+
+async function InstagramScrapedPosts() {
+    const posts = await getInstagramPosts('rummerlab');
+
+    if (!posts || posts.length === 0) {
+        return null;
+    }
+
+    return (
+        <div className="h-37 text-center overflow-hidden">
+        {posts.map((post: { src: string; alt: string; }) => {
+            return (
+                <div key={post.alt} className="flex flex-col items-center justify-center">
+                    <img src={post.src} alt={post.alt} className="h-37 w-37 inline-block object-cover aspect-square rounded-sm md:h-62 md:w-62 sm:h-50 sm:w-50" />
+                </div>
+            )
+        }
+    )}
+    </div>
+    )
+}
