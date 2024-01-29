@@ -8,6 +8,7 @@ import Socials from "@/components/Socials"
 export default function Footer() {
   return (
     <footer className="p-5 text-center bg-gray-200">
+      <p>RummerLab us a not-for-profit</p>
         <Contact />
         <Socials />
         <InstagramPosts />
