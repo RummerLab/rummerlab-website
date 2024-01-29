@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Research() {
   return (
     <>
@@ -10,10 +12,12 @@ export default function Research() {
           <li>Adaptations to climate change and ocean acidification</li>
           <li>Conservation of aquatic species and ecosystems</li>
         </ul>
-        <p>My main research focus lies in the ecological, evolutionary, and conservation physiology in fishes. My current research interests can be summarised in three main research areas</p>
-        <ul><li><Link href="">WHOLE-ANIMAL RESPONSES TO ENVIRONMENTAL STRESS</Link></li>
-        <li><Link href="">NOVEL IN VITRO AND IN VIVO PROTOCOLS</Link></li>
-        <li><Link href="">HARNESSING GEOGRAPHIC GRADIENTS AND LOCAL EXTREME ENVIRONMENTS AS ANALOGUES FOR FUTURE CHANGE</Link></li></ul>
+        <p className="mb-2 text-xl text-center dark:text-white">My main research focus lies in the ecological, evolutionary, and conservation physiology in fishes. My current research interests can be summarised in three main research areas</p>
+        <ul className="text-l text-center dark:text-white list-disc list-inside">
+          <li><Link href="">WHOLE-ANIMAL RESPONSES TO ENVIRONMENTAL STRESS</Link></li>
+          <li><Link href="">NOVEL IN VITRO AND IN VIVO PROTOCOLS</Link></li>
+          <li><Link href="">HARNESSING GEOGRAPHIC GRADIENTS AND LOCAL EXTREME ENVIRONMENTS AS ANALOGUES FOR FUTURE CHANGE</Link></li>
+          </ul>
     </>
   );
 };
