@@ -1,5 +1,4 @@
 
-import InstagramPosts from "@/components/Instagram"
 import Contact from "@/components/Contact"
 import Socials from "@/components/Socials"
 
@@ -11,7 +10,6 @@ export default function Footer() {
       <p>RummerLab us a not-for-profit</p>
         <Contact />
         <Socials />
-        <InstagramPosts />
     </footer>
   );
 };

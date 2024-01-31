@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { getPublications } from '@/lib/scholarly';
+import { getScholar } from '@/lib/scholarly';
 
 export async function GET(req: any, res: any) {
   try {
-    const publications = getPublications("ynWS968AAAAJ");
+    const scholar = getScholar("Jodie Rummer");
     
-    return NextResponse.json(publications);
+    return NextResponse.json(scholar);
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: "Error fetching data" });
