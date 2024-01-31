@@ -8,6 +8,7 @@ export default function Header() {
               stressors. Our research aims to understand how these organisms cope with
               changing conditions and contribute to the conservation of aquatic ecosystems.
           </p>
+          <p className="mt-12 mb-12 mx-auto max-w-lg text-xl text-center dark:text-white">RummerLab is a not-for-profit organisation</p>
       </>
     );
   };
