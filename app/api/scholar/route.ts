@@ -3,7 +3,7 @@ import { getScholar } from '@/lib/scholarly';
 
 export async function GET(req: any, res: any) {
   try {
-    const scholar = getScholar("Jodie Rummer");
+    const scholar = await getScholar("Jodie Rummer");
     
     return NextResponse.json(scholar);
   } catch (error) {
