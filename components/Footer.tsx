@@ -6,7 +6,7 @@ import Socials from "@/components/Socials"
 
 export default function Footer() {
   return (
-    <footer className="p-5 text-center bg-gray-200">
+    <footer className="p-5 text-center bg-gray-200 dark:text-black">
       <Contact />
       <Socials />
     </footer>

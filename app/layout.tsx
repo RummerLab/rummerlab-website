@@ -1,5 +1,6 @@
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import Logo from '@/components/Logo'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
@@ -18,8 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleAnalytics />
-      <body className="dark:bg-slate-800">
+      <body className="dark:bg-slate-800 dark:text-white text-center">
         <Navbar />
+        <Menu />
         <Logo />
         {children}
         <Footer />
