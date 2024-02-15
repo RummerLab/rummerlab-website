@@ -9,8 +9,8 @@ const password = process.env.TWITTER_PASSWORD;
   // Launch the browser.
   const options = {
     headless: false,
-    executablePath: null,
-    args: [],
+    executablePath: '',
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   };
   if (process.env.NODE_ENV === 'production') {//VERCEL_ENV
     options.headless = true;
@@ -29,13 +29,13 @@ const password = process.env.TWITTER_PASSWORD;
 
   const [nextButton] = await page.$x("//div[contains(text(), 'Next') and @role='button']");
   if (nextButton) {
-      await nextButton.click();
+      await (nextButton as HTMLElement).click();
   } else {
     await page.evaluate(() => {
       const buttons = [...document.querySelectorAll('div[role="button"]')]; // Find all elements with a role of button
-      const nextButton = buttons.find(button => button.textContent.includes('Next')); // Look for the button with "Next" text
+      const nextButton = buttons.find(button => button && button.textContent && button.textContent.includes('Next')); // Look for the button with "Next" text
       if (nextButton) {
-          nextButton.click(); // Click the "Next" button if found
+          (nextButton as HTMLElement).click(); // Click the "Next" button if found
       } else {
           console.error('Next button not found');
       }
@@ -59,6 +59,7 @@ const password = process.env.TWITTER_PASSWORD;
     window.scrollBy(0, window.innerHeight);
   });
 
+  // const tweetSelector = 'article[data-testid="tweet"]';
   const tweetSelector = 'article[testid="tweet"]';
 
   await page.waitForSelector(tweetSelector, { visible: true });
@@ -72,10 +73,10 @@ const password = process.env.TWITTER_PASSWORD;
   await page.waitForSelector(tweetSelector, { visible: true });
 
   // Example: Extract and log the tweets' text content. Adjust the selector based on Twitter's layout.
-  const tweets = await page.evaluate(() => {
-    const tweetNodes = document.querySelectorAll(tweetSelector);
-    return Array.from(tweetNodes).map(node => node.innerText);
-  });
+  const tweets = await page.evaluate((selector: string) => {
+    const tweetNodes = document.querySelectorAll(selector);
+    return Array.from(tweetNodes).map(node => node.textContent);
+  }, tweetSelector);  
 
   console.log(tweets);
 
