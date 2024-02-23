@@ -4,6 +4,8 @@ import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
 import Logo from '@/components/Logo'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata = {
   title: "RummerLab",
@@ -19,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleAnalytics />
+      <Analytics /><SpeedInsights />
       <body className="dark:bg-slate-800 dark:text-white text-center">
         <Navbar />
         <Menu />
