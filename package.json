@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "sharp": "^0.33.2",
+    "simplex-noise": "^4.0.1",
     "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {

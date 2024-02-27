@@ -6,6 +6,7 @@ import Logo from '@/components/Logo'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { WavyHero } from '@/components/WavyHero'
 
 export const metadata = {
   title: "RummerLab",
@@ -24,9 +25,10 @@ export default function RootLayout({
       <Analytics /><SpeedInsights />
       <body className="dark:bg-slate-800 dark:text-white text-center">
         <Navbar />
+        {children}
+
         <Menu />
         <Logo />
-        {children}
         <Footer />
       </body>
     </html>
