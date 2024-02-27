@@ -17,28 +17,28 @@ export default async function InstagramPosts() {
     return (
         <div className="h-36 overflow-y-hidden text-center">
             {posts.map((post: { id: Key; permalink: string; media_url: string; caption: string; media_type: string; thumbnail_url: string; }) => {
-                    const imageUrl = post.thumbnail_url ?? post.media_url;
+                const imageUrl = post.thumbnail_url ?? post.media_url;
 
-                    let caption = mutateCaption(post.caption);
-                    const altText = generateAlt(caption);
-    
-                    return (
-                        <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="relative group inline-block hover:grayscale transition duration-150 cursor-pointer">
-                            {imageUrl && (
-                                <>
-                                    <Image
-                                        src={imageUrl}
-                                        alt={altText}
-                                        width={128}
-                                        height={128}
-                                        className="h-36 w-36 inline-block object-cover aspect-square rounded-sm"
-                                        loading="lazy" 
-                                    />
-                                </>
-                            )}
-                        </a>
-                    )
-                }
+                let caption = mutateCaption(post.caption);
+                const altText = generateAlt(caption);
+
+                return (
+                    <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="relative group inline-block hover:grayscale transition duration-150 cursor-pointer">
+                        {imageUrl && (
+                            <>
+                                <Image
+                                    src={imageUrl}
+                                    alt={altText}
+                                    width={128}
+                                    height={128}
+                                    className="h-36 w-36 inline-block object-cover aspect-square rounded-sm"
+                                    loading="lazy"
+                                />
+                            </>
+                        )}
+                    </a>
+                )
+            }
             )}
         </div>
     )

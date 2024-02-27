@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { getPublications } from '@/lib/scholarly';
 
 export const metadata = {
-    title: "Physioshark Project",
-    description: '',
+  title: "Physioshark Project",
+  description: '',
 }
 
 export default async function Publications() {

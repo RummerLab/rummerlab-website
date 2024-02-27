@@ -11,7 +11,7 @@ export async function GET(req: any) {
       return NextResponse.json({ message: "Invalid scholar name" });
     }
     const scholar = await getScholar(name);
-    
+
     return NextResponse.json(scholar);
   } catch (error) {
     console.error(error);
