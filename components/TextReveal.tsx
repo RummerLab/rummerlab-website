@@ -8,7 +8,7 @@ import {
 
 export function TextReveal() {
   return (
-    <div className="flex items-center justify-center bg-[#0E0E10] h-[40rem] rounded-2xl w-full">
+    <div className="flex items-center justify-center bg-[#0E0E10] h-[40rem] rounded-2xl w-full mx-auto">
       <TextRevealCard
         text="Healthy Sharks"
         revealText="Healthy Reefs"
