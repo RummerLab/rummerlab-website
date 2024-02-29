@@ -66,6 +66,78 @@ export async function getCoAuthors(name: string) {
   }
 }
 
-// TO DO:
-// get_related_publications
-// get_cited_by
+export async function searchPublication(query: string) {
+  try {
+    if (!query) {
+      throw new Error('Query is empty');
+    }
+    const response = await fetch(`https://scholarly.rummerlab.com/search_publications?query=${encodeURIComponent(query)}`, { 
+      next: { 
+        revalidate: 604800 // 1 week
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const json = await response.json();
+
+    return json;
+  } catch (error) {
+    console.error('Error searching publication data:', error);
+    throw error;
+  }
+}
+
+export async function publicationRelated(publicationId: string) {
+  try {
+    if (!publicationId) {
+      throw new Error('Publication ID is empty');
+    }
+    const response = await fetch(`https://scholarly.rummerlab.com/get_related_publications?pub_id=${encodeURIComponent(publicationId)}`, { 
+      next: { 
+        revalidate: 604800 // 1 week
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const json = await response.json();
+
+    return json;
+  } catch (error) {
+    console.error('Error getting related publication data:', error);
+    throw error;
+  }
+}
+
+
+export async function publicationCitedBy(publicationId: string) {
+  try {
+    if (!publicationId) {
+      throw new Error('Publication ID is empty');
+    }
+    const response = await fetch(`https://scholarly.rummerlab.com/cited_by?pub_id=${encodeURIComponent(publicationId)}`, { 
+      next: { 
+        revalidate: 604800 // 1 week
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const json = await response.json();
+
+    return json;
+  } catch (error) {
+    console.error('Error getting cited_by data:', error);
+    throw error;
+  }
+}
+
+
+// https://scholarly.readthedocs.io/en/stable/quickstart.html
