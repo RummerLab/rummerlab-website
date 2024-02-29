@@ -10,7 +10,9 @@ export default function Home() {
         <Header />
         <JoinOurLab />
         <Research />
-        <AnimatedCollaborators />
+        <div className="mt-12">
+          <AnimatedCollaborators />
+        </div>
       </main>
     </>
   );
