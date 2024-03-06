@@ -53,11 +53,11 @@ export async function getCoAuthors(name: string) {
     if (!name) {
       throw new Error('Name is empty');
     }
+    // May want to use the scholar ID instead of the name
     // http://scholarly.rummerlab.com/get_coauthors?author_id=ynWS968AAAAJ
     const scholar = await getScholar(name);
-    console.log(scholar);
+
     const coauthors = scholar[0].coauthors;
-    console.log(coauthors);
 
     return coauthors;
   } catch (error) {
