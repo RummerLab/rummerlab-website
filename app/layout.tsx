@@ -1,7 +1,9 @@
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import Logo from '@/components/Logo'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata = {
   title: "RummerLab",
@@ -13,11 +15,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
   return (
     <html lang="en">
-      <body className="">
+      <GoogleAnalytics />
+      <Analytics /><SpeedInsights />
+      <body className="text-center">
         <Navbar />
-        <Logo />
         {children}
         <Footer />
       </body>
