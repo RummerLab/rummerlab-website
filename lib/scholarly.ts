@@ -1,10 +1,35 @@
-export async function getScholar(name: string) {
+export async function getScholarByName(name: string) {
   try {
     if (!name) {
       throw new Error('Name is empty');
     }
 
     const response = await fetch(`https://scholarly.rummerlab.com/search_author?name=${encodeURIComponent(name)}`, { 
+      next: { 
+        revalidate: 604800 // 1 week
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const json = await response.json();
+
+    return json;
+  } catch (error) {
+    console.error('Error fetching scholar data:', error);
+    throw error;
+  }
+}
+
+export async function getScholarById(id: string) {
+  try {
+    if (!id) {
+      throw new Error('Id is empty');
+    }
+
+    const response = await fetch(`https://scholarly.rummerlab.com/search_author_id?id=${encodeURIComponent(id)}`, { 
       next: { 
         revalidate: 604800 // 1 week
       }
@@ -48,16 +73,16 @@ export async function getPublications(scholarId: string) {
   }
 }
 
-export async function getCoAuthors(name: string) {
+export async function getCoAuthors(id: string) {
   try {
-    if (!name) {
-      throw new Error('Name is empty');
+    if (!id) {
+      throw new Error('Id is empty');
     }
     // May want to use the scholar ID instead of the name
     // http://scholarly.rummerlab.com/get_coauthors?author_id=ynWS968AAAAJ
-    const scholar = await getScholar(name);
+    const scholar = await getScholarById(id);
 
-    const coauthors = scholar[0].coauthors;
+    const coauthors = scholar.coauthors;
 
     return coauthors;
   } catch (error) {

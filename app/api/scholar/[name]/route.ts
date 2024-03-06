@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getScholar } from '@/lib/scholarly';
+import { getScholarByName } from '@/lib/scholarly';
 
 export async function GET(req: any) {
   try {
@@ -10,7 +10,7 @@ export async function GET(req: any) {
     if (!name || !allowedNames.includes(name)) {
       return NextResponse.json({ message: "Invalid scholar name" });
     }
-    const scholar = await getScholar(name);
+    const scholar = await getScholarByName(name);
 
     return NextResponse.json(scholar);
   } catch (error) {

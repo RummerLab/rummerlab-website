@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getScholar } from '@/lib/scholarly';
+import { getScholarById } from '@/lib/scholarly';
 
 export async function GET(req: any, res: any) {
   try {
-    const scholar = await getScholar("Jodie Rummer");
+    const scholar = await getScholarById("ynWS968AAAAJ");
 
     return NextResponse.json(scholar);
   } catch (error) {

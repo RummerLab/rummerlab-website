@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
-import { getScholar } from '@/lib/scholarly';
+import { searchPublication } from '@/lib/scholarly';
 
 export async function GET(req: any) {
   try {
     const publicationId = req.url.split('/').pop().toLowerCase();
 
-    const allowedPublications = ["ynWS968AAAAJ", "ynWS968AAAAJ", "ynWS968AAAAJ"];
+    const allowedPublications = ["ynWS968AAAAJ"];
 
     if (!publicationId || !allowedPublications.includes(publicationId)) {
       return NextResponse.json({ message: "Invalid publication ID" });
     }
-    const scholar = await getScholar(publicationId);
+    const scholar = await searchPublication(publicationId);
 
     return NextResponse.json(scholar);
   } catch (error) {

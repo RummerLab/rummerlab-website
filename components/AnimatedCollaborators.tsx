@@ -5,7 +5,7 @@ import { getCoAuthors } from '@/lib/scholarly';
 
 
 export async function AnimatedCollaborators() {
-  const coauthors = await getCoAuthors("Jodie Rummer");
+  const coauthors = await getCoAuthors("ynWS968AAAAJ");
 
   const people = coauthors.map((author: any, index: number) => ({
     id: index + 1,
