@@ -21,3 +21,7 @@ export default function Collaborators() {
         </>
     )
 }
+
+
+// https://tailwindui.com/components/marketing/sections/team-sections
+// Our Team / Our Collaborators
