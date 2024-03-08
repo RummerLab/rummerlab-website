@@ -1,10 +1,11 @@
 import { AnimatedCollaborators } from '../../components/AnimatedCollaborators';
+import { getCoAuthors } from '@/lib/scholarly';
 
 export const metadata = {
     title: "Collaborators",
     description: '',
 }
-
+  
 export default function Collaborators() {
     return (
         <>
@@ -21,7 +22,6 @@ export default function Collaborators() {
         </>
     )
 }
-
 
 // https://tailwindui.com/components/marketing/sections/team-sections
 // Our Team / Our Collaborators

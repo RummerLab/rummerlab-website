@@ -1,5 +1,9 @@
 import Link from 'next/link';
 import { getPublications } from '@/lib/scholarly';
+import { Publication } from '@/types/scholarly';
+
+export const revalidate = 86400;
+export const dynamic = "force-dynamic";
 
 export async function PublicationsList() {
     const publications = await getPublications("ynWS968AAAAJ");

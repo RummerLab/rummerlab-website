@@ -6,11 +6,11 @@ export const metadata = {
   description: '',
 }
 
-export default function Publications() {
+export default async function Publications() {
   return (
-      <>
+      <div>
           <PublicationsCards />
           <PublicationsList />
-      </>
+      </div>
   )
 }

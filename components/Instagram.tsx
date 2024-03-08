@@ -2,6 +2,9 @@ import { Key } from 'react';
 import Image from 'next/image';
 import { getInstagramPostData, mutateCaption, generateAlt } from '@/lib/instagramAPI';
 
+export const revalidate = 86400;
+export const dynamic = "force-dynamic";
+
 export default async function InstagramPosts() {
     const rummerlabId = null; //'3666266808';
     const posts = await getInstagramPostData(rummerlabId)

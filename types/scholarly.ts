@@ -1,9 +1,9 @@
-type Author = {
+export type Author = {
     affiliation: string;
     citedby: number;
     citedby5y: number;
     cites_per_year: Record<string, number>;
-    coauthors: Coauthor[];
+    coauthors: CoAuthor[];
     container_type: string;
     email_domain: string;
     filled: string[];
@@ -22,19 +22,21 @@ type Author = {
     url_picture: string;
   };
   
-  type Coauthor = {
-    // Assuming a similar structure for coauthors, but the exact structure is not provided.
-    // Replace the following with the actual structure if known.
+  export type CoAuthor = {
+    affiliation: string;
+    container_type: string;
+    filled: any[];
     name: string;
-    affiliation?: string;
+    scholar_id: string;
+    source: string;
   };
   
-  type PublicAccess = {
+  export type PublicAccess = {
     available: number;
     not_available: number;
   };
   
-  type Publication = {
+  export type Publication = {
     author_pub_id: string;
     bib: {
       citation: string;

@@ -1,11 +1,11 @@
 
 import React from "react";
 import { AnimatedTooltip } from "./ui/animated-tooltip";
-import { getCoAuthors } from '@/lib/scholarly';
-
+import { getCoAuthors } from "@/lib/scholarly";
+import { CoAuthor } from "@/types/scholarly";
 
 export async function AnimatedCollaborators() {
-  const coauthors = await getCoAuthors("ynWS968AAAAJ");
+  const coauthors: CoAuthor[] = await getCoAuthors("ynWS968AAAAJ");
 
   const people = coauthors.map((author: any, index: number) => ({
     id: index + 1,
