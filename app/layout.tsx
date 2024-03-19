@@ -15,7 +15,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
   return (
     <html lang="en">
       <GoogleAnalytics />
