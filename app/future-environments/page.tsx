@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function futureEnvironments() {
     return (
-        <>
+        <div className="max-w-2xl mx-auto">
             <h1>Harnessing geographic gradients and local extreme environments as analogues for future change</h1>
             <p>Some of my most recent findings underscore the importance of utilizing biogeographical comparisons (e.g., the thermal gradients along the length of the Great Barrier Reef) as analogues for future climate change. Importantly, I have found that equatorial populations of reef fishes may be most at risk as oceans continue to warm, which may result in biogeographical redistribution of species seeking thermal refuge at higher latitudes where populations have greater capacity to cope with rising temperatures.</p>
             <ul>
@@ -37,6 +37,6 @@ export default function futureEnvironments() {
             </li>
             </ul>
             <p>Several <a href="/media.html">media  stories</a> and one video documentary have resulted from this work. For links to other published journal articles and book chapters not listed here, please check out  my <a href="/publications.html">Publications</a> page.</p>
-        </>
+        </div>
     )
 }

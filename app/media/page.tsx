@@ -9,8 +9,8 @@ export const metadata = {
 
 export default function Media() {
     return (
-        <>
+        <div className="max-w-2xl mx-auto">
             <h1>Media</h1>
-        </>
+        </div>
     )
 }

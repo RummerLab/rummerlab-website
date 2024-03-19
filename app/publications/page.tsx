@@ -8,7 +8,7 @@ export const metadata = {
 
 export default async function Publications() {
   return (
-      <div>
+    <div className="max-w-2xl mx-auto">
           <PublicationsCards />
           <PublicationsList />
       </div>

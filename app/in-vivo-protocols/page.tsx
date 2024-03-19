@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function inVivoProtocols() {
     return (
-        <>
+        <div className="max-w-2xl mx-auto">
             <h1>Novel in vitro and in vivo protocols</h1>
             <h2>RESEARCH THEME - 2 Novel in vitro and in vivo protocols</h2>
             <p>Part of my past and ongoing work has been to develop protocols to monitor cellular responses (pH, O2 transport, ion-regulation, water balance) to environmental stress in fish.</p>
@@ -45,6 +45,6 @@ export default function inVivoProtocols() {
             <li>Rummer, J.L., Wang, S., Steffensen, J.F., Randall, D.J. 2014. Function and control of the fish secondary vascular system, a contrast to mammalian lymphatic systems. Journal of Experimental Biology 217(5):751-757. <a href="">doi:10.1242/jeb.086348</a>
             </li>
             </ul>
-        </>
+        </div>
     )
 }

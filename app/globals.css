@@ -6,3 +6,34 @@
 svg {
     display: inline-block;
 }
+
+
+h1 {
+    @apply text-3xl font-bold my-4;
+}
+
+h2 {
+    @apply text-2xl font-semibold my-2;
+}
+
+h3 {
+    @apply text-xl font-semibold my-2;
+}
+
+
+p {
+    @apply text-base leading-relaxed text-gray-700;
+}
+
+ul {
+    @apply list-disc pl-5 my-4;
+}
+
+ul li {
+    @apply mb-2;
+}
+
+
+a {
+    @apply text-blue-500 hover:underline cursor-pointer;
+}

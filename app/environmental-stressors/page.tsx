@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function environmentalStresses() {
     return (
-        <>
+        <div className="max-w-2xl mx-auto">
             <h1>Whole-animal responses to environmental stress</h1>
             <h2>RESEARCH THEME - 1 Whole-animal responses to environmental stress</h2>
             <p>Early in my research career, I conducted a rigorous assessment of the physiological responses to decompression stress caused by fishing, injuries resulting from swim bladder overexpansion and gas embolisms. This seminal research has been well cited and is utilized as a model for fisheries management surrounding catch-and-release protocols and conservation organizations worldwide.</p>
@@ -54,6 +54,6 @@ export default function environmentalStresses() {
             <li>McLeod, I.M., Rummer, J.L., Clark, T.D., Jones, G.P., Wenger, A.S., McCormick, M.I., Munday, P.L. 2013. Climate change and the performance of larval coral reef fishes: the interaction between temperature and food availability. Conservation Physiology 1. <a href="_">doi:10.1093/conphys/cot024</a>
             </li>
             </ul>
-        </>
+        </div>
     )
 }

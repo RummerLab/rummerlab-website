@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function inVivoProtocols() {
     return (
-        <>
+        <div className="max-w-2xl mx-auto">
             <h1>The RummerLab</h1>
             <p>Potential students, a little advice…</p>
             <p>Prof. Scott Keogh has compiled an excellent list of resources and advice for students and postdoctoral fellows <a href="http://biology.anu.edu.au/hosted_sites/Scott/Resources-and-advice.html">here</a>. And if you&apos;re about to contact me to inquire about graduate school (MSc, PhD), check <a href="http://sciencecareers.sciencemag.org/career_magazine/previous_issues/articles/2015_05_06/caredit.a1500118">this</a> out!</p>
@@ -61,6 +61,6 @@ export default function inVivoProtocols() {
             
             <h2>Other</h2>
             <p>Fish drawings designed for Jodie Rummer by <a href="http://www.loggods.com/sci/index.php">Erin Walsh</a></p>
-        </>
+        </div>
     )
 }
