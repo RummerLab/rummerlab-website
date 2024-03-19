@@ -22,7 +22,8 @@ export async function PublicationsCards() {
             const publicationId = publication.author_pub_id.split(':')[0];
             const publicationUrl = `https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${publicationId}&citation_for_view=${publication.author_pub_id}`;
             return (
-              <li key={index} className="bg-white shadow rounded-lg p-4">
+              // hide dot
+              <li key={index} className="bg-white shadow rounded-lg p-4 list-none">
                 <h3 className="text-lg font-semibold">
                   {publication.bib.title} ({publication.bib.pub_year})
                 </h3>
