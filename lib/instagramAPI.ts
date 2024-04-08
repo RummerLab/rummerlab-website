@@ -77,7 +77,9 @@ export async function getInstagramPostData(id: string | null) {
             throw new Error('Failed to get access token')
         }
         if (await accessTokenExpired(accessToken)) {
-            throw new Error('Access token expired')
+            console.error('Access token expired')
+            return []
+            //throw new Error('Access token expired')
         }
 
         const userId = id ?? 'me';
