@@ -3,15 +3,15 @@ export async function getScholarByName(name: string) {
     if (!name) {
       throw new Error('Name is empty');
     }
-
-    const response = await fetch(`https://scholarly.rummerlab.com/search_author?name=${encodeURIComponent(name)}`, { 
+    const url = `https://scholarly.rummerlab.com/search_author?name=${encodeURIComponent(name)}`
+    const response = await fetch(url, { 
       next: { 
         revalidate: 604800 // 1 week
       }
     });
     
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error(`Network response was not ok. URL: ${url}`);
     }
 
     const json = await response.json();
@@ -26,17 +26,17 @@ export async function getScholarByName(name: string) {
 export async function getScholarById(id: string) {
   try {
     if (!id) {
-      throw new Error('Id is empty');
+      throw new Error('Id is empty.');
     }
-
-    const response = await fetch(`https://scholarly.rummerlab.com/search_author_id?id=${encodeURIComponent(id)}`, { 
+    const url = `https://scholarly.rummerlab.com/search_author_id?id=${encodeURIComponent(id)}`;
+    const response = await fetch(url, { 
       next: { 
         revalidate: 604800 // 1 week
       }
     });
-    
+
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error(`Network response was not ok. URL: ${url}`);
     }
 
     const json = await response.json();
@@ -53,15 +53,15 @@ export async function getPublications(scholarId: string) {
     if (!scholarId) {
       throw new Error('Scholar ID is empty');
     }
-
-    const response = await fetch(`https://scholarly.rummerlab.com/author_publications?author_id=${encodeURIComponent(scholarId)}`, { 
+    const url = `https://scholarly.rummerlab.com/author_publications?author_id=${encodeURIComponent(scholarId)}`
+    const response = await fetch(url, { 
       next: { 
         revalidate: 604800 // 1 week
       }
     });
     
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error(`Network response was not ok. URL: ${url}`);
     }
 
     const json = await response.json();
@@ -96,14 +96,15 @@ export async function searchPublication(query: string) {
     if (!query) {
       throw new Error('Query is empty');
     }
-    const response = await fetch(`https://scholarly.rummerlab.com/search_publications?query=${encodeURIComponent(query)}`, { 
+    const url = `https://scholarly.rummerlab.com/search_publications?query=${encodeURIComponent(query)}`
+    const response = await fetch(url, { 
       next: { 
         revalidate: 604800 // 1 week
       }
     });
     
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error(`Network response was not ok. URL: ${url}`);
     }
 
     const json = await response.json();
@@ -120,14 +121,15 @@ export async function publicationRelated(publicationId: string) {
     if (!publicationId) {
       throw new Error('Publication ID is empty');
     }
-    const response = await fetch(`https://scholarly.rummerlab.com/get_related_publications?pub_id=${encodeURIComponent(publicationId)}`, { 
+    const url = `https://scholarly.rummerlab.com/get_related_publications?pub_id=${encodeURIComponent(publicationId)}`;
+    const response = await fetch(url, { 
       next: { 
         revalidate: 604800 // 1 week
       }
     });
     
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error(`Network response was not ok. URL: ${url}`);
     }
 
     const json = await response.json();
@@ -145,14 +147,15 @@ export async function publicationCitedBy(publicationId: string) {
     if (!publicationId) {
       throw new Error('Publication ID is empty');
     }
-    const response = await fetch(`https://scholarly.rummerlab.com/cited_by?pub_id=${encodeURIComponent(publicationId)}`, { 
+    const url = `https://scholarly.rummerlab.com/cited_by?pub_id=${encodeURIComponent(publicationId)}`;
+    const response = await fetch(url, { 
       next: { 
         revalidate: 604800 // 1 week
       }
     });
     
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error(`Network response was not ok. URL: ${url}`);
     }
 
     const json = await response.json();

@@ -1,13 +1,83 @@
+/**
+ * Exchanges a short-lived Instagram access token for a long-lived one.
+ * @param shortLivedToken The short-lived token to exchange.
+ * @returns The long-lived token, or an error message if the exchange fails.
+ */
+export async function getLongLivedToken(shortLivedToken: string): Promise<string> {
+    const clientId = process.env.INSTAGRAM_CLIENT_ID;
+    const clientSecret = process.env.INSTAGRAM_CLIENT_SECRET; 
+    const redirectUri = 'YOUR_REDIRECT_URI';
+    const grantType = 'ig_exchange_token'; // The grant type for token exchange
+
+    // Construct the request URL
+    const requestUrl = `https://graph.instagram.com/access_token?grant_type=${grantType}&client_secret=${clientSecret}&access_token=${shortLivedToken}`;
+
+    try {
+        // Make the request to exchange tokens
+        const response = await fetch(requestUrl, {
+            method: 'GET', // Token exchange is a GET request
+        });
+
+        // Parse the JSON response
+        const data = await response.json();
+
+        // Check if the response contains a long-lived token
+        if (data && data.access_token) {
+            console.log('Successfully obtained long-lived token.');
+            return data.access_token; // Return the long-lived token
+        } else {
+            // Log and throw error if no token is found in the response
+            console.error('Failed to obtain long-lived token:', data);
+            throw new Error('Failed to obtain long-lived token.');
+        }
+    } catch (error) {
+        // Log and rethrow any errors that occur during the fetch operation
+        console.error('Error exchanging short-lived token for a long-lived token:', error);
+        throw error;
+    }
+}
+
+
+async function accessTokenExpired(accessToken: string): Promise<boolean> {
+    try {
+        // Use a lightweight endpoint for checking; fetching the user's profile could be an option.
+        const response = await fetch(`https://graph.instagram.com/me?fields=id&access_token=${accessToken}`);
+        
+        // If the request is successful, the token is still valid.
+        if (response.ok) {
+            const data = await response.json();
+            console.log('Instagram Token is valid, user ID:', data.id);
+            return false;
+        }
+
+        // If the response status is 400 or 401, it's likely that the token has expired or is invalid.
+        if (response.status === 400 || response.status === 401) {
+            console.log('Instagram Token has expired or is invalid');
+            return true;
+        }
+
+        // For any other HTTP status, log it and return true as a precaution.
+        console.error('Unexpected response status:', response.status);
+        return true;
+    } catch (error) {
+        console.error('Failed to check access token expiration:', error);
+        // If an error occurs (e.g., network issue), assume the token might be expired for safety.
+        return true;
+    }
+}
 
 export async function getInstagramPostData(id: string | null) {
     try {
         //const accessToken = await getLongLivedToken();
-        const accessToken = process.env.APP_ACCESS_TOKEN;
+        let accessToken = process.env.APP_ACCESS_TOKEN;
         // https://www.youtube.com/watch?v=kLFSTaCqzdQ
         // Get access token: https://developers.facebook.com/apps/362219269878369/instagram-basic-display/basic-display/?business_id=3489130994739818
 
         if (!accessToken) {
             throw new Error('Failed to get access token')
+        }
+        if (await accessTokenExpired(accessToken)) {
+            throw new Error('Access token expired')
         }
 
         const userId = id ?? 'me';
@@ -21,7 +91,7 @@ export async function getInstagramPostData(id: string | null) {
 
         if (!res.ok) {
             // This will activate the closest `error.js` Error Boundary
-            throw new Error('Failed to fetch data')
+            throw new Error('Failed to fetch data');
         }
 
         const data = await res.json();
