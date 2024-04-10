@@ -29,6 +29,7 @@ export async function getScholarById(id: string) {
       throw new Error('Id is empty.');
     }
     const url = `https://scholarly.rummerlab.com/search_author_id?id=${encodeURIComponent(id)}`;
+    
     const response = await fetch(url, { 
       next: { 
         revalidate: 604800 // 1 week
@@ -78,7 +79,6 @@ export async function getCoAuthors(id: string) {
     if (!id) {
       throw new Error('Id is empty');
     }
-    // May want to use the scholar ID instead of the name
     // http://scholarly.rummerlab.com/get_coauthors?author_id=ynWS968AAAAJ
     const scholar = await getScholarById(id);
 

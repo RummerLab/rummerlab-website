@@ -1,14 +1,17 @@
 import { NextResponse } from 'next/server';
-import { getScholarByName } from '@/lib/scholarly';
+import { getCoAuthors, getScholarByName } from '@/lib/scholarly';
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: { name: string } }
 ) {
   try {
-    const name = params.slug.toLowerCase().replaceAll("-", " ");
-
-    const allowedNames = ["jodie rummer", "philip munday", "brock bergseth"];
+    const name = decodeURIComponent(params.name).toLowerCase().replaceAll("-", " ");
+    
+    // allowed at Jodie's coauthors/collaborators
+    const coAuthors = await getCoAuthors("ynWS968AAAAJ");
+    const allowedNames = coAuthors.map((author: any) => author.name);
+    allowedNames.push("jodie rummer");
 
     if (!name || !allowedNames.includes(name)) {
       return NextResponse.json({ message: "Invalid scholar name" });

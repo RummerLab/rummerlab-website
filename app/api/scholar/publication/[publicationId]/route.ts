@@ -3,10 +3,10 @@ import { searchPublication, getScholarById } from '@/lib/scholarly';
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: { publicationId: string } }
 ) {
   try {
-    const publicationId = params.slug.toLowerCase();
+    const publicationId = params.publicationId.toLowerCase();
 
     const allowedPublications = ["ynWS968AAAAJ"];
 
