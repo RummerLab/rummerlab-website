@@ -104,13 +104,7 @@ class ScholarEmbed {
     }
 
     generateProfileSummary(data) {
-        const {
-            name,
-            homepage,
-            citedby: publicationsCitations,
-            hindex,
-            i10index,
-        } = data
+        const { name, citedby: publicationsCitations, hindex, i10index } = data
 
         // Create container element for the profile summary
         const container = document.createElement('div')
@@ -124,7 +118,7 @@ class ScholarEmbed {
         heading.appendChild(textNode)
         // Create and configure the link for the Google Scholar profile part
         const scholarLink = document.createElement('a')
-        scholarLink.href = homepage
+        scholarLink.href = `https://scholar.google.com/citations?user=${this.scholarId}`
         scholarLink.textContent = 'Google Scholar profile'
         scholarLink.target = '_blank'
         // Append the link to the h2 element
