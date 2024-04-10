@@ -54,7 +54,7 @@ export async function getPublications(scholarId: string) {
     if (!scholarId) {
       throw new Error('Scholar ID is empty');
     }
-    const url = `https://scholarly.rummerlab.com/author_publications?author_id=${encodeURIComponent(scholarId)}`
+    /*const url = `https://scholarly.rummerlab.com/author_publications?author_id=${encodeURIComponent(scholarId)}`
     const response = await fetch(url, { 
       next: { 
         revalidate: 604800 // 1 week
@@ -66,8 +66,10 @@ export async function getPublications(scholarId: string) {
     }
 
     const json = await response.json();
-
-    return json;
+*/
+    const json = await getScholarById(scholarId);
+    const publications = json.publications;
+    return publications;
   } catch (error) {
     console.error('Error fetching publication data:', error);
     throw error;
