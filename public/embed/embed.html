@@ -1,8 +1,8 @@
 <script>
-    async function fetchScholar() {
+    async function fetchScholar(id) {
       try {
         // Use the Fetch API to send a GET request to the endpoint
-        const response = await fetch('https://rummerlab.com/api/scholar');
+        const response = await fetch(`https://rummerlab.com/api/scholar/id/${id}`);
         
         // Check if the response is successful (status code 200-299)
         if (!response.ok) {
@@ -23,24 +23,65 @@
     }
     
     function formatPublicationCitation(data) {
-      const { bib } = data;
+      const { bib, pub_url, num_citations } = data;
+
+      const citationElement = document.createElement("div");
     
-      const authorsFormatted = bib.author ? bib.author.split(' and ').map((author, index, array) => {
-        return (index === array.length - 1 && array.length > 1) ? `& ${author}` : author;
-      }).join(', ') : '';
-    
-      const pubYear = bib.pub_year ? `(${bib.pub_year})` : '';
-      const title = bib.title ? `${bib.title}.` : '';
-      const journal = bib.journal ? `${bib.journal},` : '';
-      const volume = bib.volume ? `${bib.volume}` : '';
-      const number = bib.number ? `(${bib.number}),` : '';
-      const pages = bib.pages ? `${bib.pages}.` : '';
-      const url = bib.pub_url ? `[${bib.pub_url}]` : '';
-    
-      // Assemble the formatted citation string
-      const citation = `${authorsFormatted} ${pubYear} ${title} ${journal} ${volume}${number} ${pages} ${url}`;
-    
-      return citation;
+      if (bib.author) {
+        const authorsFormatted = bib.author.split(' and ').map((author, index, array) => {
+          return (index === array.length - 1 && array.length > 1) ? `& ${author}` : author;
+        }).join(', ');
+
+        const authorsText = document.createTextNode(authorsFormatted + " ");
+        citationElement.appendChild(authorsText);
+      }
+      // Add publication year
+      if (bib.pub_year) {
+        const pubYearText = document.createTextNode(`(${bib.pub_year}) `);
+        citationElement.appendChild(pubYearText);
+      }
+
+      // Add title
+      if (bib.title) {
+        const titleText = document.createTextNode(`${bib.title}. `);
+        citationElement.appendChild(titleText);
+      }
+
+      // Add journal
+      if (bib.journal) {
+        const journalText = document.createTextNode(`${bib.journal}, `);
+        citationElement.appendChild(journalText);
+      }
+
+      // Add volume and number
+      if (bib.volume || bib.number) {
+        const volumeNumberText = document.createTextNode(`${bib.volume ? bib.volume : ''}${bib.number ? `(${bib.number}),` : ''} `);
+        citationElement.appendChild(volumeNumberText);
+      }
+
+      // Add pages
+      if (bib.pages) {
+        const pagesText = document.createTextNode(`${bib.pages}. `);
+        citationElement.appendChild(pagesText);
+      }
+
+      // Add citation count
+      if (num_citations) {
+        const citationsText = document.createTextNode(`(${num_citations} citations) `);
+        citationElement.appendChild(citationsText);
+      }
+
+      // Add URL as a hyperlink
+      if (pub_url) {
+        const urlElement = document.createElement("a");
+        urlElement.href = pub_url;
+        urlElement.textContent = "[link]";
+        urlElement.style.color = "lightblue"; // Make the link blue
+        urlElement.target = "_blank"; // Open in new tab
+        citationElement.appendChild(urlElement);
+      }
+
+      return citationElement;
     }
 
     function generateProfileSummary(data) {
@@ -90,32 +131,39 @@
     
     async function displayScholar() {
       const scholarData = await fetchScholar();
-      const publicationData = scholarData ? scholarData.publications : null;
-      
-      if (!scholarData || !publicationData) {
-        document.getElementById('scholar').innerText = '';
-        return;
-      }
-      
+
       // Clear existing content in the 'scholar' div
       const scholarDiv = document.getElementById('scholar');
       scholarDiv.innerHTML = '';
+             
+      if (!scholarData) {
+        return;
+      }
 
-        // Display the profile summary
-        const profileSummary = generateProfileSummary(scholarData);
-        scholarDiv.appendChild(profileSummary);
+      // Display the profile summary
+      const profileSummary = generateProfileSummary(scholarData);
+      scholarDiv.appendChild(profileSummary);
 
+      const publicationData = scholarData ? scholarData.publications : null;
+      if (publicationData) {
+        // Sort the publication data by pub_year in descending order
+        publicationData.sort((a, b) => {
+          // Assuming each publication's pub_year is directly accessible or nested under 'bib'
+          // Adjust the path to pub_year if it's nested differently
+          const yearA = a.bib.pub_year || 0; // Default to 0 if pub_year is missing
+          const yearB = b.bib.pub_year || 0; // Default to 0 if pub_year is missing
+          return yearB - yearA; // For descending order, swap yearA and yearB for ascending
+        });
+        
+        // Loop through each publication and format citations
+        publicationData.forEach(publication => {
+          const formattedCitation = formatPublicationCitation(publication);
       
-      // Loop through each publication and format citations
-      publicationData.forEach(publication => {
-        const formattedCitation = formatPublicationCitation(publication);
-    
-        // Create a new paragraph element for each formatted citation
-        const para = document.createElement("p");
-        para.innerText = formattedCitation;
-        scholarDiv.appendChild(para);
-        scholarDiv.appendChild(document.createElement("br"));
-      });
+          // Add element for each formatted citation
+          scholarDiv.appendChild(formattedCitation);
+          scholarDiv.appendChild(document.createElement("br"));
+        });
+      }
       
       // If successful, remove all paragraph divs with class 'paragraph', except for the last two (photo credit and blank paragraph)
       const paragraphDivs = document.querySelectorAll('.paragraph');
