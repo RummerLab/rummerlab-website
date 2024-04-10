@@ -10,8 +10,9 @@ export async function GET(
     
     // allowed at Jodie's coauthors/collaborators
     const coAuthors = await getCoAuthors("ynWS968AAAAJ");
-    const allowedNames = coAuthors.map((author: any) => author.name);
+    const allowedNames = coAuthors.map((author: any) => author.name.toLowerCase())
     allowedNames.push("jodie rummer");
+    allowedNames.push("brock bergseth");
 
     if (!name || !allowedNames.includes(name)) {
       return NextResponse.json({ message: "Invalid scholar name" });
