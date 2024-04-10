@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { searchPublication } from '@/lib/scholarly';
+import { searchPublication, getScholarById } from '@/lib/scholarly';
 
 export async function GET(
   request: Request,
@@ -13,7 +13,10 @@ export async function GET(
     if (!publicationId || !allowedPublications.includes(publicationId)) {
       return NextResponse.json({ message: "Invalid publication ID" });
     }
-    const scholar = await searchPublication(publicationId);
+    //const scholar = await searchPublication(publicationId);
+
+    const temp = await getScholarById("ynWS968AAAAJ")
+    const scholar = temp.publications;
 
     return NextResponse.json(scholar);
   } catch (error) {
