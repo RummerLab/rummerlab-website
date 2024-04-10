@@ -1,0 +1,132 @@
+<script>
+    async function fetchScholar() {
+      try {
+        // Use the Fetch API to send a GET request to the endpoint
+        const response = await fetch('https://rummerlab.com/api/scholar');
+        
+        // Check if the response is successful (status code 200-299)
+        if (!response.ok) {
+          // Throw an error if the response is not successful
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        // Parse the JSON response body
+        const data = await response.json();
+        
+        // Return the data for further processing
+        return data;
+      } catch (error) {
+        // Handle any errors that occurred during the fetch
+        console.error('Error fetching publications:', error);
+        return null; // Return null or appropriate value to indicate failure
+      }
+    }
+    
+    function formatPublicationCitation(data) {
+      const { bib } = data;
+    
+      const authorsFormatted = bib.author ? bib.author.split(' and ').map((author, index, array) => {
+        return (index === array.length - 1 && array.length > 1) ? `& ${author}` : author;
+      }).join(', ') : '';
+    
+      const pubYear = bib.pub_year ? `(${bib.pub_year})` : '';
+      const title = bib.title ? `${bib.title}.` : '';
+      const journal = bib.journal ? `${bib.journal},` : '';
+      const volume = bib.volume ? `${bib.volume}` : '';
+      const number = bib.number ? `(${bib.number}),` : '';
+      const pages = bib.pages ? `${bib.pages}.` : '';
+      const url = bib.pub_url ? `[${bib.pub_url}]` : '';
+    
+      // Assemble the formatted citation string
+      const citation = `${authorsFormatted} ${pubYear} ${title} ${journal} ${volume}${number} ${pages} ${url}`;
+    
+      return citation;
+    }
+
+    function generateProfileSummary(data) {
+        const { name, homepage, citedby: publicationsCitations, hindex, i10index } = data;
+        
+        // Create container element for the profile summary
+        const container = document.createElement("div");
+
+        // Create and append the Google Scholar profile link
+        // Create the h2 element for the heading
+        const heading = document.createElement("h3");
+        // Create the text node for the non-link part of the heading
+        const textNode = document.createTextNode("Click here for my ");
+        // Append the text node to the h2 element
+        heading.appendChild(textNode);
+        // Create and configure the link for the Google Scholar profile part
+        const scholarLink = document.createElement("a");
+        scholarLink.href = homepage;
+        scholarLink.textContent = "Google Scholar profile";
+        scholarLink.target = "_blank";
+        // Append the link to the h2 element
+        heading.appendChild(scholarLink);
+        // Append the h2 element to the container
+        container.appendChild(heading);
+
+        // Add the publications text
+        const publicationsText = document.createElement("p");
+        publicationsText.textContent = `Publications: ${publicationsCitations} citations, h-index = ${hindex}, i10-index = ${i10index}; Google Scholar on ${new Date().toLocaleDateString()}`;
+        container.appendChild(publicationsText);
+
+        // Add a line break
+        container.appendChild(document.createElement("br"));
+
+        // Add the summary text
+        const summaryText = document.createElement("p");
+        summaryText.textContent = "Summary: Book chapters, journal articles, conference proceedings, editorial commentaries/perspectives";
+        container.appendChild(summaryText);
+
+        // Append line breaks and horizontal line for spacing
+        container.appendChild(document.createElement("br"));
+        container.appendChild(document.createElement("hr"));
+        container.appendChild(document.createElement("br"));
+
+        // The container has all the elements safely added.
+        return container;
+    }
+    
+    async function displayScholar() {
+      const scholarData = await fetchScholar();
+      const publicationData = scholarData ? scholarData.publications : null;
+      
+      if (!scholarData || !publicationData) {
+        document.getElementById('scholar').innerText = '';
+        return;
+      }
+      
+      // Clear existing content in the 'scholar' div
+      const scholarDiv = document.getElementById('scholar');
+      scholarDiv.innerHTML = '';
+
+        // Display the profile summary
+        const profileSummary = generateProfileSummary(scholarData);
+        scholarDiv.appendChild(profileSummary);
+
+      
+      // Loop through each publication and format citations
+      publicationData.forEach(publication => {
+        const formattedCitation = formatPublicationCitation(publication);
+    
+        // Create a new paragraph element for each formatted citation
+        const para = document.createElement("p");
+        para.innerText = formattedCitation;
+        scholarDiv.appendChild(para);
+        scholarDiv.appendChild(document.createElement("br"));
+      });
+      
+      // If successful, remove all paragraph divs with class 'paragraph', except for the last two (photo credit and blank paragraph)
+      const paragraphDivs = document.querySelectorAll('.paragraph');
+      if (paragraphDivs.length > 2) { // Check if there are more than two paragraphs
+        for (let i = 0; i < paragraphDivs.length - 2; i++) {
+          paragraphDivs[i].remove();
+        }
+      }
+    }
+    
+    // Call the function to display scholar publications on page load
+    displayScholar();
+    </script>
+    <div id="scholar">Loading...</div>
