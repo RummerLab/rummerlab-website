@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 import { searchPublication } from '@/lib/scholarly';
 
-export async function GET(req: any) {
+export async function GET(
+  request: Request,
+  { params }: { params: { slug: string } }
+) {
   try {
-    const publicationId = req.url.split('/').pop().toLowerCase();
+    const publicationId = params.slug.toLowerCase();
 
     const allowedPublications = ["ynWS968AAAAJ"];
 

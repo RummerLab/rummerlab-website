@@ -1,9 +1,12 @@
 import { NextResponse } from 'next/server';
 import { getScholarByName } from '@/lib/scholarly';
 
-export async function GET(req: any) {
+export async function GET(
+  request: Request,
+  { params }: { params: { slug: string } }
+) {
   try {
-    const name = req.url.split('/').pop().toLowerCase().replaceAll("-", " ");
+    const name = params.slug.toLowerCase().replaceAll("-", " ");
 
     const allowedNames = ["jodie rummer", "philip munday", "brock bergseth"];
 
