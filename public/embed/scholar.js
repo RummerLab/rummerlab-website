@@ -38,6 +38,17 @@ class ScholarEmbed {
             return null
         }
     }
+    formatAuthor(author) {
+        // Split the name into parts, assuming the format is "First Last"
+        const parts = author.split(' ')
+        // Get the last name and remove any extra spaces
+        const lastName = parts.pop().trim()
+        // Get the initials from the remaining parts (first and possible middle names)
+        const initials = parts
+            .map((name) => name.charAt(0).toUpperCase() + '.')
+            .join('')
+        return `${lastName}, ${initials}`
+    }
     formatPublicationCitation(data) {
         const { bib, pub_url, num_citations } = data
 
@@ -47,12 +58,13 @@ class ScholarEmbed {
             const authorsFormatted = bib.author
                 .split(' and ')
                 .map((author, index, array) => {
+                    const formattedName = this.formatAuthor(author)
+
                     return index === array.length - 1 && array.length > 1
-                        ? `& ${author}`
-                        : author
+                        ? `& ${formattedName}`
+                        : formattedName
                 })
                 .join(', ')
-
             const authorsText = document.createTextNode(authorsFormatted + ' ')
             container.appendChild(authorsText)
         }
@@ -184,7 +196,9 @@ class ScholarEmbed {
 
     generateCollaborators(data) {
         const coAuthors = data.coauthors
-        const collaboratorNames = coAuthors.map((author) => author.name)
+        const collaboratorNames = coAuthors.map((author) =>
+            this.formatAuthor(author.name)
+        )
         const container = document.createElement('p')
         container.textContent = `Collaborator: ${collaboratorNames.join('')}`
         if (collaboratorNames.length > 1) {
