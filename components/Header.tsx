@@ -10,7 +10,6 @@ export default function Header() {
       <>
         <WavyHero />
         <Logo />
-        <Menu />
         <p className="mt-12 mb-12 mx-auto max-w-lg text-xl text-center">
           RummerLab, led by Dr Jodie Rummer, focuses on researching the physiological
           processes and adaptations of aquatic animals in response to environmental

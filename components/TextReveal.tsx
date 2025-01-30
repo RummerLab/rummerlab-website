@@ -12,12 +12,13 @@ export function TextReveal() {
       <TextRevealCard
         text="Healthy Sharks"
         revealText="Healthy Reefs"
+        className="text-center"
       >
-        <TextRevealCardTitle>
-        Protecting our reefs is paramount for ensuring the survival of sharks. The health of these ecosystems is intricately linked.
+        <TextRevealCardTitle className="text-center">
+          Protecting our reefs is paramount for ensuring the survival of sharks. The health of these ecosystems is intricately linked.
         </TextRevealCardTitle>
-        <TextRevealCardDescription>
-            Seeing the connection firsthand transforms our understanding and appreciation for marine conservation.
+        <TextRevealCardDescription className="text-center">
+          Seeing the connection firsthand transforms our understanding and appreciation for marine conservation.
         </TextRevealCardDescription>
       </TextRevealCard>
     </div>

@@ -3,7 +3,7 @@ import Research from '@/components/Research';
 import JoinOurLab from '@/components/JoinOurLab';
 import { AnimatedCollaborators } from '../components/AnimatedCollaborators';
 import Donate from '@/components/Donate';
-
+import Menu from '@/components/Menu';
 export default function Home() {
   return (
     <>
@@ -15,6 +15,7 @@ export default function Home() {
         <div className="mt-12">
           <AnimatedCollaborators />
         </div>
+        <Menu />
       </main>
     </>
   );

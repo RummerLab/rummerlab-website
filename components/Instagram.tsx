@@ -7,10 +7,11 @@ export const dynamic = "force-dynamic";
 
 export default async function InstagramPosts() {
     const rummerlabId = null; //'3666266808';
-    const posts = await getInstagramPostData(rummerlabId)
-
+    //const posts = await getInstagramPostData(rummerlabId)
+    const posts: { id: Key; permalink: string; media_url: string; caption: string; media_type: string; thumbnail_url: string; }[] = []
+    
     if (!posts || posts.length === 0) {
-        console.error('No Instagram posts found');
+        console.log('No Instagram posts found');
         return null;
     }
 
