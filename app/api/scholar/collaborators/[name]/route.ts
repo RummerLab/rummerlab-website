@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getCoAuthors, getScholarByName } from '@/lib/scholarly';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { name: string } }
-) {
+export async function GET(request: Request, props: { params: Promise<{ name: string }> }) {
+  const params = await props.params;
   try {
     const name = decodeURIComponent(params.name).toLowerCase().replaceAll("-", " ");
     

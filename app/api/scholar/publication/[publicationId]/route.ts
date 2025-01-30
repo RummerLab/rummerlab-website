@@ -1,10 +1,8 @@
 import { NextResponse } from 'next/server';
 import { searchPublication, getScholarById } from '@/lib/scholarly';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { publicationId: string } }
-) {
+export async function GET(request: Request, props: { params: Promise<{ publicationId: string }> }) {
+  const params = await props.params;
   try {
     const publicationId = params.publicationId.toLowerCase();
 
