@@ -67,7 +67,7 @@ export default function ResearchPage() {
       {/* Research Areas */}
       <div className="space-y-16">
         {researchAreas.map((area, index) => (
-          <section key={index} className="bg-white rounded-lg shadow-sm overflow-hidden">
+          <section key={index} className="bg-white rounded-lg shadow-xs overflow-hidden">
             <div className="grid md:grid-cols-2 gap-8">
               <div className="relative h-64 md:h-auto">
                 <div className="absolute inset-0 bg-gray-200">
@@ -95,7 +95,7 @@ export default function ResearchPage() {
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured Publications</h2>
         <div className="grid md:grid-cols-2 gap-8">
           {featuredPublications.map((pub, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm p-6">
+            <div key={index} className="bg-white rounded-lg shadow-xs p-6">
               <h3 className="font-semibold text-lg text-gray-900 mb-2">
                 <Link href={pub.link} className="hover:text-blue-600">
                   {pub.title}
@@ -136,7 +136,7 @@ export default function ResearchPage() {
       {/* Collaborations */}
       <section className="mt-16">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Research Collaborations</h2>
-        <div className="bg-white rounded-lg shadow-sm p-8">
+        <div className="bg-white rounded-lg shadow-xs p-8">
           <p className="text-gray-600 mb-6">
             We actively collaborate with research institutions and organizations worldwide to advance marine science and conservation.
           </p>

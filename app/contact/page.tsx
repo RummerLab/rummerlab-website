@@ -53,7 +53,7 @@ export default function ContactPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Contact Information */}
-        <section className="bg-white rounded-lg shadow-sm p-8">
+        <section className="bg-white rounded-lg shadow-xs p-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">Contact Information</h2>
           
           <div className="space-y-6">
@@ -115,7 +115,7 @@ export default function ContactPage() {
         </section>
 
         {/* Quick Contact Form */}
-        <section className="bg-white rounded-lg shadow-sm p-8">
+        <section className="bg-white rounded-lg shadow-xs p-8">
           <h2 className="text-2xl font-semibold text-gray-900 mb-6">Send us a Message</h2>
           
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -203,7 +203,7 @@ export default function ContactPage() {
       </div>
 
       {/* Map Section */}
-      <section className="mt-12 bg-white rounded-lg shadow-sm p-8">
+      <section className="mt-12 bg-white rounded-lg shadow-xs p-8">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">Location</h2>
         <div className="aspect-w-16 aspect-h-9">
           <iframe

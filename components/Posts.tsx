@@ -36,7 +36,7 @@ export default async function Posts() {
                                     alt={altText}
                                     width={500}
                                     height={300}
-                                    className="h-96 w-full object-cover aspect-square rounded-sm"
+                                    className="h-96 w-full object-cover aspect-square rounded-xs"
                                     loading="lazy"
                                 />
                                 <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-20 text-white text-sm p-1 transition-opacity duration-150 group-hover:bg-opacity-70">

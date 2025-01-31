@@ -16,7 +16,7 @@ export default function LabPage() {
       </div>
 
       {/* Advice for Potential Students */}
-      <div className="bg-white rounded-lg shadow-sm p-8 mb-12">
+      <div className="bg-white rounded-lg shadow-xs p-8 mb-12">
         <h2 className="text-2xl font-semibold text-gray-900 mb-4">Potential students, a little advice…</h2>
         <div className="prose prose-lg">
           <p>Prof. Scott Keogh has compiled an excellent list of resources and advice for students and postdoctoral fellows <a href="#" className="text-blue-600 hover:text-blue-800">here</a>.</p>

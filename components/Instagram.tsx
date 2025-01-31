@@ -36,7 +36,7 @@ export default async function InstagramPosts() {
                                     alt={altText}
                                     width={128}
                                     height={128}
-                                    className="h-36 w-36 inline-block object-cover aspect-square rounded-sm"
+                                    className="h-36 w-36 inline-block object-cover aspect-square rounded-xs"
                                     loading="lazy"
                                 />
                             </>
