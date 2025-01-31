@@ -1,15 +1,7 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@config '../tailwind.config.js';
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
@@ -24,7 +16,6 @@ svg {
     display: inline-block;
 }
 
-
 h1 {
     @apply text-3xl font-bold my-4;
 }
@@ -37,7 +28,6 @@ h3 {
     @apply text-xl font-semibold my-2;
 }
 
-
 p {
     @apply text-base leading-relaxed text-gray-700;
 }
@@ -49,7 +39,6 @@ ul {
 ul li {
     @apply mb-2;
 }
-
 
 a {
     @apply text-blue-500 hover:underline cursor-pointer;

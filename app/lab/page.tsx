@@ -1,6 +1,7 @@
 import React from 'react';
 import { TeamMemberCard } from '@/components/TeamMemberCard';
 import { teamSections, physiosharkProject } from '@/data/team';
+import { externalLinks } from '@/data/links';
 
 export default function LabPage() {
   return (
@@ -19,8 +20,28 @@ export default function LabPage() {
       <div className="bg-white rounded-lg shadow-xs p-8 mb-12">
         <h2 className="text-2xl font-semibold text-gray-900 mb-4">Potential students, a little advice…</h2>
         <div className="prose prose-lg">
-          <p>Prof. Scott Keogh has compiled an excellent list of resources and advice for students and postdoctoral fellows <a href="#" className="text-blue-600 hover:text-blue-800">here</a>.</p>
-          <p>And if you&apos;re about to contact me to inquire about graduate school (MSc, PhD), <a href="#" className="text-blue-600 hover:text-blue-800">check this out</a>!</p>
+          <p>
+            Prof. Scott Keogh has compiled an excellent list of resources and advice for students and postdoctoral fellows{' '}
+            <a 
+              href={externalLinks.studentResources}
+              target="_blank"
+              rel="noopener noreferrer" 
+              className="text-blue-600 hover:text-blue-800"
+            >
+              here
+            </a>.
+          </p>
+          <p>
+            And if you&apos;re about to contact me to inquire about graduate school (MSc, PhD),{' '}
+            <a 
+              href={externalLinks.graduateSchool}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800"
+            >
+              check this out
+            </a>!
+          </p>
         </div>
       </div>
 
