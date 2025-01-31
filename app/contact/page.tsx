@@ -1,11 +1,16 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaTwitter, FaInstagram, FaYoutube, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function ContactPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -206,16 +211,21 @@ export default function ContactPage() {
       <section className="mt-12 bg-white rounded-lg shadow-xs p-8">
         <h2 className="text-2xl font-semibold text-gray-900 mb-6">Location</h2>
         <div className="aspect-w-16 aspect-h-9">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14678292.975656847!2d123.20973833833085!3d-24.992915322526945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6bd5fa65f3557291%3A0xa7901f3d26c63dba!2sJCU%3A%20James%20Cook%20University%2C%20Australia%2C%20Townsville%2C%20Bebegu%20Yumba%20campus%2C%20Douglas!5e0!3m2!1sen!2sau!4v1707372547375!5m2!1sen!2sau"
-            width="100%"
-            height="450"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            className="rounded-lg"
-          />
+          {isMounted && (
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14678292.975656847!2d123.20973833833085!3d-24.992915322526945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6bd5fa65f3557291%3A0xa7901f3d26c63dba!2sJCU%3A%20James%20Cook%20University%2C%20Australia%2C%20Townsville%2C%20Bebegu%20Yumba%20campus%2C%20Douglas!5e0!3m2!1sen!2sau!4v1707372547375!5m2!1sen!2sau"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="rounded-lg"
+            />
+          )}
+          {!isMounted && (
+            <div className="w-full h-[450px] bg-gray-100 rounded-lg animate-pulse" />
+          )}
         </div>
       </section>
     </div>

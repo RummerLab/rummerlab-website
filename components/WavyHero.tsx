@@ -1,16 +1,15 @@
 "use client";
 import React from "react";
-import { WavyBackground } from "./ui/wavy-background";
 
 export function WavyHero() {
   return (
-    <WavyBackground className="max-w-4xl mx-auto pb-20">
-      <p className="text-2xl md:text-4xl lg:text-7xl text-gray-800 font-bold inter-var text-center">
+    <div className="max-w-4xl mx-auto py-12 px-4 text-center">
+      <h1 className="text-2xl md:text-4xl lg:text-7xl text-gray-800 font-bold">
         Rummerlab
-      </p>
-      <p className="text-base md:text-lg mt-4 text-gray-800 font-normal inter-var text-center">
+      </h1>
+      <p className="text-base md:text-lg mt-4 text-gray-800">
         RummerLab is a not-for-profit organisation
       </p>
-    </WavyBackground>
+    </div>
   );
 }
