@@ -2,7 +2,7 @@
 
 import { TeamMember } from '@/types/team';
 import Image from 'next/image';
-import { FaTwitter, FaResearchgate, FaGlobe, FaGoogle } from 'react-icons/fa';
+import { FaTwitter, FaResearchgate, FaGlobe, FaGoogle, FaGithub, FaLinkedin, FaOrcid } from 'react-icons/fa';
 
 interface TeamMemberCardProps {
   member: TeamMember;
@@ -15,14 +15,11 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
         <div className="relative aspect-w-16 aspect-h-9">
           <Image
             src={member.image}
-            alt={member.name}
+            alt={member.alt}
             fill
             className="object-cover"
           />
         </div>
-      )}
-      {!member.image && (
-        <div className="w-full h-48 bg-gray-200" />
       )}
       
       <div className="p-6">
@@ -42,26 +39,11 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
           </p>
         )}
 
-        {member.publications && member.publications.length > 0 && (
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">Recent Publications</h4>
-            {member.publications.map((pub, index) => (
-              <a
-                key={index}
-                href={pub.url}
-                className="text-sm text-blue-600 hover:text-blue-800 block mb-1"
-              >
-                {pub.title}
-              </a>
-            ))}
-          </div>
-        )}
-
         {member.links && (
           <div className="flex space-x-4">
-            {member.links.twitter && (
+            {member.links.x && (
               <a
-                href={member.links.twitter}
+                href={member.links.x}
                 className="text-gray-500 hover:text-blue-400"
                 target="_blank"
                 rel="noopener"
@@ -69,9 +51,9 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
                 <FaTwitter className="h-5 w-5" />
               </a>
             )}
-            {member.links.researchGate && (
+            {member.links.researchGateSlug && (
               <a
-                href={member.links.researchGate}
+                href={`https://www.researchgate.net/profile/${member.links.researchGateSlug}`}
                 className="text-gray-500 hover:text-blue-600"
                 target="_blank"
                 rel="noopener"
@@ -79,9 +61,9 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
                 <FaResearchgate className="h-5 w-5" />
               </a>
             )}
-            {member.links.website && (
+            {member.links.personalWebsite && (
               <a
-                href={member.links.website}
+                href={member.links.personalWebsite}
                 className="text-gray-500 hover:text-gray-700"
                 target="_blank"
                 rel="noopener"
@@ -89,14 +71,44 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
                 <FaGlobe className="h-5 w-5" />
               </a>
             )}
-            {member.links.googleScholar && (
+            {member.links.googleScholarId && (
               <a
-                href={member.links.googleScholar}
+                href={`https://scholar.google.com/citations?user=${member.links.googleScholarId}`}
                 className="text-gray-500 hover:text-blue-500"
                 target="_blank"
                 rel="noopener"
               >
                 <FaGoogle className="h-5 w-5" />
+              </a>
+            )}
+            {member.links.github && (
+              <a
+                href={member.links.github}
+                className="text-gray-500 hover:text-gray-900"
+                target="_blank"
+                rel="noopener"
+              >
+                <FaGithub className="h-5 w-5" />
+              </a>
+            )}
+            {member.links.linkedin && (
+              <a
+                href={member.links.linkedin}
+                className="text-gray-500 hover:text-blue-700"
+                target="_blank"
+                rel="noopener"
+              >
+                <FaLinkedin className="h-5 w-5" />
+              </a>
+            )}
+            {member.links.orcid && (
+              <a
+                href={`https://orcid.org/${member.links.orcid}`}
+                className="text-gray-500 hover:text-green-600"
+                target="_blank"
+                rel="noopener"
+              >
+                <FaOrcid className="h-5 w-5" />
               </a>
             )}
           </div>
