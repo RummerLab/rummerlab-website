@@ -1,0 +1,55 @@
+[
+    {
+      "name": "Dr. Jodie Rummer",
+      "title": "Professor",
+      "role": "Chief Investigator", // Partner Researcher, Postdoctoral Researcher, PhD Candidate, Masters Student, Undergraduate Researcher, Volunteer
+      "email": "jodie.rummer@jcu.edu.au",
+      "startDate": "2013-01-01",
+      "endDate": null,
+      "description": "Dr Jodie Rummer is an Professor of Marine Biology in the College of Science and Engineering at James Cook University and formally a researcher in the ARC Centre of Excellence for Coral Reef Studies. She was the 2015-2016 recipient of the highly prestigious UNESCO-L'Oréal Women in Science Fellowship for Australia and New Zealand, an Australian Research Council (ARC) Super Scientist (2011-2014), an ARC Early Career Discovery Fellow (2015-2017), named one of Australia's top five scientists under 40 (2016), and Queensland's (Australia) Tall Poppy Scientist of the Year (2019).\n\nDr Rummer is a leading authority on the evolution of oxygen transport in fish and how fish maintain performance during stress. Her research, combines ecology, evolution, and physiology to address issues important to conservation, such as the effects of climate change and other human-caused problems on coral reef fishes, sharks, and rays and their potential for adaptation. Dr Rummer founded the Physioshark Project and has been leading this research programme and the students, staff, and volunteers involved since 2013.",
+      "image": "/images/dr-jodie-rummer-chief-investigator-physioshark-project.jpg", // Please send a high resolution image
+      "alt": "Dr. Jodie Rummer, Chief Investigator of the Physioshark Project",
+      "links": {
+        "personalWebsite": "jodierummer.com",
+        "labWebsite": "rummerlab.com",
+        "projectWebsite": "physioshark.com",
+        "researchGateSlug": "Jodie-Rummer", // https://www.researchgate.net/profile/Jodie-Rummer
+        "googleScholarId": "SCHOLAR_ID", // https://scholar.google.com/citations?user=SCHOLAR_ID
+        "x": "https://x.com/physioshark",
+        "bluesky": "@physioshark.bsky.social",
+        "facebook": "https://www.facebook.com/physioshark",
+        "instagram": "https://www.instagram.com/physioshark",
+        "linkedin": "https://www.linkedin.com/in/jodie-rummer/",
+        "github": "https://github.com/jodierummer",
+        "orcid": "0000-0001-2345-6789"
+      },
+      "affiliations": [
+        {
+          "institution": "James Cook University",
+          "department": "College of Science and Engineering",
+          "role": "Professor",
+          "location": "Townsville, Australia"
+        }
+      ],
+      "education": [
+        {
+          "degree": "Ph.D.",
+          "field": "Marine Biology",
+          "institution": "University of British Columbia",
+          "year": "2010"
+        }
+      ],
+      "awards": [
+        {
+          "name": "UNESCO-L'Oréal Women in Science Fellowship",
+          "year": "2015",
+          "description": "For Australia and New Zealand"
+        },
+        {
+          "name": "Queensland Tall Poppy Scientist of the Year",
+          "year": "2019"
+        }
+      ],
+      "languages": ["English"]
+    }
+]
