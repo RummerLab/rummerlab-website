@@ -47,9 +47,10 @@
         },
         {
           "name": "Queensland Tall Poppy Scientist of the Year",
-          "year": "2019"
+          "year": "2019",
+          "description": "Best Australian Scientist under 40"
         }
       ],
-      "languages": ["English"]
+      "languages": ["English", "French (Conversational)"]
     }
 ]
