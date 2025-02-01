@@ -59,7 +59,7 @@ export default function ResearchPage() {
       <div className="text-center mb-16">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">Our Research</h1>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          The Rummer Lab focuses on understanding marine ecosystems and their response to environmental changes,
+          The RummerLab focuses on understanding marine ecosystems and their response to environmental changes,
           with particular emphasis on fish physiology and conservation.
         </p>
       </div>

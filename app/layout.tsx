@@ -4,6 +4,9 @@ import Footer from '@/components/Footer'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Inter } from "next/font/google"
+
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
   title: "RummerLab",
@@ -19,9 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <GoogleAnalytics />
       <Analytics /><SpeedInsights />
-      <body className="min-h-screen bg-gray-50">
+      <body className={`${inter.className} min-h-screen bg-white dark:bg-gray-950 transition-colors duration-200`}>
         <Navbar />
-        <main className="pt-16 min-h-screen">
+        <main className="pt-16">
           {children}
         </main>
         <Footer />

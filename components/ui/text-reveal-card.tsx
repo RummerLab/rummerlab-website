@@ -20,15 +20,19 @@ export const TextRevealCard = ({
   const [left, setLeft] = useState(0);
   const [localWidth, setLocalWidth] = useState(0);
   const [isMouseOver, setIsMouseOver] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (cardRef.current) {
-      const { left, width: localWidth } =
-        cardRef.current.getBoundingClientRect();
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isMounted && cardRef.current) {
+      const { left, width: localWidth } = cardRef.current.getBoundingClientRect();
       setLeft(left);
       setLocalWidth(localWidth);
     }
-  }, []);
+  }, [isMounted]);
 
   function mouseMoveHandler(event: any) {
     event.preventDefault();
@@ -44,11 +48,31 @@ export const TextRevealCard = ({
     setIsMouseOver(false);
     setWidthPercentage(0);
   }
+
   function mouseEnterHandler() {
     setIsMouseOver(true);
   }
 
   const rotateDeg = (widthPercentage - 50) * 0.1;
+
+  if (!isMounted) {
+    return (
+      <div className={cn(
+        "bg-[#1d1c20] border border-white/[0.08] w-[40rem] rounded-lg p-8 relative overflow-hidden",
+        className
+      )}>
+        {children}
+        <div className="h-40 relative flex items-center overflow-hidden">
+          <div className="overflow-hidden relative left-1/2 -translate-x-1/2">
+            <p className="text-base sm:text-[3rem] py-10 font-bold bg-clip-text text-transparent bg-[#323238]">
+              {text}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       onMouseEnter={mouseEnterHandler}
@@ -84,7 +108,6 @@ export const TextRevealCard = ({
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-          
             className="text-base sm:text-[3rem] py-10 font-bold text-white bg-clip-text text-transparent bg-linear-to-b from-white to-neutral-300"
           >
             {revealText}

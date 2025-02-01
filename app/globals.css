@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 241, 245, 249;
+    --background-rgb: 15, 23, 42;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --foreground-rgb: 31, 41, 55;
+    --background-rgb: 255, 255, 255;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
 @layer base {
   *,
   ::after,
@@ -17,19 +36,19 @@ svg {
 }
 
 h1 {
-    @apply text-3xl font-bold my-4;
+    @apply text-3xl font-bold my-4 text-gray-900 dark:text-gray-50;
 }
 
 h2 {
-    @apply text-2xl font-semibold my-2;
+    @apply text-2xl font-semibold my-2 text-gray-900 dark:text-gray-50;
 }
 
 h3 {
-    @apply text-xl font-semibold my-2;
+    @apply text-xl font-semibold my-2 text-gray-900 dark:text-gray-50;
 }
 
 p {
-    @apply text-base leading-relaxed text-gray-700;
+    @apply text-base leading-relaxed text-gray-700 dark:text-gray-200;
 }
 
 ul {
@@ -37,9 +56,9 @@ ul {
 }
 
 ul li {
-    @apply mb-2;
+    @apply mb-2 text-gray-700 dark:text-gray-200;
 }
 
 a {
-    @apply text-blue-500 hover:underline cursor-pointer;
+    @apply text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline cursor-pointer;
 }

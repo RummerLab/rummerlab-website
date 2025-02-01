@@ -1,4 +1,4 @@
-# Rummerlab Website
+# RummerLab Website
 
 RummerLab, led by Professor Jodie Rummer at James Cook University, is a world-leading marine biology research laboratory focused on understanding how fish and sharks respond to environmental change. The lab combines cutting-edge physiological research with ecological and conservation approaches to address critical questions about the future of marine ecosystems in a changing climate. Through innovative research techniques and international collaborations, RummerLab investigates how marine species maintain performance during environmental stress and their capacity for adaptation.
 

@@ -1,7 +1,6 @@
-
 import React from "react";
-import { AnimatedTooltip } from "./ui/animated-tooltip";
 import { getCoAuthors } from "@/lib/scholarly";
+import { ClientAnimatedCollaborators } from "./ClientAnimatedCollaborators";
 import { CoAuthor } from "@/types/scholarly";
 
 export async function AnimatedCollaborators() {
@@ -14,9 +13,5 @@ export async function AnimatedCollaborators() {
     image: `https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=${author.scholar_id}&citpid=3`,
   }));
   
-  return (
-    <div className="flex flex-row items-center justify-center mb-10 w-full">
-      <AnimatedTooltip items={people} />
-    </div>
-  );
+  return <ClientAnimatedCollaborators people={people} />;
 }

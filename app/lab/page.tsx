@@ -5,15 +5,13 @@ import { externalLinks } from '@/data/links';
 
 export default function LabPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">The Rummer Lab</h1>
-        <div className="prose prose-lg mx-auto">
-          <p className="text-gray-600">
-            Welcome to the Rummer Lab, where we conduct cutting-edge research in marine biology and conservation.
-          </p>
-        </div>
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold text-gray-900 mb-4">The RummerLab</h1>
+      
+      <div className="prose prose-lg max-w-none">
+        <p className="text-xl text-gray-600 mb-8">
+          Welcome to the RummerLab, where we conduct cutting-edge research in marine biology and conservation.
+        </p>
       </div>
 
       {/* Advice for Potential Students */}

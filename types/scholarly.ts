@@ -42,6 +42,12 @@ export type Author = {
       citation: string;
       pub_year: string;
       title: string;
+      author: string;
+      journal?: string;
+      booktitle?: string;
+      volume?: string;
+      number?: string;
+      pages?: string;
     };
     citedby_url: string;
     cites_id: string[];
