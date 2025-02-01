@@ -28,7 +28,7 @@ export default async function InstagramPosts() {
                 const altText = generateAlt(caption);
 
                 return (
-                    <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="relative group inline-block hover:grayscale transition duration-150 cursor-pointer">
+                    <a key={post.id} href={post.permalink} target="_blank" rel="noopener" className="relative group inline-block hover:grayscale transition duration-150 cursor-pointer">
                         {imageUrl && (
                             <>
                                 <Image

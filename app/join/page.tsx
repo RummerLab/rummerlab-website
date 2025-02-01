@@ -28,7 +28,7 @@ export default function JoinPage() {
           <a
             href="#" // Replace with actual Google Form URL
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             className="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-colors duration-200 shadow-lg hover:shadow-xl"
           >
             APPLY NOW

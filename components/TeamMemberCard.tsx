@@ -64,7 +64,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
                 href={member.links.twitter}
                 className="text-gray-500 hover:text-blue-400"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
               >
                 <FaTwitter className="h-5 w-5" />
               </a>
@@ -74,7 +74,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
                 href={member.links.researchGate}
                 className="text-gray-500 hover:text-blue-600"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
               >
                 <FaResearchgate className="h-5 w-5" />
               </a>
@@ -84,7 +84,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
                 href={member.links.website}
                 className="text-gray-500 hover:text-gray-700"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
               >
                 <FaGlobe className="h-5 w-5" />
               </a>
@@ -94,7 +94,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
                 href={member.links.googleScholar}
                 className="text-gray-500 hover:text-blue-500"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noopener"
               >
                 <FaGoogle className="h-5 w-5" />
               </a>

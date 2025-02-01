@@ -25,7 +25,7 @@ export default function LabPage() {
             <a 
               href={externalLinks.studentResources}
               target="_blank"
-              rel="noopener noreferrer" 
+              rel="noopener"
               className="text-blue-600 hover:text-blue-800"
             >
               here
@@ -36,7 +36,7 @@ export default function LabPage() {
             <a 
               href={externalLinks.graduateSchool}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="text-blue-600 hover:text-blue-800"
             >
               check this out
@@ -67,7 +67,7 @@ export default function LabPage() {
               href={physiosharkProject.links.instagram} 
               className="text-blue-600 hover:text-blue-800"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
             >
               Physioshark Instagram
             </a>
@@ -75,7 +75,7 @@ export default function LabPage() {
               href={physiosharkProject.links.facebook} 
               className="text-blue-600 hover:text-blue-800"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
             >
               Physioshark Facebook
             </a>

@@ -17,7 +17,7 @@ export async function PublicationsList() {
         <h2 className="mt-12 mb-2 text-3xl text-center">Publications</h2>
         <p className="text-xl text-center">
           A list of our&nbsp;
-          <Link href="https://scholar.google.com/citations?user=ynWS968AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">publications</Link>:
+          <Link href="https://scholar.google.com/citations?user=ynWS968AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener" className="text-blue-500 hover:underline">publications</Link>:
         </p>
         {publications.length > 0 && (
           <div className="flex flex-col items-start max-w-4xl mx-auto">
@@ -25,7 +25,7 @@ export async function PublicationsList() {
               <div key={index} className="w-full mb-4 text-left">
                 <h3 className="text-xl">{publication.bib.title} ({publication.bib.pub_year})</h3>
                 <p>{publication.bib.citation}</p>
-                <a href={publication.citedby_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                <a href={publication.citedby_url} target="_blank" rel="noopener" className="text-blue-500 hover:underline">
                   View Citations
                 </a>
               </div>

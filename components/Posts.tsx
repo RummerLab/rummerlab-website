@@ -28,7 +28,7 @@ export default async function Posts() {
                 const captionText = generateCaption(caption);
 
                 return (
-                    <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="relative group inline-block hover:bg-opacity-90 hover:grayscale transition duration-150 cursor-pointer overflow-hidden">
+                    <a key={post.id} href={post.permalink} target="_blank" rel="noopener" className="relative group inline-block hover:bg-opacity-90 hover:grayscale transition duration-150 cursor-pointer overflow-hidden">
                         {imageUrl && (
                             <>
                                 <Image

@@ -93,7 +93,7 @@ export default function ContactPage() {
                 <a 
                   href="https://twitter.com/physiologyfish"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="text-gray-500 hover:text-blue-400 transition-colors"
                 >
                   <FaTwitter className="h-6 w-6" />
@@ -101,7 +101,7 @@ export default function ContactPage() {
                 <a 
                   href="https://www.instagram.com/rummerlab/"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="text-gray-500 hover:text-pink-500 transition-colors"
                 >
                   <FaInstagram className="h-6 w-6" />
@@ -109,7 +109,7 @@ export default function ContactPage() {
                 <a 
                   href="https://www.youtube.com/@Physioshark"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="text-gray-500 hover:text-red-600 transition-colors"
                 >
                   <FaYoutube className="h-6 w-6" />
