@@ -78,18 +78,14 @@ export default async function MediaPage() {
                                             {article.source}
                                         </span>
                                         <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                                            {article.image ? (
-                                                <a 
-                                                    href={article.url}
-                                                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    {article.title}
-                                                </a>
-                                            ) : (
-                                                <span>{article.title}</span>
-                                            )}
+                                            <a 
+                                                href={article.url}
+                                                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {article.title}
+                                            </a>
                                         </h3>
                                         <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
                                             {article.description}
