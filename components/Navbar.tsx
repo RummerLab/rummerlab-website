@@ -7,6 +7,10 @@ import { useState } from "react"
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+    const handleLinkClick = () => {
+        setIsMenuOpen(false)
+    }
+
     const navItems = [
         { 
             label: "Research",
@@ -142,6 +146,7 @@ export default function Navbar() {
                     <Link 
                         href="/"
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
+                        onClick={handleLinkClick}
                     >
                         Home
                     </Link>
@@ -157,6 +162,7 @@ export default function Navbar() {
                                             key={subItem.href}
                                             href={subItem.href}
                                             className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
+                                            onClick={handleLinkClick}
                                         >
                                             {subItem.label}
                                         </Link>
@@ -168,6 +174,7 @@ export default function Navbar() {
                                 key={item.href}
                                 href={item.href as string}
                                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
+                                onClick={handleLinkClick}
                             >
                                 {item.label}
                             </Link>
@@ -175,16 +182,16 @@ export default function Navbar() {
                     ))}
                 </div>
                 <div className="flex justify-center space-x-4 pb-3 border-t border-gray-200 dark:border-gray-800 pt-4">
-                    <Link href="https://physioshark.org/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
+                    <Link href="https://physioshark.org/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200" onClick={handleLinkClick}>
                         <FaGlobe className="h-6 w-6" />
                     </Link>
-                    <Link href="https://www.instagram.com/physioshark/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
+                    <Link href="https://www.instagram.com/physioshark/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200" onClick={handleLinkClick}>
                         <FaInstagram className="h-6 w-6" />
                     </Link>
-                    <Link href="https://twitter.com/physiologyfish" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
+                    <Link href="https://twitter.com/physiologyfish" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200" onClick={handleLinkClick}>
                         <FaTwitter className="h-6 w-6" />
                     </Link>
-                    <Link href="https://www.youtube.com/@Physioshark" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
+                    <Link href="https://www.youtube.com/@Physioshark" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200" onClick={handleLinkClick}>
                         <FaYoutube className="h-6 w-6" />
                     </Link>
                 </div>
