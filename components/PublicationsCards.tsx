@@ -22,6 +22,9 @@ export async function PublicationsCards() {
             const publicationId = publication.author_pub_id.split(':')[0];
             const publicationUrl = `https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${publicationId}&citation_for_view=${publication.author_pub_id}`;
             
+            // Construct the correct Google Scholar citations URL
+            const citationsUrl = `https://scholar.google.com/scholar?cites=${publicationId}`;
+
             // Extract authors and format them
             const authors = publication.bib.author.split(' and ').map(author => author.trim());
             const formattedAuthors = authors.length > 4 
@@ -46,7 +49,9 @@ export async function PublicationsCards() {
                 <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                   <div className="flex items-center space-x-4">
                     <Link 
-                      href={publication.citedby_url || ''} 
+                      href={citationsUrl} 
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -57,6 +62,8 @@ export async function PublicationsCards() {
                   </div>
                   <Link 
                     href={publicationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-gray-700 rounded-lg hover:bg-blue-100 dark:hover:bg-gray-600 transition-colors duration-200"
                   >
                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
