@@ -35,7 +35,7 @@ export default function Collaborators() {
                             <a href="http://www.owuscholarship.org/scholar/yoland-bosiger" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Ms. Yoland Bosiger</a> (James Cook University, BBC Ocean)<br />
                             <a href="https://research.jcu.edu.au/portfolio/mark.mccormick/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Prof. Mark McCormick</a> (James Cook University, ARC CoECRS)<br />
                             <a href="http://www.coralcoe.org.au/researchers/sue-ann-watson" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Sue-Ann Watson</a> (James Cook University, ARC CoECRS)<br />
-                            <a href="http://www.criobe.pf/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Prof. Serge Planes</a> (Centre de Recherches Insulaire et Observatoire de l'Environnement (CRIOBE) Moorea, Polynésie française)
+                            <a href="http://www.criobe.pf/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Prof. Serge Planes</a> (Centre de Recherches Insulaire et Observatoire de l&apos;Environnement (CRIOBE) Moorea, Polynésie française)
                         </p>
                     </div>
                 </section>
@@ -62,7 +62,7 @@ export default function Collaborators() {
                     <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">North America</h2>
                     <div className="prose prose-lg max-w-none dark:prose-invert">
                         <p className="text-gray-600 dark:text-gray-300">
-                            <a href="http://www.dixsonlab.com/"></a><a href="http://legacy.wlu.ca/homepage.php?grp_id=13895&amp;ct_id=4189&amp;f_id=1" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Jonathan Wilson</a> (Wilfrid Laurier University, Canada & Ecofisiologia, CIMAR Porto Portugal)<br />
+                            <a href="http://www.dixsonlab.com/"></a><a href="http://legacy.wlu.ca/homepage.php?grp_id=13895&amp;ct_id=4189&amp;f_id=1" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Jonathan Wilson</a> (Wilfrid Laurier University, Canada &amp; Ecofisiologia, CIMAR Porto Portugal)<br />
                             <a href="http://www.zoology.ubc.ca/person/randall" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Prof. David Randall</a> (City University Hong Kong, University of British Columbia)<br />
                             <a href="http://www.dixsonlab.com/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Danielle Dixson</a> (Georgia Institute of Technology)<br />
                             <a href="https://scripps.ucsd.edu/labs/mtresguerres/members/martin-tresguerres/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Martin Tresguerres</a> (Scripps Institution of Oceanography, University of California at San Diego)<br />
