@@ -6,7 +6,6 @@ import { useState } from "react"
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
-    const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
     const navItems = [
         { 
@@ -36,14 +35,6 @@ export default function Navbar() {
         { href: "/contact", label: "Contact" }
     ]
 
-    const handleDropdownClick = (label: string) => {
-        if (activeDropdown === label) {
-            setActiveDropdown(null)
-        } else {
-            setActiveDropdown(label)
-        }
-    }
-
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,29 +57,26 @@ export default function Navbar() {
                         </Link>
                         {navItems.map((item) => (
                             item.type === 'dropdown' ? (
-                                <div key={item.label} className="relative">
+                                <div key={item.label} className="relative group">
                                     <button
-                                        onClick={() => handleDropdownClick(item.label)}
                                         className="flex items-center text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                                     >
                                         {item.label}
                                         <FaChevronDown className="ml-1 h-3 w-3" />
                                     </button>
-                                    {activeDropdown === item.label && (
-                                        <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5">
-                                            <div className="py-1" role="menu">
-                                                {item.items.map((subItem) => (
-                                                    <Link
-                                                        key={subItem.href}
-                                                        href={subItem.href}
-                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-                                                    >
-                                                        {subItem.label}
-                                                    </Link>
-                                                ))}
-                                            </div>
+                                    <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                                        <div className="py-1" role="menu">
+                                            {item.items.map((subItem) => (
+                                                <Link
+                                                    key={subItem.href}
+                                                    href={subItem.href}
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+                                                >
+                                                    {subItem.label}
+                                                </Link>
+                                            ))}
                                         </div>
-                                    )}
+                                    </div>
                                 </div>
                             ) : (
                                 <Link 

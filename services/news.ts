@@ -106,9 +106,20 @@ interface GuardianArticle {
         headline: string;
         trailText: string;
         thumbnail?: string;
+        bodyText?: string;
     };
     webUrl: string;
     webPublicationDate: string;
+}
+
+// Function to strip HTML tags and clean text
+function stripHtml(html: string): string {
+    return html
+        .replace(/<[^>]*>/g, '') // Remove HTML tags
+        .replace(/&[^;]+;/g, '') // Remove HTML entities
+        .replace(/\s+/g, ' ') // Normalize whitespace
+        .replace(/^(Exclusive|Live):\s*/i, '') // Remove "Exclusive:" or "Live:" prefixes
+        .trim();
 }
 
 // Function to fetch articles from NewsAPI
@@ -155,29 +166,54 @@ export const fetchNewsAPIArticles = cache(async (): Promise<MediaItem[]> => {
 
 // Function to fetch articles from The Guardian
 export const fetchGuardianArticles = cache(async (): Promise<MediaItem[]> => {
-    const data = await fetchWithCache(
-        `https://content.guardianapis.com/search?q="Jodie Rummer"&show-fields=headline,trailText,thumbnail&api-key=${process.env.THE_GUARDIAN_API_KEY}`
-    );
-    
-    if (!data || !data.response || !data.response.results) {
+    try {
+        const data = await fetchWithCache(
+            // Using quotes to ensure exact phrase match and adding body field to search content
+            `https://content.guardianapis.com/search?q="Jodie+Rummer"&show-fields=headline,trailText,thumbnail,bodyText&api-key=${process.env.THE_GUARDIAN_API_KEY}`
+        );
+        
+        if (!data || !data.response || !data.response.results) {
+            return [];
+        }
+        
+        // Filter articles to ensure they actually mention Jodie Rummer and aren't blog closures
+        return data.response.results
+            .filter((article: GuardianArticle) => {
+                const bodyText = article.fields.bodyText?.toLowerCase() || '';
+                const headline = article.fields.headline?.toLowerCase() || '';
+                const trailText = article.fields.trailText?.toLowerCase() || '';
+                
+                // Exclude blog closures and ensure Jodie Rummer is mentioned
+                const isBlogClosure = trailText.includes('this blog is now closed') || 
+                                    trailText.includes('blog is closed') ||
+                                    headline.includes('live updates') ||
+                                    headline.includes('as it happened');
+                
+                const mentionsJodie = bodyText.includes('jodie rummer') || 
+                                    headline.includes('jodie rummer') || 
+                                    trailText.includes('jodie rummer');
+                
+                return mentionsJodie && !isBlogClosure;
+            })
+            .map((article: GuardianArticle) => ({
+                type: 'article',
+                source: 'The Guardian',
+                title: stripHtml(article.fields.headline),
+                description: stripHtml(article.fields.trailText),
+                url: article.webUrl,
+                date: article.webPublicationDate,
+                sourceType: 'The Guardian',
+                ...(article.fields.thumbnail && {
+                    image: {
+                        url: article.fields.thumbnail,
+                        alt: stripHtml(article.fields.headline)
+                    }
+                })
+            }));
+    } catch (error) {
+        console.error('Error fetching Guardian articles:', error);
         return [];
     }
-    
-    return data.response.results.map((article: GuardianArticle) => ({
-        type: 'article',
-        source: 'The Guardian',
-        title: article.fields.headline,
-        description: article.fields.trailText,
-        url: article.webUrl,
-        date: article.webPublicationDate,
-        sourceType: 'The Guardian',
-        ...(article.fields.thumbnail && {
-            image: {
-                url: article.fields.thumbnail,
-                alt: article.fields.headline
-            }
-        })
-    }));
 });
 
 // Function to fetch all news sources with error handling
