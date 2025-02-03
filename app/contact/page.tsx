@@ -49,24 +49,26 @@ export default function ContactPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-8">
-          Get in touch with the RummerLab team
-        </h1>
+      <div className="mb-16 bg-white dark:bg-gray-900 rounded-xl p-8">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Get in touch with the RummerLab team
+          </h1>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Contact Information */}
-        <section className="bg-white rounded-lg shadow-xs p-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6">Contact Information</h2>
+        <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Contact Information</h2>
           
           <div className="space-y-6">
             {/* Email */}
             <div className="flex items-start space-x-4">
-              <FaEnvelope className="text-blue-600 h-6 w-6 mt-1" />
+              <FaEnvelope className="text-blue-600 dark:text-blue-400 h-6 w-6 mt-1" />
               <div>
-                <h3 className="font-medium text-gray-900">Email</h3>
-                <a href="mailto:jodie.rummer@rummerlab.com" className="text-blue-600 hover:text-blue-800">
+                <h3 className="font-medium text-gray-900 dark:text-gray-100">Email</h3>
+                <a href="mailto:jodie.rummer@rummerlab.com" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
                   jodie.rummer@rummerlab.com
                 </a>
               </div>
@@ -74,10 +76,10 @@ export default function ContactPage() {
 
             {/* Location */}
             <div className="flex items-start space-x-4">
-              <FaMapMarkerAlt className="text-blue-600 h-6 w-6 mt-1" />
+              <FaMapMarkerAlt className="text-blue-600 dark:text-blue-400 h-6 w-6 mt-1" />
               <div>
-                <h3 className="font-medium text-gray-900">Location</h3>
-                <p className="text-gray-600">
+                <h3 className="font-medium text-gray-900 dark:text-gray-100">Location</h3>
+                <p className="text-gray-600 dark:text-gray-300">
                   James Cook University<br />
                   Townsville, Queensland<br />
                   Australia
@@ -87,13 +89,13 @@ export default function ContactPage() {
 
             {/* Social Media */}
             <div>
-              <h3 className="font-medium text-gray-900 mb-3">Follow Us</h3>
+              <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-3">Follow Us</h3>
               <div className="flex space-x-4">
                 <a 
                   href="https://twitter.com/physiologyfish"
                   target="_blank"
                   rel="noopener"
-                  className="text-gray-500 hover:text-blue-400 transition-colors"
+                  className="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors"
                 >
                   <FaTwitter className="h-6 w-6" />
                 </a>
@@ -101,7 +103,7 @@ export default function ContactPage() {
                   href="https://www.instagram.com/rummerlab/"
                   target="_blank"
                   rel="noopener"
-                  className="text-gray-500 hover:text-pink-500 transition-colors"
+                  className="text-gray-500 hover:text-pink-500 dark:text-gray-400 dark:hover:text-pink-400 transition-colors"
                 >
                   <FaInstagram className="h-6 w-6" />
                 </a>
@@ -109,7 +111,7 @@ export default function ContactPage() {
                   href="https://www.youtube.com/@Physioshark"
                   target="_blank"
                   rel="noopener"
-                  className="text-gray-500 hover:text-red-600 transition-colors"
+                  className="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
                 >
                   <FaYoutube className="h-6 w-6" />
                 </a>
@@ -119,74 +121,74 @@ export default function ContactPage() {
         </section>
 
         {/* Quick Contact Form */}
-        <section className="bg-white rounded-lg shadow-xs p-8">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6">Send us a Message</h2>
+        <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Send us a Message</h2>
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Name
               </label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100"
                 required
                 disabled={isLoading}
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Email
               </label>
               <input
                 type="email"
                 id="email"
                 name="email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100"
                 required
                 disabled={isLoading}
               />
             </div>
 
             <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Subject
               </label>
               <input
                 type="text"
                 id="subject"
                 name="subject"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100"
                 required
                 disabled={isLoading}
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Message
               </label>
               <textarea
                 id="message"
                 name="message"
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:text-gray-100"
                 required
                 disabled={isLoading}
               />
             </div>
 
             {submitStatus === 'success' && (
-              <div className="text-green-600 text-sm">
+              <div className="text-green-600 dark:text-green-400 text-sm">
                 Message sent successfully! We&apos;ll get back to you soon.
               </div>
             )}
 
             {submitStatus === 'error' && (
-              <div className="text-red-600 text-sm">
+              <div className="text-red-600 dark:text-red-400 text-sm">
                 Failed to send message. Please try again or email us directly.
               </div>
             )}
@@ -196,8 +198,8 @@ export default function ContactPage() {
               disabled={isLoading}
               className={`w-full py-2 px-4 rounded-md transition-colors duration-200 ${
                 isLoading 
-                  ? 'bg-gray-400 cursor-not-allowed' 
-                  : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  ? 'bg-gray-400 dark:bg-gray-600 cursor-not-allowed' 
+                  : 'bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white'
               }`}
             >
               {isLoading ? 'Sending...' : 'Send Message'}
@@ -207,8 +209,8 @@ export default function ContactPage() {
       </div>
 
       {/* Map Section */}
-      <section className="mt-12 bg-white rounded-lg shadow-xs p-8">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-6">Location</h2>
+      <section className="mt-12 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Location</h2>
         <div className="aspect-w-16 aspect-h-9">
           {isMounted && (
             <iframe
@@ -223,7 +225,7 @@ export default function ContactPage() {
             />
           )}
           {!isMounted && (
-            <div className="w-full h-[450px] bg-gray-100 rounded-lg animate-pulse" />
+            <div className="w-full h-[450px] bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />
           )}
         </div>
       </section>

@@ -10,18 +10,18 @@
     "image": "/images/team/dr-jodie-rummer-chief-investigator-physioshark-project.jpg",
     "alt": "Dr. Jodie Rummer, Chief Investigator of the Physioshark Project",
     "links": {
-      "personalWebsite": "jodierummer.com",
-      "labWebsite": "rummerlab.com",
-      "projectWebsite": "physioshark.com",
+      "personalWebsite": "https://jodierummer.com",
+      "labWebsite": "https://rummerlab.com",
+      "projectWebsite": "https://physioshark.com",
       "researchGateSlug": "Jodie-Rummer",
       "googleScholarId": "ynWS968AAAAJ",
-      "x": "https://x.com/physioshark",
+      "x": "physioshark",
       "bluesky": "@physioshark.bsky.social",
       "facebook": "https://www.facebook.com/physioshark",
       "instagram": "https://www.instagram.com/physioshark",
-      "linkedin": "https://www.linkedin.com/in/jodie-rummer/",
-      "github": "https://github.com/jodierummer",
-      "orcid": "0000-0001-2345-6789"
+      "linkedin": "https://www.linkedin.com/in/jodie-rummer-486a9556/",
+      "github": "https://github.com/rummerlab",
+      "orcid": "0000-0001-6067-5892"
     },
     "affiliations": [
       {

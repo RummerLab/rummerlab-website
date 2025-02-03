@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-// Add in instagram images https://www.youtube.com/watch?v=kLFSTaCqzdQ
+// Add in Instagram images https://www.youtube.com/watch?v=kLFSTaCqzdQ
 
 export default function Footer() {
   return (

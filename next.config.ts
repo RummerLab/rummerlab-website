@@ -11,6 +11,14 @@ const config: NextConfig = {
         protocol: 'https',
         hostname: '**.cdninstagram.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'physioshark.org',
+      },
+      {
+        protocol: 'https',
+        hostname: 'jodierummer.com',
+      },
     ],
   },
   async headers() {

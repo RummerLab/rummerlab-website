@@ -1,11 +1,48 @@
 "use client"
 
 import Link from "next/link"
-import { FaYoutube, FaTwitter, FaInstagram, FaGlobe } from "react-icons/fa"
+import { FaYoutube, FaTwitter, FaInstagram, FaGlobe, FaChevronDown } from "react-icons/fa"
 import { useState } from "react"
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+
+    const navItems = [
+        { 
+            label: "Research",
+            type: "dropdown",
+            items: [
+                { href: "/research", label: "Overview" },
+                { href: "/environmental-stressors", label: "Environmental Stressors" },
+                { href: "/future-environments", label: "Future Environments" },
+                { href: "/in-vivo-protocols", label: "In Vivo Protocols" },
+            ]
+        },
+        { 
+            label: "RummerLab",
+            type: "dropdown",
+            items: [
+                { href: "/rummerlab", label: "About" },
+                { href: "/team", label: "Team" },
+                { href: "/lab", label: "Lab Members" },
+                { href: "/collaborators", label: "Collaborators" },
+                { href: "/join", label: "Join Us" },
+            ]
+        },
+        { href: "/publications", label: "Publications" },
+        { href: "/media", label: "Media" },
+        { href: "/physioshark-project", label: "Physioshark" },
+        { href: "/contact", label: "Contact" }
+    ]
+
+    const handleDropdownClick = (label: string) => {
+        if (activeDropdown === label) {
+            setActiveDropdown(null)
+        } else {
+            setActiveDropdown(label)
+        }
+    }
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800">
@@ -20,31 +57,49 @@ export default function Navbar() {
                     </div>
 
                     {/* Desktop Navigation */}
-                    <div className="hidden md:flex md:items-center md:space-x-8">
+                    <div className="hidden md:flex md:items-center md:space-x-6">
                         <Link 
-                            href="/research" 
+                            href="/"
                             className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                         >
-                            Research
+                            Home
                         </Link>
-                        <Link 
-                            href="/publications" 
-                            className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                        >
-                            Publications
-                        </Link>
-                        <Link 
-                            href="/team" 
-                            className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                        >
-                            Team
-                        </Link>
-                        <Link 
-                            href="/contact" 
-                            className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
-                        >
-                            Contact
-                        </Link>
+                        {navItems.map((item) => (
+                            item.type === 'dropdown' ? (
+                                <div key={item.label} className="relative">
+                                    <button
+                                        onClick={() => handleDropdownClick(item.label)}
+                                        className="flex items-center text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                    >
+                                        {item.label}
+                                        <FaChevronDown className="ml-1 h-3 w-3" />
+                                    </button>
+                                    {activeDropdown === item.label && (
+                                        <div className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5">
+                                            <div className="py-1" role="menu">
+                                                {item.items.map((subItem) => (
+                                                    <Link
+                                                        key={subItem.href}
+                                                        href={subItem.href}
+                                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+                                                    >
+                                                        {subItem.label}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <Link 
+                                    key={item.href}
+                                    href={item.href as string} 
+                                    className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                >
+                                    {item.label}
+                                </Link>
+                            )
+                        ))}
                     </div>
 
                     {/* Social Icons - Desktop */}
@@ -97,29 +152,39 @@ export default function Navbar() {
             <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800`}>
                 <div className="px-2 pt-2 pb-3 space-y-1">
                     <Link 
-                        href="/research" 
+                        href="/"
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
                     >
-                        Research
+                        Home
                     </Link>
-                    <Link 
-                        href="/publications" 
-                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
-                    >
-                        Publications
-                    </Link>
-                    <Link 
-                        href="/team" 
-                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
-                    >
-                        Team
-                    </Link>
-                    <Link 
-                        href="/contact" 
-                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
-                    >
-                        Contact
-                    </Link>
+                    {navItems.map((item) => (
+                        item.type === 'dropdown' ? (
+                            <div key={item.label}>
+                                <div className="px-3 py-2 text-base font-medium text-gray-900 dark:text-gray-100">
+                                    {item.label}
+                                </div>
+                                <div className="pl-4">
+                                    {item.items.map((subItem) => (
+                                        <Link
+                                            key={subItem.href}
+                                            href={subItem.href}
+                                            className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
+                                        >
+                                            {subItem.label}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            <Link 
+                                key={item.href}
+                                href={item.href as string}
+                                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
+                            >
+                                {item.label}
+                            </Link>
+                        )
+                    ))}
                 </div>
                 <div className="flex justify-center space-x-4 pb-3 border-t border-gray-200 dark:border-gray-800 pt-4">
                     <Link href="https://physioshark.org/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">

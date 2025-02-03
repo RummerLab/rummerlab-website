@@ -7,7 +7,7 @@ export default function Menu() {
                 <li>
                     <Link 
                         href="/research" 
-                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
                     >
                         Research
                     </Link>
@@ -15,7 +15,7 @@ export default function Menu() {
                 <li>
                     <Link 
                         href="/publications" 
-                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
                     >
                         Publications
                     </Link>
@@ -23,7 +23,7 @@ export default function Menu() {
                 <li>
                     <Link 
                         href="/lab" 
-                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
                     >
                         Lab Members
                     </Link>
@@ -31,7 +31,7 @@ export default function Menu() {
                 <li>
                     <Link 
                         href="/physioshark-project" 
-                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
                     >
                         Physioshark
                     </Link>
@@ -39,7 +39,7 @@ export default function Menu() {
                 <li>
                     <Link 
                         href="/collaborators" 
-                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
                     >
                         Collaborators
                     </Link>
@@ -47,7 +47,7 @@ export default function Menu() {
                 <li>
                     <Link 
                         href="/join" 
-                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
                     >
                         Join Us
                     </Link>
@@ -55,7 +55,7 @@ export default function Menu() {
                 <li>
                     <Link 
                         href="/contact" 
-                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 font-medium transition-colors"
                     >
                         Contact
                     </Link>
