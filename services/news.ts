@@ -132,14 +132,26 @@ async function fetchRSSFeed(
 }
 
 // Common filter functions
+const doesArticleMentionRummer = (content: string, title: string, description: string): boolean => {
+    const normalizedContent = content.toLowerCase();
+    const normalizedTitle = title.toLowerCase();
+    const normalizedDescription = description.toLowerCase();
+    
+    return normalizedTitle.includes('rummer') || 
+           normalizedDescription.includes('rummer') || 
+           (normalizedContent.includes('rummer') && 
+            (normalizedContent.split('rummer').length > 2 || 
+             (normalizedContent.includes('dr rummer') || normalizedContent.includes('dr. rummer')) || 
+             normalizedContent.includes('professor rummer') || 
+             normalizedContent.includes('jodie rummer')));
+};
+
 const containsRummer = (item: RSSItem): boolean => {
-    const content = (item.content || '').toLowerCase();
-    const title = (item.title || '').toLowerCase();
-    const description = (item.contentSnippet || '').toLowerCase();
-    // Require "rummer" to be in title, description, or prominent content
-    return !!(title.includes('rummer') || 
-           description.includes('rummer') || 
-           content.includes('rummer'));
+    return doesArticleMentionRummer(
+        item.content || '',
+        item.title || '',
+        item.contentSnippet || ''
+    );
 };
 
 const containsMarineKeywords = (item: RSSItem): boolean => {
@@ -232,7 +244,7 @@ export const fetchABCScienceArticles = cache(() =>
     fetchRSSFeed(
         'https://www.abc.net.au/science/news/topic/enviro/enviro.xml',
         'ABC Science',
-        item => containsRummer(item) || containsMarineKeywords(item),
+        item => containsRummer(item), // || containsMarineKeywords(item),
         DEFAULT_HEADERS
     )
 );
@@ -241,7 +253,7 @@ export const fetchNewsComAuScienceArticles = cache(() =>
     fetchRSSFeed(
         'http://feeds.news.com.au/public/rss/2.0/news_tech_506.xml',
         'News.com.au Science',
-        item => containsRummer(item) || containsMarineKeywords(item),
+        item => containsRummer(item), // || containsMarineKeywords(item),
         DEFAULT_HEADERS
     )
 );
@@ -250,7 +262,7 @@ export const fetchSMHScienceArticles = cache(() =>
     fetchRSSFeed(
         'http://www.smh.com.au/rssheadlines/health/article/rss.xml',
         'Sydney Morning Herald',
-        item => containsRummer(item) || containsMarineKeywords(item),
+        item => containsRummer(item), // || containsMarineKeywords(item),
         DEFAULT_HEADERS
     )
 );
@@ -263,15 +275,16 @@ export const fetchSBSScienceArticles = cache(() =>
             const title = (item.title || '').toLowerCase();
             const description = (item.contentSnippet || '').toLowerCase();
             
-            const isRelevant = containsRummer(item) || containsMarineKeywords(item);
-            const isScience = content.includes('science') ||
+            const isRelevant = containsRummer(item); // || containsMarineKeywords(item);
+            /*const isScience = content.includes('science') ||
                             title.includes('science') ||
                             description.includes('science') ||
                             content.includes('research') ||
                             title.includes('research') ||
                             description.includes('research');
             
-            return Boolean(isRelevant && isScience);
+            return Boolean(isRelevant && isScience);*/
+            return isRelevant;
         },
         DEFAULT_HEADERS
     )
@@ -281,7 +294,7 @@ export const fetchCairnsNewsArticles = cache(() =>
     fetchRSSFeed(
         'https://cairnsnews.org/feed/',
         'Cairns News',
-        item => containsRummer(item) || containsMarineKeywords(item),
+        item => containsRummer(item), // || containsMarineKeywords(item),
         DEFAULT_HEADERS
     )
 );
@@ -355,7 +368,7 @@ function fixGoogleNewsUrl(url: string): string {
 export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
     try {
         const response = await fetch(
-            'https://news.google.com/rss/search?q=%22Jodie+Rummer%22+OR+%22Great+Barrier+Reef%22+OR+%22James+Cook+University%22&hl=en-AU&gl=AU&ceid=AU:en',
+            'https://news.google.com/rss/search?q=Jodie+Rummer+OR+Great+Barrier+Reef+OR+James+Cook+University&hl=en-AU&gl=AU&ceid=AU:en',
             {
                 headers: DEFAULT_HEADERS,
                 next: { revalidate: REVALIDATE_TIME }
@@ -377,16 +390,7 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
                 const title = (item.title || '').toLowerCase();
                 const description = (item.contentSnippet || '').toLowerCase();
                 
-                // More precise Rummer mention check
-                const hasRummer = title.includes('rummer') || 
-                                description.includes('rummer') || 
-                                (content.includes('rummer') && 
-                                 (content.split('rummer').length > 2 || 
-                                  (content.includes('dr rummer') || content.includes('dr. rummer')) || 
-                                  content.includes('professor rummer') || 
-                                  content.includes('jodie rummer')));
-                
-                return hasRummer;
+                return doesArticleMentionRummer(content, title, description);
             })
             .map(item => {
                 // Get the URL from the description field if available, as it contains the direct link
@@ -454,16 +458,7 @@ export const fetchGuardianArticles = cache(async (): Promise<MediaItem[]> => {
                 headline.includes('annotated solutions for prize') ||
                 headline.includes('crossword');
             
-            // More precise Rummer mention check
-            const hasRummer = headline.includes('rummer') || 
-                            trailText.includes('rummer') || 
-                            (bodyText.includes('rummer') && 
-                             (bodyText.split('rummer').length > 2 || 
-                              (bodyText.includes('dr rummer') || bodyText.includes('dr rummer')) || 
-                              bodyText.includes('professor rummer') || 
-                              bodyText.includes('jodie rummer')));
-            
-            return hasRummer && !isBlogExclude;
+            return doesArticleMentionRummer(bodyText, headline, trailText) && !isBlogExclude;
         });
 
     return filteredArticles.map(article => ({
@@ -518,10 +513,8 @@ export const fetchTownsvilleBulletinArticles = cache(async (): Promise<MediaItem
                 const description = descriptionMatch ? stripHtml(descriptionMatch[1]) : '';
 
                 const content = `${title} ${description}`.toLowerCase();
-                // Require "rummer" or specific JCU mentions
-                if (content.includes('rummer') || 
-                    (content.includes('jcu') && content.includes('marine')) || 
-                    (content.includes('james cook university') && content.includes('marine'))) {
+
+                if (doesArticleMentionRummer(content, title, description)) {
                     articles.push({
                         type: 'article' as const,
                         source: 'Townsville Bulletin',
