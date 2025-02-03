@@ -19,6 +19,10 @@ const config: NextConfig = {
         protocol: 'https',
         hostname: 'jodierummer.com',
       },
+      { // TEMPORARY
+          protocol: 'https',
+          hostname: '**',
+      },
     ],
   },
   async headers() {
