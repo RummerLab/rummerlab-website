@@ -2,8 +2,7 @@
 
 import { TeamMember } from '@/types/team';
 import Image from 'next/image';
-import { FaResearchgate, FaGlobe, FaGoogle, FaGithub, FaLinkedin, FaOrcid, FaExternalLinkAlt } from 'react-icons/fa';
-import { FaXTwitter } from "react-icons/fa6";
+import { FaResearchgate, FaGlobe, FaGoogle, FaGithub, FaLinkedin, FaOrcid } from 'react-icons/fa';
 import { SiBluesky } from "react-icons/si";
 
 interface TeamMemberCardProps {
@@ -43,16 +42,6 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
 
         {member.links && (
           <div className="flex space-x-4">
-            {member.links.x && (
-              <a
-                href={member.links.x}
-                className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100"
-                target="_blank"
-                rel="noopener"
-              >
-                <FaXTwitter className="h-5 w-5" />
-              </a>
-            )}
             {member.links.bluesky && (
               <a
                 href={member.links.bluesky}
