@@ -1,7 +1,5 @@
 import Link from 'next/link';
 
-// Add in Instagram images https://www.youtube.com/watch?v=kLFSTaCqzdQ
-
 export default function Footer() {
   return (
     <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
