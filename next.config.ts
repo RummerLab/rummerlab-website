@@ -19,6 +19,22 @@ const config: NextConfig = {
         protocol: 'https',
         hostname: 'jodierummer.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'scontent.cdninstagram.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'scontent-syd2-1.cdninstagram.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'graph.instagram.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'platform-lookaside.fbsbx.com',
+      },
       { // TEMPORARY
           protocol: 'https',
           hostname: '**',
