@@ -57,12 +57,12 @@ export default async function InstagramFeed() {
         >
           <div className="aspect-square relative">
             <MediaContent post={post} />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300">
-              <div className="absolute inset-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end">
-                <p className="text-sm line-clamp-3">{post.caption}</p>
-                <p className="text-xs mt-2">{formatInstagramDate(post.timestamp)}</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute inset-0 p-4 flex flex-col justify-end">
+                <p className="text-sm text-white line-clamp-3 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">{post.caption}</p>
+                <p className="text-xs mt-2 text-white/90 drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">{formatInstagramDate(post.timestamp)}</p>
                 {post.media_type === 'CAROUSEL_ALBUM' && (
-                  <span className="absolute top-4 right-4 bg-white/20 px-2 py-1 rounded text-xs">
+                  <span className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm px-2 py-1 rounded text-xs text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.8)]">
                     Multiple Photos
                   </span>
                 )}
