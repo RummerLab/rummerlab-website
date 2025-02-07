@@ -18,7 +18,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
-    "@vercel/analytics": "^1.2.2",
+    "@vercel/analytics": "^1.4.1",
     "@vercel/speed-insights": "^1.0.12",
     "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.0",
