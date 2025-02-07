@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { FaYoutube, FaTwitter, FaInstagram, FaGlobe, FaChevronDown } from "react-icons/fa"
+import { FaYoutube, FaInstagram, FaGlobe, FaChevronDown } from "react-icons/fa"
+import { SiBluesky } from "react-icons/si"
 import { useState } from "react"
 
 export default function Navbar() {
@@ -10,6 +11,29 @@ export default function Navbar() {
     const handleLinkClick = () => {
         setIsMenuOpen(false)
     }
+
+    const socialLinks = [
+        {
+            href: "https://physioshark.org/",
+            icon: FaGlobe,
+            ariaLabel: "Visit Physioshark website"
+        },
+        {
+            href: "https://www.instagram.com/rummerlab/",
+            icon: FaInstagram,
+            ariaLabel: "Follow us on Instagram"
+        },
+        {
+            href: "https://bsky.app/profile/physiologyfish.bsky.social/",
+            icon: SiBluesky,
+            ariaLabel: "Follow us on Bluesky"
+        },
+        {
+            href: "https://www.youtube.com/@Physioshark",
+            icon: FaYoutube,
+            ariaLabel: "Subscribe to our YouTube channel"
+        }
+    ]
 
     const navItems = [
         { 
@@ -96,18 +120,19 @@ export default function Navbar() {
 
                     {/* Social Icons - Desktop */}
                     <div className="hidden md:flex items-center space-x-4">
-                        <Link href="https://physioshark.org/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
-                            <FaGlobe className="h-5 w-5" />
-                        </Link>
-                        <Link href="https://www.instagram.com/physioshark/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
-                            <FaInstagram className="h-5 w-5" />
-                        </Link>
-                        <Link href="https://twitter.com/physiologyfish" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
-                            <FaTwitter className="h-5 w-5" />
-                        </Link>
-                        <Link href="https://www.youtube.com/@Physioshark" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200">
-                            <FaYoutube className="h-5 w-5" />
-                        </Link>
+                        {socialLinks.map((link) => {
+                            const Icon = link.icon
+                            return (
+                                <Link 
+                                    key={link.href}
+                                    href={link.href} 
+                                    className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200"
+                                    aria-label={link.ariaLabel}
+                                >
+                                    <Icon className="h-5 w-5" />
+                                </Link>
+                            )
+                        })}
                     </div>
 
                     {/* Mobile menu button */}
@@ -182,18 +207,20 @@ export default function Navbar() {
                     ))}
                 </div>
                 <div className="flex justify-center space-x-4 pb-3 border-t border-gray-200 dark:border-gray-800 pt-4">
-                    <Link href="https://physioshark.org/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200" onClick={handleLinkClick}>
-                        <FaGlobe className="h-6 w-6" />
-                    </Link>
-                    <Link href="https://www.instagram.com/physioshark/" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200" onClick={handleLinkClick}>
-                        <FaInstagram className="h-6 w-6" />
-                    </Link>
-                    <Link href="https://twitter.com/physiologyfish" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200" onClick={handleLinkClick}>
-                        <FaTwitter className="h-6 w-6" />
-                    </Link>
-                    <Link href="https://www.youtube.com/@Physioshark" className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200" onClick={handleLinkClick}>
-                        <FaYoutube className="h-6 w-6" />
-                    </Link>
+                    {socialLinks.map((link) => {
+                        const Icon = link.icon
+                        return (
+                            <Link 
+                                key={link.href}
+                                href={link.href} 
+                                className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200"
+                                onClick={handleLinkClick}
+                                aria-label={link.ariaLabel}
+                            >
+                                <Icon className="h-6 w-6" />
+                            </Link>
+                        )
+                    })}
                 </div>
             </div>
         </nav>
