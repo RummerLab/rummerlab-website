@@ -30,13 +30,15 @@ const parser = new Parser<RSSItem>({
 });
 
 // Utility functions
+import sanitizeHtml from 'sanitize-html';
+
 function stripHtml(html: string): string {
-    return html
-        .replace(/<[^>]*>/g, '')
-        .replace(/&[^;]+;/g, '')
-        .replace(/\s+/g, ' ')
-        .replace(/^(Exclusive|Live):\s*/i, '')
-        .trim();
+    return sanitizeHtml(html, {
+        allowedTags: [],
+        allowedAttributes: {}
+    }).replace(/\s+/g, ' ')
+      .replace(/^(Exclusive|Live):\s*/i, '')
+      .trim();
 }
 
 function extractImageFromContent(content: string): string | null {
