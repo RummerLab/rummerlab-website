@@ -26,7 +26,7 @@ export default function JoinPage() {
             Are you interested in joining our lab? Fill this Google Form to apply:
           </p>
           <a
-            href="#" // Replace with actual Google Form URL
+            href="https://forms.gle/DDEBnssQk5ZQZgB98"
             target="_blank"
             rel="noopener"
             className="inline-block bg-white text-blue-600 dark:bg-gray-100 dark:text-blue-700 px-8 py-3 rounded-lg font-semibold text-lg hover:bg-blue-50 dark:hover:bg-white transition-colors duration-200 shadow-lg hover:shadow-xl"
