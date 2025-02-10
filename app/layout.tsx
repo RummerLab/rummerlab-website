@@ -1,10 +1,10 @@
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import GoogleAnalytics from '@/components/GoogleAnalytics'
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Inter } from "next/font/google"
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,7 +28,9 @@ export default function RootLayout({
         <Footer />
         <Analytics />
         <SpeedInsights />
-        <GoogleAnalytics />
+        {process.env.NEXT_PUBLIC_GA_PROPERTY_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_PROPERTY_ID} />
+        )}
       </body>
     </html>
   )
