@@ -12,7 +12,8 @@ The team member information is stored in [`data/team.json`](data/team.json). To 
 2. Click the edit (pencil) icon
 3. Update the JSON file with the new team member information
 4. Each team member should have the following fields:
-   ```json
+
+```json
    {
      "name": "Full Name",
      "title": "Academic Title",
@@ -29,7 +30,7 @@ The team member information is stored in [`data/team.json`](data/team.json). To 
        "researchGate": "ResearchGate URL",
        "googleScholar": "Google Scholar URL",
        "twitter": "Twitter URL",
-       "bluesky": "@handle.bsky.social",
+       "bluesky": "Bluesky URL",
        "orcid": "ORCID ID",
        "linkedin": "LinkedIn URL",
        "github": "GitHub URL"
@@ -67,7 +68,8 @@ The team member information is stored in [`data/team.json`](data/team.json). To 
        "Project 2"
      ]
    }
-   ```
+```
+
 5. For fields without information, use `null` for single values or `[]` for arrays
 6. Commit the changes with a descriptive message (e.g., "Update Dr. Smith's profile information")
 7. Create a pull request if you don't have direct write access
@@ -102,6 +104,19 @@ npm install
 Set up the environment variables
 
 Get short-lived access token from https://developers.facebook.com/tools/explorer/362219269878369/?method=GET&path=me%3Ffields%3Did%2Cname%26transport%3Dcors&version=v18.0
+
+## Features
+
+- Modern, responsive design
+- Blog posts
+- Team profiles
+- Publications
+- Research updates
+- Social media integration:
+  - Bluesky
+  - Instagram
+  - YouTube
+  - Email newsletter
 
 ## To Do
 

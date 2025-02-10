@@ -5,14 +5,6 @@ const config: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'scholar.googleusercontent.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.cdninstagram.com',
-      },
-      {
-        protocol: 'https',
         hostname: 'physioshark.org',
       },
       {
@@ -21,23 +13,15 @@ const config: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'scontent.cdninstagram.com',
+        hostname: 'scholar.googleusercontent.com',
       },
       {
         protocol: 'https',
-        hostname: 'scontent-syd2-1.cdninstagram.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'graph.instagram.com',
+        hostname: '**.cdninstagram.com',
       },
       {
         protocol: 'https',
         hostname: 'platform-lookaside.fbsbx.com',
-      },
-      { // TEMPORARY
-          protocol: 'https',
-          hostname: '**',
       },
     ],
   },

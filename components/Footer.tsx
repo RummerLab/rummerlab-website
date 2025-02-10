@@ -1,4 +1,7 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { SiBluesky, SiResearchgate, SiGooglescholar } from 'react-icons/si';
+import { FaInstagram, FaFacebook, FaYoutube, FaGlobe } from 'react-icons/fa';
 
 export default function Footer() {
   return (
@@ -8,7 +11,14 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              James Cook University<br />
+              <a 
+                href="https://www.jcu.edu.au/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                James Cook University
+              </a><br />
               Townsville, QLD 4811<br />
               Australia
             </p>
@@ -42,30 +52,110 @@ export default function Footer() {
           
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Connect</h3>
-            <div className="flex space-x-4">
-              <a 
-                href="https://twitter.com/physioshark" 
-                target="_blank" 
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="https://jodierummer.com"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                className="text-gray-400 hover:opacity-80"
+                aria-label="Jodie Rummer&apos;s Website"
+                title="Visit Jodie Rummer's website"
               >
-                Twitter
+                <div className="relative w-6 h-6">
+                  <Image
+                    src="https://jodierummer.com/favicon.png"
+                    alt="Jodie Rummer Logo"
+                    fill
+                    className="object-contain"
+                    sizes="24px"
+                  />
+                </div>
+                <span className="sr-only">Jodie Rummer&apos;s Website</span>
+              </a>
+              <a
+                href="https://physioshark.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:opacity-80"
+                aria-label="Physioshark Project"
+                title="Visit Physioshark Project website"
+              >
+                <div className="relative w-6 h-6">
+                  <Image
+                    src="https://physioshark.org/Physioshark_icon.svg"
+                    alt="Physioshark Logo"
+                    fill
+                    className="object-contain"
+                    sizes="24px"
+                  />
+                </div>
+                <span className="sr-only">Physioshark Project</span>
+              </a>
+              <a
+                href="https://bsky.app/profile/physiologyfish.bsky.social/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gray-500"
+                aria-label="Bluesky"
+                title="Follow us on Bluesky"
+              >
+                <SiBluesky className="h-6 w-6" />
+                <span className="sr-only">Bluesky</span>
+              </a>
+              <a
+                href="https://www.instagram.com/rummerlab/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-pink-500"
+                aria-label="Instagram"
+                title="Follow us on Instagram"
+              >
+                <FaInstagram className="h-6 w-6" />
+                <span className="sr-only">Instagram</span>
+              </a>
+              <a
+                href="https://www.facebook.com/rummerlab"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-blue-600"
+                aria-label="Facebook"
+                title="Follow us on Facebook"
+              >
+                <FaFacebook className="h-6 w-6" />
+                <span className="sr-only">Facebook</span>
+              </a>
+              <a
+                href="https://www.youtube.com/@Physioshark"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-red-600"
+                aria-label="YouTube"
+                title="Subscribe to our YouTube channel"
+              >
+                <FaYoutube className="h-6 w-6" />
+                <span className="sr-only">YouTube</span>
               </a>
               <a 
                 href="https://www.researchgate.net/profile/Jodie-Rummer" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                className="text-gray-400 hover:text-green-600"
+                aria-label="ResearchGate"
+                title="Visit ResearchGate profile"
               >
-                ResearchGate
+                <SiResearchgate className="h-6 w-6" />
+                <span className="sr-only">ResearchGate</span>
               </a>
               <a 
                 href="https://scholar.google.com/citations?user=ynWS968AAAAJ" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                className="text-gray-400 hover:text-blue-600"
+                aria-label="Google Scholar"
+                title="Visit Google Scholar profile"
               >
-                Google Scholar
+                <SiGooglescholar className="h-6 w-6" />
+                <span className="sr-only">Google Scholar</span>
               </a>
             </div>
           </div>

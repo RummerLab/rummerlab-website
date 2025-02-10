@@ -74,9 +74,16 @@ export default function RummerLabPage() {
                                 ResearchGate
                             </a>{' '}
                             and on{' '}
-                            <a href="https://twitter.com/Bjoern_Illing" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                                Twitter
-                            </a>
+                            <div className="mt-2">
+                              <a 
+                                href="https://bsky.app/profile/physiologyfish.bsky.social/" 
+                                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Bluesky
+                              </a>
+                            </div>
                         </p>
                     </div>
                 </div>
@@ -86,24 +93,32 @@ export default function RummerLabPage() {
                     <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
                         <p className="text-gray-600 dark:text-gray-300">
                             <strong>Sybille Hess</strong> I am originally from Switzerland but did my MSc here at JCU with Drs Jodie Rummer & Amelia Wenger. I recently started my PhD here at JCU with Dr Rummer, and Drs Andy Hoey & Amelia Wenger are my co-supervisors. I am interested in the effects of human activities on coral reefs, especially on reef fishes. My PhD research investigates how poor water quality (e.g., increasing levels of suspended sediments) affects fish metabolic performance, the consequences this may have for important activities such as swimming, and how this may translate into changes in fish community structure. I am working primarily with fish larvae and juveniles, and combine lab-based and field experiments to tackle these questions. You can also find me on{' '}
-                            <a href="https://twitter.com/HessSybille" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                                Twitter
-                            </a>. Email:{' '}
-                            <a href="mailto:sybille.hess@my.jcu.edu.au" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                                sybille.hess@my.jcu.edu.au
-                            </a>
+                            <div className="mt-2">
+                              <a 
+                                href="https://bsky.app/profile/physiologyfish.bsky.social/" 
+                                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Bluesky
+                              </a>
+                            </div>
                         </p>
                     </div>
 
                     <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
                         <p className="text-gray-600 dark:text-gray-300">
                             <strong>Tiffany Nay</strong> I earned my BSc in Marine Biology from the University of West Florida while spending the summers in Wakatobi, Southeast Sulawesi, Indonesia assisting research on how crab-eating frogs and mudskipper fishes tolerate water loss and estimating metabolic rates in sea snakes. I earned my MSc here at JCU, and my research investigated how/why fish utilize microhabitats with fluctuating water quality in coral reefs and mangrove ecosystems. I just started my PhD this month expanding upon my interests in microhabitat use and am supervised by Drs. Rummer, Hoey, and Johansen. You can also find me on{' '}
-                            <a href="https://twitter.com/TiffanyJNay" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                                Twitter
-                            </a>. Email:{' '}
-                            <a href="mailto:tiffany.nay@my.jcu.edu.au" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                                tiffany.nay@my.jcu.edu.au
-                            </a>
+                            <div className="mt-2">
+                              <a 
+                                href="https://bsky.app/profile/physiologyfish.bsky.social/" 
+                                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Bluesky
+                              </a>
+                            </div>
                         </p>
                     </div>
 
@@ -148,9 +163,16 @@ export default function RummerLabPage() {
                     <div className="bg-white dark:bg-gray-800 rounded-lg p-6">
                         <p className="text-gray-600 dark:text-gray-300">
                             <strong>Ian McLeod</strong> (PhD - 2014) I am currently employed as a Senior Research Scientist at TropWATER, James Cook University. Find me on{' '}
-                            <a href="https://twitter.com/DrIanMcLeod" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
-                                Twitter
-                            </a>{' '}
+                            <div className="mt-2">
+                              <a 
+                                href="https://bsky.app/profile/physiologyfish.bsky.social/" 
+                                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Bluesky
+                              </a>
+                            </div>
                             and{' '}
                             <a href="https://www.researchgate.net/profile/Ian_Mcleod4" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
                                 ResearchGate

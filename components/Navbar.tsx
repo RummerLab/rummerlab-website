@@ -1,9 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { FaYoutube, FaInstagram, FaGlobe, FaChevronDown } from "react-icons/fa"
-import { SiBluesky } from "react-icons/si"
+import Image from "next/image"
+import { FaYoutube, FaInstagram, FaFacebook, FaChevronDown } from "react-icons/fa"
+import { SiBluesky, SiResearchgate, SiGooglescholar } from "react-icons/si"
 import { useState } from "react"
+import { IconType } from "react-icons"
+import type { ReactElement } from 'react'
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -12,26 +15,61 @@ export default function Navbar() {
         setIsMenuOpen(false)
     }
 
-    const socialLinks = [
+    type SocialLink = {
+        href: string;
+        icon: IconType | (() => ReactElement);
+        ariaLabel: string;
+        title?: string;
+    }
+
+    const socialLinks: SocialLink[] = [
         {
-            href: "https://physioshark.org/",
-            icon: FaGlobe,
+            href: "https://jodierummer.com",
+            icon: () => (
+                <div className="relative w-5 h-5" title="Visit Jodie Rummer's website">
+                    <Image
+                        src="https://jodierummer.com/favicon.png"
+                        alt="Jodie Rummer Logo"
+                        fill
+                        className="object-contain"
+                        sizes="20px"
+                    />
+                </div>
+            ),
+            ariaLabel: "Visit Jodie Rummer&apos;s website"
+        },
+        {
+            href: "https://physioshark.org",
+            icon: () => (
+                <div className="relative w-5 h-5" title="Visit Physioshark Project website">
+                    <Image
+                        src="https://physioshark.org/Physioshark_icon.svg"
+                        alt="Physioshark Logo"
+                        fill
+                        className="object-contain"
+                        sizes="20px"
+                    />
+                </div>
+            ),
             ariaLabel: "Visit Physioshark website"
         },
         {
-            href: "https://www.instagram.com/rummerlab/",
-            icon: FaInstagram,
-            ariaLabel: "Follow us on Instagram"
-        },
-        {
             href: "https://bsky.app/profile/physiologyfish.bsky.social/",
-            icon: SiBluesky,
-            ariaLabel: "Follow us on Bluesky"
+            icon: SiBluesky as IconType,
+            ariaLabel: "Follow us on Bluesky",
+            title: "Follow us on Bluesky"
         },
         {
-            href: "https://www.youtube.com/@Physioshark",
-            icon: FaYoutube,
-            ariaLabel: "Subscribe to our YouTube channel"
+            href: "https://www.instagram.com/rummerlab/",
+            icon: FaInstagram as IconType,
+            ariaLabel: "Follow us on Instagram",
+            title: "Follow us on Instagram"
+        },
+        {
+            href: "https://www.facebook.com/rummerlab",
+            icon: FaFacebook as IconType,
+            ariaLabel: "Follow us on Facebook",
+            title: "Follow us on Facebook"
         }
     ]
 
@@ -128,8 +166,14 @@ export default function Navbar() {
                                     href={link.href} 
                                     className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200"
                                     aria-label={link.ariaLabel}
+                                    title={link.title}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
-                                    <Icon className="h-5 w-5" />
+                                    {typeof Icon === 'function' && !('$$typeof' in Icon) ? 
+                                        <Icon /> : 
+                                        <Icon className="h-5 w-5" />
+                                    }
                                 </Link>
                             )
                         })}
@@ -216,8 +260,14 @@ export default function Navbar() {
                                 className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200"
                                 onClick={handleLinkClick}
                                 aria-label={link.ariaLabel}
+                                title={link.title}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
-                                <Icon className="h-6 w-6" />
+                                {typeof Icon === 'function' && !('$$typeof' in Icon) ? 
+                                    <Icon /> : 
+                                    <Icon className="h-6 w-6" />
+                                }
                             </Link>
                         )
                     })}

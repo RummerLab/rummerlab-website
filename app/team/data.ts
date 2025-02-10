@@ -3,6 +3,7 @@ export interface TeamMember {
   role: string;
   image: string;
   bio: string;
+  bluesky?: string;
   links?: {
     twitter?: string;
     scholar?: string;
@@ -17,8 +18,8 @@ export const teamMembers: TeamMember[] = [
     role: "Principal Investigator",
     image: "/team/jodie-rummer.jpg",
     bio: "Dr. Jodie Rummer is a Professor at James Cook University. Her research focuses on fish physiological and behavioural ecology, including the effects of climate change on fish performance.",
+    bluesky: "https://bsky.app/profile/physiologyfish.bsky.social/",
     links: {
-      twitter: "https://twitter.com/physioshark",
       scholar: "https://scholar.google.com/citations?user=ynWS968AAAAJ",
       researchgate: "https://www.researchgate.net/profile/Jodie-Rummer",
       website: "https://physioshark.org"
