@@ -25,6 +25,20 @@ const config: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/media.html',
+        destination: '/media',
+        permanent: true,
+      },
+      {
+        source: '/publications.html',
+        destination: '/publications',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
       // CORS blanket statement over all endpoints
       return [
