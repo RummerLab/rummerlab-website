@@ -57,11 +57,11 @@ export default function Footer() {
                 href="https://jodierummer.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:opacity-80"
+                className="transition-all duration-200"
                 aria-label="Jodie Rummer&apos;s Website"
                 title="Visit Jodie Rummer&apos;s website"
               >
-                <div className="relative w-6 h-6">
+                <div className="relative w-6 h-6 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-200">
                   <Image
                     src="https://jodierummer.com/favicon.png"
                     alt="Jodie Rummer Logo"
@@ -77,16 +77,16 @@ export default function Footer() {
                 href="https://physioshark.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:opacity-80"
+                className="transition-all duration-200"
                 aria-label="Physioshark Project"
                 title="Visit Physioshark Project website"
               >
-                <div className="relative w-6 h-6">
+                <div className="relative w-6 h-6 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-200">
                   <Image
                     src="https://physioshark.org/Physioshark_icon.svg"
                     alt="Physioshark Logo"
                     fill
-                    className="object-contain"
+                    className="object-contain brightness-0 dark:brightness-100 dark:invert opacity-60 hover:brightness-100 hover:dark:invert-0 hover:opacity-100 transition-all duration-200"
                     sizes="24px"
                     unoptimized
                   />
@@ -97,7 +97,7 @@ export default function Footer() {
                 href="https://bsky.app/profile/physiologyfish.bsky.social/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-gray-500"
+                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#0085ff] opacity-60 hover:opacity-100 transition-all duration-200"
                 aria-label="Bluesky"
                 title="Follow us on Bluesky"
               >
@@ -108,7 +108,7 @@ export default function Footer() {
                 href="https://www.instagram.com/rummerlab/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-pink-500"
+                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#E4405F] opacity-60 hover:opacity-100 transition-all duration-200"
                 aria-label="Instagram"
                 title="Follow us on Instagram"
               >
@@ -119,7 +119,7 @@ export default function Footer() {
                 href="https://www.facebook.com/rummerlab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-blue-600"
+                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#1877F2] opacity-60 hover:opacity-100 transition-all duration-200"
                 aria-label="Facebook"
                 title="Follow us on Facebook"
               >
@@ -130,7 +130,7 @@ export default function Footer() {
                 href="https://www.youtube.com/@Physioshark"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-red-600"
+                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#FF0000] opacity-60 hover:opacity-100 transition-all duration-200"
                 aria-label="YouTube"
                 title="Subscribe to our YouTube channel"
               >
@@ -141,7 +141,7 @@ export default function Footer() {
                 href="https://www.researchgate.net/profile/Jodie-Rummer" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-green-600"
+                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#00CCBB] opacity-60 hover:opacity-100 transition-all duration-200"
                 aria-label="ResearchGate"
                 title="Visit ResearchGate profile"
               >
@@ -152,7 +152,7 @@ export default function Footer() {
                 href="https://scholar.google.com/citations?user=ynWS968AAAAJ" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-blue-600"
+                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#4285F4] opacity-60 hover:opacity-100 transition-all duration-200"
                 aria-label="Google Scholar"
                 title="Visit Google Scholar profile"
               >

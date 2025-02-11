@@ -31,7 +31,7 @@ export default function Navbar() {
                         src="https://jodierummer.com/favicon.png"
                         alt="Jodie Rummer Logo"
                         fill
-                        className="object-contain"
+                        className="object-contain brightness-0 dark:brightness-100 dark:invert opacity-60 hover:opacity-100 transition-opacity duration-200"
                         sizes="20px"
                     />
                 </div>
@@ -46,7 +46,7 @@ export default function Navbar() {
                         src="https://physioshark.org/Physioshark_icon.svg"
                         alt="Physioshark Logo"
                         fill
-                        className="object-contain"
+                        className="object-contain brightness-0 dark:brightness-100 dark:invert opacity-60 hover:brightness-100 hover:dark:invert-0 hover:opacity-100 transition-all duration-200"
                         sizes="20px"
                     />
                 </div>

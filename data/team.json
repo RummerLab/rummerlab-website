@@ -272,5 +272,187 @@
     ],
     "awards": [],
     "languages": []
+  },
+  {
+    "name": "Dr. Björn Illing",
+    "title": "Post-doctoral Researcher",
+    "role": "Post-doc",
+    "email": null,
+    "startDate": null,
+    "endDate": null,
+    "description": "Originally from Germany, Dr. Illing earned his diploma (2009) at the University of Hamburg conducting eco-morphological research on spawning aggregations of a temperate clupeid fish species. His doctoral studies (2016) focused on how environmental stressors affect the growth, condition and survival of Atlantic herring offspring at the University of Hamburg, working in parallel at a federal German research institute developing a novel hyperbaric swimming flume for testing fish species during extended oceanic spawning migrations. Currently in the Rummer lab, he investigates the effects of environmental stressors on coral reef fish larvae. His research is partially funded by the Company of Biologists.",
+    "image": null,
+    "alt": "Dr. Björn Illing, Post-doctoral Researcher",
+    "links": {
+      "researchGateSlug": "Bjoern_Illing"
+    },
+    "affiliations": [],
+    "education": [
+      {
+        "degree": "Ph.D.",
+        "field": "Marine Biology",
+        "institution": "University of Hamburg",
+        "year": "2016"
+      },
+      {
+        "degree": "Diploma",
+        "field": "Marine Biology",
+        "institution": "University of Hamburg",
+        "year": "2009"
+      }
+    ],
+    "awards": [],
+    "languages": ["German", "English"]
+  },
+  {
+    "name": "Sybille Hess",
+    "title": null,
+    "role": "PhD Candidate",
+    "email": null,
+    "startDate": null,
+    "endDate": null,
+    "description": "Originally from Switzerland, Sybille completed her MSc at JCU with Drs Jodie Rummer & Amelia Wenger. Her PhD research at JCU, supervised by Dr Rummer and co-supervised by Drs Andy Hoey & Amelia Wenger, investigates how poor water quality (e.g., increasing levels of suspended sediments) affects fish metabolic performance, the consequences for activities such as swimming, and potential impacts on fish community structure. Her work primarily focuses on fish larvae and juveniles, combining lab-based and field experiments.",
+    "image": null,
+    "alt": "Sybille Hess, PhD Candidate",
+    "links": null,
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "PhD Candidate",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": null,
+        "institution": "James Cook University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Tiffany Nay",
+    "title": null,
+    "role": "PhD Candidate",
+    "email": null,
+    "startDate": null,
+    "endDate": null,
+    "description": "Tiffany earned her BSc in Marine Biology from the University of West Florida, spending summers in Wakatobi, Southeast Sulawesi, Indonesia studying crab-eating frogs, mudskipper fishes, and sea snakes. After completing her MSc at JCU researching fish microhabitat use in coral reefs and mangrove ecosystems, she began her PhD under the supervision of Drs. Rummer, Hoey, and Johansen, expanding upon her interests in microhabitat use.",
+    "image": null,
+    "alt": "Tiffany Nay, PhD Candidate",
+    "links": null,
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "PhD Candidate",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": null,
+        "institution": "James Cook University",
+        "year": null
+      },
+      {
+        "degree": "BSc",
+        "field": "Marine Biology",
+        "institution": "University of West Florida",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Eva Jacquesson",
+    "title": null,
+    "role": "MSc Student",
+    "email": "eva.jacquesson@gmail.com",
+    "startDate": null,
+    "endDate": null,
+    "description": "Eva is based at the Centre de Recherche Insulaire et Observatoire de l'Environnement (CRIOBE) in Papetoai, Moorea, Polynésie française.",
+    "image": null,
+    "alt": "Eva Jacquesson, MSc Student",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "CRIOBE",
+        "department": null,
+        "role": "MSc Student",
+        "location": "Papetoai, Moorea, Polynésie française"
+      }
+    ],
+    "education": [],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Nao Nakamura",
+    "title": "Laboratory and Field Technician",
+    "role": "Technical Staff",
+    "email": "nao.nakamura34@gmail.com",
+    "startDate": null,
+    "endDate": null,
+    "description": "Originally from Japan but grew up in France, Nao completed their MSc (Hons) at Toulouse, Paul Sabatier University. They are currently based at the Centre de Recherche Insulaire et Observatoire de l'Environnement (CRIOBE) in Papetoai, Moorea, Polynésie française.",
+    "image": null,
+    "alt": "Nao Nakamura, Laboratory and Field Technician",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "CRIOBE",
+        "department": null,
+        "role": "Laboratory and Field Technician",
+        "location": "Papetoai, Moorea, Polynésie française"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": null,
+        "institution": "Toulouse, Paul Sabatier University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": ["Japanese", "French"]
+  },
+  {
+    "name": "Dr. Ian McLeod",
+    "title": "Senior Research Scientist",
+    "role": "Alumni",
+    "email": null,
+    "startDate": null,
+    "endDate": "2014",
+    "description": "Dr. McLeod is currently employed as a Senior Research Scientist at TropWATER, James Cook University.",
+    "image": null,
+    "alt": "Dr. Ian McLeod, Alumni",
+    "links": {
+      "researchGateSlug": "Ian_Mcleod4"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "TropWATER",
+        "role": "Senior Research Scientist",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Ph.D.",
+        "field": null,
+        "institution": "James Cook University",
+        "year": "2014"
+      }
+    ],
+    "awards": [],
+    "languages": []
   }
 ]

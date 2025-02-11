@@ -3,28 +3,97 @@ import Link from 'next/link';
 import { type TeamMember } from '@/types/team';
 import teamData from '@/data/team.json';
 import { SiBluesky } from "react-icons/si";
+import { externalLinks } from '@/data/links';
+
+export const metadata = {
+  title: "Our Team | RummerLab",
+  description: 'Meet the dedicated researchers, students, and staff of the RummerLab, where we conduct cutting-edge research in marine biology and conservation.',
+};
 
 export default function TeamPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-gray-100 mb-8">
-        Our Team
-      </h1>
+      {/* Hero Section */}
+      <div className="max-w-3xl mx-auto text-center mb-12">
+        <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="relative w-48 h-48">
+            <Image
+              src="/images/rummerlab_logo_transparent.png"
+              alt="RummerLab Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">Our Team</h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
+            Meet the dedicated researchers, students, and staff of the RummerLab, where we conduct cutting-edge research in marine biology and conservation.
+          </p>
+        </div>
+      </div>
+
+      {/* Advice for Potential Students */}
+      <div className="max-w-3xl mx-auto mb-16">
+        <div className="rounded-xl bg-blue-50/50 dark:bg-blue-900/10 p-8">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+            Potential students, a little advice…
+          </h2>
+          <div className="prose prose-lg dark:prose-invert">
+            <p className="text-gray-600 dark:text-gray-300">
+              Prof. Scott Keogh has compiled an excellent list of resources and advice for students and postdoctoral fellows{' '}
+              <a 
+                href={externalLinks.studentResources}
+                target="_blank"
+                rel="noopener"
+                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                here
+              </a>.
+            </p>
+            <p className="text-gray-600 dark:text-gray-300">
+              And if you&apos;re about to contact me to inquire about graduate school (MSc, PhD),{' '}
+              <a 
+                href={externalLinks.graduateSchool}
+                target="_blank"
+                rel="noopener"
+                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+              >
+                check this out
+              </a>!
+            </p>
+          </div>
+        </div>
+      </div>
       
+      {/* Team Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
         {(teamData as TeamMember[]).map((member, index) => (
           <div 
             key={member.name}
             className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105"
           >
-            <div className="aspect-w-3 aspect-h-2">
-              <Image
-                src={member.image}
-                alt={member.alt}
-                width={400}
-                height={300}
-                className="object-cover w-full h-full"
-              />
+            <div className="relative h-[300px]">
+              {member.image ? (
+                <Image
+                  src={member.image}
+                  alt={member.alt || `Photo of ${member.name}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                  style={{ objectPosition: '50% 10%' }}
+                  priority={index < 6}
+                />
+              ) : (
+                <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                  <svg 
+                    className="w-20 h-20 text-gray-400 dark:text-gray-500" 
+                    fill="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8c0 2.208-1.79 4-3.998 4-2.208 0-3.998-1.792-3.998-4s1.79-4 3.998-4c2.208 0 3.998 1.792 3.998 4z" />
+                  </svg>
+                </div>
+              )}
             </div>
             
             <div className="p-6">
