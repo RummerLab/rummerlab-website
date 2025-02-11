@@ -59,7 +59,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:opacity-80"
                 aria-label="Jodie Rummer&apos;s Website"
-                title="Visit Jodie Rummer's website"
+                title="Visit Jodie Rummer&apos;s website"
               >
                 <div className="relative w-6 h-6">
                   <Image
@@ -68,6 +68,7 @@ export default function Footer() {
                     fill
                     className="object-contain"
                     sizes="24px"
+                    unoptimized
                   />
                 </div>
                 <span className="sr-only">Jodie Rummer&apos;s Website</span>
@@ -87,6 +88,7 @@ export default function Footer() {
                     fill
                     className="object-contain"
                     sizes="24px"
+                    unoptimized
                   />
                 </div>
                 <span className="sr-only">Physioshark Project</span>
