@@ -22,7 +22,7 @@ export default function EnvironmentalStresses() {
                 {/* Main Content */}
                 <div className="lg:col-span-2 space-y-8">
                     <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">RESEARCH THEME - 1: Whole-animal responses to environmental stress</h2>
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">RESEARCH THEME - Whole-animal responses to environmental stress</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <p className="text-gray-600 dark:text-gray-300">Early in my research career, I conducted a rigorous assessment of the physiological responses to decompression stress caused by fishing, injuries resulting from swim bladder overexpansion and gas embolisms. This seminal research has been well cited and is utilized as a model for fisheries management surrounding catch-and-release protocols and conservation organizations worldwide.</p>
                             
@@ -51,8 +51,8 @@ export default function EnvironmentalStresses() {
 
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/unsplash/research/research-scientific-equipment-gnws8zmcmvm.jpg"
-                                    alt="Scientific equipment for marine research"
+                                    src="/images/unsplash/research/research-scientific-equipment-cKF7L4.jpg"
+                                    alt="Research equipment"
                                     fill
                                     className="object-cover"
                                 />

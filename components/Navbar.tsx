@@ -82,6 +82,8 @@ export default function Navbar() {
                 { href: "/environmental-stressors", label: "Environmental Stressors" },
                 { href: "/future-environments", label: "Future Environments" },
                 { href: "/in-vivo-protocols", label: "In Vivo Protocols" },
+                { href: "/climate-change", label: "Climate Change" },
+                { href: "/conservation", label: "Conservation" },
             ]
         },
         { 

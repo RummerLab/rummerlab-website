@@ -28,7 +28,7 @@ export default function InVivoProtocols() {
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/unsplash/research/research-scientific-equipment-gnws8zmcmvm.jpg"
+                                    src="/images/unsplash/research/research-scientific-equipment-cKF7L4.jpg"
                                     alt="Research equipment"
                                     fill
                                     className="object-cover"
