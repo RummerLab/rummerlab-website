@@ -44,7 +44,11 @@ const processDescription = (description: string | undefined, baseUrl: string): s
 export async function GET(request: NextRequest) {
   try {
     const baseUrl = 'https://rummerlab.com';
-    const scholarId = request.url.split('/scholar/')[1]?.split('/')[0] || null;
+    const scholarId = request.nextUrl.searchParams.get('id');
+
+    if (scholarId !== 'ynWS968AAAAJ') {
+      return NextResponse.json({ error: 'Invalid scholar ID' }, { status: 400 });
+    }
     
     const teamWithFullUrls = (teamData as TeamMember[]).map(member => {
       try {

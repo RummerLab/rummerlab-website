@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { type TeamMember } from '@/types/team';
 import teamData from '@/data/team.json';
-import { SiBluesky } from "react-icons/si";
+import { SiBluesky, SiGooglescholar } from "react-icons/si";
 import { externalLinks } from '@/data/links';
 
 export const metadata = {
@@ -152,9 +152,7 @@ export default function TeamPage() {
                       rel="noopener noreferrer"
                       title="Google Scholar"
                     >
-                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 24a7 7 0 110-14 7 7 0 010 14zm0-24L0 9.5l4.838 3.94A8 8 0 0112 9a8 8 0 017.162 4.44L24 9.5z"/>
-                      </svg>
+                      <SiGooglescholar className="w-5 h-5" />
                     </Link>
                   )}
                   {member.links.researchGateSlug && (
