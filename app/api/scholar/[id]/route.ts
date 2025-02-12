@@ -4,7 +4,7 @@ import { getCoAuthors, getScholarById } from '@/lib/scholarly';
 export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   try {
-    const id = decodeURIComponent(params.id).replaceAll("-", " ");
+    const id = decodeURIComponent(params.id);
     
     const jodie = "ynWS968AAAAJ";
     // allowed at Jodie's coauthors/collaborators

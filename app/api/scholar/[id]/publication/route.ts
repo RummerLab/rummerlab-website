@@ -3,10 +3,12 @@ import { getPublications, getScholarById } from '@/lib/scholarly';
 
 export async function GET(req: any, res: any) {
   try {
+    const id = req.nextUrl.searchParams.get('id');  
+    if (!id) {
+      return NextResponse.json({ error: "Missing 'id' parameter" }, { status: 400 });
+    }
 
-    // const publications = await getPublications("ynWS968AAAAJ"); // Jodie Rummer's Google Scholar ID
-
-    const scholar = await getScholarById("ynWS968AAAAJ"); // Jodie Rummer's Google Scholar ID
+    const scholar = await getScholarById(id);
     const publications = scholar.publications;
 
     return NextResponse.json(publications);

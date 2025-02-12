@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import teamData from '@/data/team.json';
 import { type TeamMember } from '@/types/team';
+import { NextRequest } from 'next/server';
+
+// https://rummerlab.com/api/scholar/ynWS968AAAAJ/team
 
 const ensureHttps = (url: string | undefined): string => {
   if (!url) return '';
@@ -38,17 +41,32 @@ const processDescription = (description: string | undefined, baseUrl: string): s
   );
 };
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const baseUrl = 'https://rummerlab.com';
+    const scholarId = request.url.split('/scholar/')[1]?.split('/')[0] || null;
     
-    // Add full URLs to images and handle all links
     const teamWithFullUrls = (teamData as TeamMember[]).map(member => {
       try {
-        // Handle image URL
         let imageUrl = '';
+        
         if (member.image && typeof member.image === 'string' && member.image !== 'null') {
           imageUrl = `${baseUrl}${member.image}`;
+        } else {
+          // Use the avatar endpoint
+          const params = new URLSearchParams({
+            name: member.name
+          });
+          
+          if (member.email) {
+            params.set('email', member.email);
+          }
+          
+          if (scholarId) {
+            params.set('scholarId', scholarId);
+          }
+          
+          imageUrl = `${baseUrl}/api/avatar?${params.toString()}`;
         }
 
         return {
