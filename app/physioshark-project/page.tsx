@@ -21,7 +21,7 @@ export default function Physioshark() {
 
             <div className="prose prose-lg max-w-none dark:prose-invert mb-12">
                 <p className="text-gray-600 dark:text-gray-300">
-                    In collaboration with the <a href="https://www.instagram.com/rummerlab/?hl=en" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">RummerLab</a> and the <a href="http://www.criobe.pf/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Centre de Recherches Insulaires et Observatoire de l&apos;Environnement (CRIOBE)</a>, the <a href="https://www.physioshark.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Physioshark Project</a> was conceived in 2013.
+                    In collaboration with the <a href="https://www.instagram.com/rummerlab/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">RummerLab</a> and the <a href="http://www.criobe.pf/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Centre de Recherches Insulaires et Observatoire de l&apos;Environnement (CRIOBE)</a>, the <a href="https://www.physioshark.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Physioshark Project</a> was conceived in 2013.
                 </p>
                 <p className="text-gray-600 dark:text-gray-300">
                     We work on the Island of Moorea in French Polynesia where we have identified 11 potential shark nurseries. Here, mother sharks give birth to blacktip reef and sicklefin lemon sharks during the months of October - February every year. During these months, we perform surveys and studies in the field and experiments in the laboratories at CRIOBE, largely conservation physiology based.
@@ -32,7 +32,7 @@ export default function Physioshark() {
 
                 <div className="flex justify-center space-x-4 mt-8">
                     <a 
-                        href="https://www.instagram.com/physioshark/?hl=en" 
+                        href="https://www.instagram.com/physioshark/" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
