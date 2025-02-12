@@ -88,9 +88,9 @@ export default function Navbar() {
             label: "RummerLab",
             type: "dropdown",
             items: [
-                { href: "/rummerlab", label: "About" },
                 { href: "/team", label: "Team" },
-                { href: "/lab", label: "Lab Members" },
+                //{ href: "/rummerlab", label: "About" },
+                //{ href: "/lab", label: "Lab Members" },
                 { href: "/collaborators", label: "Collaborators" },
                 { href: "/join", label: "Join Us" },
             ]
