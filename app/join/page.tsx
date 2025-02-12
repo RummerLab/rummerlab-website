@@ -74,14 +74,27 @@ export default function JoinPage() {
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">How to Apply</h2>
           <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              To apply for a position in our lab, please send the following materials to Dr. Rummer:
+              To apply for a position in our lab, please complete our online application form. Before starting, please have the following information ready:
             </p>
             <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
-              <li>CV/resume</li>
-              <li>Academic transcripts (unofficial is fine)</li>
-              <li>Brief statement of research interests and career goals</li>
-              <li>Contact information for 2-3 references</li>
+              <li>Your current education level</li>
+              <li>Intended education level when joining the lab</li>
+              <li>Type of work/position you&apos;re interested in</li>
+              <li>Preferred start date</li>
+              <li>Expected end date at JCU</li>
+              <li>CV/resume (PDF format, max 10MB)</li>
+              <li>Any specific project ideas or additional information you&apos;d like to share</li>
             </ul>
+            <div className="mt-6">
+              <a
+                href="https://forms.gle/DDEBnssQk5ZQZgB98"
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium"
+              >
+                Complete the Application Form →
+              </a>
+            </div>
           </div>
         </section>
 
