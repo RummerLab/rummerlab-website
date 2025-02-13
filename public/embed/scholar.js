@@ -2,31 +2,42 @@ class ScholarEmbed {
     constructor(scholarId, container) {
         this.scholarId = scholarId
         this.container = container
-        this.baseUrl = 'https://rummerlab.com/api/scholar' // Assuming the API URL
+        this.baseUrl = 'https://rummerlab.com/api/scholar'
         this.init()
     }
 
     async init() {
-        const scholarData = await this.fetchScholar()
-        if (!scholarData) {
-            console.error('Failed to fetch scholar data')
-            return
+        try {
+            const scholarData = await this.fetchScholar()
+            if (!scholarData) {
+                this.displayError(
+                    'Failed to load scholar data. Please try again later.'
+                )
+                return
+            }
+            this.displayScholar(scholarData)
+        } catch (error) {
+            this.displayError('An error occurred while loading the data.')
+            console.error('Init error:', error)
         }
-
-        this.displayScholar(scholarData)
     }
 
     async fetchScholar() {
         try {
-            const response = await fetch(`${this.baseUrl}/${this.scholarId}`)
+            const response = await fetch(`${this.baseUrl}/${this.scholarId}`, {
+                method: 'GET',
+                mode: 'cors',
+                credentials: 'omit',
+                headers: {
+                    Accept: 'application/json',
+                },
+            })
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`)
             }
 
             const data = await response.json()
-
-            // Store the last modified date
             const lastModified = response.headers.get('Last-Modified')
             data.lastModified = lastModified
                 ? new Date(lastModified).toLocaleDateString()
@@ -34,10 +45,11 @@ class ScholarEmbed {
 
             return data
         } catch (error) {
-            console.error('Error fetching publications:', error)
+            console.error('Error fetching scholar data:', error)
             return null
         }
     }
+
     formatAuthor(author) {
         // Split the name into parts, assuming the format is "First Last"
         const parts = author.split(' ')
@@ -49,6 +61,7 @@ class ScholarEmbed {
             .join('')
         return `${lastName}, ${initials}`
     }
+
     formatPublicationCitation(data) {
         const { bib, pub_url, num_citations } = data
 
@@ -240,6 +253,14 @@ class ScholarEmbed {
         const publicationCitation =
             this.generatePublicationCitation(scholarData)
         this.container.appendChild(publicationCitation)
+    }
+
+    displayError(message) {
+        this.container.innerHTML = `
+            <div style="color: #ef4444; padding: 1rem; border: 1px solid #ef4444; border-radius: 0.375rem; margin: 1rem 0;">
+                <p style="margin: 0;">${message}</p>
+            </div>
+        `
     }
 }
 
