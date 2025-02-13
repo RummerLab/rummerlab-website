@@ -30,10 +30,13 @@ class ScholarEmbed {
                 credentials: 'omit',
                 headers: {
                     Accept: 'application/json',
+                    Origin: window.location.origin,
                 },
             })
 
             if (!response.ok) {
+                const errorText = await response.text()
+                console.error('Server response:', errorText)
                 throw new Error(`HTTP error! status: ${response.status}`)
             }
 
@@ -259,6 +262,14 @@ class ScholarEmbed {
         this.container.innerHTML = `
             <div style="color: #ef4444; padding: 1rem; border: 1px solid #ef4444; border-radius: 0.375rem; margin: 1rem 0;">
                 <p style="margin: 0;">${message}</p>
+                <p style="margin: 4px 0 0 0; font-size: 0.875rem;">
+                    Note: If you're viewing this locally, try using a local server instead of opening the file directly.
+                    You can use Python's built-in server by running:
+                    <br>
+                    <code style="background: #f3f4f6; padding: 2px 4px; border-radius: 4px;">python -m http.server</code>
+                    <br>
+                    Then visit: <a href="http://localhost:8000/public/embed/test.html">http://localhost:8000/public/embed/test.html</a>
+                </p>
             </div>
         `
     }

@@ -7,16 +7,27 @@ const isAllowedOrigin = (origin: string | null) => {
   const allowedOrigins = [
     'https://rummerlab.com',
     'https://www.rummerlab.com',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'null' // Allow null origin for file:// protocol
   ];
-  return origin && allowedOrigins.includes(origin);
+  return !origin || allowedOrigins.includes(origin);
+};
+
+// Helper function to get CORS headers
+const getCorsHeaders = (origin: string | null) => {
+  // For null origin (file:// protocol), we'll use '*'
+  const accessControlAllowOrigin = !origin || origin === 'null' ? '*' : origin;
+  
+  return {
+    'Access-Control-Allow-Origin': accessControlAllowOrigin,
+    'Access-Control-Allow-Methods': 'GET',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Vary': 'Origin'
+  };
 };
 
 export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
-  
-  // Get the request origin
-  const headersList = headers();
   const origin = request.headers.get('origin');
   
   try {
@@ -36,11 +47,7 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
           status: 400,
           headers: {
             'Content-Type': 'application/json',
-            ...(origin && isAllowedOrigin(origin) ? {
-              'Access-Control-Allow-Origin': origin,
-              'Access-Control-Allow-Methods': 'GET',
-              'Access-Control-Allow-Headers': 'Content-Type',
-            } : {})
+            ...(isAllowedOrigin(origin) ? getCorsHeaders(origin) : {})
           }
         }
       );
@@ -55,11 +62,7 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
         status: 200,
         headers: {
           'Content-Type': 'application/json',
-          ...(origin && isAllowedOrigin(origin) ? {
-            'Access-Control-Allow-Origin': origin,
-            'Access-Control-Allow-Methods': 'GET',
-            'Access-Control-Allow-Headers': 'Content-Type',
-          } : {})
+          ...(isAllowedOrigin(origin) ? getCorsHeaders(origin) : {})
         }
       }
     );
@@ -71,11 +74,7 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
         status: 500,
         headers: {
           'Content-Type': 'application/json',
-          ...(origin && isAllowedOrigin(origin) ? {
-            'Access-Control-Allow-Origin': origin,
-            'Access-Control-Allow-Methods': 'GET',
-            'Access-Control-Allow-Headers': 'Content-Type',
-          } : {})
+          ...(isAllowedOrigin(origin) ? getCorsHeaders(origin) : {})
         }
       }
     );
@@ -86,15 +85,10 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
 export async function OPTIONS(request: Request) {
   const origin = request.headers.get('origin');
 
-  if (origin && isAllowedOrigin(origin)) {
+  if (isAllowedOrigin(origin)) {
     return new NextResponse(null, {
       status: 204,
-      headers: {
-        'Access-Control-Allow-Origin': origin,
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Max-Age': '86400',
-      },
+      headers: getCorsHeaders(origin)
     });
   }
 
