@@ -30,7 +30,6 @@ class ScholarEmbed {
                 credentials: 'omit',
                 headers: {
                     Accept: 'application/json',
-                    Origin: window.location.origin,
                 },
             })
 

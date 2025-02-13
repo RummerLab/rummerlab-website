@@ -37,6 +37,11 @@ const config: NextConfig = {
         destination: '/publications',
         permanent: true,
       },
+      {
+        source: '/embed',
+        destination: '/collaborators/embed',
+        permanent: true,
+      },
     ]
   },
   async headers() {
