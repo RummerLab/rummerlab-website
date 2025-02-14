@@ -52,10 +52,10 @@ const config: NextConfig = {
               source: '/api/(.*)',
               // Headers
               headers: [
-                  // Allow for specific domains to have access or * for all
+                  // Allow all domains to have access
                   {
                       key: 'Access-Control-Allow-Origin',
-                      value: 'http://localhost:3000, rummerlab.com, physioshark.com, jodierummer.com',
+                      value: '*',
                   },
                   // Allows for specific methods accepted
                   {
@@ -65,7 +65,7 @@ const config: NextConfig = {
                   // Allows for specific headers accepted (These are a few standard ones)
                   {
                       key: 'Access-Control-Allow-Headers',
-                      value: 'Content-Type, Authorization',
+                      value: 'Content-Type, Authorization, Accept',
                   },
               ],
           },

@@ -1,15 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getCoAuthors, getScholarById } from '@/lib/scholarly';
 
-// Helper function to get CORS headers - allowing all origins
-const getCorsHeaders = () => {
-  return {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET',
-    'Access-Control-Allow-Headers': 'Content-Type, Accept',
-  };
-};
-
 export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   
@@ -29,8 +20,7 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
         {
           status: 400,
           headers: {
-            'Content-Type': 'application/json',
-            ...getCorsHeaders()
+            'Content-Type': 'application/json'
           }
         }
       );
@@ -38,14 +28,12 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
 
     const scholar = await getScholarById(id);
 
-    // Return the response with proper CORS headers
     return new NextResponse(
       JSON.stringify(scholar),
       {
         status: 200,
         headers: {
-          'Content-Type': 'application/json',
-          ...getCorsHeaders()
+          'Content-Type': 'application/json'
         }
       }
     );
@@ -56,18 +44,9 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
       {
         status: 500,
         headers: {
-          'Content-Type': 'application/json',
-          ...getCorsHeaders()
+          'Content-Type': 'application/json'
         }
       }
     );
   }
-}
-
-// Handle OPTIONS requests for CORS preflight
-export async function OPTIONS(request: Request) {
-  return new NextResponse(null, {
-    status: 204,
-    headers: getCorsHeaders()
-  });
 }
