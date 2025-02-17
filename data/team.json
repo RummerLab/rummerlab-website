@@ -119,21 +119,46 @@
     "name": "Dr. Ian Bouyoucos",
     "title": null,
     "role": "Research collaborator",
-    "email": null,
+    "email": "ian.bouyoucos@my.jcu.edu",
     "startDate": null,
     "endDate": null,
-    "description": "Ian completed his Ph.D. as a co-tutelle at the Australian Research Council Centre of Excellence for Coral Reef Studies (James Cook University) and the Centre de Recherches Insulaires et Observatoire de l'Environnement (École Pratique des Hautes Études). He investigated the ecophysiology of global change for tropical sharks by testing hypotheses predicting species' vulnerability to global change phenomena, including ocean warming, acidification, and deoxygenation.\n\nIan has been involved in shark research since 2008. For his research, Ian utilises a range of techniques belonging to the \"Conservation Physiology Toolbox.\" including respirometry and bio-logging. Before joining Physioshark in 2016, Ian's previous research focused on understanding the energetic costs, physiological stress, and behavioural responses of sharks to longline capture, including the implementation of bycatch devices.",
+    "description": "Originally from New York, Ian completed his B.Sc. at the University of Michigan, and his M.Sc. at the University of Illinois under the supervision of Dr. Cory Suski. For his Master's thesis, he investigated the daily energy requirements of juvenile lemon sharks (Negaprion brevirostris) in relation to the energetic costs of fishing capture. For his PhD, he investigated the capacity for juvenile blacktip (Carcharhinus melanopterus) and lemon sharks (N. acutidens) to balance processes related to energy expenditure and acquisition while managing stressors across a range of environmental conditions in nursery habitats around Moorea, French Polynesia. In addition to Dr. Rummer, he is supervised by Dr. Colin Simpfendorfer.\n\nIan completed his Ph.D. as a co-tutelle at the Australian Research Council Centre of Excellence for Coral Reef Studies (James Cook University) and the Centre de Recherches Insulaires et Observatoire de l'Environnement (École Pratique des Hautes Études). He investigated the ecophysiology of global change for tropical sharks by testing hypotheses predicting species' vulnerability to global change phenomena, including ocean warming, acidification, and deoxygenation.\n\nIan has been involved in shark research since 2008. For his research, Ian utilises a range of techniques belonging to the \"Conservation Physiology Toolbox\" including respirometry and bio-logging. Before joining Physioshark in 2016, Ian's previous research focused on understanding the energetic costs, physiological stress, and behavioural responses of sharks to longline capture, including the implementation of bycatch devices.",
     "image": "/images/team/team-dr-ian-bouyoucos-profile.jpg",
     "alt": "Dr. Ian Bouyoucos, Research Collaborator",
     "links": {
       "personalWebsite": "ianbouyoucos.com"
     },
-    "affiliations": [],
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "ARC Centre of Excellence for Coral Reef Studies",
+        "role": "PhD Graduate",
+        "location": "Australia"
+      },
+      {
+        "institution": "École Pratique des Hautes Études",
+        "department": "Centre de Recherches Insulaires et Observatoire de l'Environnement",
+        "role": "PhD Graduate",
+        "location": "French Polynesia"
+      }
+    ],
     "education": [
       {
         "degree": "Ph.D.",
-        "field": null,
+        "field": "Marine Biology",
         "institution": "James Cook University & École Pratique des Hautes Études",
+        "year": null
+      },
+      {
+        "degree": "M.Sc.",
+        "field": null,
+        "institution": "University of Illinois",
+        "year": null
+      },
+      {
+        "degree": "B.Sc.",
+        "field": null,
+        "institution": "University of Michigan",
         "year": null
       }
     ],
@@ -171,13 +196,13 @@
     "name": "Carolyn Wheeler",
     "title": null,
     "role": "PhD Candidate",
-    "email": null,
+    "email": "carolyn.wheeler23@gmail.com",
     "startDate": null,
     "endDate": null,
-    "description": "Carolyn Wheeler is a co-tutelle PhD student at the School for the Environment at the University of Massachusetts Boston and the ARC Centre of Excellence for Coral Reef Studies at James Cook University (JCU).\n\nCarolyn spent the first half of her PhD working with the Anderson Cabot Center for Ocean Life at the New England Aquarium in Boston studying the effects of temperature on development and physiological performance of epaulette shark embryos and hatchlings. She was recently awarded a graduate research fellowship through the American Australian Association to continue her research at JCU assessing the impacts of thermal stress on reproductive success in adult epaulette sharks.",
+    "description": "Originally from New York, Carolyn completed her BS in Marine Science at the University of New England in Maine. Her undergraduate honor's thesis focused on determining sex and maturity of Atlantic sturgeon using non-lethal techniques. Additionally during this time, she collaborated with the University of Miami to study the reproductive biology of tiger sharks at an aggregation site in the Bahamas. These projects piqued her interest in fish physiology.\n\nCarolyn is a co-tutelle PhD student at the School for the Environment at the University of Massachusetts Boston and the ARC Centre of Excellence for Coral Reef Studies at James Cook University (JCU). She spent the first half of her PhD working with the Anderson Cabot Center for Ocean Life at the New England Aquarium in Boston studying the effects of temperature on development and physiological performance of epaulette shark embryos and hatchlings. She was recently awarded a graduate research fellowship through the American Australian Association to continue her research at JCU assessing the impacts of thermal stress on reproductive success in adult epaulette sharks.",
     "image": "/images/team/team-carolyn-wheeler-profile.jpg",
     "alt": "Carolyn Wheeler, PhD Candidate",
-    "links": {},
+    "links": null,
     "affiliations": [
       {
         "institution": "University of Massachusetts Boston",
@@ -190,9 +215,22 @@
         "department": "ARC Centre of Excellence for Coral Reef Studies",
         "role": "PhD Candidate",
         "location": "Australia"
+      },
+      {
+        "institution": "New England Aquarium",
+        "department": "Anderson Cabot Center for Ocean Life",
+        "role": "Researcher",
+        "location": "Boston, USA"
       }
     ],
-    "education": [],
+    "education": [
+      {
+        "degree": "BS",
+        "field": "Marine Science",
+        "institution": "University of New England",
+        "year": null
+      }
+    ],
     "awards": [
       {
         "name": "American Australian Association Graduate Research Fellowship",
@@ -281,7 +319,7 @@
     "startDate": null,
     "endDate": null,
     "description": "Originally from Germany, Dr. Illing earned his diploma (2009) at the University of Hamburg conducting eco-morphological research on spawning aggregations of a temperate clupeid fish species. His doctoral studies (2016) focused on how environmental stressors affect the growth, condition and survival of Atlantic herring offspring at the University of Hamburg, working in parallel at a federal German research institute developing a novel hyperbaric swimming flume for testing fish species during extended oceanic spawning migrations. Currently in the Rummer lab, he investigates the effects of environmental stressors on coral reef fish larvae. His research is partially funded by the Company of Biologists.",
-    "image": null,
+    "image": "/images/team/bjorn-illing.png",
     "alt": "Dr. Björn Illing, Post-doctoral Researcher",
     "links": {
       "researchGateSlug": "Bjoern_Illing"
@@ -312,7 +350,7 @@
     "startDate": null,
     "endDate": null,
     "description": "Originally from Switzerland, Sybille completed her MSc at JCU with Drs Jodie Rummer & Amelia Wenger. Her PhD research at JCU, supervised by Dr Rummer and co-supervised by Drs Andy Hoey & Amelia Wenger, investigates how poor water quality (e.g., increasing levels of suspended sediments) affects fish metabolic performance, the consequences for activities such as swimming, and potential impacts on fish community structure. Her work primarily focuses on fish larvae and juveniles, combining lab-based and field experiments.",
-    "image": null,
+    "image": "/images/team/sybille-hess.png",
     "alt": "Sybille Hess, PhD Candidate",
     "links": null,
     "affiliations": [
@@ -342,7 +380,7 @@
     "startDate": null,
     "endDate": null,
     "description": "Tiffany earned her BSc in Marine Biology from the University of West Florida, spending summers in Wakatobi, Southeast Sulawesi, Indonesia studying crab-eating frogs, mudskipper fishes, and sea snakes. After completing her MSc at JCU researching fish microhabitat use in coral reefs and mangrove ecosystems, she began her PhD under the supervision of Drs. Rummer, Hoey, and Johansen, expanding upon her interests in microhabitat use.",
-    "image": null,
+    "image": "/images/team/tiffany-nay.png",
     "alt": "Tiffany Nay, PhD Candidate",
     "links": null,
     "affiliations": [
@@ -378,7 +416,7 @@
     "startDate": null,
     "endDate": null,
     "description": "Eva is based at the Centre de Recherche Insulaire et Observatoire de l'Environnement (CRIOBE) in Papetoai, Moorea, Polynésie française.",
-    "image": null,
+    "image": "/images/team/eva-jacquesson.jpeg",
     "alt": "Eva Jacquesson, MSc Student",
     "links": {},
     "affiliations": [
@@ -400,8 +438,8 @@
     "email": "nao.nakamura34@gmail.com",
     "startDate": null,
     "endDate": null,
-    "description": "Originally from Japan but grew up in France, Nao completed their MSc (Hons) at Toulouse, Paul Sabatier University. They are currently based at the Centre de Recherche Insulaire et Observatoire de l'Environnement (CRIOBE) in Papetoai, Moorea, Polynésie française.",
-    "image": null,
+    "description": "Originally from Japan, but grew up in France where they completed their MSc (Hons) at Toulouse, Paul Sabatier University, specializing in animal behavior, cognition and neurosciences. During this year, they studied the sensory capacity of the clownfish toward different water cues and used histological protocols to measure different parts of brain involved in recognition. They have since been employed by CRIOBE in Moorea, French Polynesia as a research assistant (both field and laboratory) working on many subjects including: PCC (post-larvae capture and culture, catching fish by crest net and by light-trap), fish behaviour, coral larvae behaviour, annual monitoring of juveniles lemon and black tip reef shark populations, scientific diving to record lemon shark behaviour, annual monitoring of glass eel population, etc. They have also been working with Dr. Rummer on her ongoing project -- #physioshark -- as a field and laboratory assistant focusing on blood sampling and analyses.",
+    "image": "/images/team/nao-nakamura.png",
     "alt": "Nao Nakamura, Laboratory and Field Technician",
     "links": {},
     "affiliations": [
@@ -415,7 +453,7 @@
     "education": [
       {
         "degree": "MSc",
-        "field": null,
+        "field": "Animal Behavior, Cognition and Neurosciences",
         "institution": "Toulouse, Paul Sabatier University",
         "year": null
       }
@@ -431,7 +469,7 @@
     "startDate": null,
     "endDate": "2014",
     "description": "Dr. McLeod is currently employed as a Senior Research Scientist at TropWATER, James Cook University.",
-    "image": null,
+    "image": "/images/team/ian-mcleod.png",
     "alt": "Dr. Ian McLeod, Alumni",
     "links": {
       "researchGateSlug": "Ian_Mcleod4"
@@ -454,5 +492,620 @@
     ],
     "awards": [],
     "languages": []
+  },
+  {
+    "name": "Monica Morin",
+    "title": null,
+    "role": "MSc Student",
+    "email": "morinmonica12@gmail.com",
+    "startDate": null,
+    "endDate": null,
+    "description": "Originally from Massachusetts, Monica earned her BS in Marine Science from the University of New England in Maine. Her senior research focused on ecosystem based modeling to determine carrying capacity of bivalve aquaculture. She has been interested in the impacts climate change has on marine ecosystems, and will be working with Dr. Rummer to determine how these impacts will effect the future of reef fish in coral reef systems.",
+    "image": "/images/team/monica-morin.png",
+    "alt": "Monica Morin, MSc Student",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "University of New England",
+        "department": null,
+        "role": "BS Graduate",
+        "location": "Maine, USA"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BS",
+        "field": "Marine Science",
+        "institution": "University of New England",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Leteisha Prescott",
+    "title": null,
+    "role": "MSc Student",
+    "email": "leteisha.prescott@my.jcu.edu.au",
+    "startDate": "2015",
+    "endDate": null,
+    "description": "Originally from the Sunshine Coast, Leteisha completed her undergraduate degree at JCU. Since late 2015, she has been an intern in Dr. Jodie Rummer's lab, where she has been working closely with Sybille Hess (PhD candidate) investigating how suspended sediments can impair oxygen uptake in coral reef fishes. She is now starting her Master's research with Drs. Jodie Rummer and Naomi Gardiner, specifically examining the gills of coral reef fishes in hopes of understanding the changes they make when they experience increased temperatures during a coral bleaching event.",
+    "image": "/images/team/leteisha-prescott.png",
+    "alt": "Leteisha Prescott, MSc Student",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "MSc Student",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc",
+        "field": null,
+        "institution": "James Cook University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Dare Lawrence",
+    "title": null,
+    "role": "Honours Student",
+    "email": "dare.lawrence@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": null,
+    "description": "My interests are in heavy metal accumulation in fish that are ecologically and commercially important. My research spans the North Queensland Coast and inland parts of the Great Barrier Reef. I am co-supervised by Dr. Rummer and Dr. Angela Capper.",
+    "image": null,
+    "alt": "Dare Lawrence, Honours Student",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "Honours Student",
+        "location": "Australia"
+      }
+    ],
+    "education": [],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Kristy Potgieter",
+    "title": null,
+    "role": "Honours Student",
+    "email": "kristy.potgieter@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": null,
+    "description": "",
+    "image": null,
+    "alt": "Kristy Potgieter, Honours Student",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "Honours Student",
+        "location": "Australia"
+      }
+    ],
+    "education": [],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Lauren Nadler",
+    "title": null,
+    "role": "PhD Student",
+    "email": "lauren.nadler@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": null,
+    "description": "Originally from the USA, Lauren completed her undergraduate studies in marine science at Boston University before moving to Glasgow, Scotland for a Master of Research degree. For her PhD at JCU, she is studying the potential impacts of climate change on schooling behaviour in coral reef fish.",
+    "image": "/images/team/lauren-nadler.jpg",
+    "alt": "Lauren Nadler, PhD Student",
+    "links": {
+      "personalWebsite": "http://laurenenadler.weebly.com"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "PhD Student",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Master of Research",
+        "field": null,
+        "institution": "University of Glasgow",
+        "year": null
+      },
+      {
+        "degree": "BSc",
+        "field": "Marine Science",
+        "institution": "Boston University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Floriaan Devloo-Delva",
+    "title": null,
+    "role": "Volunteer",
+    "email": "floriaan.devloo.delva@hotmail.com",
+    "startDate": null,
+    "endDate": null,
+    "description": "Floriaan followed an Erasmus Mundus in Marine Biodiversity and Conservation at the universities of Ghent (Belgium), Algarve (Portugal) and Oviedo (Spain), finishing with highest distinction. He is currently in the process of publishing his thesis \"The ecological and genetic characterisation of an invasive mussel (Xenostrobus securis) in Northern Spain\". He was also privileged to present this topic on the YOUMARES 2015 conference in Bremen (Germany). Now traveling to gain more experience and looking into possible PhD positions, he is truly passionate about shark research and conservation, which led him to the Rummer lab, feeding the amazing epaulette sharks.",
+    "image": "/images/team/floriaan-devloo-delva.png",
+    "alt": "Floriaan Devloo-Delva, The Belgian volunteer",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "Multiple Universities",
+        "department": "Erasmus Mundus Program",
+        "role": "Graduate",
+        "location": "Europe"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Master",
+        "field": "Marine Biodiversity and Conservation",
+        "institution": "Universities of Ghent, Algarve, and Oviedo",
+        "year": "2015"
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Dennis Heinrich",
+    "title": null,
+    "role": "Alumni",
+    "email": "dennis.heinrich@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": "2013",
+    "description": "Dennis earned his Honours (1st class) at James Cook University under the supervision of Dr Jodie Rummer, Prof. Philip Munday, Prof. Colin Simpfendorfer, and Dr Michelle Heupel where he focused on understanding how near future ocean acidification conditions could affect a benthic coral reef associated shark, the epaulette shark. His research has been published in Conservation Physiology (\"A product of its environment: the epaulette shark (Hemiscyllium ocellatum) exhibits physiological tolerance to elevated environmental CO2\") and ICES Journal of Marine Science (\"Foraging behaviour of the epaulette shark (Hemiscyllium ocellatum) is not affected by elevated CO2\"). He started his PhD in March 2016 with Dr. Charlie Huveneers and the Southern Shark Ecology Group at Flinders University in Adelaide.",
+    "image": "/images/team/dennis-heinrich.jpg",
+    "alt": "Dennis Heinrich, Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "Honours Graduate",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Honours",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": "2013"
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Alyssa Bowden",
+    "title": null,
+    "role": "Alumni",
+    "email": "liss.bowden@csiro.au",
+    "startDate": null,
+    "endDate": "2013",
+    "description": "Alyssa earned her BSc in Marine Biology from the University of North Carolina at Wilmington and her MSc in Marine Biology from James Cook University where she focused on gill remodelling in tropical reef fish as a result of elevated temperatures. Her research was published in Comparative Biochemistry and Physiology A (\"Alterations in gill structure in tropical reef fishes as a result of elevated temperatures\"). She is currently working on her PhD at the University of Tasmania studying the physiological consequences of amoebic gill disease in Atlantic salmon with Prof. Peter Frappell, Dr Andrea Morash, and Dr Sarah Andrewartha.",
+    "image": "/images/team/alyssa-bowden.png",
+    "alt": "Alyssa Bowden, Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "University of Tasmania",
+        "department": null,
+        "role": "PhD Student",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": "2013"
+      },
+      {
+        "degree": "BSc",
+        "field": "Marine Biology",
+        "institution": "University of North Carolina at Wilmington",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Adam Habary",
+    "title": null,
+    "role": "Alumni",
+    "email": "adamhabary@hotmail.com",
+    "startDate": null,
+    "endDate": null,
+    "description": "Adam earned his BSc in general biology from the University of Southern Denmark, finishing with a research project investigating Harbour Porpoise (Phocoena phocoena) click differentiation. He later enrolled as a Cand. Scient. at the University of Copenhagen, studying marine biology. His research at James Cook University focused on the link between the optimal temperature for aerobic performance in coral reef fishes and their temperature preference.",
+    "image": "/images/team/adam-habary.png",
+    "alt": "Adam Habary, Alumni",
+    "links": {},
+    "affiliations": [],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": "Marine Biology",
+        "institution": "University of Copenhagen",
+        "year": null
+      },
+      {
+        "degree": "BSc",
+        "field": "Biology",
+        "institution": "University of Southern Denmark",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Daniel Kraver",
+    "title": null,
+    "role": "Alumni",
+    "email": "Daniel.kraver@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": "2015",
+    "description": "Originally from Connecticut, Daniel earned his BSc degree from Dickinson College in Carlisle, Pennsylvania in 2012. His research interests include ecology, physiology, and conservation of elasmobranchs and other highly exploited marine fishes. For his Master's research, he investigated the developmental & metabolic responses of epaulette shark (Hemiscyllium ocellatum) under environmental conditions associated with climate change. He is currently employed as a Reef Resilience Coordinator for the coral reef conservation program at the Florida Department of Environmental Protection.",
+    "image": "/images/team/daniel-kraver.jpg",
+    "alt": "Daniel Kraver, Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "Florida Department of Environmental Protection",
+        "department": "Coral Reef Conservation Program",
+        "role": "Reef Resilience Coordinator",
+        "location": "Florida, USA"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": null,
+        "institution": "James Cook University",
+        "year": "2015"
+      },
+      {
+        "degree": "BSc",
+        "field": null,
+        "institution": "Dickinson College",
+        "year": "2012"
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Ian Silver-Gorges",
+    "title": null,
+    "role": "Alumni",
+    "email": "isilverg@oberlin.edu",
+    "startDate": "2014",
+    "endDate": "2015",
+    "description": "Originally from Washington D.C., Ian studied Biology at Oberlin College in Ohio. At JCU, he assisted with epaulette shark research and husbandry in the Rummer Lab. His previous experiences include assisting with research on deep reef fauna at the Smithsonian National Museum of Natural History (D.R.O.P. Project, Dr. Carole Baldwin) and conducting estuarine fish research at Old Woman Creek N.E.R.R. (Dr. Kristin Arend).",
+    "image": "/images/team/ian-silver-gorges.jpg",
+    "alt": "Ian Silver-Gorges, SIT program Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "Oberlin College",
+        "department": null,
+        "role": "Student",
+        "location": "Ohio, USA"
+      }
+    ],
+    "education": [],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Stine Henriksen",
+    "title": null,
+    "role": "Alumni",
+    "email": "fleckner86@hotmail.com",
+    "startDate": null,
+    "endDate": "2014",
+    "description": "Stine earned her BSc in Biology with a Minor in Ecology and Physiology from the University of Southern Denmark. She decided to do part of her Masters degree at James Cook University where she discovered her interest in Fisheries Science and Fish Physiology. Her research interests involve sharks and how they cope with post-release stress.",
+    "image": "/images/team/stine-henriksen.png",
+    "alt": "Stine Henriksen, Special Topics Alumni",
+    "links": {},
+    "affiliations": [],
+    "education": [
+      {
+        "degree": "BSc",
+        "field": "Biology",
+        "institution": "University of Southern Denmark",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Katya Jay",
+    "title": null,
+    "role": "Alumni",
+    "email": "kjay@macalester.edu",
+    "startDate": null,
+    "endDate": null,
+    "description": "Originally from Portland, Oregon, Katya was in her third year studying Biology and Geology at Macalester College in Minnesota. Previous and ongoing experience includes researching the evolutionary history and biogeography of a genus of leaf-litter arachnids from the Wet Tropics at Macalester College. She did a study abroad program in Australia through the School for International Training, and while with the Rummer Lab, she assisted with the mudskipper research.",
+    "image": "/images/team/katya-jay.jpg",
+    "alt": "Katya Jay, SIT Student Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "Macalester College",
+        "department": null,
+        "role": "Student",
+        "location": "Minnesota, USA"
+      }
+    ],
+    "education": [],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Katherine Corkill",
+    "title": "Lab Technician",
+    "role": "Alumni",
+    "email": "katherine.corkill@jcu.edu.au",
+    "startDate": null,
+    "endDate": "2014",
+    "description": "",
+    "image": "/images/team/katherine-corkill.png",
+    "alt": "Katherine Corkill, Lab Technician Alumni",
+    "links": {},
+    "affiliations": [],
+    "education": [],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Julia Peters",
+    "title": null,
+    "role": "Alumni",
+    "email": "julia_peters@brown.edu",
+    "startDate": null,
+    "endDate": null,
+    "description": "Originally from New Jersey, USA, Julia worked towards a BSc in Environmental Science at Brown University in Rhode Island. Her interest in marine biology & conservation stemmed largely from previous work at the Cape Eleuthera Institute in the Bahamas during her gap year where she was involved with a shark physiology study investigating the consequences of commercial fishing practices. At JCU, she worked with Connor on a study determining the metabolic costs of elevated temperatures in neonate epaulette sharks.",
+    "image": "/images/team/julia-peters.png",
+    "alt": "Julia Peters, Undergraduate Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "Brown University",
+        "department": null,
+        "role": "Student",
+        "location": "Rhode Island, USA"
+      }
+    ],
+    "education": [],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Martijn Johnson",
+    "title": null,
+    "role": "Alumni",
+    "email": "martijn.johnson@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": "2015",
+    "description": "Martijn earned his bachelors degree in applied science (majoring in fisheries) from University of Tasmania. His passion led him to Townsville to study tropical fish and fisheries. For his MSc in Marine Tropical Biology and Ecology, he explored the development of a tropical shark under future climate change conditions. He is currently employed by the Department of Primary Industries NSW Fisheries Resources Department.",
+    "image": "/images/team/martijn-johnson.png",
+    "alt": "Martijn Johnson, MSc Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "Department of Primary Industries NSW",
+        "department": "Fisheries Resources Department",
+        "role": "Employee",
+        "location": "NSW, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": "Marine Tropical Biology and Ecology",
+        "institution": "James Cook University",
+        "year": "2015"
+      },
+      {
+        "degree": "BSc",
+        "field": "Applied Science (Fisheries)",
+        "institution": "University of Tasmania",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Andrew Corley",
+    "title": null,
+    "role": "Alumni",
+    "email": "andrew.corley@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": "2015",
+    "description": "Andrew earned his BA in Ecology and Evolutionary Biology from the University of Colorado. Then, he worked as a SCUBA instructor for several years in Hawaii. His passion for tropical marine fauna brought him to James Cook University where he focused his interests on anthropogenic effects on coral reef-associated organisms. For his MSc, he examined the physiological consequences of long-term exposure to high carbon dioxide levels in reef fishes.",
+    "image": "/images/team/andrew-corley.png",
+    "alt": "Andrew Corley, MSc Alumni",
+    "links": {},
+    "affiliations": [],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": null,
+        "institution": "James Cook University",
+        "year": "2015"
+      },
+      {
+        "degree": "BA",
+        "field": "Ecology and Evolutionary Biology",
+        "institution": "University of Colorado",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Connor Gervais",
+    "title": null,
+    "role": "Alumni",
+    "email": "connor.gervais@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": "2016",
+    "description": "Originally from California, Connor earned his BSc in Marine Biology from the University of California, Santa Cruz. He earned his MSc (Distinction) at JCU with the Rummer Lab where he explored the impact of elevated temperatures on movement, behaviour, and growth in juvenile epaulette sharks (Hemiscyllium ocellatum). His research interests mainly relate to the impact climate change is having on marine organisms, especially elasmobranchs. He also has an ongoing collaboration with Dr Marianne Porter and her FAB Lab at Florida Atlantic University. His recent paper \"Developing in warm water: Irregular colouration and patterns of a neonate elasmobranch\" was published in Marine Biodiversity with Dr. Johann Mourier and Dr. Jodie Rummer.",
+    "image": "/images/team/connor-gervais.png",
+    "alt": "Connor Gervais, MSc Alumni",
+    "links": {},
+    "affiliations": [],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": "2016"
+      },
+      {
+        "degree": "BSc",
+        "field": "Marine Biology",
+        "institution": "University of California, Santa Cruz",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Dr. Jacob Johansen",
+    "title": "Post-doctoral Researcher",
+    "role": "Alumni",
+    "email": "jacob.johansen@utexas.edu",
+    "startDate": "2014",
+    "endDate": "2016",
+    "description": "Originally from Denmark where he earned his Bachelor's degree at Copenhagen University studying fish ecophysiology. He moved to Australia in 2005 where he earned his Master of Science (2007) and PhD (2013), both at James Cook University. He is interested in how commercially or ecologically important reef fishes tolerate adverse or extreme environmental conditions, and his specialities are whole organism performance metrics, e.g. energetics of swimming and behaviour. After finishing a post-doc at the University of Florida in the Whitney Lab, he is now based at the University of Texas at Austin working on oil spill impacts on commercially fished species.",
+    "image": "/images/team/dr-jacob-johansen.png",
+    "alt": "Dr. Jacob Johansen, Post-doctoral Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "University of Texas at Austin",
+        "department": null,
+        "role": "Researcher",
+        "location": "Texas, USA"
+      }
+    ],
+    "education": [
+      {
+        "degree": "PhD",
+        "field": null,
+        "institution": "James Cook University",
+        "year": "2013"
+      },
+      {
+        "degree": "MSc",
+        "field": null,
+        "institution": "James Cook University",
+        "year": "2007"
+      },
+      {
+        "degree": "BSc",
+        "field": "Fish Ecophysiology",
+        "institution": "Copenhagen University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": ["Danish", "English"]
+  },
+  {
+    "name": "Giverny Rodgers",
+    "title": null,
+    "role": "Alumni",
+    "email": "giverny.rodgers@my.jcu.edu.au",
+    "startDate": null,
+    "endDate": "2016",
+    "description": "Originally from Adelaide, South Australia, Giverny completed her BSc (Hons) at Flinders University. During her honours she worked on fisheries related projects and subsequently took on a position as a research assistant at the South Australian Research and Development Institute. In 2012 she moved to Townsville to start her PhD at James Cook University. This research concentrated on the effects of climate change relevant increases in temperature on coral reef fish from low-latitudes. She utilised a wide range of physiological measures including metabolic performance, enzyme activity, tissue histology and critical thermal limits to understand the potential for developmental and trans-generational acclimation of reef fish to environmental stressors. Outside of her research she is interested in science communication and outreach, volunteering for various programs teaching science primarily to indigenous students in remote communities. She is also a councillor for the Australian Coral Reef Society.",
+    "image": "/images/team/giverny-rodgers.png",
+    "alt": "Giverny Rodgers, PhD Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "PhD Graduate",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "PhD",
+        "field": null,
+        "institution": "James Cook University",
+        "year": "2016"
+      },
+      {
+        "degree": "BSc",
+        "field": null,
+        "institution": "Flinders University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Manon Amiguet",
+    "title": null,
+    "role": "Alumni",
+    "email": "manon.amiguet@gmail.com",
+    "startDate": null,
+    "endDate": "2016",
+    "description": "Originally from south of France, Manon was doing a master of science (MSc) at EPHE University (Biodiversity and Environmental Management). During her previous internship she investigated demographics and behaviour in terrestrial species (e.g., birds and reptiles). She worked in Moorea at CRIOBE with Dr Jodie Rummer and Dr Serge Planes to determine the effect of climate change (e.g., elevated CO2 and temperature) on the physiology of juvenile black tip reef sharks.",
+    "image": "/images/team/manon-amiguet.png",
+    "alt": "Manon Amiguet, MSc Alumni",
+    "links": {},
+    "affiliations": [
+      {
+        "institution": "CRIOBE",
+        "department": null,
+        "role": "MSc Student",
+        "location": "Moorea, French Polynesia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": "Biodiversity and Environmental Management",
+        "institution": "EPHE University",
+        "year": "2016"
+      }
+    ],
+    "awards": [],
+    "languages": ["French"]
   }
 ]
