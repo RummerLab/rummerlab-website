@@ -38,7 +38,7 @@ export const gallerySections: GallerySection[] = [
                 src: "/images/gallery/blacktip-shark-nursery-sampling-french-polynesia-edwards-ingle.jpg",
                 alt: "Sampling in blacktip shark nursery",
                 caption: "Research sampling in a blacktip shark nursery area",
-                credit: "Photo: Edwards-Ingle"
+                credit: "Photo: Jake Edwards-Ingle"
             },
             {
                 src: "/images/gallery/blacktip-shark-school-blue-water-french-polynesia-thiault.jpg",
@@ -224,13 +224,13 @@ export const gallerySections: GallerySection[] = [
                 src: "/images/gallery/juvenile-epaulette-shark-feeding-session-gervais.jpg",
                 alt: "Juvenile epaulette shark feeding",
                 caption: "Juvenile epaulette shark during feeding session",
-                credit: "Photo: Gervais"
+                credit: "Photo: Connor Gervais"
             },
             {
                 src: "/images/gallery/adult-epaulette-sharks-research-heron-island-gervais.jpg",
                 alt: "Adult epaulette sharks research",
                 caption: "Research with adult epaulette sharks at Heron Island",
-                credit: "Photo: Gervais"
+                credit: "Photo: Connor Gervais"
             },
             {
                 src: "/images/gallery/adult-epaulette-sharks-research-capture-grumpy-turtle.jpg",
@@ -284,13 +284,13 @@ export const gallerySections: GallerySection[] = [
                 src: "/images/gallery/dr-rummer-shark-tagging-pregnant-moore.jpg",
                 alt: "Dr. Rummer tagging pregnant shark",
                 caption: "Tagging procedure on a pregnant shark",
-                credit: "Photo: Moore"
+                credit: "Photo: Rachel Moore"
             },
             {
                 src: "/images/gallery/dr-rummer-pregnant-shark-measurement-moore.jpg",
                 alt: "Measuring pregnant shark",
                 caption: "Taking measurements of a pregnant shark",
-                credit: "Photo: Moore"
+                credit: "Photo: Rachel Moore"
             },
             {
                 src: "/images/gallery/dr-rummer-epaulette-shark-measurement-grumpy-turtle.jpg",
