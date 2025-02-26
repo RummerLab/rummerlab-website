@@ -6,7 +6,7 @@ const researchAreas = [
   {
     title: "Marine Conservation Physiology",
     description: "Understanding how marine organisms function in their environment and respond to environmental change.",
-    image: "/images/unsplash/conservation/conservation-marine-conservation-fqg4_mkblny.jpg",
+    image: "/images/gallery/healthy-reef-great-barrier-reef-rummer.jpg",
     alt: "Sea urchin representing marine conservation research",
     projects: [
       "Physiological responses to climate change",
@@ -17,7 +17,7 @@ const researchAreas = [
   {
     title: "Shark Research",
     description: "Investigating shark nursery habitats and the impact of environmental changes on shark populations.",
-    image: "/images/unsplash/sharks/sharks-reef-shark-njssdhiczyu.jpg",
+    image: "/images/gallery/blacktip-reef-shark-nursery-habitat-french-polynesia-huertas.jpg",
     alt: "A large white shark swimming over a coral reef",
     projects: [
       "Shark nursery habitat mapping",
@@ -28,7 +28,7 @@ const researchAreas = [
   {
     title: "Coral Reef Ecosystems",
     description: "Studying the complex interactions between reef fish and their changing environment.",
-    image: "/images/unsplash/ocean/ocean-coral-reef-woa0_arm-2u.jpg",
+    image: "/images/gallery/outer-great-barrier-reef-healthy-corals-rummer.jpg",
     alt: "Orange and white clown fish on green and white coral reef",
     projects: [
       "Reef fish physiology",

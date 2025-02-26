@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "token": "ts-node --project tsconfig.script.json scripts/get-long-lived-token.ts",
-    "check-token": "ts-node --project tsconfig.script.json scripts/check-token.ts"
+    "check-token": "ts-node --project tsconfig.script.json scripts/check-token.ts",
+    "resize-images": "ts-node --project tsconfig.script.json scripts/resize-images.ts"
   },
   "dependencies": {
     "@next/third-parties": "15.1.6",
