@@ -5,9 +5,9 @@ export default function Donate() {
   return (
     <div className="flex flex-col items-center justify-center max-w-4xl mx-auto px-4 py-12">
       <div className="w-full bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-lg p-8 md:p-12">
-        <h1 className="text-4xl md:text-5xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 leading-[1.2] mb-8 py-1">
+        <h2 className="text-4xl md:text-5xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 leading-[1.2] mb-8 py-1">
           Baby Sharks in a Changing World
-        </h1>
+        </h2>
         <p className="text-center mb-8 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
           Support our research by donating to our project
         </p>

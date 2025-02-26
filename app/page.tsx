@@ -20,10 +20,3 @@ export default function Home() {
     </>
   );
 };
-
-// https://ui.aceternity.com/components/sparkles
-// https://ui.aceternity.com/components/lamp-effect
-// https://ui.aceternity.com/components/spotlight
-// https://ui.aceternity.com/components/hero-parallax
-// https://ui.aceternity.com/components/3d-pin
-// https://ui.aceternity.com/components/3d-card-effect

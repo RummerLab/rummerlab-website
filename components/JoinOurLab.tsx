@@ -7,9 +7,9 @@ export default function JoinOurLab() {
   return (
     <div className="flex flex-col items-center justify-center max-w-4xl mx-auto px-4 py-12">
       <div className="w-full bg-gray-50 dark:bg-gray-900 rounded-2xl shadow-lg p-8 md:p-12">
-        <h1 className="text-4xl md:text-5xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 leading-tight mb-6">
+        <h2 className="text-4xl md:text-5xl text-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 leading-tight mb-6">
           Join Our Team!
-        </h1>
+        </h2>
         <p className="text-center mb-8 text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
           Are you passionate about marine biology and conservation? We&apos;re looking for motivated researchers to join our lab.
         </p>
