@@ -21,7 +21,7 @@ export default function ConservationPage() {
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/gallery/healthy-reef-great-barrier-reef-rummer.jpg"
+                                    src="/images/gallery/dr-rummer-heron-island-southern-gbr-grumpy-turtle.jpg"
                                     alt="Marine conservation research"
                                     fill
                                     className="object-cover"
@@ -48,7 +48,7 @@ export default function ConservationPage() {
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/gallery/outer-great-barrier-reef-healthy-corals-rummer.jpg"
+                                    src="/images/gallery/healthy-coral-seascape-outer-gbr-rummer.jpg"
                                     alt="Coral reef ecosystem"
                                     fill
                                     className="object-cover"
@@ -67,7 +67,7 @@ export default function ConservationPage() {
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
                                     <Image
-                                        src="/images/gallery/blacktip-reef-shark-nursery-habitat-french-polynesia-huertas.jpg"
+                                        src="/images/gallery/blacktip-shark-nursery-sampling-french-polynesia-edwards-ingle.jpg"
                                         alt="Shark conservation"
                                         fill
                                         className="object-cover rounded-lg"
@@ -81,7 +81,7 @@ export default function ConservationPage() {
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
                                     <Image
-                                        src="/images/gallery/epaulette-shark-swimming-reef-flats-kristian-laine.jpg"
+                                        src="/images/gallery/epaulette-shark-research-heron-island-gbr-grumpy-turtle.jpg"
                                         alt="Underwater research"
                                         fill
                                         className="object-cover rounded-lg"
@@ -99,7 +99,7 @@ export default function ConservationPage() {
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Conservation Impact</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
                             <Image
-                                src="/images/gallery/dr-rummer-reef-research-heron-island-grumpy-turtle.jpg"
+                                src="/images/gallery/dr-rummer-shark-release-french-polynesia-vierus.jpg"
                                 alt="Conservation research"
                                 fill
                                 className="object-cover"

@@ -28,8 +28,8 @@ export default function EnvironmentalStresses() {
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/gallery/epaulette-shark-swimming-reef-flats-kristian-laine.jpg"
-                                    alt="Marine life research"
+                                    src="/images/gallery/blacktip-shark-temperature-tolerance-research-french-polynesia-vierus.jpg"
+                                    alt="Temperature tolerance research"
                                     fill
                                     className="object-cover"
                                 />
@@ -51,8 +51,8 @@ export default function EnvironmentalStresses() {
 
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/gallery/dr-rummer-wheeler-shark-measurement-grumpy-turtle.jpg"
-                                    alt="Research equipment"
+                                    src="/images/gallery/dr-rummer-epaulette-shark-measurement-grumpy-turtle.jpg"
+                                    alt="Taking measurements during research"
                                     fill
                                     className="object-cover"
                                 />
@@ -68,8 +68,8 @@ export default function EnvironmentalStresses() {
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/gallery/outer-great-barrier-reef-healthy-corals-rummer.jpg"
-                                    alt="Coral reef ecosystem"
+                                    src="/images/gallery/epaulette-shark-research-specimen-heron-island-grumpy-turtle.jpg"
+                                    alt="Research specimen examination"
                                     fill
                                     className="object-cover"
                                 />
@@ -87,8 +87,8 @@ export default function EnvironmentalStresses() {
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
                                     <Image
-                                        src="/images/gallery/blacktip-reef-shark-nursery-habitat-french-polynesia-huertas.jpg"
-                                        alt="Shark research"
+                                        src="/images/gallery/dr-rummer-shark-tagging-pregnant-moore.jpg"
+                                        alt="Shark tagging research"
                                         fill
                                         className="object-cover rounded-lg"
                                     />
@@ -101,8 +101,8 @@ export default function EnvironmentalStresses() {
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
                                     <Image
-                                        src="/images/gallery/epaulette-shark-swimming-reef-flats-kristian-laine.jpg"
-                                        alt="Underwater research"
+                                        src="/images/gallery/epaulette-shark-shallow-habitat-gaskell.jpg"
+                                        alt="Shark in natural habitat"
                                         fill
                                         className="object-cover rounded-lg"
                                     />
@@ -119,8 +119,8 @@ export default function EnvironmentalStresses() {
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Impact</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
                             <Image
-                                src="/images/gallery/healthy-reef-great-barrier-reef-rummer.jpg"
-                                alt="Environmental research"
+                                src="/images/gallery/grey-reef-sharks-surgeonfish-fakarava-weschke.jpg"
+                                alt="Marine ecosystem research"
                                 fill
                                 className="object-cover"
                             />

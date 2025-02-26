@@ -28,8 +28,8 @@ export default function InVivoProtocols() {
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/gallery/dr-rummer-wheeler-shark-measurement-grumpy-turtle.jpg"
-                                    alt="Research equipment"
+                                    src="/images/gallery/dr-rummer-epaulette-shark-release-laine.jpg"
+                                    alt="Research protocols in action"
                                     fill
                                     className="object-cover"
                                 />
@@ -72,6 +72,21 @@ export default function InVivoProtocols() {
                             <p className="text-gray-600 dark:text-gray-300">Our field protocols are designed to capture real-world data while minimizing disturbance to marine ecosystems. We utilize advanced telemetry and monitoring systems to track animal behavior and physiological responses in their natural habitat.</p>
                         </div>
                     </section>
+
+                    <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+                        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Pre-release Examination</h2>
+                        <div className="prose prose-lg max-w-none dark:prose-invert">
+                            <div className="my-8 relative h-64 rounded-lg overflow-hidden">
+                                <Image
+                                    src="/images/gallery/dr-rummer-epaulette-shark-pre-release-heron-island-laine.jpg"
+                                    alt="Pre-release examination"
+                                    fill
+                                    className="object-cover"
+                                />
+                            </div>
+                            <p className="text-gray-600 dark:text-gray-300">Our pre-release examination protocols are designed to ensure the health and well-being of marine organisms before their release back into the wild.</p>
+                        </div>
+                    </section>
                 </div>
 
                 {/* Sidebar */}
@@ -82,28 +97,28 @@ export default function InVivoProtocols() {
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
                                     <Image
-                                        src="/images/gallery/blacktip-reef-shark-nursery-habitat-french-polynesia-huertas.jpg"
-                                        alt="Shark research"
+                                        src="/images/gallery/juvenile-epaulette-shark-feeding-session-gervais.jpg"
+                                        alt="Feeding protocols"
                                         fill
                                         className="object-cover rounded-lg"
                                     />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900 dark:text-gray-100">Field Monitoring</h4>
+                                    <h4 className="font-semibold text-gray-900 dark:text-gray-100">Feeding Protocols</h4>
                                     <p className="text-sm text-gray-600 dark:text-gray-300">Advanced techniques for studying marine life</p>
                                 </div>
                             </li>
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
                                     <Image
-                                        src="/images/gallery/healthy-reef-great-barrier-reef-rummer.jpg"
-                                        alt="Lab research"
+                                        src="/images/gallery/epaulette-shark-eggs-early-stages-rummerlab.jpg"
+                                        alt="Early stage research"
                                         fill
                                         className="object-cover rounded-lg"
                                     />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900 dark:text-gray-100">Lab Studies</h4>
+                                    <h4 className="font-semibold text-gray-900 dark:text-gray-100">Early Stage Research</h4>
                                     <p className="text-sm text-gray-600 dark:text-gray-300">Controlled environment research protocols</p>
                                 </div>
                             </li>
@@ -111,11 +126,11 @@ export default function InVivoProtocols() {
                     </aside>
 
                     <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Impact</h3>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Preparation</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
                             <Image
-                                src="/images/gallery/outer-great-barrier-reef-healthy-corals-rummer.jpg"
-                                alt="Marine ecosystem"
+                                src="/images/gallery/dr-rummer-diving-preparation-heron-island-gbr-grumpy-turtle.jpg"
+                                alt="Research preparation"
                                 fill
                                 className="object-cover"
                             />

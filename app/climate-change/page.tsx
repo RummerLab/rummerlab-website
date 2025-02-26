@@ -21,7 +21,7 @@ export default function ClimateChangePage() {
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/gallery/outer-great-barrier-reef-healthy-corals-rummer.jpg"
+                                    src="/images/gallery/healthy-coral-seascape-outer-gbr-rummer.jpg"
                                     alt="Coral reef ecosystem under study"
                                     fill
                                     className="object-cover"
@@ -48,8 +48,8 @@ export default function ClimateChangePage() {
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
                                 <Image
-                                    src="/images/gallery/dr-rummer-wheeler-shark-measurement-grumpy-turtle.jpg"
-                                    alt="Research equipment for ocean acidification studies"
+                                    src="/images/gallery/dr-rummer-epaulette-shark-release-post-experiment-grumpy-turtle.jpg"
+                                    alt="Research protocols and measurements"
                                     fill
                                     className="object-cover"
                                 />
@@ -67,7 +67,7 @@ export default function ClimateChangePage() {
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
                                     <Image
-                                        src="/images/gallery/epaulette-shark-swimming-reef-flats-kristian-laine.jpg"
+                                        src="/images/gallery/epaulette-shark-tail-heron-island-laine.jpg"
                                         alt="Marine life research"
                                         fill
                                         className="object-cover rounded-lg"
@@ -81,7 +81,7 @@ export default function ClimateChangePage() {
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
                                     <Image
-                                        src="/images/gallery/healthy-reef-great-barrier-reef-rummer.jpg"
+                                        src="/images/gallery/blacktip-shark-aquaria-french-polynesia-huertas.jpg"
                                         alt="Environmental research"
                                         fill
                                         className="object-cover rounded-lg"
@@ -99,7 +99,7 @@ export default function ClimateChangePage() {
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Impact</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
                             <Image
-                                src="/images/gallery/dr-rummer-reef-research-heron-island-grumpy-turtle.jpg"
+                                src="/images/gallery/dr-rummer-epaulette-shark-release-post-research-grumpy-turtle.jpg"
                                 alt="Marine conservation"
                                 fill
                                 className="object-cover"
