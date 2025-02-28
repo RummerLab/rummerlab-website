@@ -117,7 +117,7 @@ export default function ResearchPage() {
         <div className="text-center mt-8">
           <Link 
             href="/publications"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200"
+            className="inline-block bg-blue-600 text-white hover:text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200"
           >
             View All Publications
           </Link>
