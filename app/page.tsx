@@ -6,6 +6,7 @@ import { HeroParallax } from '../components/ui/hero-parallax';
 import { SparklesCore } from '../components/ui/sparkles';
 import { TracingBeam } from '../components/ui/tracing-beam';
 import { ResearchCard } from '../components/ResearchCard';
+import ScrollDownArrow from '../components/ScrollDownArrow';
 
 export default function Home() {
   return (
@@ -64,24 +65,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="absolute bottom-10 left-0 right-0 z-20 flex justify-center">
-            <div className="animate-bounce">
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                className="h-10 w-10 text-white" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3" 
-                />
-              </svg>
-            </div>
-          </div>
+          <ScrollDownArrow />
         </section>
         
         {/* Mission Statement with Text Reveal */}

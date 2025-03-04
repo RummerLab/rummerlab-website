@@ -42,6 +42,16 @@ const config: NextConfig = {
         destination: '/collaborators/embed',
         permanent: true,
       },
+      {
+        source: '/lab',
+        destination: '/team',
+        permanent: true,
+      },
+      {
+        source: '/rummerlab',
+        destination: '/team',
+        permanent: true,
+      },
     ]
   },
   async headers() {

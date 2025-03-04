@@ -8,11 +8,11 @@ import {
 
 export function TextReveal() {
   return (
-    <div className="flex items-center justify-center h-[20rem] rounded-2xl w-full">
+    <div className="flex items-center justify-center h-[22rem] sm:h-[20rem] rounded-2xl w-full">
       <TextRevealCard
         text="Healthy Sharks"
         revealText="Healthy Reefs"
-        className="text-center"
+        className="text-center w-full sm:w-[40rem]"
       >
         <TextRevealCardTitle className="text-center">
           Protecting our reefs is paramount for ensuring the survival of sharks. The health of these ecosystems is intricately linked.

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 
@@ -16,6 +16,8 @@ interface LightboxProps {
 }
 
 export default function Lightbox({ isOpen, onClose, image }: LightboxProps) {
+    const [isPortrait, setIsPortrait] = useState(false);
+
     const handleKeyDown = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Escape') {
             onClose();
@@ -23,13 +25,21 @@ export default function Lightbox({ isOpen, onClose, image }: LightboxProps) {
     }, [onClose]);
 
     useEffect(() => {
+        const checkOrientation = () => {
+            setIsPortrait(window.innerHeight > window.innerWidth);
+        };
+
         if (isOpen) {
             document.body.style.overflow = 'hidden';
             document.addEventListener('keydown', handleKeyDown);
+            checkOrientation();
+            window.addEventListener('resize', checkOrientation);
         }
+
         return () => {
             document.body.style.overflow = 'unset';
             document.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('resize', checkOrientation);
         };
     }, [isOpen, handleKeyDown]);
 
@@ -44,7 +54,7 @@ export default function Lightbox({ isOpen, onClose, image }: LightboxProps) {
             aria-label="Image lightbox"
         >
             <div 
-                className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full"
+                className="relative w-full h-full flex flex-col justify-center px-4 sm:px-6 lg:px-8"
                 onClick={e => e.stopPropagation()}
             >
                 <button
@@ -56,26 +66,28 @@ export default function Lightbox({ isOpen, onClose, image }: LightboxProps) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <div className="relative aspect-[16/9] w-full">
+
+                <div className={`relative w-full ${isPortrait ? 'h-[60vh]' : 'aspect-[16/9]'} max-w-7xl mx-auto`}>
                     <Image
                         src={image.src}
                         alt={image.alt}
                         fill
                         className="object-contain"
-                        sizes="100vw"
+                        sizes={isPortrait ? '100vh' : '100vw'}
                         priority
                         quality={100}
                     />
                 </div>
+
                 {(image.caption || image.credit) && (
-                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-black/75 backdrop-blur-sm">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/75 backdrop-blur-sm">
                         {image.caption && (
-                            <p className="text-white text-lg font-light mb-2 leading-relaxed">
+                            <p className="text-white text-sm sm:text-lg font-light mb-2 leading-relaxed">
                                 {image.caption}
                             </p>
                         )}
                         {image.credit && (
-                            <p className="text-gray-200 text-sm font-light">
+                            <p className="text-gray-200 text-xs sm:text-sm font-light">
                                 {image.credit}
                             </p>
                         )}
