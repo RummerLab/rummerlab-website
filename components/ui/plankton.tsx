@@ -99,7 +99,7 @@ export const PlanktonCore = ({
     const getFlowDirection = (x: number, y: number, time: number) => {
       // Perlin-like noise simulation for flow field
       const scale = 0.005;
-      const angle = Math.sin(x * scale) * Math.cos(y * scale) * Math.PI * 2 + time * 0.1;
+      const angle = Math.sin(x * scale) * Math.cos(y * scale) * Math.PI * 2 + time * 0.15;
       return {
         x: Math.cos(angle) * 0.2,
         y: Math.sin(angle) * 0.2
