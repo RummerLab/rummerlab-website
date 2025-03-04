@@ -43,10 +43,11 @@ const processDescription = (description: string | undefined, baseUrl: string): s
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
     const baseUrl = 'https://rummerlab.com';
+    const params = await props.params;
     const scholarId = params.id;
 
     if (scholarId !== 'ynWS968AAAAJ') {
