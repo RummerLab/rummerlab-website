@@ -41,10 +41,13 @@ const processDescription = (description: string | undefined, baseUrl: string): s
   );
 };
 
-export async function GET(request: NextRequest) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const baseUrl = 'https://rummerlab.com';
-    const scholarId = request.nextUrl.searchParams.get('id');
+    const scholarId = params.id;
 
     if (scholarId !== 'ynWS968AAAAJ') {
       return NextResponse.json({ error: 'Invalid scholar ID' }, { status: 400 });
