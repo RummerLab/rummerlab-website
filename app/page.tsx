@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { AnimatedCollaborators } from '../components/AnimatedCollaborators';
 import { TextReveal } from '../components/TextReveal';
 import { HeroParallax } from '../components/ui/hero-parallax';
-import { SparklesCore } from '../components/ui/sparkles';
+import { PlanktonCore } from '../components/ui/plankton';
 import { TracingBeam } from '../components/ui/tracing-beam';
 import { ResearchCard } from '../components/ResearchCard';
 import ScrollDownArrow from '../components/ScrollDownArrow';
@@ -28,14 +28,16 @@ export default function Home() {
           
           <div className="relative z-20 h-full flex flex-col items-center justify-center px-6 text-center">
             <div className="absolute inset-0 w-full h-full">
-              <SparklesCore
-                id="tsparticlesfullpage"
+              <PlanktonCore
+                id="planktonFullpage"
                 background="transparent"
                 minSize={0.6}
                 maxSize={1.4}
                 particleDensity={70}
                 className="w-full h-full"
-                particleColor="#FFFFFF"
+                particleColor="#88CCFF"
+                interactionRadius={150}
+                repulsionStrength={1.2}
               />
             </div>
             
