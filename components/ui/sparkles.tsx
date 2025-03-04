@@ -113,7 +113,7 @@ export const SparklesCore = ({
       }
       resizeObserver.disconnect();
     };
-  }, [background, maxSize, minSize, particleColor, particleDensity]);
+  }, [background, maxSize, minSize, particleColor, particleDensity, mousePosition.x, mousePosition.y]);
   
   return (
     <canvas
