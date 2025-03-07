@@ -15,7 +15,7 @@
   "dependencies": {
     "@next/third-parties": "15.1.6",
     "@vercel/analytics": "^1.4.1",
-    "@vercel/speed-insights": "^1.1.0",
+    "@vercel/speed-insights": "^1.2.0",
     "cheerio": "^1.0.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.18.2",
