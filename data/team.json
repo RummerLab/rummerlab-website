@@ -1107,5 +1107,848 @@
     ],
     "awards": [],
     "languages": ["French"]
+  },
+  {
+    "name": "Laura Kanzler-Boderke",
+    "title": null,
+    "role": "Team Manager",
+    "email": "laura.boderke@my.jcu.edu.au",
+    "startDate": "2024-02-01",
+    "endDate": null,
+    "description": "Laura is currently pursuing an Undergraduate Degree in Science, majoring in Marine Biology at JCU. She joined the lab in early 2024 as a husbandry volunteer, took on the role of assistant lab manager in June 2024, and is now supporting the team as the lab manager. Her primary interests focus on science communication as well as social science within shark conservation.",
+    "image": "/images/team/laura-kanzler-boderke.jpg",
+    "alt": "Laura Kanzler-Boderke, Rummer Lab Volunteer",
+    "links": {
+      "personalWebsite": "https://lauraboderke.wixsite.com/my-site/",
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": "https://www.facebook.com/profile.php?id=100011399913748",
+      "instagram": "https://www.instagram.com/lauraboderke/",
+      "linkedin": "https://www.linkedin.com/in/laura-boderke-6b84441a6/",
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Undergraduate Student",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Kylie Bostick",
+    "title": null,
+    "role": "Masters Student",
+    "email": "kylie.bostick@my.jcu.edu.au",
+    "startDate": "2023-02-15",
+    "endDate": "2024-11-01",
+    "description": "Kylie is a former master's student whose research investigated how environmental enrichment affected the cognition of captive brownbanded bamboo sharks (Chiloscyllium punctatum). Her work is a collaboration between the Rummer Lab and Dr. Culum Brown and PhD Candidate Anabell Klinke at Macquarie University. This project was the first to use a judgment bias test on an elasmobranch, and she hopes to build off this research to further explore elasmobranch cognition and connect it to the physiological underpinnings and greater ecological importance of animal cognition.",
+    "image": "/images/team/kylie-bostick.jpg",
+    "alt": "Kylie Bostick, Masters Student",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": "Kylie-Bostick",
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": null,
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Masters Student",
+        "location": "Australia"
+      },
+      {
+        "institution": "Macquarie University",
+        "department": null,
+        "role": "Research Collaborator",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": "2024"
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Courtney Burns",
+    "title": null,
+    "role": "Undergraduate Researcher",
+    "email": "courtney.burns@my.jcu.edu.au",
+    "startDate": "2022-02-01",
+    "endDate": null,
+    "description": "Courtney Burns is a Brataualung women from the Guanikurnai nation in Victoria, Australia. Courtney is deeply passionate about ocean Country health and an advocate for the use of diverse knowledge for shark conservation. Courtney's goal as an early career researcher is to be able to change the way the world sees sharks, with Aboriginal and Torres Strait Islander knowledge and priorities at the forefront of this research. Her research with the Physioshark project focus' on the body condition of neonate blacktip reef sharks (C. melanopterus), in Mo'orea, French Polynesia.",
+    "image": "/images/team/courtney-burns.jpg",
+    "alt": "Courtney Burns, Undergraduate Researcher",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": "rummerlab.com",
+      "projectWebsite": "physioshark.com",
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": "https://www.instagram.com/courtn3yburns/",
+      "linkedin": "https://au.linkedin.com/in/courtney-burns-22b543124",
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Undergraduate Researcher",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Shamil Debaere",
+    "title": null,
+    "role": "PhD Candidate",
+    "email": "shamil.debaere@uantwerpen.be",
+    "startDate": "2022-11-01",
+    "endDate": "2028-03-01",
+    "description": "Shamil is joint PhD student at the University of Antwerp (Belgium) and James Cook University (Australia). He is an experimental physiologist with a particular interest in the stress physiology of elasmobranch fishes. Shamil's main interests lay in applying a comparative physiological approach to conservation by studying the (chronic phase of the) stress response in sharks from a cellular and molecular level (e.g., blood chemistry, energy balance) up to the whole-organism level (e.g., aerobic performance, behaviour). The aim of his PhD research is to find reliable biomarkers for stress that can be applied in the wild to (1) identify which elasmobranch species are more vulnerable to human and environmental stressors, (2) which populations experience most human and environmental stressors, and (3) to quantify chronic stress experienced by captive sharks to inform best husbandry practices in zoos and aquaria.",
+    "image": "/images/team/shamil-debaere.jpg",
+    "alt": "Shamil Debaere, PhD Candidate of the Physioshark Project",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": "Shamil-Debaere",
+      "googleScholarId": "b2NI0scAAAAJ",
+      "x": null,
+      "bluesky": "@shamildebaere.bsky.social",
+      "facebook": null,
+      "instagram": "https://www.instagram.com/shamil.debaere",
+      "linkedin": null,
+      "github": null,
+      "orcid": "0000-0002-3951-3749"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "PhD Candidate",
+        "location": "Townsville, Australia"
+      },
+      {
+        "institution": "University of Antwerp",
+        "department": null,
+        "role": "PhD Candidate",
+        "location": "Belgium"
+      }
+    ],
+    "education": [
+      {
+        "degree": "PhD (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University & University of Antwerp",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Carmen Dobszewicz",
+    "title": "",
+    "role": "Masters Student",
+    "email": "cdob0499@uni.sydney.edu.au",
+    "startDate": "2023-01-30",
+    "endDate": "2024-11-15",
+    "description": "Carmen Dobszewicz is a former member of the RummerLab, having completed her Master of Marine Biology (MMB) degree in November of 2024. Her research project investigated the hypoxia tolerance of early juvenile epaulette sharks (Hemiscyllium ocellatum) under warming scenarios. This project incorporated techniques including respirometry and blood sampling to determine the physiological response to hypoxic and thermal stress in early ontogenies of this species and whether these tolerances compared to their adult counterparts. She also accompanied Dr. Rummer to Mo'orea, French Polynesia as a teaching assistant for the first Shark Conservation and Physiology field course run through PhysioShark, assisting with the conduction of field work at blacktip reef shark (Carcharhinus melanopterus) and sicklefin lemon shark (Negaprion acutidens) nurseries. Carmen is continuing the further her studies, incorporating physiology and social sciences, at the University of Sydney with the continued support of Dr. Jodie Rummer and her other supervisors at the University of Sydney including Dr. Michele Barnes and Dr. Christopher Pepin-Neff.",
+    "image": "/images/team/carmen-dobszewicz.jpg",
+    "alt": "Carmen Dobszewicz, Masters Student",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": null,
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": null,
+        "role": "Masters Graduate",
+        "location": "Australia"
+      },
+      {
+        "institution": "University of Sydney",
+        "department": null,
+        "role": "Student",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Master of Marine Biology",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": "2024"
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Sophia Emmons",
+    "title": "",
+    "role": "PhD Candidate",
+    "email": "sophia.emmons@my.jcu.edu.au",
+    "startDate": "2022-04-05",
+    "endDate": null,
+    "description": "Sophia Emmons is a PhD Candidate and cotutelle student with James Cook University and the University of South Florida, co-supervised by Dr. Jodie Rummer (JCU), Dr. Brad Seibel (USF), and Dr. Colin Simpfendorfer. Her research explores the impact of individual and cumulative climate stressors on the physiology of coastal elasmobranchs. Specifically, Sophia is interested in the impacts of deoxygenation and how low oxygen environments impacts the metabolic performance of coastal and estuarine species. Her current research is on the compounding effects of temperature and low oxygen on the oxygen supply capacity and critical oxygen limits of the epaulette shark. Sophia is a proud recipient of the American Australian Association Graduate Fund (2024), the USF Graduate Student Success Fellowship (2022), and the JCU Post-Graduate Research Scholarship (2022).",
+    "image": "/images/team/sophia-emmons.jpg",
+    "alt": "Sophia Emmons, PhD Candidate with the Physioshark, Rummer, and Seibel Laboratories",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": "Sophia-Emmons",
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": "https://www.instagram.com/sharkbait.soph/",
+      "linkedin": null,
+      "github": null,
+      "orcid": "0000-0003-3918-4647"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "PhD Candidate",
+        "location": "Townsville, Australia"
+      },
+      {
+        "institution": "University of South Florida",
+        "department": null,
+        "role": "PhD Candidate",
+        "location": "Florida, USA"
+      }
+    ],
+    "education": [
+      {
+        "degree": "PhD (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University & University of South Florida",
+        "year": null
+      }
+    ],
+    "awards": [
+      {
+        "name": "American Australian Association Graduate Fund",
+        "year": "2024",
+        "description": null
+      },
+      {
+        "name": "USF Graduate Student Success Fellowship",
+        "year": "2022",
+        "description": null
+      },
+      {
+        "name": "JCU Post-Graduate Research Scholarship",
+        "year": "2022",
+        "description": null
+      }
+    ],
+    "languages": []
+  },
+  {
+    "name": "Joel Gayford",
+    "title": null,
+    "role": "PhD Candidate",
+    "email": "joel.gayford@my.jcu.edu.au",
+    "startDate": "2024-05-08",
+    "endDate": null,
+    "description": "Joel Gayford is a PhD Candidate in the College of Science and Engineering at James Cook University, founder of the Shark Measurements Research Group, and graduate of the University of Cambridge and Imperial College London. Joel has authored over 20 peer-reviewed publications to date, on topics ranging from ecomorphology to palaeobiology, biodiversity ecosystem function relationships, marine pollution, and behavioural ecology. Joel's research interests broadly lie in functional morphology (with a focus on cartilaginous fishes), including morphological evolution, phylogenetic comparative methods, behavioural ecology and biomechanics. Joel's PhD project focusses on the evolution of body size and scaling in sharks and their relatives, aiming to uncover how, when, and why chondrichthyans achieved their impressive ecomorphological diversity.",
+    "image": "/images/team/joel-gayford.jpg",
+    "alt": "Joel Gayford, PhD Candidate",
+    "links": {
+      "personalWebsite": "sharkmeasurements.com",
+      "labWebsite": "rummerlab.com",
+      "projectWebsite": "physioshark.com",
+      "researchGateSlug": "Joel-Gayford",
+      "googleScholarId": "z5EfQDcAAAAJ",
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": "https://www.instagram.com/joelgayford",
+      "linkedin": "https://www.linkedin.com/in/joel-gayford/",
+      "github": null,
+      "orcid": "0000-0002-0839-3940"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "PhD Candidate",
+        "location": "Townsville, Australia"
+      },
+      {
+        "institution": "Shark Measurements Research Group",
+        "department": null,
+        "role": "Founder",
+        "location": null
+      }
+    ],
+    "education": [
+      {
+        "degree": "PhD (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      },
+      {
+        "degree": "MSc",
+        "field": null,
+        "institution": "Imperial College London",
+        "year": null
+      },
+      {
+        "degree": "BSc",
+        "field": null,
+        "institution": "University of Cambridge",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Aaron Hasenei",
+    "title": "",
+    "role": "PhD Candidate",
+    "email": "aaron.hasenei@my.jcu.edu.au",
+    "startDate": "2022-01-06",
+    "endDate": null,
+    "description": "Aaron is currently a PhD candidate within the Rummer Lab at James Cook University within the College of Science and Engineering. He comes from an eclectic background encompassing sports medicine, exercise physiology, functional morphology, aquarium engineering, fisheries biology, invasive species biology, and visual and energetic physiology of fishes. His current research within the Rummer Lab focuses on examining the genetic underpinnings of physiological and biomechanical performance within latitudinally and genetically distinct populations of epaulette sharks (Hemiscyllium ocellatum) in response to various ocean warming scenarios. Aaron also works part-time as a lab facilities technician at the Marine and Aquaculture facilities unit at JCU to help maintain life support systems for the Rummer Lab's research animals.",
+    "image": "/images/team/aaron-hasenei.jpg",
+    "alt": "Aaron Hasenei, PhD Candidate",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": null,
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "PhD Candidate",
+        "location": "Townsville, Australia"
+      },
+      {
+        "institution": "James Cook University",
+        "department": "Marine and Aquaculture Facilities Unit",
+        "role": "Lab Facilities Technician",
+        "location": "Townsville, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "PhD (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      },
+      {
+        "degree": "MSc",
+        "field": "Marine Biology",
+        "institution": null,
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Luca Hoffecker",
+    "title": null,
+    "role": "Team Manager",
+    "email": "lucahoffecker@gmail.com",
+    "startDate": "2023-01-11",
+    "endDate": "2024-10-31",
+    "description": "Luca Hoffecker is a marine biologist and oceanographer from Vancouver, Canada. He studied biology and oceanography at the University of British Columbia with a specialization in marine mammals. Luca graduated from James Cook University in 2024 with a master's in marine biology. He was the acting lab manager of the Rummer Lab, as well as the team manager of Physioshark from 2023 to 2024. In 2022, Luca co-founded The FINstitue, a non-profit based around shark conservation and education.",
+    "image": "/images/team/luca-hoffecker.jpg",
+    "alt": "Luca Hoffecker, Team Manager",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": "https://www.thefinstitute.org/",
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": "https://www.instagram.com/lucahof",
+      "linkedin": "https://www.linkedin.com/in/Luca-Hoffecker/",
+      "github": null,
+      "orcid": "0009-0006-5692-7464"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Team Manager",
+        "location": "Townsville, Australia"
+      },
+      {
+        "institution": "The FINstitue",
+        "department": null,
+        "role": "Co-founder",
+        "location": null
+      }
+    ],
+    "education": [
+      {
+        "degree": "MMB",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": "2024"
+      },
+      {
+        "degree": "BSc",
+        "field": "Biology and Oceanography",
+        "institution": "University of British Columbia",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Isaac Marshall",
+    "title": "",
+    "role": "Undergraduate Researcher & Volunteer",
+    "email": "isaactmarshall@gmail.com",
+    "startDate": "2023-10-01",
+    "endDate": "2024-12-04",
+    "description": "Isaac Marshall was an undergraduate student who studied a Bachelor of Advanced Science majoring in marine biology at James Cook University. Isaac spent a little over a year as a volunteer in the RummerLab, assisting and learning from the Master's and PhD students and their projects. The projects focus on understanding the capacity for epaulette sharks in particular to physiologically adapt to environmental stressors to make contributions to conservation of aquatic ecosystems. In addition to assisting other researchers in the RummerLab, Isaac conducted his own research into the role of various environmental factors and physiological traits during captive adult epaulette shark oogenesis on the outcome of eggs produced. Additionally, he furthered previous studies into the biological and behavioural processes of the epaulette shark, exploring the role that the presence or absence of light plays during embryonic development. Isaac was one of 10 students that were granted a New Columbo Plan scholarship to join Dr Jodie Rummer in Mo'orea, French Polynesia for a shark conservation physiology field subject to become immersed in her Physioshark Project research programme and to learn from her extraordinary network of researchers, educators, and conservationists working on and alongside it.",
+    "image": "/images/team/isaac-marshall.jpg",
+    "alt": "Isaac Marshall, Undergraduate Researcher & Volunteer",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": null,
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Undergraduate Researcher & Volunteer",
+        "location": "Townsville, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "Bachelor of Advanced Science (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      }
+    ],
+    "awards": [
+      {
+        "name": "New Columbo Plan Scholarship",
+        "year": "2024",
+        "description": "Scholarship for shark conservation physiology field subject in Mo'orea, French Polynesia"
+      }
+    ],
+    "languages": []
+  },
+  {
+    "name": "Chelsea B. Millward",
+    "title": null,
+    "role": "Undergraduate Researcher",
+    "email": "chelsea.millward@my.jcu.edu.au",
+    "startDate": "2021-10-31",
+    "endDate": "2023-01-31",
+    "description": "Chelsea joined the Rummer Lab in the second year of her undergraduate degree at James Cook University, where she was completing a BSc in Marine Biology. Chelsea started out as a volunteer but quickly transitioned into an undergraduate researcher when an opportunity arose to explore the embryonic development of epaulette sharks. She had previous experience caring for and hatching epaulette sharks at an aquarium, so used these skills to close the life cycle of the sharks that were being housed in the lab at the time by creating a successful breeding program. Chelsea continued researching embryonic development by exploring the effect light and photoperiod had on growth, circadian rhythm and hatching success for her third-year special topic research subject.",
+    "image": "/images/team/chelsea-millward.jpg",
+    "alt": "Chelsea B. Millward, Undergraduate Researcher",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": "https://www.linkedin.com/in/chelsea-b-millward",
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Undergraduate Researcher",
+        "location": "Townsville, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": "2023"
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Valentino Pallini",
+    "title": "Undergraduate Student of Marine Biology",
+    "role": "Volunteer",
+    "email": "valpallini71@gmail.com",
+    "startDate": "2024-04-25",
+    "endDate": null,
+    "description": "Valentino Pallini is a current 3rd Year undergraduate student enrolled at James Cook University, as well as a epaulette shark/ anemonefish husbandry volunteer.",
+    "image": "/images/team/valentino-pallini.jpg",
+    "alt": "Valentino Pallini, Volunteer",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": null,
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Undergraduate Student",
+        "location": "Townsville, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Carmen Ritter",
+    "title": "MSc",
+    "role": "Research collaborator",
+    "email": "carmen.ritter@jcu.edu.au",
+    "startDate": "2022-09-01",
+    "endDate": null,
+    "description": "Carmen studies fish and invertebrates in marine and coastal environments. Her lab and field research in the coastal United States, Caribbean, and Central America looked at an array of critters and landscapes, including sharks and rays along temperate coastlines, bony fishes in estuaries, epifaunal invertebrates on intertidal seagrass, and reefs (both oyster and coral) defining the benthos. During her master's degree, Carmen worked with the Physioshark lab to collect and maintain epaulette sharks from the Great Barrier Reef to support research investigating the physiological implications of warming waters. She also worked with Jodie independently to produce a research article presenting a measure of physical stress on reef fishes during and after the 2016 GBR bleaching event (paper in prep).",
+    "image": "/images/team/carmen-ritter.jpg",
+    "alt": "Carmen Ritter",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": "",
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": "OGxtg3gAAAAJ",
+      "x": "ocean_critter",
+      "bluesky": null,
+      "facebook": null,
+      "instagram": "https://www.instagram.com/ocean_critter",
+      "linkedin": "https://www.linkedin.com/in/carmenjeanritter",
+      "github": null,
+      "orcid": "0000-0002-6912-9262"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Team Leader of Marine and Terrestrial Sciences Lab & Tech",
+        "location": "Townsville, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Katie Seidel",
+    "title": "",
+    "role": "Masters Student",
+    "email": "katie.seidel@my.jcu.edu.au",
+    "startDate": "2023-07-20",
+    "endDate": null,
+    "description": "Originally from Florida, Katie Seidel earned her BSc in Marine Biology from the University of South Florida. Katie is currently a Master's student conducting her research thesis on the effects of geomorphology on the spatial distribution of juvenile blacktip reef and sicklefin lemon sharks around the island of Moorea, French Polynesia under the supervision of Dr. Jodie Rummer. Passionate about Geographic Information Systems (GIS), Katie's research interest focuses on the impacts of climate change on the ecology and spatial distribution of global shark species.",
+    "image": "/images/team/katie-seidel.jpg",
+    "alt": "Katie Seidel, JCU Master's Student",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": "https://www.instagram.com/katie.seidel.6",
+      "linkedin": "https://www.linkedin.com/in/katie-seidel-2b9988168/",
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Masters Student",
+        "location": "Townsville, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      },
+      {
+        "degree": "BSc",
+        "field": "Marine Biology",
+        "institution": "University of South Florida",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Emma Olivia Tormalm",
+    "title": "",
+    "role": "Volunteer",
+    "email": "emmaolivia.tormalm@my.jcu.edu.au",
+    "startDate": "2024-03-10",
+    "endDate": null,
+    "description": "Emma Olivia Tormalm is an undergraduate student pursuing a Bachelors in Marine Science at James Cook University. She has been a volunteer for the Rummer Lab since the beginning of 2024 and has through her role become proficient in shark husbandry, embryonic development of epaulette sharks and assisting in physiological research methodologies. Her role as senior volunteer has helped bridge the gap between lab- and fieldwork, able to pursue an epaulette shark monitoring internship with Elasmobranch Project Indonesia and the FINstitute, where she was able to gain hands-on experience in shark tagging, DNA sampling, coral photogrammetry and population surveys.",
+    "image": "/images/team/emma-tormalm.jpg",
+    "alt": "Emma Olivia Tormalm, Volunteer at the Rummer Lab",
+    "links": {
+      "personalWebsite": "jodierummer.com",
+      "labWebsite": "rummerlab.com",
+      "projectWebsite": "physioshark.com",
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": "physioshark",
+      "bluesky": null,
+      "facebook": "https://www.facebook.com/physioshark",
+      "instagram": "https://www.instagram.com/physioshark",
+      "linkedin": "https://www.linkedin.com/in/jodie-rummer/",
+      "github": "https://github.com/jodierummer",
+      "orcid": "0000-0001-2345-6789"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Volunteer",
+        "location": "Townsville, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc (in progress)",
+        "field": "Marine Science",
+        "institution": "James Cook University",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Manuele Zanaboni",
+    "title": "",
+    "role": "Volunteer",
+    "email": "zanaboni@projectoceanoasis.org",
+    "startDate": "2021-09-01",
+    "endDate": "2024-07-30",
+    "description": "I'm a mature student who has recently finished up studying at JCU with a Bachelor of Science Majoring in Marine Biology. In my previous career I worked in the Construction industry specialising in Carpentry, Concreting, Formwork, Tiling and Painting, while also completing my Diploma of Building and Construction, this has helped me adapt to the field environment and hope can help provide me unique service to marine science. I've been lucky enough to be involved with RummerLab and Physioshark helping in various exciting projects. Initially started volunteering in Mo'orea, French Polynesia where I helped with field work every evening in catching, tagging and releasing juvenile/neonate Blacktip Reef Sharks and Sicklefin Lemon Sharks. Later when I commenced my degree at JCU I got involved with the Rummer/Physioshark Lab helping with husbandry, training new members, Port Douglas Field Research and various experiment of graduate students including blood sampling, kinematics studies, dissections, elasmobranch egg husbandry and assisting in shark surgery. I have been extremely lucky and thankful for being able to have these valuable experiences where I look forward in applying to my professional career, with such a great team lead by a motivated and enthusiastic Professor.",
+    "image": "/images/team/manuele-zanaboni.jpg",
+    "alt": "Manuele Zanaboni, Volunteer and Founder of Project Ocean Oasis",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": null,
+      "projectWebsite": null,
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": "https://www.instagram.com/livingnparadise",
+      "linkedin": null,
+      "github": null,
+      "orcid": null
+    },
+    "affiliations": [
+      {
+        "institution": "Project Ocean Oasis",
+        "department": null,
+        "role": "Founder",
+        "location": "Australia"
+      },
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Graduate",
+        "location": "Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "BSc",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": "2024"
+      },
+      {
+        "degree": "Diploma",
+        "field": "Building and Construction",
+        "institution": null,
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
+  },
+  {
+    "name": "Miriam Zanforlin",
+    "title": null,
+    "role": "Masters Student",
+    "email": "miriam.zanforlin@my.jcu.edu.au",
+    "startDate": "2023-05-01",
+    "endDate": null,
+    "description": "Originally from Milan, Italy, Miriam earned her BSc in Biological Sciences from University of Milan. Since May 2024, she has been a husbandry volunteer in Dr. Jodie Rummer's lab. Her research investigates the energetic costs associated with digestion in neonate epaulette sharks (Hemiscyllium ocellatum), with a particular focus on the influence of temperature. She examines specific dynamic action (SDA) as a critical component of the neonatal energy budget, using intermittent flow respirometry to quantify oxygen uptake rates during ingestion, digestion and assimilation. Her study aims to elucidate the energetic demands of early growth, the energetic cost of the metabolic transition from endogenous yolk reserves to active foraging, and the potential constraints imposed by increased temperatures. By integrating physiological and ecological perspectives, her research contributes to a broader understanding of thermal tolerance in early life stages and the implications of climate change on developmental energetics in elasmobranchs.",
+    "image": "/images/team/miriam-zanforlin.jpg",
+    "alt": "Miriam Zanforlin, Masters Student",
+    "links": {
+      "personalWebsite": null,
+      "labWebsite": "rummerlab.com",
+      "projectWebsite": "physioshark.com",
+      "researchGateSlug": null,
+      "googleScholarId": null,
+      "x": null,
+      "bluesky": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": "https://www.linkedin.com/in/miriam-zanforlin/",
+      "github": null,
+      "orcid": "0009-0009-4030-9401"
+    },
+    "affiliations": [
+      {
+        "institution": "James Cook University",
+        "department": "College of Science and Engineering",
+        "role": "Masters Student",
+        "location": "Townsville, Australia"
+      }
+    ],
+    "education": [
+      {
+        "degree": "MSc (in progress)",
+        "field": "Marine Biology",
+        "institution": "James Cook University",
+        "year": null
+      },
+      {
+        "degree": "BSc",
+        "field": "Biological Sciences",
+        "institution": "University of Milan",
+        "year": null
+      }
+    ],
+    "awards": [],
+    "languages": []
   }
 ]
