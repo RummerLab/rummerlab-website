@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 const GALLERY_DIR = './public/images/gallery';
+//const GALLERY_DIR = './public/images/team';
 const MAX_SIZE = 2000; // Reduced from 3000 to 2000px
 const TARGET_DPI = 72; // Web-standard DPI
 const QUALITY = 80; // Slightly reduced quality for better compression
