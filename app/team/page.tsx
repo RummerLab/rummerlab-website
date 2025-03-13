@@ -133,7 +133,7 @@ export default function TeamPage() {
                 <div className="mt-6 flex flex-wrap gap-3">
                   {member.links.personalWebsite && (
                     <Link 
-                      href={`https://${member.links.personalWebsite}`}
+                      href={member.links.personalWebsite}
                       className="text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
                       target="_blank"
                       rel="noopener noreferrer"
