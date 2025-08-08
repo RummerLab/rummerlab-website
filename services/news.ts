@@ -314,21 +314,35 @@ export const fetchNewsAPIArticles = cache(async (): Promise<MediaItem[]> => {
 
     if (!data?.articles) return [];
 
-    return data.articles.map(article => ({
-        type: 'article' as const,
-        source: article.source.name,
-        title: article.title,
-        description: article.description,
-        url: article.url,
-        date: article.publishedAt,
-        sourceType: 'Other',
-        ...(article.urlToImage && {
-            image: {
-                url: article.urlToImage,
-                alt: article.title
-            }
+    //save to file for testing
+    //const fs = require('fs');
+    //fs.writeFileSync('newsapi.json', JSON.stringify(data, null, 2));
+
+    return data.articles
+        .filter(article => {
+            const title = article.title ?? '';
+            const description = article.description ?? '';
+            const content = `${title} ${description}`.toLowerCase();
+            return (
+                doesArticleMentionRummer(content, title, description) ||
+                content.includes('shark')
+            );
         })
-    }));
+        .map(article => ({
+            type: 'article' as const,
+            source: article.source.name,
+            title: article.title,
+            description: article.description,
+            url: article.url,
+            date: article.publishedAt,
+            sourceType: 'Other',
+            ...(article.urlToImage && {
+                image: {
+                    url: article.urlToImage,
+                    alt: article.title
+                }
+            })
+        }));
 });
 
 // Function to fix Google News URLs
@@ -588,6 +602,10 @@ export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
             new Map(allArticles.map(item => [item.url, item]))
             .values()
         ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+        //save to file for testing
+        //const fs = require('fs');
+        //fs.writeFileSync('news.json', JSON.stringify(uniqueArticles, null, 2));
 
         return uniqueArticles;
     } catch (error) {
