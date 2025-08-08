@@ -208,12 +208,14 @@ export const fetchConversationArticles = cache(() =>
     fetchRSSFeed(
         'https://theconversation.com/profiles/jodie-l-rummer-711270/articles.atom',
         'The Conversation',
-        (item: RSSItem): boolean => {
-            console.log("isLikelyEnglish", !isLikelyEnglish(item.title), item.title);
-            //if (!isLikelyEnglish(item.title)) return false;
-            return true;
-        },
+        (item: RSSItem): boolean => true,
         DEFAULT_HEADERS
+    ).then((articles: MediaItem[]) =>
+        articles.filter(article => {
+            //console.log("isLikelyEnglish", !isLikelyEnglish(article.title), article.date, article.title);
+            if (isLikelyEnglish(article.title)) return false;
+            return true;
+        })
     )
 );
 
