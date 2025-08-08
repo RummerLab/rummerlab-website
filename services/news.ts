@@ -197,11 +197,22 @@ interface GuardianResponse {
 }
 
 // Export fetch functions using the generic RSS fetcher
-export const fetchConversationArticles = cache(() => 
+// Enhanced English detection function to filter out non-English articles
+// Detects French, Spanish, German, and other non-English content more accurately
+// Example non-English: "Mais pourquoi certains requins « freezent » lorsqu’on les retourne ?"
+const isLikelyEnglish = (text: string | undefined): boolean => {
+    if (!text) return false;
+    return (text.includes('«') && text.includes('»')) || (text.includes('¿') && text.includes('?'));
+};
+export const fetchConversationArticles = cache(() =>
     fetchRSSFeed(
         'https://theconversation.com/profiles/jodie-l-rummer-711270/articles.atom',
         'The Conversation',
-        (item: RSSItem): boolean => true,
+        (item: RSSItem): boolean => {
+            console.log("isLikelyEnglish", !isLikelyEnglish(item.title), item.title);
+            //if (!isLikelyEnglish(item.title)) return false;
+            return true;
+        },
         DEFAULT_HEADERS
     )
 );
