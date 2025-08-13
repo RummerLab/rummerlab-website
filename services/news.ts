@@ -586,6 +586,64 @@ function fixGoogleNewsUrl(url: string): string {
     }
 }
 
+// Attempt to resolve the final article URL for Google News links by inspecting the HTML
+async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string> {
+    try {
+        const response = await fetch(googleNewsUrl, {
+            headers: {
+                ...DEFAULT_HEADERS,
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+            },
+            next: { revalidate: REVALIDATE_TIME }
+        });
+
+        if (!response.ok) {
+            return googleNewsUrl;
+        }
+
+        const html = await response.text();
+
+        // meta refresh redirect
+        const metaRefreshMatch = html.match(/<meta[^>]*http-equiv=["']refresh["'][^>]*content=["'][^"']*url=([^"']+)["'][^>]*>/i);
+        if (metaRefreshMatch?.[1]) {
+            try {
+                return decodeURIComponent(metaRefreshMatch[1]);
+            } catch {
+                return metaRefreshMatch[1];
+            }
+        }
+
+        // JS redirect patterns
+        const jsRedirectMatch = html.match(/location\.(?:replace|href)\(['"]([^'"]+)['"]\)/i);
+        if (jsRedirectMatch?.[1]) {
+            return jsRedirectMatch[1];
+        }
+
+        // Fallback: first absolute external link that is not a Google domain
+        const anchorMatches = html.match(/<a[^>]*href=["']([^"']+)["'][^>]*>/gi) || [];
+        for (const anchor of anchorMatches) {
+            const hrefMatch = anchor.match(/href=["']([^"']+)["']/i);
+            const href = hrefMatch?.[1];
+            if (!href) continue;
+            if (!/^https?:\/\//i.test(href)) continue;
+            try {
+                const { hostname } = new URL(href);
+                const lowerHost = hostname.toLowerCase();
+                const isGoogle = lowerHost.endsWith('google.com') || lowerHost.endsWith('googleusercontent.com') || lowerHost.includes('news.google.com');
+                if (!isGoogle) {
+                    return href;
+                }
+            } catch {
+                // ignore invalid URLs
+            }
+        }
+
+        return googleNewsUrl;
+    } catch {
+        return googleNewsUrl;
+    }
+}
+
 // Function to check if article might be marine-related based on title/description
 function mightBeMarineRelated(title: string, description: string): boolean {
     const text = `${title} ${description}`.toLowerCase();
@@ -810,7 +868,10 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
                 if (!hasRummerRSS && !hasMarineKeywordsRSS) {
                     const descriptionUrl = item.description?.match(/href="([^"]+)"/)?.[1];
                     const itemUrl = item.link || descriptionUrl || item.guid || '';
-                    const fixedUrl = fixGoogleNewsUrl(itemUrl);
+                    let fixedUrl = fixGoogleNewsUrl(itemUrl);
+                    if (fixedUrl.includes('news.google.com')) {
+                        fixedUrl = await resolveGoogleNewsFinalUrl(fixedUrl);
+                    }
                     
                     if (fixedUrl && fixedUrl !== 'No URL available') {
                         const { hasRummer, hasMarineKeywords, content: articleContent, image } = await checkArticleContent(fixedUrl, item.title || '');
@@ -828,36 +889,55 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
                         return null;
                     }
                 } else {
-                    return { item, hasRummer: hasRummerRSS, hasMarineKeywords: hasMarineKeywordsRSS, fixedUrl: item.link || '' };
+                    const descriptionUrl = item.description?.match(/href="([^"]+)"/)?.[1];
+                    const itemUrl = item.link || descriptionUrl || item.guid || '';
+                    let fixedUrl = fixGoogleNewsUrl(itemUrl);
+                    if (fixedUrl.includes('news.google.com')) {
+                        fixedUrl = await resolveGoogleNewsFinalUrl(fixedUrl);
+                    }
+                    return { item, hasRummer: hasRummerRSS, hasMarineKeywords: hasMarineKeywordsRSS, fixedUrl };
                 }
             })
         );
 
-        const articles = articlesWithContent
-            .filter((result): result is PromiseFulfilledResult<{ item: any; hasRummer: boolean; hasMarineKeywords: boolean; fixedUrl: string } | null> => 
-                result.status === 'fulfilled' && result.value !== null
-            )
-            .map(result => result.value!)
-            .filter(({ hasRummer, hasMarineKeywords }) => hasRummer || hasMarineKeywords)
-            .map(({ item, fixedUrl }) => {
-                const mediaItem: MediaItem = {
-                    type: 'article',
-                    source: 'Google News',
-                    title: stripHtml(item.title || ''),
-                    description: stripHtml(item.contentSnippet || item.description || ''),
-                    url: fixedUrl,
-                    date: item.pubDate || new Date().toISOString(),
-                    sourceType: 'Other' as const,
-                    ...(item.enclosure?.url && {
-                        image: {
-                            url: item.enclosure.url,
-                            alt: stripHtml(item.title || '')
-                        }
-                    })
-                };
+        const articles = await Promise.all(
+            articlesWithContent
+                .filter(result => result.status === 'fulfilled' && (result as PromiseFulfilledResult<{ item: any; hasRummer: boolean; hasMarineKeywords: boolean; fixedUrl: string; image?: string } | null>).value !== null)
+                .map(result => (result as PromiseFulfilledResult<{ item: any; hasRummer: boolean; hasMarineKeywords: boolean; fixedUrl: string; image?: string } | null>).value!)
+                .filter(({ hasRummer, hasMarineKeywords }) => hasRummer || hasMarineKeywords)
+                .map(async ({ item, fixedUrl, image }) => {
+                    // Prefer extracted image from the final article HTML over Google News enclosure thumbs
+                    let imageUrl: string | undefined = image || item.enclosure?.url;
 
-                return mediaItem;
-            });
+                    // If we still don't have an image OR it's a Google proxy thumbnail, fetch the article HTML to extract og:image
+                    if (fixedUrl && (!imageUrl || imageUrl.includes('googleusercontent.com'))) {
+                        try {
+                            const { image: extracted } = await checkArticleContent(fixedUrl, item.title || '');
+                            if (extracted) imageUrl = extracted;
+                        } catch {
+                            // Best-effort only; continue without image if extraction fails
+                        }
+                    }
+
+                    const mediaItem: MediaItem = {
+                        type: 'article',
+                        source: 'Google News',
+                        title: stripHtml(item.title || ''),
+                        description: stripHtml(item.contentSnippet || item.description || ''),
+                        url: fixedUrl,
+                        date: item.pubDate || new Date().toISOString(),
+                        sourceType: 'Other' as const,
+                        ...(imageUrl && {
+                            image: {
+                                url: imageUrl,
+                                alt: stripHtml(item.title || '')
+                            }
+                        })
+                    };
+
+                    return mediaItem;
+                })
+        );
 
         return articles;
     } catch (error) {

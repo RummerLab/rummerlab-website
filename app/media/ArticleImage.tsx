@@ -29,20 +29,38 @@ function isValidImageUrl(url: string): boolean {
         /stats\.wp\.com/,
         /placeholder\./,
         /blank\./,
-        /transparent\./
+        /transparent\./,
+        /facebook\.com\/tr\?/,
+        /doubleclick\./
     ];
     
     // Check if it's a valid image URL
     const imageExtensions = /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i;
     const hasValidExtension = imageExtensions.test(url);
     
+    // Allowlist hosts that often serve images without file extensions
+    const allowedHostsWithoutExtensions = [
+        'images.theconversation.com',
+        'media.guim.co.uk',
+        'imageio.forbes.com',
+        'live-production.wcms.abc-cdn.net.au',
+        'abc-cdn.net.au', // wildcard covered below
+        'googleusercontent.com',
+        'wp.com',
+        'wordpress.com',
+        'cloudfront.net',
+        'amazonaws.com'
+    ];
+
     // Check if it's not a tracking pixel
     const isNotTracking = !trackingPatterns.some(pattern => pattern.test(url));
     
     // Check if it's a valid URL
     try {
-        new URL(url);
-        return hasValidExtension && isNotTracking;
+        const parsed = new URL(url);
+        const hostname = parsed.hostname.toLowerCase();
+        const isAllowedHost = allowedHostsWithoutExtensions.some(h => hostname.endsWith(h));
+        return (hasValidExtension || isAllowedHost) && isNotTracking;
     } catch {
         return false;
     }
