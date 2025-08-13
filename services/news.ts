@@ -121,6 +121,12 @@ async function fetchRSSFeed(
                     }
                 })
             };
+            
+            // Debug: Log if article has RSS image
+            if (item.enclosure?.url) {
+                console.log(`RSS image found for "${item.title}": ${item.enclosure.url}`);
+            }
+            
             return mediaItem;
         });
     } catch (error) {
@@ -145,6 +151,8 @@ const doesArticleMentionRummer = (content: string, title: string, description: s
             (normalizedContent.split('rummer').length > 2 || 
              (normalizedContent.includes('dr rummer') || normalizedContent.includes('dr. rummer')) || 
              normalizedContent.includes('professor rummer') || 
+             normalizedContent.includes('prof rummer') || 
+             normalizedContent.includes('prof jodie rummer') ||
              normalizedContent.includes('jodie rummer')));
     
     if (!hasRummer) {
@@ -231,23 +239,62 @@ const isLikelyEnglish = (text: string | undefined): boolean => {
     
     return !isNonEnglish;
 };
-export const fetchConversationArticles = cache(() =>
-    fetchRSSFeed(
+export const fetchConversationArticles = cache(async (): Promise<MediaItem[]> => {
+    const articles = await fetchRSSFeed(
         'https://theconversation.com/profiles/jodie-l-rummer-711270/articles.atom',
         'The Conversation',
         (item: RSSItem): boolean => true,
         DEFAULT_HEADERS
-    ).then((articles: MediaItem[]) =>
-        articles.filter(article => {
+    );
+
+    // Filter for English articles and check for Rummer mentions with HTML content
+    const filteredArticles = await Promise.allSettled(
+        articles.map(async (article) => {
             const isEnglish = isLikelyEnglish(article.title);
             if (!isEnglish) {
                 console.warn(`Conversation article filtered - non-English: "${article.title}" - URL: ${article.url || 'No URL available'}`);
-                return false;
+                return null;
             }
-            return true;
+
+            // Check RSS content first
+            const hasRummer = doesArticleMentionRummer(article.description || '', article.title, article.description || '');
+            const hasMarineKeywords = containsMarineKeywords({ 
+                title: article.title, 
+                content: article.description || '', 
+                contentSnippet: article.description || '' 
+            } as RSSItem);
+
+            // If RSS content doesn't have keywords, fetch full HTML content
+            if (!hasRummer && !hasMarineKeywords && article.url) {
+                console.log(`Conversation article fetching full content: "${article.title}"`);
+                const { hasRummer: hasRummerContent, hasMarineKeywords: hasMarineContent, image } = await checkArticleContent(article.url, article.title);
+                
+                if (hasRummerContent) {
+                    console.log(`Conversation article passed after content check: "${article.title}" - Found Rummer mention in full content`);
+                    // Update article with image if found
+                    if (image) {
+                        article.image = { url: image, alt: article.title };
+                    }
+                    return article;
+                } else {
+                    console.warn(`Conversation article filtered - no Rummer mention in full content: "${article.title}" - URL: ${article.url}`);
+                    return null;
+                }
+            } else if (hasRummer || hasMarineKeywords) {
+                return article;
+            } else {
+                console.warn(`Conversation article filtered - no Rummer or marine keywords: "${article.title}" - URL: ${article.url}`);
+                return null;
+            }
         })
-    )
-);
+    );
+
+    return filteredArticles
+        .filter((result): result is PromiseFulfilledResult<MediaItem | null> => 
+            result.status === 'fulfilled' && result.value !== null
+        )
+        .map(result => result.value!);
+});
 
 export const fetchABCNewsArticles = cache(async (): Promise<MediaItem[]> => {
     const articles = await fetchRSSFeed(
@@ -273,13 +320,17 @@ export const fetchABCNewsArticles = cache(async (): Promise<MediaItem[]> => {
                 
                 if (mightBeMarine) {
                     console.log(`ABC News article might be marine-related, fetching full content: "${article.title}"`);
-                    const { hasRummer: hasRummerContent, hasMarineKeywords: hasMarineContent } = await checkArticleContent(article.url, article.title);
+                    const { hasRummer: hasRummerContent, hasMarineKeywords: hasMarineContent, image } = await checkArticleContent(article.url, article.title);
                     
-                    if (hasRummerContent || hasMarineContent) {
-                        console.log(`ABC News article passed after content check: "${article.title}" - Found keywords in full content`);
+                    if (hasRummerContent) {
+                        console.log(`ABC News article passed after content check: "${article.title}" - Found Rummer mention in full content`);
+                        // Update article with image if found
+                        if (image) {
+                            article.image = { url: image, alt: article.title };
+                        }
                         return article;
                     } else {
-                        console.warn(`ABC News filtered - no Rummer or marine keywords in full content: "${article.title}" - URL: ${article.url}`);
+                        console.warn(`ABC News filtered - no Rummer mention in full content: "${article.title}" - URL: ${article.url}`);
                         return null;
                     }
                 } else {
@@ -331,13 +382,17 @@ export const fetchYahooNewsArticles = cache(async (): Promise<MediaItem[]> => {
                 
                 if (mightBeMarine) {
                     console.log(`Yahoo News article might be marine-related, fetching full content: "${article.title}"`);
-                    const { hasRummer: hasRummerContent, hasMarineKeywords: hasMarineContent } = await checkArticleContent(article.url, article.title);
+                    const { hasRummer: hasRummerContent, hasMarineKeywords: hasMarineContent, image } = await checkArticleContent(article.url, article.title);
                     
-                    if (hasRummerContent || hasMarineContent) {
-                        console.log(`Yahoo News article passed after content check: "${article.title}" - Found keywords in full content`);
+                    if (hasRummerContent) {
+                        console.log(`Yahoo News article passed after content check: "${article.title}" - Found Rummer mention in full content`);
+                        // Update article with image if found
+                        if (image) {
+                            article.image = { url: image, alt: article.title };
+                        }
                         return article;
                     } else {
-                        console.warn(`Yahoo News filtered - no Rummer or marine keywords in full content: "${article.title}" - URL: ${article.url}`);
+                        console.warn(`Yahoo News filtered - no Rummer mention in full content: "${article.title}" - URL: ${article.url}`);
                         return null;
                     }
                 } else {
@@ -524,6 +579,11 @@ function fixGoogleNewsUrl(url: string): string {
 function mightBeMarineRelated(title: string, description: string): boolean {
     const text = `${title} ${description}`.toLowerCase();
     
+    // Special case: Always allow The Conversation articles to pass through for HTML fetching
+    if (text.includes('the conversation')) {
+        return true;
+    }
+    
     // Broader set of terms that might indicate marine/science content
     const potentialMarineTerms = [
         'shark', 'fish', 'reef', 'coral', 'ocean', 'marine', 'sea', 'underwater',
@@ -535,8 +595,88 @@ function mightBeMarineRelated(title: string, description: string): boolean {
     return potentialMarineTerms.some(term => text.includes(term));
 }
 
+// Function to extract image from HTML content
+function extractImageFromHtml(html: string, baseUrl: string): string | null {
+    try {
+        // Look for various image patterns
+        const imagePatterns = [
+            // Open Graph image
+            /<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i,
+            // Twitter image
+            /<meta[^>]*name="twitter:image"[^>]*content="([^"]+)"/i,
+            // Schema.org image
+            /<meta[^>]*property="image"[^>]*content="([^"]+)"/i,
+            // The Conversation magazine style background-image (high priority)
+            /<div[^>]*class="[^"]*image[^"]*"[^>]*style="[^"]*background-image:\s*url\(([^)]+)\)/i,
+            // The Conversation img tag inside image div
+            /<div[^>]*class="[^"]*image[^"]*"[^>]*>.*?<img[^>]*src="([^"]+)"/is,
+            // Large article images (common patterns)
+            /<img[^>]*class="[^"]*hero[^"]*"[^>]*src="([^"]+)"/i,
+            /<img[^>]*class="[^"]*featured[^"]*"[^>]*src="([^"]+)"/i,
+            /<img[^>]*class="[^"]*article[^"]*"[^>]*src="([^"]+)"/i,
+            // First large image in article content
+            /<img[^>]*width="[5-9][0-9][0-9]"[^>]*src="([^"]+)"/i,
+            /<img[^>]*height="[3-9][0-9][0-9]"[^>]*src="([^"]+)"/i,
+            // Any image with reasonable size
+            /<img[^>]*src="([^"]+)"[^>]*>/i
+        ];
+
+        for (let i = 0; i < imagePatterns.length; i++) {
+            const pattern = imagePatterns[i];
+            const match = html.match(pattern);
+            if (match && match[1]) {
+                let imageUrl = match[1];
+                
+                // Debug for The Conversation
+                if (baseUrl.includes('theconversation.com')) {
+                    console.log(`Pattern ${i} matched for The Conversation: ${imageUrl}`);
+                }
+                
+                // Convert relative URLs to absolute
+                if (imageUrl.startsWith('/')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}${imageUrl}`;
+                } else if (imageUrl.startsWith('./')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}${imageUrl.substring(1)}`;
+                } else if (!imageUrl.startsWith('http')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}/${imageUrl}`;
+                }
+
+                // Filter out small images, icons, and common non-article images
+                if (imageUrl.includes('logo') || 
+                    imageUrl.includes('icon') || 
+                    imageUrl.includes('avatar') ||
+                    imageUrl.includes('ad') ||
+                    imageUrl.includes('banner') ||
+                    imageUrl.includes('button')) {
+                    
+                    // Debug for The Conversation
+                    if (baseUrl.includes('theconversation.com')) {
+                        console.log(`Filtered out image for The Conversation: ${imageUrl} - contains filtered keyword`);
+                    }
+                    continue;
+                }
+
+                // Debug for The Conversation
+                if (baseUrl.includes('theconversation.com')) {
+                    console.log(`Successfully extracted image for The Conversation: ${imageUrl}`);
+                }
+                
+                return imageUrl;
+            }
+        }
+
+        return null;
+    } catch (error) {
+        console.warn('Error extracting image from HTML:', error);
+        return null;
+    }
+}
+
 // Function to fetch and check article content
-async function checkArticleContent(url: string, title: string): Promise<{ hasRummer: boolean; hasMarineKeywords: boolean; content: string }> {
+async function checkArticleContent(url: string, title: string): Promise<{ hasRummer: boolean; hasMarineKeywords: boolean; content: string; image?: string }> {
     try {
         const response = await fetch(url, {
             headers: {
@@ -561,14 +701,58 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
             .replace(/\s+/g, ' ') // Normalize whitespace
             .toLowerCase();
 
-        const hasRummer = doesArticleMentionRummer(textContent, title.toLowerCase(), '');
+        let hasRummer = doesArticleMentionRummer(textContent, title.toLowerCase(), '');
         const hasMarineKeywords = containsMarineKeywords({ 
             title, 
             content: textContent, 
             contentSnippet: '' 
         } as RSSItem);
 
-        return { hasRummer, hasMarineKeywords, content: textContent.substring(0, 200) + '...' };
+        // Special handling for The Conversation: detect author meta and twitter creator
+        if (!hasRummer && url.includes('theconversation.com')) {
+            const authorMetaMatch = html.match(/<meta[^>]*(?:name|property)=["']author["'][^>]*content=["']([^"']+)["']/i);
+            const twitterCreatorMatch = html.match(/<meta[^>]*name=["']twitter:creator["'][^>]*content=["']([^"']+)["']/i);
+            const authorContent = (authorMetaMatch?.[1] || '').toLowerCase();
+            const twitterCreator = (twitterCreatorMatch?.[1] || '').toLowerCase();
+
+            const authorIndicatesRummer = authorContent.includes('rummer') || authorContent.includes('jodie');
+            const twitterIndicatesRummer = twitterCreator.includes('physiologyfish') || twitterCreator.includes('jodierummer');
+
+            if (authorIndicatesRummer || twitterIndicatesRummer) {
+                hasRummer = true;
+                console.log(`Detected Rummer via meta on The Conversation: author="${authorContent}", twitter:creator="${twitterCreator}"`);
+            }
+        }
+
+        // Extract image from HTML
+        const image = extractImageFromHtml(html, url);
+        
+        if (image) {
+            console.log(`Found image for article "${title}": ${image}`);
+        } else if (url.includes('theconversation.com')) {
+            console.log(`No image found for The Conversation article "${title}"`);
+            // Debug: Check if Open Graph image exists
+            const ogImageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i);
+            if (ogImageMatch) {
+                console.log(`Found Open Graph image: ${ogImageMatch[1]}`);
+            } else {
+                console.log(`No Open Graph image found`);
+            }
+            // Debug: Let's see what HTML we're working with
+            const imageDivMatch = html.match(/<div[^>]*class="[^"]*image[^"]*"[^>]*>/i);
+            if (imageDivMatch) {
+                console.log(`Found image div: ${imageDivMatch[0]}`);
+            } else {
+                console.log(`No image div found in HTML`);
+            }
+        }
+
+        return { 
+            hasRummer, 
+            hasMarineKeywords, 
+            content: textContent.substring(0, 200) + '...',
+            ...(image && { image })
+        };
     } catch (error) {
         console.warn(`Error fetching article content for "${title}":`, error);
         return { hasRummer: false, hasMarineKeywords: false, content: '' };
@@ -613,11 +797,11 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
                     const fixedUrl = fixGoogleNewsUrl(itemUrl);
                     
                     if (fixedUrl && fixedUrl !== 'No URL available') {
-                        const { hasRummer, hasMarineKeywords, content: articleContent } = await checkArticleContent(fixedUrl, item.title || '');
+                        const { hasRummer, hasMarineKeywords, content: articleContent, image } = await checkArticleContent(fixedUrl, item.title || '');
                         
-                        if (hasRummer || hasMarineKeywords) {
-                            console.log(`Article passed after content check: "${item.title}" - Found keywords in full content`);
-                            return { item, hasRummer, hasMarineKeywords, fixedUrl };
+                        if (hasRummer) {
+                            console.log(`Article passed after content check: "${item.title}" - Found Rummer mention in full content`);
+                            return { item, hasRummer, hasMarineKeywords, fixedUrl, image };
                         } else {
                             console.warn(`Google News filtered after content check: "${item.title}" - URL: ${fixedUrl}`);
                             console.warn(`Article content preview: ${articleContent}`);
@@ -843,11 +1027,27 @@ export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
             .values()
         ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+        // Keep only the last two years
+        const twoYearsAgo = new Date();
+        twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
+        const recentArticles = uniqueArticles.filter(article => {
+            const articleDate = new Date(article.date);
+            return !Number.isNaN(articleDate.getTime()) && articleDate >= twoYearsAgo;
+        });
+
         //save to file for testing
         //const fs = require('fs');
         //fs.writeFileSync('news.json', JSON.stringify(uniqueArticles, null, 2));
 
-        return uniqueArticles;
+        // Debug: Log articles with images
+        const articlesWithImages = recentArticles.filter(article => article.image);
+        console.log(`Found ${articlesWithImages.length} articles with images out of ${recentArticles.length} recent articles`);
+        articlesWithImages.forEach(article => {
+            console.log(`Article with image: "${article.title}" - Image: ${article.image?.url}`);
+            console.log(`Image object:`, JSON.stringify(article.image, null, 2));
+        });
+
+        return recentArticles;
     } catch (error) {
         console.error('Error in fetchAllNews:', error);
         if (error instanceof Error) {
