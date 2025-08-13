@@ -281,7 +281,18 @@ export const fetchConversationArticles = cache(async (): Promise<MediaItem[]> =>
                     return null;
                 }
             } else if (hasRummer || hasMarineKeywords) {
-                return article;
+					// If the article passed filters but has no image, fetch HTML to extract one (e.g., og:image)
+					if (!article.image && article.url) {
+						try {
+							const { image } = await checkArticleContent(article.url, article.title);
+							if (image) {
+								article.image = { url: image, alt: article.title };
+							}
+						} catch {
+							// Non-fatal: continue without image if extraction fails
+						}
+					}
+					return article;
             } else {
                 console.warn(`Conversation article filtered - no Rummer or marine keywords: "${article.title}" - URL: ${article.url}`);
                 return null;
@@ -600,12 +611,14 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
     try {
         // Look for various image patterns
         const imagePatterns = [
-            // Open Graph image
-            /<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i,
-            // Twitter image
-            /<meta[^>]*name="twitter:image"[^>]*content="([^"]+)"/i,
+            // Open Graph image (any order of attributes, single or double quotes)
+            /<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
+            /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?(?:property|name)=['\"]og:image['\"][^>]*?>/i,
+            // Twitter image (including :src)
+            /<meta[^>]*?name=['\"]twitter:image(?::src)?['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
+            /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?name=['\"]twitter:image(?::src)?['\"][^>]*?>/i,
             // Schema.org image
-            /<meta[^>]*property="image"[^>]*content="([^"]+)"/i,
+            /<meta[^>]*?(?:property|name)=['\"]image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
             // The Conversation magazine style background-image (high priority)
             /<div[^>]*class="[^"]*image[^"]*"[^>]*style="[^"]*background-image:\s*url\(([^)]+)\)/i,
             // The Conversation img tag inside image div
@@ -626,6 +639,9 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
             const match = html.match(pattern);
             if (match && match[1]) {
                 let imageUrl = match[1];
+
+                // Decode basic HTML entities in URLs
+                imageUrl = imageUrl.replace(/&amp;/g, '&');
                 
                 // Debug for The Conversation
                 if (baseUrl.includes('theconversation.com')) {
