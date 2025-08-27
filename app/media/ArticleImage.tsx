@@ -52,7 +52,10 @@ function isValidImageUrl(url: string): boolean {
         'wp.com',
         'wordpress.com',
         'cloudfront.net',
-        'amazonaws.com'
+        'amazonaws.com',
+        'cosmosmagazine.com',
+        'forbesimg.com',
+        'oceanographicmagazine.com',
     ];
 
     // Check if it's not a tracking pixel
@@ -74,7 +77,7 @@ function isValidImageUrl(url: string): boolean {
         const parsed = new URL(url);
         const hostname = parsed.hostname.toLowerCase();
         const isAllowedHost = allowedHostsWithoutExtensions.some(h => hostname.endsWith(h));
-        return (hasValidExtension || isAllowedHost) && isNotTracking && isNotUnwanted;
+        return (hasValidExtension && isNotTracking && isNotUnwanted) || isAllowedHost;
     } catch {
         return false;
     }

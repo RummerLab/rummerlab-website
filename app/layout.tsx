@@ -9,6 +9,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
+  metadataBase: new URL('https://rummerlab.com'),
   title: "RummerLab",
   description: 'Dr Jodie Rummer\'s lab',
   openGraph: {
