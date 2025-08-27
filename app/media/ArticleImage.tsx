@@ -31,7 +31,10 @@ function isValidImageUrl(url: string): boolean {
         /blank\./,
         /transparent\./,
         /facebook\.com\/tr\?/,
-        /doubleclick\./
+        /doubleclick\./,
+        /googleusercontent\.com/,
+        /news\.google\.com/,
+        /google\.com/
     ];
     
     // Check if it's a valid image URL
@@ -55,12 +58,23 @@ function isValidImageUrl(url: string): boolean {
     // Check if it's not a tracking pixel
     const isNotTracking = !trackingPatterns.some(pattern => pattern.test(url));
     
+    // Additional check for Google News icons and other unwanted images
+    const unwantedPatterns = [
+        /icon/,
+        /logo/,
+        /avatar/,
+        /banner/,
+        /button/,
+        /ad/
+    ];
+    const isNotUnwanted = !unwantedPatterns.some(pattern => pattern.test(url.toLowerCase()));
+    
     // Check if it's a valid URL
     try {
         const parsed = new URL(url);
         const hostname = parsed.hostname.toLowerCase();
         const isAllowedHost = allowedHostsWithoutExtensions.some(h => hostname.endsWith(h));
-        return (hasValidExtension || isAllowedHost) && isNotTracking;
+        return (hasValidExtension || isAllowedHost) && isNotTracking && isNotUnwanted;
     } catch {
         return false;
     }
