@@ -60,7 +60,7 @@ async function fetchWithRetry<T>(
         });
         
         if (!response.ok) {
-            console.warn(`Fetch failed for ${url} with status: ${response.status}, status text: ${response.statusText}`);
+            console.warn(`Fetch failed for ${url} with status: ${response.status}`);
             return null;
         }
         
@@ -68,12 +68,11 @@ async function fetchWithRetry<T>(
         return data;
     } catch (error) {
         if (retries > 0) {
-            console.warn(`Retrying fetch for ${url}, ${retries} attempts remaining. Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+            console.warn(`Retrying fetch for ${url}, ${retries} attempts remaining`);
             await new Promise(resolve => setTimeout(resolve, 1000));
             return fetchWithRetry(url, options, retries - 1);
         }
-        console.error(`Final fetch error for ${url}:`, error);
-        console.error(`Request options:`, JSON.stringify(options, null, 2));
+        console.error(`Final fetch error for ${url}`);
         return null;
     }
 }
@@ -92,7 +91,7 @@ async function fetchRSSFeed(
         });
 
         if (!response.ok) {
-            console.warn(`${source} RSS feed returned status: ${response.status}, status text: ${response.statusText}`);
+            console.warn(`${source} RSS feed returned status: ${response.status}`);
             return [];
         }
 
@@ -124,11 +123,7 @@ async function fetchRSSFeed(
             return mediaItem;
         });
     } catch (error) {
-        console.error(`Error fetching ${source} articles:`, error);
-        console.error(`Request headers:`, JSON.stringify(headers, null, 2));
-        if (error instanceof Error) {
-            console.error(`Error stack:`, error.stack);
-        }
+        console.error(`Error fetching ${source} articles`);
         return [];
     }
 }
@@ -388,11 +383,257 @@ function fixGoogleNewsUrl(url: string): string {
         
         return url;
     } catch (error) {
-        console.error('Error processing Google News URL:', error);
+        console.error('Error processing Google News URL');
         return url;
     }
 }
 
+// Attempt to resolve the final article URL for Google News links by inspecting the HTML
+async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string> {
+    try {
+        const response = await fetch(googleNewsUrl, {
+            headers: {
+                ...DEFAULT_HEADERS,
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+            },
+            next: { revalidate: REVALIDATE_TIME }
+        });
+
+        if (!response.ok) {
+            return googleNewsUrl;
+        }
+
+        const html = await response.text();
+
+        // meta refresh redirect
+        const metaRefreshMatch = html.match(/<meta[^>]*http-equiv=["']refresh["'][^>]*content=["'][^"']*url=([^"']+)["'][^>]*>/i);
+        if (metaRefreshMatch?.[1]) {
+            try {
+                return decodeURIComponent(metaRefreshMatch[1]);
+            } catch {
+                return metaRefreshMatch[1];
+            }
+        }
+
+        // JS redirect patterns
+        const jsRedirectMatch = html.match(/location\.(?:replace|href)\(['"]([^'"]+)['"]\)/i);
+        if (jsRedirectMatch?.[1]) {
+            return jsRedirectMatch[1];
+        }
+
+        // Fallback: first absolute external link that is not a Google domain
+        const anchorMatches = html.match(/<a[^>]*href=["']([^"']+)["'][^>]*>/gi) || [];
+        for (const anchor of anchorMatches) {
+            const hrefMatch = anchor.match(/href=["']([^"']+)["']/i);
+            const href = hrefMatch?.[1];
+            if (!href) continue;
+            if (!/^https?:\/\//i.test(href)) continue;
+            try {
+                const { hostname } = new URL(href);
+                const lowerHost = hostname.toLowerCase();
+                const isGoogle = lowerHost.endsWith('google.com') || lowerHost.endsWith('googleusercontent.com') || lowerHost.includes('news.google.com');
+                if (!isGoogle) {
+                    return href;
+                }
+            } catch {
+                // ignore invalid URLs
+            }
+        }
+
+        return googleNewsUrl;
+    } catch {
+        return googleNewsUrl;
+    }
+}
+
+// Function to check if article might be marine-related based on title/description
+function mightBeMarineRelated(title: string, description: string): boolean {
+    const text = `${title} ${description}`.toLowerCase();
+    
+    // Special case: Always allow The Conversation articles to pass through for HTML fetching
+    if (text.includes('the conversation')) {
+        return true;
+    }
+    
+    // Broader set of terms that might indicate marine/science content
+    const potentialMarineTerms = [
+        'shark', 'fish', 'reef', 'coral', 'ocean', 'marine', 'sea', 'underwater',
+        'climate', 'warming', 'acidification', 'ecosystem', 'biology', 'science',
+        'research', 'study', 'university', 'jcu', 'james cook', 'great barrier',
+        'conservation', 'environment', 'species', 'wildlife', 'aquatic'
+    ];
+    
+    return potentialMarineTerms.some(term => text.includes(term));
+}
+
+// Function to extract image from HTML content
+function extractImageFromHtml(html: string, baseUrl: string): string | null {
+    try {
+        // Look for various image patterns
+        const imagePatterns = [
+            // Open Graph image (any order of attributes, single or double quotes)
+            /<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
+            /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?(?:property|name)=['\"]og:image['\"][^>]*?>/i,
+            // Twitter image (including :src)
+            /<meta[^>]*?name=['\"]twitter:image(?::src)?['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
+            /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?name=['\"]twitter:image(?::src)?['\"][^>]*?>/i,
+            // Schema.org image
+            /<meta[^>]*?(?:property|name)=['\"]image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
+            // The Conversation magazine style background-image (high priority)
+            /<div[^>]*class="[^"]*image[^"]*"[^>]*style="[^"]*background-image:\s*url\(([^)]+)\)/i,
+            // The Conversation img tag inside image div
+            /<div[^>]*class="[^"]*image[^"]*"[^>]*>.*?<img[^>]*src="([^"]+)"/is,
+            // Large article images (common patterns)
+            /<img[^>]*class="[^"]*hero[^"]*"[^>]*src="([^"]+)"/i,
+            /<img[^>]*class="[^"]*featured[^"]*"[^>]*src="([^"]+)"/i,
+            /<img[^>]*class="[^"]*article[^"]*"[^>]*src="([^"]+)"/i,
+            // First large image in article content
+            /<img[^>]*width="[5-9][0-9][0-9]"[^>]*src="([^"]+)"/i,
+            /<img[^>]*height="[3-9][0-9][0-9]"[^>]*src="([^"]+)"/i,
+            // Any image with reasonable size
+            /<img[^>]*src="([^"]+)"[^>]*>/i
+        ];
+
+        for (let i = 0; i < imagePatterns.length; i++) {
+            const pattern = imagePatterns[i];
+            const match = html.match(pattern);
+            if (match && match[1]) {
+                let imageUrl = match[1];
+
+                // Decode basic HTML entities in URLs
+                imageUrl = imageUrl.replace(/&amp;/g, '&');
+                
+                // Debug for The Conversation
+                if (baseUrl.includes('theconversation.com')) {
+                    console.log(`Pattern ${i} matched for The Conversation: ${imageUrl}`);
+                }
+                
+                // Convert relative URLs to absolute
+                if (imageUrl.startsWith('/')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}${imageUrl}`;
+                } else if (imageUrl.startsWith('./')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}${imageUrl.substring(1)}`;
+                } else if (!imageUrl.startsWith('http')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}/${imageUrl}`;
+                }
+
+                // Filter out small images, icons, and common non-article images
+                if (imageUrl.includes('logo') || 
+                    imageUrl.includes('icon') || 
+                    imageUrl.includes('avatar') ||
+                    imageUrl.includes('ad') ||
+                    imageUrl.includes('banner') ||
+                    imageUrl.includes('button')) {
+                    
+                    // Debug for The Conversation
+                    if (baseUrl.includes('theconversation.com')) {
+                        console.log(`Filtered out image for The Conversation: ${imageUrl} - contains filtered keyword`);
+                    }
+                    continue;
+                }
+
+                // Debug for The Conversation
+                if (baseUrl.includes('theconversation.com')) {
+                    console.log(`Successfully extracted image for The Conversation: ${imageUrl}`);
+                }
+                
+                return imageUrl;
+            }
+        }
+
+        return null;
+    } catch (error) {
+        console.warn('Error extracting image from HTML');
+        return null;
+    }
+}
+
+// Function to fetch and check article content
+async function checkArticleContent(url: string, title: string): Promise<{ hasRummer: boolean; hasMarineKeywords: boolean; content: string; image?: string }> {
+    try {
+        const response = await fetch(url, {
+            headers: {
+                ...DEFAULT_HEADERS,
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            },
+            next: { revalidate: REVALIDATE_TIME }
+        });
+
+        if (!response.ok) {
+            console.warn(`Failed to fetch article content for "${title}"`);
+            return { hasRummer: false, hasMarineKeywords: false, content: '' };
+        }
+
+        const html = await response.text();
+        
+        // Extract text content from HTML (basic approach)
+        const textContent = html
+            .replace(/<script[^>]*>.*?<\/script>/gs, '') // Remove scripts
+            .replace(/<style[^>]*>.*?<\/style>/gs, '') // Remove styles
+            .replace(/<[^>]+>/g, ' ') // Remove HTML tags
+            .replace(/\s+/g, ' ') // Normalize whitespace
+            .toLowerCase();
+
+        let hasRummer = doesArticleMentionRummer(textContent, title.toLowerCase(), '');
+        const hasMarineKeywords = containsMarineKeywords({ 
+            title, 
+            content: textContent, 
+            contentSnippet: '' 
+        } as RSSItem);
+
+        // Special handling for The Conversation: detect author meta and twitter creator
+        if (!hasRummer && url.includes('theconversation.com')) {
+            const authorMetaMatch = html.match(/<meta[^>]*(?:name|property)=["']author["'][^>]*content=["']([^"']+)["']/i);
+            const twitterCreatorMatch = html.match(/<meta[^>]*name=["']twitter:creator["'][^>]*content=["']([^"']+)["']/i);
+            const authorContent = (authorMetaMatch?.[1] || '').toLowerCase();
+            const twitterCreator = (twitterCreatorMatch?.[1] || '').toLowerCase();
+
+            const authorIndicatesRummer = authorContent.includes('rummer') || authorContent.includes('jodie');
+            const twitterIndicatesRummer = twitterCreator.includes('physiologyfish') || twitterCreator.includes('jodierummer');
+
+            if (authorIndicatesRummer || twitterIndicatesRummer) {
+                hasRummer = true;
+                console.log(`Detected Rummer via meta on The Conversation: author="${authorContent}", twitter:creator="${twitterCreator}"`);
+            }
+        }
+
+        // Extract image from HTML
+        const image = extractImageFromHtml(html, url);
+        
+        if (image) {
+            console.log(`Found image for article "${title}": ${image}`);
+        } else if (url.includes('theconversation.com')) {
+            console.log(`No image found for The Conversation article "${title}"`);
+            // Debug: Check if Open Graph image exists
+            const ogImageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i);
+            if (ogImageMatch) {
+                console.log(`Found Open Graph image: ${ogImageMatch[1]}`);
+            } else {
+                console.log(`No Open Graph image found`);
+            }
+            // Debug: Let's see what HTML we're working with
+            const imageDivMatch = html.match(/<div[^>]*class="[^"]*image[^"]*"[^>]*>/i);
+            if (imageDivMatch) {
+                console.log(`Found image div: ${imageDivMatch[0]}`);
+            } else {
+                console.log(`No image div found in HTML`);
+            }
+        }
+
+        return { 
+            hasRummer, 
+            hasMarineKeywords, 
+            content: textContent.substring(0, 200) + '...',
+            ...(image && { image })
+        };
+    } catch (error) {
+        console.warn(`Error fetching article content for "${title}"`);
+        return { hasRummer: false, hasMarineKeywords: false, content: '' };
+    }
+}
 // Add Google News fetcher
 export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
     try {
@@ -405,7 +646,7 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
         );
 
         if (!response.ok) {
-            console.warn(`Google News RSS feed returned status: ${response.status}, status text: ${response.statusText}`);
+            console.warn(`Google News RSS feed returned status: ${response.status}`);
             return [];
         }
 
@@ -448,10 +689,7 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
 
         return articles;
     } catch (error) {
-        console.error('Error fetching Google News articles:', error);
-        if (error instanceof Error) {
-            console.error('Error stack:', error.stack);
-        }
+        console.error('Error fetching Google News articles');
         return [];
     }
 });
@@ -559,7 +797,7 @@ export const fetchTownsvilleBulletinArticles = cache(async (): Promise<MediaItem
 
         return articles;
     } catch (error) {
-        console.error('Error fetching Townsville Bulletin articles:', error);
+        console.error('Error fetching Townsville Bulletin articles');
         return [];
     }
 });
@@ -622,10 +860,7 @@ export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
 
         return uniqueArticles;
     } catch (error) {
-        console.error('Error in fetchAllNews:', error);
-        if (error instanceof Error) {
-            console.error('Error stack:', error.stack);
-        }
+        console.error('Error in fetchAllNews');
         return [];
     }
 }); 
