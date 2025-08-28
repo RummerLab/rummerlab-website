@@ -23,6 +23,43 @@ const config: NextConfig = {
         protocol: 'https',
         hostname: 'platform-lookaside.fbsbx.com',
       },
+      // News sources
+      {
+        protocol: 'https',
+        hostname: 'media.guim.co.uk',
+      },
+      {
+        protocol: 'https',
+        hostname: 'imageio.forbes.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.abc-cdn.net.au',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.wp.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.wordpress.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.cloudfront.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.theconversation.com',
+      },
     ],
   },
   async redirects() {

@@ -3,7 +3,23 @@ import { MediaItem, RSSItem } from '@/types/media';
 import { cache } from 'react';
 
 // Common constants
-const REVALIDATE_TIME = 604800; // One week in seconds
+const RSS_REVALIDATE_TIME = 7 * 24 * 60 * 60; // 7 days in seconds
+const ARTICLE_REVALIDATE_TIME = 30 * 24 * 60 * 60; // 30 days in seconds
+
+// Simple logging function to reduce noise
+const logInfo = (message: string) => {
+    if (process.env.NODE_ENV === 'development') {
+        console.log(`[News Service] ${message}`);
+    }
+};
+
+const logWarn = (message: string) => {
+    console.warn(`[News Service] ${message}`);
+};
+
+const logError = (message: string, error?: any) => {
+    console.error(`[News Service] ${message}`, error);
+};
 
 const DEFAULT_HEADERS = {
     'Accept': 'application/atom+xml,application/xml,text/xml,application/rss+xml',
@@ -56,7 +72,7 @@ async function fetchWithRetry<T>(
     try {
         const response = await fetch(url, {
             ...options,
-            next: { revalidate: REVALIDATE_TIME }
+            next: { revalidate: RSS_REVALIDATE_TIME }
         });
         
         if (!response.ok) {
@@ -87,7 +103,7 @@ async function fetchRSSFeed(
     try {
         const response = await fetch(url, {
             headers,
-            next: { revalidate: REVALIDATE_TIME }
+            next: { revalidate: RSS_REVALIDATE_TIME }
         });
 
         if (!response.ok) {
@@ -120,6 +136,7 @@ async function fetchRSSFeed(
                     }
                 })
             };
+            
             return mediaItem;
         });
     } catch (error) {
@@ -128,19 +145,48 @@ async function fetchRSSFeed(
     }
 }
 
-// Common filter functions
+// Primary filter function - articles MUST mention Dr. Rummer, RummerLab, or Physioshark
 const doesArticleMentionRummer = (content: string, title: string, description: string): boolean => {
     const normalizedContent = content.toLowerCase();
     const normalizedTitle = title.toLowerCase();
     const normalizedDescription = description.toLowerCase();
     
-    return normalizedTitle.includes('rummer') || 
-           normalizedDescription.includes('rummer') || 
-           (normalizedContent.includes('rummer') && 
-            (normalizedContent.split('rummer').length > 2 || 
-             (normalizedContent.includes('dr rummer') || normalizedContent.includes('dr. rummer')) || 
-             normalizedContent.includes('professor rummer') || 
-             normalizedContent.includes('jodie rummer')));
+    // Primary requirement: Must mention Dr. Rummer, RummerLab, or Physioshark
+    const rummerKeywords = [
+        'rummer',
+        'rummerlab',
+        'physioshark',
+        'physiologyfish'
+    ];
+    
+    // Check for Dr. Rummer specific mentions
+    const drRummerMentions = [
+        'dr rummer',
+        'dr. rummer',
+        'dr jodie rummer',
+        'dr. jodie rummer',
+        'dr jodie l. rummer',
+        'dr. jodie l. rummer',
+        'professor rummer',
+        'prof rummer',
+        'prof jodie rummer',
+        'jodie rummer',
+        'jodie l. rummer'
+    ];
+    
+    // Check if any of the primary keywords are mentioned
+    const hasPrimaryKeyword = rummerKeywords.some(keyword => 
+        normalizedTitle.includes(keyword) || 
+        normalizedDescription.includes(keyword) || 
+        normalizedContent.includes(keyword)
+    );
+    
+    // Check for Dr. Rummer specific mentions in content
+    const hasDrRummerMention = drRummerMentions.some(mention => 
+        normalizedContent.includes(mention)
+    );
+    
+    return hasPrimaryKeyword || hasDrRummerMention;
 };
 
 const containsRummer = (item: RSSItem): boolean => {
@@ -151,17 +197,25 @@ const containsRummer = (item: RSSItem): boolean => {
     );
 };
 
+// Secondary filter function - marine keywords as prefilter (articles still need to mention Dr. Rummer)
 const containsMarineKeywords = (item: RSSItem): boolean => {
     const content = (item.content || '').toLowerCase();
     const title = (item.title || '').toLowerCase();
     const description = (item.contentSnippet || '').toLowerCase();
-    return !!(content.includes('marine') ||
-           content.includes('reef') ||
-           content.includes('shark') ||
-           content.includes('fish') ||
-           content.includes('ocean') ||
-           title.includes('marine') ||
-           description.includes('marine'));
+    
+    // Marine keywords as prefilter (articles still need to mention Dr. Rummer)
+    const marineKeywords = [
+        'marine biology', 'marine science', 'marine research', 'marine life',
+        'reef', 'coral reef', 'great barrier reef', 'ocean acidification',
+        'shark', 'ocean warming', 'marine ecosystem',
+        'jcu', 'james cook university'
+    ];
+
+    return marineKeywords.some(keyword => 
+        content.includes(keyword) || 
+        title.includes(keyword) || 
+        description.includes(keyword)
+    );
 };
 
 // Common types and interfaces
@@ -191,46 +245,140 @@ interface GuardianResponse {
     };
 }
 
-// Export fetch functions using the generic RSS fetcher
+interface NewsAPIAIResponse {
+    articles?: Array<{
+        title: string;
+        description: string;
+        url: string;
+        publishedAt: string;
+        urlToImage?: string;
+        source: {
+            name: string;
+        };
+        content?: string;
+    }>;
+    error?: string;
+}
+
+interface NewsAPIComResponse {
+    articles: Array<{
+        title: string;
+        description: string;
+        url: string;
+        publishedAt: string;
+        urlToImage?: string;
+        source: {
+            name: string;
+        };
+        content?: string;
+    }>;
+}
+
 // Enhanced English detection function to filter out non-English articles
-// Detects French, Spanish, German, and other non-English content more accurately
-// Example non-English: "Mais pourquoi certains requins « freezent » lorsqu’on les retourne ?"
 const isLikelyEnglish = (text: string | undefined): boolean => {
     if (!text) return false;
-    return (text.includes('«') && text.includes('»')) || (text.includes('¿') && text.includes('?'));
+    const isNonEnglish = (text.includes('«') && text.includes('»')) || (text.includes('¿') && text.includes('?'));
+    return !isNonEnglish;
 };
-export const fetchConversationArticles = cache(() =>
-    fetchRSSFeed(
+
+export const fetchConversationArticles = cache(async (): Promise<MediaItem[]> => {
+    const articles = await fetchRSSFeed(
         'https://theconversation.com/profiles/jodie-l-rummer-711270/articles.atom',
         'The Conversation',
         (item: RSSItem): boolean => true,
         DEFAULT_HEADERS
-    ).then((articles: MediaItem[]) =>
-        articles.filter(article => {
-            //console.log("isLikelyEnglish", !isLikelyEnglish(article.title), article.date, article.title);
-            if (isLikelyEnglish(article.title)) return false;
-            return true;
-        })
-    )
-);
+    );
 
-export const fetchABCNewsArticles = cache(() =>
-    fetchRSSFeed(
+    // Filter for English articles and check for Rummer mentions with HTML content
+    const filteredArticles = await Promise.allSettled(
+        articles.map(async (article) => {
+            const isEnglish = isLikelyEnglish(article.title);
+            if (!isEnglish) {
+                return null;
+            }
+
+            // Check RSS content first
+            const hasRummer = doesArticleMentionRummer(article.description || '', article.title, article.description || '');
+            const hasMarineKeywords = containsMarineKeywords({ 
+                title: article.title, 
+                content: article.description || '', 
+                contentSnippet: article.description || '' 
+            } as RSSItem);
+
+            // If RSS content doesn't have keywords, fetch full HTML content
+            if (!hasRummer && !hasMarineKeywords && article.url) {
+                const { hasRummer: hasRummerContent, image } = await checkArticleContent(article.url, article.title);
+                
+                if (hasRummerContent) {
+                    // Update article with image if found
+                    if (image) {
+                        article.image = { url: image, alt: article.title };
+                    }
+                    return article;
+                } else {
+                    return null;
+                }
+            } else if (hasRummer) {
+                // If the article passed filters but has no image, fetch HTML to extract one
+                if (!article.image && article.url) {
+                    try {
+                        const { image } = await checkArticleContent(article.url, article.title);
+                        if (image) {
+                            article.image = { url: image, alt: article.title };
+                        }
+                    } catch {
+                        // Non-fatal: continue without image if extraction fails
+                    }
+                }
+                return article;
+            } else {
+                return null;
+            }
+        })
+    );
+
+    return filteredArticles
+        .filter((result): result is PromiseFulfilledResult<MediaItem | null> => 
+            result.status === 'fulfilled' && result.value !== null
+        )
+        .map(result => result.value!);
+});
+
+export const fetchABCNewsArticles = cache(async (): Promise<MediaItem[]> => {
+    const articles = await fetchRSSFeed(
         'https://www.abc.net.au/news/feed/51120/rss.xml',
         'ABC News',
-        containsRummer,
+        (item: RSSItem): boolean => {
+            // Return articles that might be marine-related or about Dr. Rummer
+            const hasRummer = doesArticleMentionRummer(item.content || '', item.title || '', item.contentSnippet || '');
+            const hasMarineKeywords = containsMarineKeywords(item);
+            const mightBeMarine = mightBeMarineRelated(item.title || '', item.contentSnippet || '');
+            
+            return hasRummer || hasMarineKeywords || mightBeMarine;
+        },
         DEFAULT_HEADERS
-    )
-);
+    );
 
-export const fetchYahooNewsArticles = cache(() =>
-    fetchRSSFeed(
+    return articles;
+});
+
+export const fetchYahooNewsArticles = cache(async (): Promise<MediaItem[]> => {
+    const articles = await fetchRSSFeed(
         'https://au.news.yahoo.com/rss',
         'Yahoo News AU',
-        containsRummer,
+        (item: RSSItem): boolean => {
+            // Return articles that might be marine-related or about Dr. Rummer
+            const hasRummer = doesArticleMentionRummer(item.content || '', item.title || '', item.contentSnippet || '');
+            const hasMarineKeywords = containsMarineKeywords(item);
+            const mightBeMarine = mightBeMarineRelated(item.title || '', item.contentSnippet || '');
+            
+            return hasRummer || hasMarineKeywords || mightBeMarine;
+        },
         DEFAULT_HEADERS
-    )
-);
+    );
+
+    return articles;
+});
 
 export const fetchScienceDailyArticles = cache(() =>
     fetchRSSFeed(
@@ -309,34 +457,209 @@ export const fetchCairnsNewsArticles = cache(() =>
     )
 );
 
+// New RSS feeds for science communication
+export const fetchCosmosMagazineArticles = cache(async (): Promise<MediaItem[]> => {
+    const articles = await fetchRSSFeed(
+        'https://cosmosmagazine.com/feed',
+        'Cosmos Magazine',
+        (item: RSSItem): boolean => {
+            // Return articles that might be marine-related or about Dr. Rummer
+            const hasRummer = doesArticleMentionRummer(item.content || '', item.title || '', item.contentSnippet || '');
+            const hasMarineKeywords = containsMarineKeywords(item);
+            const mightBeMarine = mightBeMarineRelated(item.title || '', item.contentSnippet || '');
+            
+            return hasRummer || hasMarineKeywords || mightBeMarine;
+        },
+        DEFAULT_HEADERS
+    );
+
+    return articles;
+});
+
+// Direct Oceanographic Magazine RSS feed
+export const fetchOceanographicMagazineArticles = cache(async (): Promise<MediaItem[]> => {
+    try {
+        const articles = await fetchRSSFeed(
+            'https://oceanographic-magazine.com/feed/',
+            'Oceanographic Magazine',
+            (item: RSSItem): boolean => {
+                // Return articles that might be marine-related or about Dr. Rummer
+                const hasRummer = doesArticleMentionRummer(item.content || '', item.title || '', item.contentSnippet || '');
+                const hasMarineKeywords = containsMarineKeywords(item);
+                const mightBeMarine = mightBeMarineRelated(item.title || '', item.contentSnippet || '');
+                
+                return hasRummer || hasMarineKeywords || mightBeMarine;
+            },
+            DEFAULT_HEADERS
+        );
+
+        logInfo(`Oceanographic Magazine RSS: Found ${articles.length} relevant articles`);
+        return articles;
+    } catch (error) {
+        logError('Error fetching Oceanographic Magazine articles', error);
+        return [];
+    }
+});
+
+export const fetchLabDownUnderArticles = cache(() =>
+    fetchRSSFeed(
+        'https://labdownunder.com/feed',
+        'Lab Down Under',
+        item => containsRummer(item), // Only articles mentioning Dr. Rummer
+        DEFAULT_HEADERS
+    )
+);
+
+export const fetchItsRocketScienceArticles = cache(() =>
+    fetchRSSFeed(
+        'https://itsrocketscience.com.au/feed',
+        "It's Rocket Science",
+        item => containsRummer(item), // Only articles mentioning Dr. Rummer
+        DEFAULT_HEADERS
+    )
+);
+
+// Additional ocean science and conservation RSS feeds
+// These sources are highly relevant to Dr. Rummer's research on ocean acidification, marine conservation, and coral reef physiology
+export const fetchOceanConservancyArticles = cache(() =>
+    fetchRSSFeed(
+        'https://oceanconservancy.org/feed',
+        'Ocean Conservancy',
+        item => containsRummer(item), // Only articles mentioning Dr. Rummer
+        DEFAULT_HEADERS
+    )
+);
+
+export const fetchOceanAcidificationArticles = cache(() =>
+    fetchRSSFeed(
+        'https://news-oceanacidification-icc.org/category/web-sites-and-blogs/feed/',
+        'Ocean Acidification ICC',
+        item => containsRummer(item), // Only articles mentioning Dr. Rummer
+        DEFAULT_HEADERS
+    )
+);
+
+export const fetchOceanicSocietyArticles = cache(() =>
+    fetchRSSFeed(
+        'https://oceanicsociety.org/feed',
+        'Oceanic Society',
+        item => containsRummer(item), // Only articles mentioning Dr. Rummer
+        DEFAULT_HEADERS
+    )
+);
+
+// Forbes RSS feed
+export const fetchForbesArticles = cache(async (): Promise<MediaItem[]> => {
+    if (process.env.NODE_ENV === 'development') {
+        logInfo('Forbes RSS: Starting fetch...');
+    }
+    
+    const articles = await fetchRSSFeed(
+        'https://www.forbes.com/feed/',
+        'Forbes',
+        (item: RSSItem): boolean => {
+            // Return articles that might be marine-related or about Dr. Rummer
+            const hasRummer = doesArticleMentionRummer(item.content || '', item.title || '', item.contentSnippet || '');
+            const hasMarineKeywords = containsMarineKeywords(item);
+            const mightBeMarine = mightBeMarineRelated(item.title || '', item.contentSnippet || '');
+            
+            // Debug logging for Forbes articles
+            if (process.env.NODE_ENV === 'development') {
+                logInfo(`Forbes RSS: "${item.title}" - hasRummer=${hasRummer}, hasMarineKeywords=${hasMarineKeywords}, mightBeMarine=${mightBeMarine}`);
+            }
+            
+            return hasRummer || hasMarineKeywords || mightBeMarine;
+        },
+        DEFAULT_HEADERS
+    );
+
+    if (process.env.NODE_ENV === 'development') {
+        logInfo(`Forbes RSS: Found ${articles.length} relevant articles`);
+    }
+
+    return articles;
+});
+
 // Special case handlers
-export const fetchNewsAPIArticles = cache(async (): Promise<MediaItem[]> => {
+export const fetchNewsAPIOrgArticles = cache(async (): Promise<MediaItem[]> => {
     if (!process.env.NEWS_API_ORG_KEY) {
-        console.error('NEWS_API_ORG_KEY is not defined in environment variables');
+        logError('NEWS_API_ORG_KEY is not defined in environment variables');
         return [];
     }
 
-    const data = await fetchWithRetry<NewsAPIResponse>(
+    // Fetch articles about Dr. Rummer specifically
+    const rummerData = await fetchWithRetry<NewsAPIResponse>(
         `https://newsapi.org/v2/everything?q="Rummer"&language=en&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`
     );
 
-    if (!data?.articles) return [];
+    // Fetch articles about marine biology and shark research that might be relevant
+    const marineData = await fetchWithRetry<NewsAPIResponse>(
+        `https://newsapi.org/v2/everything?q="shark research" OR "marine biology" OR "coral reef" OR "ocean acidification" OR "fish physiology" OR "tonic immobility"&language=en&sortBy=publishedAt&apiKey=${process.env.NEWS_API_ORG_KEY}`
+    );
+
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+        logInfo(`NewsAPI.org: Rummer articles found: ${rummerData?.articles?.length || 0}`);
+        logInfo(`NewsAPI.org: Marine articles found: ${marineData?.articles?.length || 0}`);
+        
+        // Log all Forbes articles from Rummer search
+        if (rummerData?.articles) {
+            const forbesRummerArticles = rummerData.articles.filter(article => article.source.name === 'Forbes');
+            logInfo(`NewsAPI.org: Found ${forbesRummerArticles.length} Forbes articles in Rummer search`);
+            forbesRummerArticles.forEach((article, index) => {
+                logInfo(`Forbes Rummer ${index + 1}: ${article.title}`);
+            });
+        }
+        
+        // Log all Forbes articles for debugging
+        if (marineData?.articles) {
+            const forbesArticles = marineData.articles.filter(article => article.source.name === 'Forbes');
+            logInfo(`NewsAPI.org: Found ${forbesArticles.length} Forbes articles`);
+            forbesArticles.forEach((article, index) => {
+                logInfo(`Forbes ${index + 1}: ${article.title}`);
+            });
+        }
+    }
+
+    // Combine and deduplicate results
+    const allArticles = [
+        ...(rummerData?.articles || []),
+        ...(marineData?.articles || [])
+    ];
+
+    // Remove duplicates based on URL
+    const uniqueArticles = allArticles.filter((article, index, self) => 
+        index === self.findIndex(a => a.url === article.url)
+    );
 
     //save to file for testing
     //const fs = require('fs');
-    //fs.writeFileSync('newsapi.json', JSON.stringify(data, null, 2));
+    //fs.writeFileSync('newsapi.json', JSON.stringify(uniqueArticles, null, 2));
 
-    return data.articles
-        .filter(article => {
+    const filteredArticles = uniqueArticles
+        .filter((article: any) => {
             const title = article.title ?? '';
             const description = article.description ?? '';
             const content = `${title} ${description}`.toLowerCase();
-            return (
-                doesArticleMentionRummer(content, title, description) ||
-                content.includes('shark')
-            );
-        })
-        .map(article => ({
+            const hasRummer = doesArticleMentionRummer(content, title, description);
+            const hasMarineKeywords = containsMarineKeywords(article as RSSItem); // Cast to RSSItem for compatibility
+            
+            // Debug logging for Forbes articles
+            if (article.source.name === 'Forbes' && process.env.NODE_ENV === 'development') {
+                logInfo(`Forbes article "${title}": hasRummer=${hasRummer}, hasMarineKeywords=${hasMarineKeywords}`);
+            }
+            
+            // Include articles that mention Dr. Rummer OR are marine-related
+            return hasRummer || hasMarineKeywords;
+        });
+
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+        logInfo(`NewsAPI.org: After filtering: ${filteredArticles.length} articles`);
+    }
+
+    return filteredArticles
+        .map((article: any) => ({
             type: 'article' as const,
             source: article.source.name,
             title: article.title,
@@ -352,6 +675,222 @@ export const fetchNewsAPIArticles = cache(async (): Promise<MediaItem[]> => {
             })
         }));
 });
+
+// NewsAPI.AI integration
+// Note: NewsAPI.AI is currently returning "IsStr()" errors, but we keep it for potential future fixes
+export const fetchNewsAPIAIArticles = cache(async (): Promise<MediaItem[]> => {
+    if (!process.env.NEWSAPI_AI_KEY) {
+        logError('NEWSAPI_AI_KEY is not defined in environment variables');
+        return [];
+    }
+
+    // Debug: Check if API key is available
+    if (process.env.NODE_ENV === 'development') {
+        logInfo(`NewsAPI.AI Key available: ${process.env.NEWSAPI_AI_KEY ? 'Yes' : 'No'}`);
+    }
+
+    // Fetch articles about Dr. Rummer specifically
+    let rummerData: NewsAPIAIResponse | null = null;
+    try {
+        rummerData = await fetchWithRetry<NewsAPIAIResponse>(
+            `https://newsapi.ai/api/v1/article/getArticles?query={"$query":{"keyword":"Jodie Rummer"},"$filter":{"forceMaxDataTimeWindow":"38","hasDuplicate":false,"isDuplicate":false},"$dataType":["news","blog"]}&resultType=articles&articlesSortBy=date&articlesCount=50&articleBodyLen=-1&apiKey=${process.env.NEWSAPI_AI_KEY}`
+        );
+    } catch (error) {
+        logWarn(`NewsAPI.AI Rummer query failed: ${error}`);
+    }
+
+    // Debug: Log the raw response
+    if (process.env.NODE_ENV === 'development') {
+        logInfo(`NewsAPI.AI Rummer response: ${JSON.stringify(rummerData, null, 2).substring(0, 500)}...`);
+    }
+
+    // Fetch articles about marine biology and shark research
+    let marineData: NewsAPIAIResponse | null = null;
+    try {
+        marineData = await fetchWithRetry<NewsAPIAIResponse>(
+            `https://newsapi.ai/api/v1/article/getArticles?query={"$query":{"keyword":"shark research OR marine biology OR coral reef OR ocean acidification OR fish physiology OR tonic immobility OR tonic limp response OR chondrichthyans OR sharks play dead"},"$filter":{"forceMaxDataTimeWindow":"38","hasDuplicate":false,"isDuplicate":false},"$dataType":["news","blog"]}&resultType=articles&articlesSortBy=date&articlesCount=50&articleBodyLen=-1&apiKey=${process.env.NEWSAPI_AI_KEY}`
+        );
+    } catch (error) {
+        logWarn(`NewsAPI.AI Marine query failed: ${error}`);
+    }
+
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+        logInfo(`NewsAPI.AI: Rummer articles found: ${rummerData?.articles?.length || 0}`);
+        logInfo(`NewsAPI.AI: Marine articles found: ${marineData?.articles?.length || 0}`);
+        
+        // Check for error responses
+        if (rummerData?.error) {
+            logWarn(`NewsAPI.AI Rummer query error: ${rummerData.error}`);
+        }
+        if (marineData?.error) {
+            logWarn(`NewsAPI.AI Marine query error: ${marineData.error}`);
+        }
+        
+        // Log Forbes articles from NewsAPI.AI
+        if (rummerData?.articles) {
+            const forbesRummerArticles = rummerData.articles.filter(article => article.source.name === 'Forbes');
+            logInfo(`NewsAPI.AI: Found ${forbesRummerArticles.length} Forbes articles in Rummer search`);
+            forbesRummerArticles.forEach((article, index) => {
+                logInfo(`NewsAPI.AI Forbes Rummer ${index + 1}: ${article.title}`);
+            });
+        }
+        
+        if (marineData?.articles) {
+            const forbesMarineArticles = marineData.articles.filter(article => article.source.name === 'Forbes');
+            logInfo(`NewsAPI.AI: Found ${forbesMarineArticles.length} Forbes articles in marine search`);
+            forbesMarineArticles.forEach((article, index) => {
+                logInfo(`NewsAPI.AI Forbes Marine ${index + 1}: ${article.title}`);
+            });
+        }
+    }
+
+    // Combine and deduplicate results
+    const allArticles = [
+        ...(rummerData?.articles || []),
+        ...(marineData?.articles || [])
+    ];
+
+    // Remove duplicates based on URL
+    const uniqueArticles = allArticles.filter((article, index, self) => 
+        index === self.findIndex(a => a.url === article.url)
+    );
+
+    return uniqueArticles
+        .filter((article: any) => {
+            const title = article.title ?? '';
+            const description = article.description ?? '';
+            const content = article.content ?? '';
+            const fullContent = `${title} ${description} ${content}`.toLowerCase();
+            const hasRummer = doesArticleMentionRummer(fullContent, title, description);
+            const hasMarineKeywords = containsMarineKeywords({ 
+                title, 
+                content: fullContent, 
+                contentSnippet: description 
+            } as RSSItem);
+            
+            // Debug logging for Forbes articles
+            if (article.source.name === 'Forbes' && process.env.NODE_ENV === 'development') {
+                logInfo(`NewsAPI.AI Forbes article "${title}": hasRummer=${hasRummer}, hasMarineKeywords=${hasMarineKeywords}`);
+            }
+            
+            // Include articles that mention Dr. Rummer OR are marine-related
+            return hasRummer || hasMarineKeywords;
+        })
+        .map((article: any) => ({
+            type: 'article' as const,
+            source: article.source.name,
+            title: article.title,
+            description: article.description,
+            url: article.url,
+            date: article.publishedAt,
+            sourceType: 'Other',
+            ...(article.urlToImage && {
+                image: {
+                    url: article.urlToImage,
+                    alt: article.title
+                }
+            })
+        }));
+});
+
+// NewsAPI.com integration (thenewsapi.com)
+export const fetchNewsAPIComArticles = cache(async (): Promise<MediaItem[]> => {
+    if (!process.env.NEWSAPI_COM_KEY) {
+        logError('NEWSAPI_COM_KEY is not defined in environment variables');
+        return [];
+    }
+
+    // Debug: Check if API key is available
+    if (process.env.NODE_ENV === 'development') {
+        logInfo(`NewsAPI.com Key available: ${process.env.NEWSAPI_COM_KEY ? 'Yes' : 'No'}`);
+    }
+
+    // Fetch articles about Dr. Rummer specifically
+    const rummerData = await fetchWithRetry<NewsAPIComResponse>(
+        `https://api.thenewsapi.com/v1/news/all?api_token=${process.env.NEWSAPI_COM_KEY}&search=Jodie+Rummer&language=en&sort=published_at&limit=50`
+    );
+
+    // Fetch articles about marine biology and shark research
+    const marineData = await fetchWithRetry<NewsAPIComResponse>(
+        `https://api.thenewsapi.com/v1/news/all?api_token=${process.env.NEWSAPI_COM_KEY}&search=Forbes+shark&language=en&sort=published_at&limit=50`
+    );
+
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+        logInfo(`NewsAPI.com: Rummer articles found: ${rummerData?.articles?.length || 0}`);
+        logInfo(`NewsAPI.com: Marine articles found: ${marineData?.articles?.length || 0}`);
+        
+        // Log Forbes articles from NewsAPI.com
+        if (rummerData?.articles) {
+            const forbesRummerArticles = rummerData.articles.filter(article => article.source.name === 'Forbes');
+            logInfo(`NewsAPI.com: Found ${forbesRummerArticles.length} Forbes articles in Rummer search`);
+            forbesRummerArticles.forEach((article, index) => {
+                logInfo(`NewsAPI.com Forbes Rummer ${index + 1}: ${article.title}`);
+            });
+        }
+        
+        if (marineData?.articles) {
+            const forbesMarineArticles = marineData.articles.filter(article => article.source.name === 'Forbes');
+            logInfo(`NewsAPI.com: Found ${forbesMarineArticles.length} Forbes articles in marine search`);
+            forbesMarineArticles.forEach((article, index) => {
+                logInfo(`NewsAPI.com Forbes Marine ${index + 1}: ${article.title}`);
+            });
+        }
+    }
+
+    // Combine and deduplicate results
+    const allArticles = [
+        ...(rummerData?.articles || []),
+        ...(marineData?.articles || [])
+    ];
+
+    // Remove duplicates based on URL
+    const uniqueArticles = allArticles.filter((article, index, self) => 
+        index === self.findIndex(a => a.url === article.url)
+    );
+
+    return uniqueArticles
+        .filter((article: any) => {
+            const title = article.title ?? '';
+            const description = article.description ?? '';
+            const content = article.content ?? '';
+            const fullContent = `${title} ${description} ${content}`.toLowerCase();
+            const hasRummer = doesArticleMentionRummer(fullContent, title, description);
+            const hasMarineKeywords = containsMarineKeywords({ 
+                title, 
+                content: fullContent, 
+                contentSnippet: description 
+            } as RSSItem);
+            
+            // Debug logging for Forbes articles
+            if (article.source.name === 'Forbes' && process.env.NODE_ENV === 'development') {
+                logInfo(`NewsAPI.com Forbes article "${title}": hasRummer=${hasRummer}, hasMarineKeywords=${hasMarineKeywords}`);
+            }
+            
+            // Include articles that mention Dr. Rummer OR are marine-related
+            return hasRummer || hasMarineKeywords;
+        })
+        .map((article: any) => ({
+            type: 'article' as const,
+            source: article.source.name,
+            title: article.title,
+            description: article.description,
+            url: article.url,
+            date: article.publishedAt,
+            sourceType: 'Other',
+            ...(article.urlToImage && {
+                image: {
+                    url: article.urlToImage,
+                    alt: article.title
+                }
+            })
+        }));
+});
+
+
+
+
 
 // Function to fix Google News URLs
 function fixGoogleNewsUrl(url: string): string {
@@ -383,7 +922,7 @@ function fixGoogleNewsUrl(url: string): string {
         
         return url;
     } catch (error) {
-        console.error('Error processing Google News URL');
+        logError('Error processing Google News URL', error);
         return url;
     }
 }
@@ -396,7 +935,7 @@ async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string>
                 ...DEFAULT_HEADERS,
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
             },
-            next: { revalidate: REVALIDATE_TIME }
+            next: { revalidate: RSS_REVALIDATE_TIME }
         });
 
         if (!response.ok) {
@@ -469,9 +1008,9 @@ function mightBeMarineRelated(title: string, description: string): boolean {
 // Function to extract image from HTML content
 function extractImageFromHtml(html: string, baseUrl: string): string | null {
     try {
-        // Look for various image patterns
+        // Look for various image patterns - prioritize og:image meta tags
         const imagePatterns = [
-            // Open Graph image (any order of attributes, single or double quotes)
+            // Open Graph image (highest priority - check first)
             /<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
             /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?(?:property|name)=['\"]og:image['\"][^>]*?>/i,
             // Twitter image (including :src)
@@ -503,11 +1042,6 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
                 // Decode basic HTML entities in URLs
                 imageUrl = imageUrl.replace(/&amp;/g, '&');
                 
-                // Debug for The Conversation
-                if (baseUrl.includes('theconversation.com')) {
-                    console.log(`Pattern ${i} matched for The Conversation: ${imageUrl}`);
-                }
-                
                 // Convert relative URLs to absolute
                 if (imageUrl.startsWith('/')) {
                     const urlObj = new URL(baseUrl);
@@ -526,27 +1060,35 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
                     imageUrl.includes('avatar') ||
                     imageUrl.includes('ad') ||
                     imageUrl.includes('banner') ||
-                    imageUrl.includes('button')) {
-                    
-                    // Debug for The Conversation
-                    if (baseUrl.includes('theconversation.com')) {
-                        console.log(`Filtered out image for The Conversation: ${imageUrl} - contains filtered keyword`);
-                    }
+                    imageUrl.includes('button') ||
+                    imageUrl.includes('googleusercontent.com') ||
+                    imageUrl.includes('news.google.com') ||
+                    imageUrl.includes('google.com') ||
+                    imageUrl.startsWith('data:image/svg+xml') ||
+                    imageUrl.includes('placeholder')) {
                     continue;
                 }
+                
+                        // Additional validation: ensure we're not returning SVG placeholders
+        if (imageUrl.startsWith('data:image/svg+xml') || imageUrl.includes('placeholder')) {
+            continue;
+        }
 
-                // Debug for The Conversation
-                if (baseUrl.includes('theconversation.com')) {
-                    console.log(`Successfully extracted image for The Conversation: ${imageUrl}`);
-                }
+        // Special handling for Oceanographic Magazine: prioritize their image patterns
+        if (baseUrl.includes('oceanographic-magazine.com') && imageUrl.includes('oceanographic')) {
+            return imageUrl;
+        }
                 
                 return imageUrl;
             }
         }
 
+        // No image found
+        return null;
+
         return null;
     } catch (error) {
-        console.warn('Error extracting image from HTML');
+        logWarn('Error extracting image from HTML');
         return null;
     }
 }
@@ -559,11 +1101,11 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
                 ...DEFAULT_HEADERS,
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             },
-            next: { revalidate: REVALIDATE_TIME }
+            next: { revalidate: ARTICLE_REVALIDATE_TIME }
         });
 
         if (!response.ok) {
-            console.warn(`Failed to fetch article content for "${title}"`);
+            logWarn(`Failed to fetch article content for "${title}": ${response.status}`);
             return { hasRummer: false, hasMarineKeywords: false, content: '' };
         }
 
@@ -596,33 +1138,73 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
 
             if (authorIndicatesRummer || twitterIndicatesRummer) {
                 hasRummer = true;
-                console.log(`Detected Rummer via meta on The Conversation: author="${authorContent}", twitter:creator="${twitterCreator}"`);
+            }
+        }
+
+        // Special handling for Cosmos Magazine: check for specific article about Dr. Rummer
+        if (!hasRummer && url.includes('cosmosmagazine.com')) {
+            // Check for specific article about Dr. Rummer's fish physiology career
+            if (url.includes('jodie-rummer-fish-physiology') || 
+                textContent.includes('jodie rummer') || 
+                textContent.includes('dr rummer') ||
+                textContent.includes('professor rummer')) {
+                hasRummer = true;
+            }
+        }
+
+        // Special handling for Oceanographic Magazine: check for Dr. Rummer articles
+        if (!hasRummer && url.includes('oceanographic-magazine.com')) {
+            if (textContent.includes('jodie rummer') || 
+                textContent.includes('dr rummer') ||
+                textContent.includes('professor rummer') ||
+                title.toLowerCase().includes('jodie rummer')) {
+                hasRummer = true;
             }
         }
 
         // Extract image from HTML
-        const image = extractImageFromHtml(html, url);
+        let image = extractImageFromHtml(html, url);
         
-        if (image) {
-            console.log(`Found image for article "${title}": ${image}`);
-        } else if (url.includes('theconversation.com')) {
-            console.log(`No image found for The Conversation article "${title}"`);
-            // Debug: Check if Open Graph image exists
-            const ogImageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i);
-            if (ogImageMatch) {
-                console.log(`Found Open Graph image: ${ogImageMatch[1]}`);
+        // Special handling for the specific Dr. Rummer Cosmos article
+        if (url.includes('cosmosmagazine.com') && url.includes('jodie-rummer-fish-physiology')) {
+            // Look specifically for the expected image URL in meta tags
+            const expectedImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*)['\"][^>]*?>/i);
+            if (expectedImageMatch && expectedImageMatch[1]) {
+                image = expectedImageMatch[1];
             } else {
-                console.log(`No Open Graph image found`);
-            }
-            // Debug: Let's see what HTML we're working with
-            const imageDivMatch = html.match(/<div[^>]*class="[^"]*image[^"]*"[^>]*>/i);
-            if (imageDivMatch) {
-                console.log(`Found image div: ${imageDivMatch[0]}`);
-            } else {
-                console.log(`No image div found in HTML`);
+                // Fallback: look for the image URL in the HTML content
+                const imageUrlMatch = html.match(/https:\/\/cosmosmagazine\.com\/wp-content\/uploads\/[^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*\.jpg/);
+                if (imageUrlMatch) {
+                    image = imageUrlMatch[0];
+                }
             }
         }
 
+        // Special handling for Oceanographic Magazine articles
+        if (url.includes('oceanographic-magazine.com')) {
+            // Look for Oceanographic's specific image patterns
+            const oceanographicImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*oceanographic[^'\"]*)['\"][^>]*?>/i);
+            if (oceanographicImageMatch && oceanographicImageMatch[1]) {
+                image = oceanographicImageMatch[1];
+            } else {
+                // Fallback: look for Oceanographic's image URLs in the HTML content
+                const oceanographicUrlMatch = html.match(/https:\/\/[^'\"]*oceanographic[^'\"]*\.(?:jpg|jpeg|png|webp)/i);
+                if (oceanographicUrlMatch) {
+                    image = oceanographicUrlMatch[0];
+                }
+            }
+        }
+        
+        // Log debugging info for Cosmos Magazine articles (reduced logging)
+        if (process.env.NODE_ENV === 'development' && url.includes('cosmosmagazine.com')) {
+            logInfo(`Cosmos article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
+        }
+
+        // Log debugging info for Oceanographic Magazine articles
+        if (process.env.NODE_ENV === 'development' && url.includes('oceanographic-magazine.com')) {
+            logInfo(`Oceanographic article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
+        }
+        
         return { 
             hasRummer, 
             hasMarineKeywords, 
@@ -630,69 +1212,116 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
             ...(image && { image })
         };
     } catch (error) {
-        console.warn(`Error fetching article content for "${title}"`);
+        logWarn(`Error fetching article content for "${title}"`);
         return { hasRummer: false, hasMarineKeywords: false, content: '' };
     }
 }
+
 // Add Google News fetcher
 export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
     try {
         const response = await fetch(
-            'https://news.google.com/rss/search?q=Jodie+Rummer+OR+Great+Barrier+Reef+OR+James+Cook+University&hl=en-AU&gl=AU&ceid=AU:en',
+            'https://news.google.com/rss/search?q=Jodie+Rummer+OR+Dr+Rummer+OR+RummerLab+OR+Physioshark&hl=en-AU&gl=AU&ceid=AU:en',
             {
                 headers: DEFAULT_HEADERS,
-                next: { revalidate: REVALIDATE_TIME }
+                next: { revalidate: RSS_REVALIDATE_TIME }
             }
         );
 
         if (!response.ok) {
-            console.warn(`Google News RSS feed returned status: ${response.status}`);
+            logWarn(`Google News RSS feed returned status: ${response.status}`);
             return [];
         }
 
+        logInfo(`Google News RSS feed: Starting fetch...`);
+
         const xmlText = await response.text();
-        
         const feed = await parser.parseString(xmlText);
 
-        const articles = feed.items
-            .filter(item => {
+        // Process articles and fix URLs without fetching HTML content
+        const articles = await Promise.allSettled(
+            feed.items.map(async (item) => {
                 const content = (item.content || '').toLowerCase();
                 const title = (item.title || '').toLowerCase();
                 const description = (item.contentSnippet || '').toLowerCase();
                 
-                return doesArticleMentionRummer(content, title, description);
-            })
-            .map(item => {
-                // Get the URL from the description field if available, as it contains the direct link
-                const descriptionUrl = item.description?.match(/href="([^"]+)"/)?.[1];
-                const itemUrl = item.link || descriptionUrl || item.guid || '';
-                const fixedUrl = fixGoogleNewsUrl(itemUrl);
-
-                const mediaItem: MediaItem = {
-                    type: 'article',
-                    source: 'Google News',
-                    title: stripHtml(item.title || ''),
-                    description: stripHtml(item.contentSnippet || item.description || ''),
-                    url: fixedUrl,
-                    date: item.pubDate || new Date().toISOString(),
-                    sourceType: 'Other' as const,
-                    ...(item.enclosure?.url && {
-                        image: {
-                            url: item.enclosure.url,
-                            alt: stripHtml(item.title || '')
+                // Check if article might be relevant
+                const hasRummer = doesArticleMentionRummer(content, title, description);
+                const hasMarineKeywords = containsMarineKeywords(item);
+                const mightBeMarine = mightBeMarineRelated(title, description);
+                
+                if (hasRummer || hasMarineKeywords || mightBeMarine) {
+                    // Fix the URL
+                    const descriptionUrl = item.description?.match(/href="([^"]+)"/)?.[1];
+                    const itemUrl = item.link || descriptionUrl || item.guid || '';
+                    let fixedUrl = fixGoogleNewsUrl(itemUrl);
+                    
+                    // Only resolve Google News URLs, don't fetch HTML content yet
+                    if (fixedUrl.includes('news.google.com')) {
+                        try {
+                            fixedUrl = await resolveGoogleNewsFinalUrl(fixedUrl);
+                        } catch (error) {
+                            logWarn(`Failed to resolve Google News URL: ${fixedUrl}`);
+                            // Keep the original URL if resolution fails
                         }
-                    })
-                };
+                    }
 
-                return mediaItem;
-            });
+                    // Check if we have a valid image from RSS
+                    let imageUrl: string | undefined;
+                    if (item.enclosure?.url && 
+                        !item.enclosure.url.includes('googleusercontent.com') && 
+                        !item.enclosure.url.includes('news.google.com') && 
+                        !item.enclosure.url.includes('google.com')) {
+                        imageUrl = item.enclosure.url;
+                    }
 
-        return articles;
+                    // Extract the actual source name from the title
+                    const title = stripHtml(item.title || '');
+                    let actualSource = 'Google News';
+                    
+                    // Look for source name patterns like "- Source Name" or " - Source Name"
+                    const sourceMatch = title.match(/\s*[-–—]\s*([^-–—]+?)(?:\s*[-–—]\s*[^-–—]+?)*$/);
+                    if (sourceMatch) {
+                        actualSource = sourceMatch[1].trim();
+                    }
+                    
+                    const mediaItem: MediaItem = {
+                        type: 'article',
+                        source: actualSource,
+                        title: title,
+                        description: stripHtml(item.contentSnippet || item.description || ''),
+                        url: fixedUrl,
+                        date: item.pubDate || new Date().toISOString(),
+                        sourceType: 'Other' as const,
+                        ...(imageUrl && {
+                            image: {
+                                url: imageUrl,
+                                alt: title
+                            }
+                        })
+                    };
+
+                    return mediaItem;
+                }
+                
+                return null;
+            })
+        );
+
+        const validArticles = articles
+            .filter((result): result is PromiseFulfilledResult<MediaItem | null> => 
+                result.status === 'fulfilled' && result.value !== null
+            )
+            .map(result => result.value!);
+
+        logInfo(`Google News RSS feed: Found ${validArticles.length} relevant articles`);
+        return validArticles;
     } catch (error) {
-        console.error('Error fetching Google News articles');
+        logError('Error fetching Google News articles', error);
         return [];
     }
 });
+
 
 // Update Guardian article filter
 export const fetchGuardianArticles = cache(async (): Promise<MediaItem[]> => {
@@ -701,11 +1330,11 @@ export const fetchGuardianArticles = cache(async (): Promise<MediaItem[]> => {
     );
 
     if (!data?.response?.results) {
-        console.warn('No results found in Guardian response:', data);
+        logWarn('No results found in Guardian response');
         return [];
     }
 
-    const filteredArticles = data.response.results
+            const filteredArticles = data.response.results
         .filter(article => {
             const bodyText = article.fields.bodyText?.toLowerCase() || '';
             const headline = article.fields.headline?.toLowerCase() || '';
@@ -725,7 +1354,10 @@ export const fetchGuardianArticles = cache(async (): Promise<MediaItem[]> => {
                 headline.includes('annotated solutions for prize') ||
                 headline.includes('crossword');
             
-            return doesArticleMentionRummer(bodyText, headline, trailText) && !isBlogExclude;
+            const hasRummer = doesArticleMentionRummer(bodyText, headline, trailText);
+            const isNotBlog = !isBlogExclude;
+            
+            return hasRummer && isNotBlog;
         });
 
     return filteredArticles.map(article => ({
@@ -750,7 +1382,7 @@ export const fetchTownsvilleBulletinArticles = cache(async (): Promise<MediaItem
     try {
         const response = await fetch('https://www.townsvillebulletin.com.au/news/townsville', {
             headers: MODERN_HEADERS,
-            next: { revalidate: REVALIDATE_TIME }
+            next: { revalidate: RSS_REVALIDATE_TIME }
         });
 
         if (!response.ok) return [];
@@ -781,7 +1413,9 @@ export const fetchTownsvilleBulletinArticles = cache(async (): Promise<MediaItem
 
                 const content = `${title} ${description}`.toLowerCase();
 
-                if (doesArticleMentionRummer(content, title, description)) {
+                const hasRummer = doesArticleMentionRummer(content, title, description);
+                
+                if (hasRummer) {
                     articles.push({
                         type: 'article' as const,
                         source: 'Townsville Bulletin',
@@ -802,14 +1436,16 @@ export const fetchTownsvilleBulletinArticles = cache(async (): Promise<MediaItem
     }
 });
 
-// Main function to fetch all news
-export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
+// Phase 1: Fetch all articles from sources
+async function fetchAllArticlesFromSources(): Promise<MediaItem[]> {
     const fetchFunctions = [
         fetchConversationArticles,
-        fetchNewsAPIArticles,
         fetchGuardianArticles,
-        fetchGoogleNewsArticles,
         fetchABCNewsArticles,
+        fetchNewsAPIOrgArticles,
+        fetchNewsAPIAIArticles,
+        fetchNewsAPIComArticles,
+        fetchGoogleNewsArticles,
         fetchYahooNewsArticles,
         fetchScienceDailyArticles,
         fetchNewsComAuArticles,
@@ -818,49 +1454,258 @@ export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
         fetchSMHScienceArticles,
         fetchSBSScienceArticles,
         fetchTownsvilleBulletinArticles,
-        fetchCairnsNewsArticles
+        fetchCairnsNewsArticles,
+        fetchCosmosMagazineArticles,
+        fetchOceanographicMagazineArticles,
+        fetchForbesArticles,
+        fetchLabDownUnderArticles,
+        fetchItsRocketScienceArticles,
+        fetchOceanConservancyArticles,
+        fetchOceanAcidificationArticles,
+        fetchOceanicSocietyArticles
     ];
 
-    try {
-        const results = await Promise.allSettled(
-            fetchFunctions.map(fn => fn())
-        );
+    const results = await Promise.allSettled(
+        fetchFunctions.map(fn => fn())
+    );
 
-        const successfulResults = results.filter((result): result is PromiseFulfilledResult<MediaItem[]> => 
-            result.status === 'fulfilled'
-        );
+    const successfulResults = results.filter((result): result is PromiseFulfilledResult<MediaItem[]> => 
+        result.status === 'fulfilled'
+    );
 
-        const failedSources = results
-            .map((result, index) => ({ result, source: fetchFunctions[index].name }))
-            .filter(({ result }) => result.status === 'rejected')
-            .map(({ source, result }) => {
-                if (result.status === 'rejected') {
-                    console.error(`Failed to fetch from ${source}:`, result.reason);
-                    return source;
+    const failedSources = results
+        .map((result, index) => ({ result, source: fetchFunctions[index].name }))
+        .filter(({ result }) => result.status === 'rejected')
+        .map(({ source, result }) => {
+            if (result.status === 'rejected') {
+                logError(`Failed to fetch from ${source}`, result.reason);
+                return source;
+            }
+            return null;
+        })
+        .filter((source): source is string => source !== null);
+
+    if (failedSources.length > 0) {
+        logWarn(`Failed to fetch from: ${failedSources.join(', ')}`);
+    }
+
+    const allArticles = successfulResults.flatMap(result => result.value);
+    logInfo(`Phase 1: Fetched ${allArticles.length} articles from ${successfulResults.length} sources`);
+    
+    return allArticles;
+}
+
+// Phase 2: Deduplicate and prioritize articles
+function deduplicateAndPrioritizeArticles(articles: MediaItem[]): MediaItem[] {
+    // Define source priorities (lower number = higher priority)
+    const sourcePriorities: Record<string, number> = {
+        'The Conversation': 1,
+        'The Guardian': 2,
+        'Cosmos Magazine': 3,
+        'ABC News': 4,
+        'Lab Down Under': 5,
+        "It's Rocket Science": 6,
+        'Ocean Conservancy': 7,
+        'Ocean Acidification ICC': 8,
+        'Oceanic Society': 9,
+        'Oceanographic Magazine': 10,
+        'Google News': 11,
+        'NewsAPI': 12,
+        'Other': 13
+    };
+
+    // Create a map to track articles by title (normalized) and URL
+    const articleMap = new Map<string, MediaItem>();
+    const titleMap = new Map<string, MediaItem>();
+
+    articles.forEach(article => {
+        // Better title normalization that removes source suffixes
+        let normalizedTitle = article.title.toLowerCase();
+        // Remove trailing "- Source Name" patterns
+        normalizedTitle = normalizedTitle.replace(/\s*-\s*[^-]+$/, '');
+        normalizedTitle = normalizedTitle.replace(/\s*–\s*[^–]+$/, ''); // en dash
+        normalizedTitle = normalizedTitle.replace(/\s*—\s*[^—]+$/, ''); // em dash
+        normalizedTitle = normalizedTitle.replace(/[^\w\s]/g, '').trim();
+        const url = article.url;
+        const sourcePriority = sourcePriorities[article.source] || sourcePriorities['Other'];
+
+        // Check if we already have this article by URL
+        if (articleMap.has(url)) {
+            const existing = articleMap.get(url)!;
+            const existingPriority = sourcePriorities[existing.source] || sourcePriorities['Other'];
+            
+            // Keep the one with higher priority (lower number)
+            if (sourcePriority < existingPriority) {
+                articleMap.set(url, article);
+                titleMap.set(normalizedTitle, article);
+            }
+        } else {
+            // Check if we have a similar title from a different source
+            if (titleMap.has(normalizedTitle)) {
+                const existing = titleMap.get(normalizedTitle)!;
+                const existingPriority = sourcePriorities[existing.source] || sourcePriorities['Other'];
+                
+                // Keep the one with higher priority (lower number)
+                if (sourcePriority < existingPriority) {
+                    articleMap.delete(existing.url);
+                    titleMap.set(normalizedTitle, article);
+                    articleMap.set(url, article);
                 }
-                return null;
-            })
-            .filter((source): source is string => source !== null);
+            } else {
+                // New article, add to both maps
+                articleMap.set(url, article);
+                titleMap.set(normalizedTitle, article);
+            }
+        }
+    });
 
-        if (failedSources.length > 0) {
-            console.warn(`Failed to fetch from the following sources: ${failedSources.join(', ')}`);
+    // Convert back to array and sort by priority and date
+    const uniqueArticles = Array.from(articleMap.values()).sort((a, b) => {
+        const aPriority = sourcePriorities[a.source] || sourcePriorities['Other'];
+        const bPriority = sourcePriorities[b.source] || sourcePriorities['Other'];
+        
+        // First sort by priority
+        if (aPriority !== bPriority) {
+            return aPriority - bPriority;
+        }
+        
+        // Then sort by date (newest first)
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
+
+    logInfo(`Phase 2: Deduplicated to ${uniqueArticles.length} articles`);
+    return uniqueArticles;
+}
+
+// Phase 3: Verify content for uncertain articles
+async function verifyArticleContent(articles: MediaItem[]): Promise<MediaItem[]> {
+    const verifiedArticles: MediaItem[] = [];
+    const uncertainArticles: MediaItem[] = [];
+
+    // Separate articles into certain and uncertain
+    articles.forEach(article => {
+        const hasRummer = doesArticleMentionRummer(
+            article.description || '', 
+            article.title, 
+            article.description || ''
+        );
+        
+        if (hasRummer) {
+            verifiedArticles.push(article);
+        } else {
+            uncertainArticles.push(article);
+        }
+    });
+
+    logInfo(`Phase 3: ${verifiedArticles.length} certain articles, ${uncertainArticles.length} uncertain articles`);
+
+    // Check uncertain articles by fetching their HTML content (with rate limiting)
+    const verificationResults = await Promise.allSettled(
+        uncertainArticles.map(async (article, index) => {
+            try {
+                // Add delay to prevent rate limiting (200ms between requests)
+                if (index > 0) {
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+                
+                const { hasRummer } = await checkArticleContent(article.url, article.title);
+                return hasRummer ? article : null;
+            } catch (error) {
+                logWarn(`Failed to verify article: ${article.title}`);
+                return null;
+            }
+        })
+    );
+
+    const verifiedUncertainArticles = verificationResults
+        .filter((result): result is PromiseFulfilledResult<MediaItem | null> => 
+            result.status === 'fulfilled' && result.value !== null
+        )
+        .map(result => result.value!);
+
+    const finalArticles = [...verifiedArticles, ...verifiedUncertainArticles];
+    logInfo(`Phase 3: Verified ${finalArticles.length} total articles`);
+    
+    return finalArticles;
+}
+
+// Phase 4: Extract images for articles without thumbnails
+async function extractMissingImages(articles: MediaItem[]): Promise<MediaItem[]> {
+    const articlesWithoutImages = articles.filter(article => !article.image);
+    const articlesWithImages = articles.filter(article => article.image);
+
+    logInfo(`Phase 4: ${articlesWithImages.length} articles with images, ${articlesWithoutImages.length} without images`);
+
+    // Extract images for articles that don't have them (with rate limiting)
+    const imageExtractionResults = await Promise.allSettled(
+        articlesWithoutImages.map(async (article, index) => {
+            try {
+                // Add delay to prevent rate limiting (200ms between requests)
+                if (index > 0) {
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+                
+                const { image } = await checkArticleContent(article.url, article.title);
+                if (image) {
+                    article.image = { url: image, alt: article.title };
+                }
+                return article;
+            } catch (error) {
+                logWarn(`Failed to extract image for: ${article.title}`);
+                return article;
+            }
+        })
+    );
+
+    const processedArticles = imageExtractionResults
+        .filter((result): result is PromiseFulfilledResult<MediaItem> => 
+            result.status === 'fulfilled'
+        )
+        .map(result => result.value);
+
+    const finalArticles = [...articlesWithImages, ...processedArticles];
+    const articlesWithImagesAfter = finalArticles.filter(article => article.image);
+    
+    logInfo(`Phase 4: ${articlesWithImagesAfter.length} articles now have images`);
+    
+    return finalArticles;
+}
+
+// Main function to fetch all news
+export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
+    try {
+        // Phase 1: Fetch all articles from sources
+        const allArticles = await fetchAllArticlesFromSources();
+        
+        // Phase 2: Deduplicate and prioritize
+        const deduplicatedArticles = deduplicateAndPrioritizeArticles(allArticles);
+        
+        // Phase 3: Verify content for uncertain articles
+        const verifiedArticles = await verifyArticleContent(deduplicatedArticles);
+        
+        // Phase 4: Extract images for articles without thumbnails
+        const articlesWithImages = await extractMissingImages(verifiedArticles);
+        
+        // Use all articles (no date filtering)
+        const finalArticles = articlesWithImages;
+        
+        // Log articles count
+        if (process.env.NODE_ENV === 'development') {
+            logInfo(`Total articles: ${finalArticles.length} articles`);
         }
 
-        const allArticles = successfulResults.flatMap(result => result.value);
-
-        // Remove duplicates and sort by date
-        const uniqueArticles = Array.from(
-            new Map(allArticles.map(item => [item.url, item]))
-            .values()
-        ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-        //save to file for testing
-        //const fs = require('fs');
-        //fs.writeFileSync('news.json', JSON.stringify(uniqueArticles, null, 2));
-
-        return uniqueArticles;
+        logInfo(`Final result: ${finalArticles.length} articles from ${verifiedArticles.length} sources`);
+        
+        // Log the final articles for debugging
+        if (process.env.NODE_ENV === 'development') {
+            logInfo(`Final articles: ${finalArticles.length} articles`);
+        }
+        
+        return finalArticles;
     } catch (error) {
         console.error('Error in fetchAllNews');
         return [];
     }
 }); 
+
+ 

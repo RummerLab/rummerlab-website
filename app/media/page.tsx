@@ -34,6 +34,8 @@ function getSourceColors(sourceType: string): { bgColor: string; textColor: stri
 export default async function MediaPage() {
     const newsArticles = await fetchAllNews();
 
+
+
     // Get the latest 10 articles regardless of source
     const latestArticles = newsArticles
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
