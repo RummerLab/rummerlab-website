@@ -863,6 +863,10 @@ export const fetchNewsAPIComArticles = cache(async (): Promise<MediaItem[]> => {
         }));
 });
 
+
+
+
+
 // Function to fix Google News URLs
 function fixGoogleNewsUrl(url: string): string {
     if (!url) return '';
@@ -893,7 +897,7 @@ function fixGoogleNewsUrl(url: string): string {
         
         return url;
     } catch (error) {
-        console.error('Error processing Google News URL');
+        logError('Error processing Google News URL', error);
         return url;
     }
 }
@@ -906,7 +910,7 @@ async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string>
                 ...DEFAULT_HEADERS,
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
             },
-            next: { revalidate: ARTICLE_REVALIDATE_TIME }
+            next: { revalidate: RSS_REVALIDATE_TIME }
         });
 
         if (!response.ok) {
@@ -979,9 +983,9 @@ function mightBeMarineRelated(title: string, description: string): boolean {
 // Function to extract image from HTML content
 function extractImageFromHtml(html: string, baseUrl: string): string | null {
     try {
-        // Look for various image patterns
+        // Look for various image patterns - prioritize og:image meta tags
         const imagePatterns = [
-            // Open Graph image (any order of attributes, single or double quotes)
+            // Open Graph image (highest priority - check first)
             /<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
             /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?(?:property|name)=['\"]og:image['\"][^>]*?>/i,
             // Twitter image (including :src)
@@ -1013,11 +1017,6 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
                 // Decode basic HTML entities in URLs
                 imageUrl = imageUrl.replace(/&amp;/g, '&');
                 
-                // Debug for The Conversation
-                if (baseUrl.includes('theconversation.com')) {
-                    console.log(`Pattern ${i} matched for The Conversation: ${imageUrl}`);
-                }
-                
                 // Convert relative URLs to absolute
                 if (imageUrl.startsWith('/')) {
                     const urlObj = new URL(baseUrl);
@@ -1036,27 +1035,30 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
                     imageUrl.includes('avatar') ||
                     imageUrl.includes('ad') ||
                     imageUrl.includes('banner') ||
-                    imageUrl.includes('button')) {
-                    
-                    // Debug for The Conversation
-                    if (baseUrl.includes('theconversation.com')) {
-                        console.log(`Filtered out image for The Conversation: ${imageUrl} - contains filtered keyword`);
-                    }
+                    imageUrl.includes('button') ||
+                    imageUrl.includes('googleusercontent.com') ||
+                    imageUrl.includes('news.google.com') ||
+                    imageUrl.includes('google.com') ||
+                    imageUrl.startsWith('data:image/svg+xml') ||
+                    imageUrl.includes('placeholder')) {
                     continue;
                 }
-
-                // Debug for The Conversation
-                if (baseUrl.includes('theconversation.com')) {
-                    console.log(`Successfully extracted image for The Conversation: ${imageUrl}`);
+                
+                // Additional validation: ensure we're not returning SVG placeholders
+                if (imageUrl.startsWith('data:image/svg+xml') || imageUrl.includes('placeholder')) {
+                    continue;
                 }
                 
                 return imageUrl;
             }
         }
 
+        // No image found
+        return null;
+
         return null;
     } catch (error) {
-        console.warn('Error extracting image from HTML');
+        logWarn('Error extracting image from HTML');
         return null;
     }
 }
@@ -1073,7 +1075,7 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
         });
 
         if (!response.ok) {
-            console.warn(`Failed to fetch article content for "${title}"`);
+            logWarn(`Failed to fetch article content for "${title}": ${response.status}`);
             return { hasRummer: false, hasMarineKeywords: false, content: '' };
         }
 
@@ -1106,33 +1108,43 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
 
             if (authorIndicatesRummer || twitterIndicatesRummer) {
                 hasRummer = true;
-                console.log(`Detected Rummer via meta on The Conversation: author="${authorContent}", twitter:creator="${twitterCreator}"`);
+            }
+        }
+
+        // Special handling for Cosmos Magazine: check for specific article about Dr. Rummer
+        if (!hasRummer && url.includes('cosmosmagazine.com')) {
+            // Check for specific article about Dr. Rummer's fish physiology career
+            if (url.includes('jodie-rummer-fish-physiology') || 
+                textContent.includes('jodie rummer') || 
+                textContent.includes('dr rummer') ||
+                textContent.includes('professor rummer')) {
+                hasRummer = true;
             }
         }
 
         // Extract image from HTML
-        const image = extractImageFromHtml(html, url);
+        let image = extractImageFromHtml(html, url);
         
-        if (image) {
-            console.log(`Found image for article "${title}": ${image}`);
-        } else if (url.includes('theconversation.com')) {
-            console.log(`No image found for The Conversation article "${title}"`);
-            // Debug: Check if Open Graph image exists
-            const ogImageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i);
-            if (ogImageMatch) {
-                console.log(`Found Open Graph image: ${ogImageMatch[1]}`);
+        // Special handling for the specific Dr. Rummer Cosmos article
+        if (url.includes('cosmosmagazine.com') && url.includes('jodie-rummer-fish-physiology')) {
+            // Look specifically for the expected image URL in meta tags
+            const expectedImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*)['\"][^>]*?>/i);
+            if (expectedImageMatch && expectedImageMatch[1]) {
+                image = expectedImageMatch[1];
             } else {
-                console.log(`No Open Graph image found`);
-            }
-            // Debug: Let's see what HTML we're working with
-            const imageDivMatch = html.match(/<div[^>]*class="[^"]*image[^"]*"[^>]*>/i);
-            if (imageDivMatch) {
-                console.log(`Found image div: ${imageDivMatch[0]}`);
-            } else {
-                console.log(`No image div found in HTML`);
+                // Fallback: look for the image URL in the HTML content
+                const imageUrlMatch = html.match(/https:\/\/cosmosmagazine\.com\/wp-content\/uploads\/[^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*\.jpg/);
+                if (imageUrlMatch) {
+                    image = imageUrlMatch[0];
+                }
             }
         }
-
+        
+        // Log debugging info for Cosmos Magazine articles (reduced logging)
+        if (process.env.NODE_ENV === 'development' && url.includes('cosmosmagazine.com')) {
+            logInfo(`Cosmos article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
+        }
+        
         return { 
             hasRummer, 
             hasMarineKeywords, 
@@ -1140,10 +1152,11 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
             ...(image && { image })
         };
     } catch (error) {
-        console.warn(`Error fetching article content for "${title}"`);
+        logWarn(`Error fetching article content for "${title}"`);
         return { hasRummer: false, hasMarineKeywords: false, content: '' };
     }
 }
+
 // Add Google News fetcher
 export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
     try {
@@ -1156,7 +1169,7 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
         );
 
         if (!response.ok) {
-            console.warn(`Google News RSS feed returned status: ${response.status}`);
+            logWarn(`Google News RSS feed returned status: ${response.status}`);
             return [];
         }
 
@@ -1236,10 +1249,11 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
 
         return validArticles;
     } catch (error) {
-        console.error('Error fetching Google News articles');
+        logError('Error fetching Google News articles', error);
         return [];
     }
 });
+
 
 // Update Guardian article filter
 export const fetchGuardianArticles = cache(async (): Promise<MediaItem[]> => {
