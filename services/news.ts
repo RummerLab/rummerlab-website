@@ -906,7 +906,7 @@ async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string>
                 ...DEFAULT_HEADERS,
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
             },
-            next: { revalidate: REVALIDATE_TIME }
+            next: { revalidate: ARTICLE_REVALIDATE_TIME }
         });
 
         if (!response.ok) {
@@ -1069,7 +1069,7 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
                 ...DEFAULT_HEADERS,
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             },
-            next: { revalidate: REVALIDATE_TIME }
+            next: { revalidate: ARTICLE_REVALIDATE_TIME }
         });
 
         if (!response.ok) {
