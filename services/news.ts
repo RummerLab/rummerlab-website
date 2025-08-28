@@ -476,6 +476,31 @@ export const fetchCosmosMagazineArticles = cache(async (): Promise<MediaItem[]> 
     return articles;
 });
 
+// Direct Oceanographic Magazine RSS feed
+export const fetchOceanographicMagazineArticles = cache(async (): Promise<MediaItem[]> => {
+    try {
+        const articles = await fetchRSSFeed(
+            'https://oceanographic-magazine.com/feed/',
+            'Oceanographic Magazine',
+            (item: RSSItem): boolean => {
+                // Return articles that might be marine-related or about Dr. Rummer
+                const hasRummer = doesArticleMentionRummer(item.content || '', item.title || '', item.contentSnippet || '');
+                const hasMarineKeywords = containsMarineKeywords(item);
+                const mightBeMarine = mightBeMarineRelated(item.title || '', item.contentSnippet || '');
+                
+                return hasRummer || hasMarineKeywords || mightBeMarine;
+            },
+            DEFAULT_HEADERS
+        );
+
+        logInfo(`Oceanographic Magazine RSS: Found ${articles.length} relevant articles`);
+        return articles;
+    } catch (error) {
+        logError('Error fetching Oceanographic Magazine articles', error);
+        return [];
+    }
+});
+
 export const fetchLabDownUnderArticles = cache(() =>
     fetchRSSFeed(
         'https://labdownunder.com/feed',
@@ -1044,10 +1069,15 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
                     continue;
                 }
                 
-                // Additional validation: ensure we're not returning SVG placeholders
-                if (imageUrl.startsWith('data:image/svg+xml') || imageUrl.includes('placeholder')) {
-                    continue;
-                }
+                        // Additional validation: ensure we're not returning SVG placeholders
+        if (imageUrl.startsWith('data:image/svg+xml') || imageUrl.includes('placeholder')) {
+            continue;
+        }
+
+        // Special handling for Oceanographic Magazine: prioritize their image patterns
+        if (baseUrl.includes('oceanographic-magazine.com') && imageUrl.includes('oceanographic')) {
+            return imageUrl;
+        }
                 
                 return imageUrl;
             }
@@ -1122,6 +1152,16 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
             }
         }
 
+        // Special handling for Oceanographic Magazine: check for Dr. Rummer articles
+        if (!hasRummer && url.includes('oceanographic-magazine.com')) {
+            if (textContent.includes('jodie rummer') || 
+                textContent.includes('dr rummer') ||
+                textContent.includes('professor rummer') ||
+                title.toLowerCase().includes('jodie rummer')) {
+                hasRummer = true;
+            }
+        }
+
         // Extract image from HTML
         let image = extractImageFromHtml(html, url);
         
@@ -1139,10 +1179,30 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
                 }
             }
         }
+
+        // Special handling for Oceanographic Magazine articles
+        if (url.includes('oceanographic-magazine.com')) {
+            // Look for Oceanographic's specific image patterns
+            const oceanographicImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*oceanographic[^'\"]*)['\"][^>]*?>/i);
+            if (oceanographicImageMatch && oceanographicImageMatch[1]) {
+                image = oceanographicImageMatch[1];
+            } else {
+                // Fallback: look for Oceanographic's image URLs in the HTML content
+                const oceanographicUrlMatch = html.match(/https:\/\/[^'\"]*oceanographic[^'\"]*\.(?:jpg|jpeg|png|webp)/i);
+                if (oceanographicUrlMatch) {
+                    image = oceanographicUrlMatch[0];
+                }
+            }
+        }
         
         // Log debugging info for Cosmos Magazine articles (reduced logging)
         if (process.env.NODE_ENV === 'development' && url.includes('cosmosmagazine.com')) {
             logInfo(`Cosmos article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
+        }
+
+        // Log debugging info for Oceanographic Magazine articles
+        if (process.env.NODE_ENV === 'development' && url.includes('oceanographic-magazine.com')) {
+            logInfo(`Oceanographic article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
         }
         
         return { 
@@ -1173,6 +1233,8 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
             return [];
         }
 
+        logInfo(`Google News RSS feed: Starting fetch...`);
+
         const xmlText = await response.text();
         const feed = await parser.parseString(xmlText);
 
@@ -1196,7 +1258,12 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
                     
                     // Only resolve Google News URLs, don't fetch HTML content yet
                     if (fixedUrl.includes('news.google.com')) {
-                        fixedUrl = await resolveGoogleNewsFinalUrl(fixedUrl);
+                        try {
+                            fixedUrl = await resolveGoogleNewsFinalUrl(fixedUrl);
+                        } catch (error) {
+                            logWarn(`Failed to resolve Google News URL: ${fixedUrl}`);
+                            // Keep the original URL if resolution fails
+                        }
                     }
 
                     // Check if we have a valid image from RSS
@@ -1247,6 +1314,7 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
             )
             .map(result => result.value!);
 
+        logInfo(`Google News RSS feed: Found ${validArticles.length} relevant articles`);
         return validArticles;
     } catch (error) {
         logError('Error fetching Google News articles', error);
@@ -1388,6 +1456,7 @@ async function fetchAllArticlesFromSources(): Promise<MediaItem[]> {
         fetchTownsvilleBulletinArticles,
         fetchCairnsNewsArticles,
         fetchCosmosMagazineArticles,
+        fetchOceanographicMagazineArticles,
         fetchForbesArticles,
         fetchLabDownUnderArticles,
         fetchItsRocketScienceArticles,
