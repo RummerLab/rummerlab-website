@@ -22,6 +22,21 @@ function cleanName(name: string): string {
     .trim();
 }
 
+// Validate scholarId to prevent SSRF
+function validateScholarId(scholarId: string | null): string | null {
+  if (!scholarId) return null;
+  
+  // Only allow alphanumeric characters and common punctuation used in Google Scholar IDs
+  const validScholarIdPattern = /^[a-zA-Z0-9_-]+$/;
+  
+  if (!validScholarIdPattern.test(scholarId)) {
+    console.warn('Invalid scholarId format detected:', scholarId);
+    return null;
+  }
+  
+  return scholarId;
+}
+
 async function findCoauthorScholarId(name: string): Promise<string | null> {
   try {
     // Fetch Jodie Rummer's profile
@@ -52,7 +67,11 @@ async function tryGetScholarAvatar(scholarId: string | null, name: string): Prom
     const finalScholarId = scholarId || await findCoauthorScholarId(name);
     if (!finalScholarId) return null;
     
-    const response = await fetch(`https://rummerlab.com/api/scholar/${finalScholarId}`);
+    // Validate the scholarId to prevent SSRF
+    const validatedScholarId = validateScholarId(finalScholarId);
+    if (!validatedScholarId) return null;
+    
+    const response = await fetch(`https://rummerlab.com/api/scholar/${validatedScholarId}`);
     if (!response.ok) return null;
 
     const data: ScholarProfile = await response.json();
@@ -134,9 +153,12 @@ export async function GET(request: NextRequest) {
       return new NextResponse('Name is required', { status: 400 });
     }
 
+    // Validate scholarId if provided
+    const validatedScholarId = validateScholarId(scholarId);
+
     // If we have an email or scholarId or name, try the full avatar generation chain
-    if (email || scholarId || name) {
-      const response = await getAvatarImage(email || '', name, scholarId);
+    if (email || validatedScholarId || name) {
+      const response = await getAvatarImage(email || '', name, validatedScholarId);
       const headers = new Headers(response.headers);
       headers.set('Cache-Control', 'public, max-age=86400'); // Cache for 24 hours
       

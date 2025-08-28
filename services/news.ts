@@ -76,7 +76,7 @@ async function fetchWithRetry<T>(
         });
         
         if (!response.ok) {
-            logWarn(`Fetch failed for ${url} with status: ${response.status}`);
+            console.warn(`Fetch failed for ${url} with status: ${response.status}`);
             return null;
         }
         
@@ -84,11 +84,11 @@ async function fetchWithRetry<T>(
         return data;
     } catch (error) {
         if (retries > 0) {
-            logWarn(`Retrying fetch for ${url}, ${retries} attempts remaining`);
+            console.warn(`Retrying fetch for ${url}, ${retries} attempts remaining`);
             await new Promise(resolve => setTimeout(resolve, 1000));
             return fetchWithRetry(url, options, retries - 1);
         }
-        logError(`Final fetch error for ${url}`, error);
+        console.error(`Final fetch error for ${url}`);
         return null;
     }
 }
@@ -107,7 +107,7 @@ async function fetchRSSFeed(
         });
 
         if (!response.ok) {
-            logWarn(`${source} RSS feed returned status: ${response.status}`);
+            console.warn(`${source} RSS feed returned status: ${response.status}`);
             return [];
         }
 
@@ -140,7 +140,7 @@ async function fetchRSSFeed(
             return mediaItem;
         });
     } catch (error) {
-        logError(`Error fetching ${source} articles`, error);
+        console.error(`Error fetching ${source} articles`);
         return [];
     }
 }
@@ -893,7 +893,7 @@ function fixGoogleNewsUrl(url: string): string {
         
         return url;
     } catch (error) {
-        logError('Error processing Google News URL', error);
+        console.error('Error processing Google News URL');
         return url;
     }
 }
@@ -906,7 +906,7 @@ async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string>
                 ...DEFAULT_HEADERS,
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
             },
-            next: { revalidate: RSS_REVALIDATE_TIME }
+            next: { revalidate: REVALIDATE_TIME }
         });
 
         if (!response.ok) {
@@ -956,7 +956,7 @@ async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string>
     }
 }
 
-// Function to check if article might be related to Dr. Rummer's research
+// Function to check if article might be marine-related based on title/description
 function mightBeMarineRelated(title: string, description: string): boolean {
     const text = `${title} ${description}`.toLowerCase();
     
@@ -964,25 +964,24 @@ function mightBeMarineRelated(title: string, description: string): boolean {
     if (text.includes('the conversation')) {
         return true;
     }
-
-    // Terms that might indicate Dr. Rummer's research areas
-    const potentialResearchTerms = [
-        'shark', 'reef', 'coral', 'ocean', 'marine', 'sea', 'underwater',
-        'climate', 'warming', 'acidification', 'ocean acidification', 'ecosystem', 'biology', 'science',
+    
+    // Broader set of terms that might indicate marine/science content
+    const potentialMarineTerms = [
+        'shark', 'fish', 'reef', 'coral', 'ocean', 'marine', 'sea', 'underwater',
+        'climate', 'warming', 'acidification', 'ecosystem', 'biology', 'science',
         'research', 'study', 'university', 'jcu', 'james cook', 'great barrier',
-        'conservation', 'environment', 'species', 'wildlife', 'aquatic',
-        'rummer', 'physiologyfish', 'rummerlab', 'physioshark'
+        'conservation', 'environment', 'species', 'wildlife', 'aquatic'
     ];
     
-    return potentialResearchTerms.some(term => text.includes(term));
+    return potentialMarineTerms.some(term => text.includes(term));
 }
 
 // Function to extract image from HTML content
 function extractImageFromHtml(html: string, baseUrl: string): string | null {
     try {
-        // Look for various image patterns - prioritize og:image meta tags
+        // Look for various image patterns
         const imagePatterns = [
-            // Open Graph image (highest priority - check first)
+            // Open Graph image (any order of attributes, single or double quotes)
             /<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
             /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?(?:property|name)=['\"]og:image['\"][^>]*?>/i,
             // Twitter image (including :src)
@@ -1014,6 +1013,11 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
                 // Decode basic HTML entities in URLs
                 imageUrl = imageUrl.replace(/&amp;/g, '&');
                 
+                // Debug for The Conversation
+                if (baseUrl.includes('theconversation.com')) {
+                    console.log(`Pattern ${i} matched for The Conversation: ${imageUrl}`);
+                }
+                
                 // Convert relative URLs to absolute
                 if (imageUrl.startsWith('/')) {
                     const urlObj = new URL(baseUrl);
@@ -1032,30 +1036,27 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
                     imageUrl.includes('avatar') ||
                     imageUrl.includes('ad') ||
                     imageUrl.includes('banner') ||
-                    imageUrl.includes('button') ||
-                    imageUrl.includes('googleusercontent.com') ||
-                    imageUrl.includes('news.google.com') ||
-                    imageUrl.includes('google.com') ||
-                    imageUrl.startsWith('data:image/svg+xml') ||
-                    imageUrl.includes('placeholder')) {
+                    imageUrl.includes('button')) {
+                    
+                    // Debug for The Conversation
+                    if (baseUrl.includes('theconversation.com')) {
+                        console.log(`Filtered out image for The Conversation: ${imageUrl} - contains filtered keyword`);
+                    }
                     continue;
                 }
-                
-                // Additional validation: ensure we're not returning SVG placeholders
-                if (imageUrl.startsWith('data:image/svg+xml') || imageUrl.includes('placeholder')) {
-                    continue;
+
+                // Debug for The Conversation
+                if (baseUrl.includes('theconversation.com')) {
+                    console.log(`Successfully extracted image for The Conversation: ${imageUrl}`);
                 }
                 
                 return imageUrl;
             }
         }
 
-        // No image found
-        return null;
-
         return null;
     } catch (error) {
-        logWarn('Error extracting image from HTML');
+        console.warn('Error extracting image from HTML');
         return null;
     }
 }
@@ -1068,11 +1069,11 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
                 ...DEFAULT_HEADERS,
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
             },
-            next: { revalidate: ARTICLE_REVALIDATE_TIME }
+            next: { revalidate: REVALIDATE_TIME }
         });
 
         if (!response.ok) {
-            logWarn(`Failed to fetch article content for "${title}": ${response.status}`);
+            console.warn(`Failed to fetch article content for "${title}"`);
             return { hasRummer: false, hasMarineKeywords: false, content: '' };
         }
 
@@ -1105,43 +1106,33 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
 
             if (authorIndicatesRummer || twitterIndicatesRummer) {
                 hasRummer = true;
-            }
-        }
-
-        // Special handling for Cosmos Magazine: check for specific article about Dr. Rummer
-        if (!hasRummer && url.includes('cosmosmagazine.com')) {
-            // Check for specific article about Dr. Rummer's fish physiology career
-            if (url.includes('jodie-rummer-fish-physiology') || 
-                textContent.includes('jodie rummer') || 
-                textContent.includes('dr rummer') ||
-                textContent.includes('professor rummer')) {
-                hasRummer = true;
+                console.log(`Detected Rummer via meta on The Conversation: author="${authorContent}", twitter:creator="${twitterCreator}"`);
             }
         }
 
         // Extract image from HTML
-        let image = extractImageFromHtml(html, url);
+        const image = extractImageFromHtml(html, url);
         
-        // Special handling for the specific Dr. Rummer Cosmos article
-        if (url.includes('cosmosmagazine.com') && url.includes('jodie-rummer-fish-physiology')) {
-            // Look specifically for the expected image URL in meta tags
-            const expectedImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*)['\"][^>]*?>/i);
-            if (expectedImageMatch && expectedImageMatch[1]) {
-                image = expectedImageMatch[1];
+        if (image) {
+            console.log(`Found image for article "${title}": ${image}`);
+        } else if (url.includes('theconversation.com')) {
+            console.log(`No image found for The Conversation article "${title}"`);
+            // Debug: Check if Open Graph image exists
+            const ogImageMatch = html.match(/<meta[^>]*property="og:image"[^>]*content="([^"]+)"/i);
+            if (ogImageMatch) {
+                console.log(`Found Open Graph image: ${ogImageMatch[1]}`);
             } else {
-                // Fallback: look for the image URL in the HTML content
-                const imageUrlMatch = html.match(/https:\/\/cosmosmagazine\.com\/wp-content\/uploads\/[^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*\.jpg/);
-                if (imageUrlMatch) {
-                    image = imageUrlMatch[0];
-                }
+                console.log(`No Open Graph image found`);
+            }
+            // Debug: Let's see what HTML we're working with
+            const imageDivMatch = html.match(/<div[^>]*class="[^"]*image[^"]*"[^>]*>/i);
+            if (imageDivMatch) {
+                console.log(`Found image div: ${imageDivMatch[0]}`);
+            } else {
+                console.log(`No image div found in HTML`);
             }
         }
-        
-        // Log debugging info for Cosmos Magazine articles (reduced logging)
-        if (process.env.NODE_ENV === 'development' && url.includes('cosmosmagazine.com')) {
-            logInfo(`Cosmos article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
-        }
-        
+
         return { 
             hasRummer, 
             hasMarineKeywords, 
@@ -1149,11 +1140,10 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
             ...(image && { image })
         };
     } catch (error) {
-        logWarn(`Error fetching article content for "${title}"`);
+        console.warn(`Error fetching article content for "${title}"`);
         return { hasRummer: false, hasMarineKeywords: false, content: '' };
     }
 }
-
 // Add Google News fetcher
 export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
     try {
@@ -1166,7 +1156,7 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
         );
 
         if (!response.ok) {
-            logWarn(`Google News RSS feed returned status: ${response.status}`);
+            console.warn(`Google News RSS feed returned status: ${response.status}`);
             return [];
         }
 
@@ -1246,7 +1236,7 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
 
         return validArticles;
     } catch (error) {
-        logError('Error fetching Google News articles', error);
+        console.error('Error fetching Google News articles');
         return [];
     }
 });
@@ -1359,7 +1349,7 @@ export const fetchTownsvilleBulletinArticles = cache(async (): Promise<MediaItem
 
         return articles;
     } catch (error) {
-        logError('Error fetching Townsville Bulletin articles', error);
+        console.error('Error fetching Townsville Bulletin articles');
         return [];
     }
 });
@@ -1630,7 +1620,7 @@ export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
         
         return finalArticles;
     } catch (error) {
-        logError('Error in fetchAllNews', error);
+        console.error('Error in fetchAllNews');
         return [];
     }
 }); 

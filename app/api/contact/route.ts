@@ -1,9 +1,26 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+// HTML escaping function to prevent XSS
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
+}
+
 export async function POST(req: Request) {
   try {
     const { name, email, subject, message } = await req.json();
+
+    // Sanitize all user inputs to prevent XSS
+    const sanitizedName = escapeHtml(name || '');
+    const sanitizedEmail = escapeHtml(email || '');
+    const sanitizedSubject = escapeHtml(subject || '');
+    const sanitizedMessage = escapeHtml(message || '');
 
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -16,16 +33,16 @@ export async function POST(req: Request) {
     });
 
     const mailOptions = {
-      from: email,
+      from: sanitizedEmail,
       to: 'jodie.rummer@rummerlab.com',
-      subject: `Contact Form: ${subject}`,
+      subject: `Contact Form: ${sanitizedSubject}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Name:</strong> ${sanitizedName}</p>
+        <p><strong>Email:</strong> ${sanitizedEmail}</p>
+        <p><strong>Subject:</strong> ${sanitizedSubject}</p>
         <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <p>${sanitizedMessage}</p>
       `,
     };
 
