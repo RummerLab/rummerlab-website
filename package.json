@@ -19,7 +19,7 @@
     "cheerio": "^1.1.2",
     "clsx": "^2.1.0",
     "framer-motion": "^11.18.2",
-    "next": "15.4.5",
+    "next": "15.5.2",
     "next-sitemap": "^4.2.3",
     "nodemailer": "^6.10.0",
     "react": "19.1.0",
