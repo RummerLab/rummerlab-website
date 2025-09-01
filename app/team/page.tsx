@@ -4,6 +4,7 @@ import { type TeamMember } from '@/types/team';
 import teamData from '@/data/team.json';
 import { SiBluesky, SiGooglescholar } from "react-icons/si";
 import { externalLinks } from '@/data/links';
+import ExpandableText from '@/components/ExpandableText';
 
 export const metadata = {
   title: "Our Team | RummerLab",
@@ -123,10 +124,12 @@ export default function TeamPage() {
                 )}
               </div>
               
-              <div className="mt-4 prose dark:prose-invert prose-sm max-w-none">
-                <p className="text-gray-700 dark:text-gray-300 line-clamp-4">
-                  {member.description}
-                </p>
+              <div className="mt-4">
+                <ExpandableText 
+                  text={member.description}
+                  maxLength={250}
+                  className="prose dark:prose-invert prose-sm max-w-none"
+                />
               </div>
               
               {member.links && Object.keys(member.links).length > 0 && (
