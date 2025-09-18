@@ -94,6 +94,8 @@ npm run lint
 
 ## Updating Dependencies
 
+Note that this can break the code.
+
 ```bash
 npx npm-check-updates -u
 npm install
