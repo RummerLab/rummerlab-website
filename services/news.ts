@@ -281,6 +281,407 @@ const isLikelyEnglish = (text: string | undefined): boolean => {
     return !isNonEnglish;
 };
 
+// Function to check if article might be marine-related based on title/description
+function mightBeMarineRelated(title: string, description: string): boolean {
+    const text = `${title} ${description}`.toLowerCase();
+    
+    // Special case: Always allow The Conversation articles to pass through for HTML fetching
+    if (text.includes('the conversation')) {
+        return true;
+    }
+    
+    // Broader set of terms that might indicate marine/science content
+    const potentialMarineTerms = [
+        'shark', 'fish', 'reef', 'coral', 'ocean', 'marine', 'sea', 'underwater',
+        'climate', 'warming', 'acidification', 'ecosystem', 'biology', 'science',
+        'research', 'study', 'university', 'jcu', 'james cook', 'great barrier',
+        'conservation', 'environment', 'species', 'wildlife', 'aquatic'
+    ];
+    
+    return potentialMarineTerms.some(term => text.includes(term));
+}
+
+// URL validation and sanitization functions
+function isValidUrl(url: string): boolean {
+    try {
+        new URL(url);
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+function isAllowedHost(url: string): boolean {
+    try {
+        const urlObj = new URL(url);
+        const hostname = urlObj.hostname.toLowerCase();
+        
+        // Define allowed hosts
+        const allowedHosts = [
+            'news.google.com',
+            'theconversation.com',
+            'theguardian.com',
+            'abc.net.au',
+            'au.news.yahoo.com',
+            'sciencedaily.com',
+            'news.com.au',
+            'smh.com.au',
+            'sbs.com.au',
+            'cairnsnews.org',
+            'cosmosmagazine.com',
+            'oceanographic-magazine.com',
+            'labdownunder.com',
+            'itsrocketscience.com.au',
+            'oceanconservancy.org',
+            'news-oceanacidification-icc.org',
+            'oceanicsociety.org',
+            'forbes.com',
+            'townsvillebulletin.com.au'
+        ];
+        
+        return allowedHosts.some(allowedHost => 
+            hostname === allowedHost || hostname.endsWith('.' + allowedHost)
+        );
+    } catch {
+        return false;
+    }
+}
+
+// Function to fix Google News URLs with proper validation
+function fixGoogleNewsUrl(url: string): string {
+    if (!url || !isValidUrl(url)) return '';
+    
+    try {
+        // Handle Google News redirect URLs
+        if (url.includes('news.google.com/rss/articles/')) {
+            // Extract the actual URL from the Google News redirect
+            const urlMatch = url.match(/url=([^&]+)/);
+            if (urlMatch) {
+                try {
+                    const decodedUrl = decodeURIComponent(urlMatch[1]);
+                    return isValidUrl(decodedUrl) && isAllowedHost(decodedUrl) ? decodedUrl : url;
+                } catch {
+                    // If decoding fails, use the cleaned up version
+                    return url.replace('/rss/articles/', '/articles/');
+                }
+            }
+            return url.replace('/rss/articles/', '/articles/');
+        }
+        
+        // Handle relative URLs from Google News
+        if (url.startsWith('./')) {
+            const fullUrl = `https://news.google.com/${url.slice(2)}`;
+            return isValidUrl(fullUrl) ? fullUrl : url;
+        }
+        if (!url.startsWith('http')) {
+            const fullUrl = `https://news.google.com/${url}`;
+            return isValidUrl(fullUrl) ? fullUrl : url;
+        }
+        
+        return url;
+    } catch (error) {
+        logError('Error processing Google News URL', error);
+        return url;
+    }
+}
+
+// Attempt to resolve the final article URL for Google News links by inspecting the HTML
+async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string> {
+    try {
+        // Validate the URL before processing
+        if (!isValidUrl(googleNewsUrl) || !isAllowedHost(googleNewsUrl)) {
+            return googleNewsUrl;
+        }
+
+        const response = await fetch(googleNewsUrl, {
+            headers: {
+                ...DEFAULT_HEADERS,
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+            },
+            next: { revalidate: RSS_REVALIDATE_TIME }
+        });
+
+        if (!response.ok) {
+            return googleNewsUrl;
+        }
+
+        const html = await response.text();
+
+        // meta refresh redirect
+        const metaRefreshMatch = html.match(/<meta[^>]*http-equiv=["']refresh["'][^>]*content=["'][^"']*url=([^"']+)["'][^>]*>/i);
+        if (metaRefreshMatch?.[1]) {
+            try {
+                const decodedUrl = decodeURIComponent(metaRefreshMatch[1]);
+                return isValidUrl(decodedUrl) && isAllowedHost(decodedUrl) ? decodedUrl : googleNewsUrl;
+            } catch {
+                return metaRefreshMatch[1];
+            }
+        }
+
+        // JS redirect patterns
+        const jsRedirectMatch = html.match(/location\.(?:replace|href)\(['"]([^'"]+)['"]\)/i);
+        if (jsRedirectMatch?.[1]) {
+            const redirectUrl = jsRedirectMatch[1];
+            return isValidUrl(redirectUrl) && isAllowedHost(redirectUrl) ? redirectUrl : googleNewsUrl;
+        }
+
+        // Fallback: first absolute external link that is not a Google domain
+        const anchorMatches = html.match(/<a[^>]*href=["']([^"']+)["'][^>]*>/gi) || [];
+        for (const anchor of anchorMatches) {
+            const hrefMatch = anchor.match(/href=["']([^"']+)["']/i);
+            const href = hrefMatch?.[1];
+            if (!href) continue;
+            if (!/^https?:\/\//i.test(href)) continue;
+            try {
+                if (isValidUrl(href) && isAllowedHost(href)) {
+                    const { hostname } = new URL(href);
+                    const lowerHost = hostname.toLowerCase();
+                    const isGoogle = lowerHost.endsWith('google.com') || lowerHost.endsWith('googleusercontent.com') || lowerHost.includes('news.google.com');
+                    if (!isGoogle) {
+                        return href;
+                    }
+                }
+            } catch {
+                // ignore invalid URLs
+            }
+        }
+
+        return googleNewsUrl;
+    } catch {
+        return googleNewsUrl;
+    }
+}
+
+// Improved HTML sanitization function
+function sanitizeHtmlContent(html: string): string {
+    // Use a more robust approach to remove HTML tags
+    let sanitized = html;
+    
+    // Remove script tags with case-insensitive matching
+    sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+    
+    // Remove style tags with case-insensitive matching
+    sanitized = sanitized.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+    
+    // Remove all remaining HTML tags
+    sanitized = sanitized.replace(/<[^>]*>/g, ' ');
+    
+    // Normalize whitespace
+    sanitized = sanitized.replace(/\s+/g, ' ');
+    
+    return sanitized.trim();
+}
+
+// Function to extract image from HTML content
+function extractImageFromHtml(html: string, baseUrl: string): string | null {
+    try {
+        // Look for various image patterns - prioritize og:image meta tags
+        const imagePatterns = [
+            // Open Graph image (highest priority - check first)
+            /<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
+            /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?(?:property|name)=['\"]og:image['\"][^>]*?>/i,
+            // Twitter image (including :src)
+            /<meta[^>]*?name=['\"]twitter:image(?::src)?['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
+            /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?name=['\"]twitter:image(?::src)?['\"][^>]*?>/i,
+            // Schema.org image
+            /<meta[^>]*?(?:property|name)=['\"]image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
+            // The Conversation magazine style background-image (high priority)
+            /<div[^>]*class="[^"]*image[^"]*"[^>]*style="[^"]*background-image:\s*url\(([^)]+)\)/i,
+            // The Conversation img tag inside image div
+            /<div[^>]*class="[^"]*image[^"]*"[^>]*>.*?<img[^>]*src="([^"]+)"/is,
+            // Large article images (common patterns)
+            /<img[^>]*class="[^"]*hero[^"]*"[^>]*src="([^"]+)"/i,
+            /<img[^>]*class="[^"]*featured[^"]*"[^>]*src="([^"]+)"/i,
+            /<img[^>]*class="[^"]*article[^"]*"[^>]*src="([^"]+)"/i,
+            // First large image in article content
+            /<img[^>]*width="[5-9][0-9][0-9]"[^>]*src="([^"]+)"/i,
+            /<img[^>]*height="[3-9][0-9][0-9]"[^>]*src="([^"]+)"/i,
+            // Any image with reasonable size
+            /<img[^>]*src="([^"]+)"[^>]*>/i
+        ];
+
+        for (let i = 0; i < imagePatterns.length; i++) {
+            const pattern = imagePatterns[i];
+            const match = html.match(pattern);
+            if (match && match[1]) {
+                let imageUrl = match[1];
+
+                // Decode basic HTML entities in URLs
+                imageUrl = imageUrl.replace(/&amp;/g, '&');
+                
+                // Convert relative URLs to absolute
+                if (imageUrl.startsWith('/')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}${imageUrl}`;
+                } else if (imageUrl.startsWith('./')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}${imageUrl.substring(1)}`;
+                } else if (!imageUrl.startsWith('http')) {
+                    const urlObj = new URL(baseUrl);
+                    imageUrl = `${urlObj.protocol}//${urlObj.host}/${imageUrl}`;
+                }
+
+                // Filter out small images, icons, and common non-article images
+                if (imageUrl.includes('logo') || 
+                    imageUrl.includes('icon') || 
+                    imageUrl.includes('avatar') ||
+                    imageUrl.includes('ad') ||
+                    imageUrl.includes('banner') ||
+                    imageUrl.includes('button') ||
+                    imageUrl.includes('googleusercontent.com') ||
+                    imageUrl.includes('news.google.com') ||
+                    imageUrl.includes('google.com') ||
+                    imageUrl.startsWith('data:image/svg+xml') ||
+                    imageUrl.includes('placeholder')) {
+                    continue;
+                }
+                
+                // Additional validation: ensure we're not returning SVG placeholders
+                if (imageUrl.startsWith('data:image/svg+xml') || imageUrl.includes('placeholder')) {
+                    continue;
+                }
+
+                // Special handling for Oceanographic Magazine: prioritize their image patterns
+                if (baseUrl.includes('oceanographic-magazine.com') && imageUrl.includes('oceanographic')) {
+                    return imageUrl;
+                }
+                
+                return imageUrl;
+            }
+        }
+
+        // No image found
+        return null;
+    } catch (error) {
+        logWarn('Error extracting image from HTML');
+        return null;
+    }
+}
+
+// Function to fetch and check article content
+async function checkArticleContent(url: string, title: string): Promise<{ hasRummer: boolean; hasMarineKeywords: boolean; content: string; image?: string }> {
+    try {
+        // Validate URL before fetching
+        if (!isValidUrl(url) || !isAllowedHost(url)) {
+            return { hasRummer: false, hasMarineKeywords: false, content: '' };
+        }
+
+        const response = await fetch(url, {
+            headers: {
+                ...DEFAULT_HEADERS,
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            },
+            next: { revalidate: ARTICLE_REVALIDATE_TIME }
+        });
+
+        if (!response.ok) {
+            logWarn(`Failed to fetch article content for "${title}": ${response.status}`);
+            return { hasRummer: false, hasMarineKeywords: false, content: '' };
+        }
+
+        const html = await response.text();
+        
+        // Use improved HTML sanitization
+        const textContent = sanitizeHtmlContent(html).toLowerCase();
+
+        let hasRummer = doesArticleMentionRummer(textContent, title.toLowerCase(), '');
+        const hasMarineKeywords = containsMarineKeywords({ 
+            title, 
+            content: textContent, 
+            contentSnippet: '' 
+        } as RSSItem);
+
+        // Special handling for The Conversation: detect author meta and twitter creator
+        if (!hasRummer && url.includes('theconversation.com')) {
+            const authorMetaMatch = html.match(/<meta[^>]*(?:name|property)=["']author["'][^>]*content=["']([^"']+)["']/i);
+            const twitterCreatorMatch = html.match(/<meta[^>]*name=["']twitter:creator["'][^>]*content=["']([^"']+)["']/i);
+            const authorContent = (authorMetaMatch?.[1] || '').toLowerCase();
+            const twitterCreator = (twitterCreatorMatch?.[1] || '').toLowerCase();
+
+            const authorIndicatesRummer = authorContent.includes('rummer') || authorContent.includes('jodie');
+            const twitterIndicatesRummer = twitterCreator.includes('physiologyfish') || twitterCreator.includes('jodierummer');
+
+            if (authorIndicatesRummer || twitterIndicatesRummer) {
+                hasRummer = true;
+            }
+        }
+
+        // Special handling for Cosmos Magazine: check for specific article about Dr. Rummer
+        if (!hasRummer && url.includes('cosmosmagazine.com')) {
+            // Check for specific article about Dr. Rummer's fish physiology career
+            if (url.includes('jodie-rummer-fish-physiology') || 
+                textContent.includes('jodie rummer') || 
+                textContent.includes('dr rummer') ||
+                textContent.includes('professor rummer')) {
+                hasRummer = true;
+            }
+        }
+
+        // Special handling for Oceanographic Magazine: check for Dr. Rummer articles
+        if (!hasRummer && url.includes('oceanographic-magazine.com')) {
+            if (textContent.includes('jodie rummer') || 
+                textContent.includes('dr rummer') ||
+                textContent.includes('professor rummer') ||
+                title.toLowerCase().includes('jodie rummer')) {
+                hasRummer = true;
+            }
+        }
+
+        // Extract image from HTML
+        let image = extractImageFromHtml(html, url);
+        
+        // Special handling for the specific Dr. Rummer Cosmos article
+        if (url.includes('cosmosmagazine.com') && url.includes('jodie-rummer-fish-physiology')) {
+            // Look specifically for the expected image URL in meta tags
+            const expectedImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*)['\"][^>]*?>/i);
+            if (expectedImageMatch && expectedImageMatch[1]) {
+                image = expectedImageMatch[1];
+            } else {
+                // Fallback: look for the image URL in the HTML content
+                const imageUrlMatch = html.match(/https:\/\/cosmosmagazine\.com\/wp-content\/uploads\/[^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*\.jpg/);
+                if (imageUrlMatch) {
+                    image = imageUrlMatch[0];
+                }
+            }
+        }
+
+        // Special handling for Oceanographic Magazine articles
+        if (url.includes('oceanographic-magazine.com')) {
+            // Look for Oceanographic's specific image patterns
+            const oceanographicImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*oceanographic[^'\"]*)['\"][^>]*?>/i);
+            if (oceanographicImageMatch && oceanographicImageMatch[1]) {
+                image = oceanographicImageMatch[1];
+            } else {
+                // Fallback: look for Oceanographic's image URLs in the HTML content
+                const oceanographicUrlMatch = html.match(/https:\/\/[^'\"]*oceanographic[^'\"]*\.(?:jpg|jpeg|png|webp)/i);
+                if (oceanographicUrlMatch) {
+                    image = oceanographicUrlMatch[0];
+                }
+            }
+        }
+        
+        // Log debugging info for Cosmos Magazine articles (reduced logging)
+        if (process.env.NODE_ENV === 'development' && url.includes('cosmosmagazine.com')) {
+            logInfo(`Cosmos article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
+        }
+
+        // Log debugging info for Oceanographic Magazine articles
+        if (process.env.NODE_ENV === 'development' && url.includes('oceanographic-magazine.com')) {
+            logInfo(`Oceanographic article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
+        }
+        
+        return { 
+            hasRummer, 
+            hasMarineKeywords, 
+            content: textContent.substring(0, 200) + '...',
+            ...(image && { image })
+        };
+    } catch (error) {
+        logWarn(`Error fetching article content for "${title}"`);
+        return { hasRummer: false, hasMarineKeywords: false, content: '' };
+    }
+}
+
 export const fetchConversationArticles = cache(async (): Promise<MediaItem[]> => {
     const articles = await fetchRSSFeed(
         'https://theconversation.com/profiles/jodie-l-rummer-711270/articles.atom',
@@ -424,6 +825,7 @@ export const fetchSMHScienceArticles = cache(() =>
         DEFAULT_HEADERS
     )
 );
+
 export const fetchSBSScienceArticles = cache(() =>
     fetchRSSFeed(
         'https://www.sbs.com.au/news/feed',
@@ -888,335 +1290,6 @@ export const fetchNewsAPIComArticles = cache(async (): Promise<MediaItem[]> => {
         }));
 });
 
-
-
-
-
-// Function to fix Google News URLs
-function fixGoogleNewsUrl(url: string): string {
-    if (!url) return '';
-    
-    try {
-        // Handle Google News redirect URLs
-        if (url.includes('news.google.com/rss/articles/')) {
-            // Extract the actual URL from the Google News redirect
-            const urlMatch = url.match(/url=([^&]+)/);
-            if (urlMatch) {
-                try {
-                    return decodeURIComponent(urlMatch[1]);
-                } catch {
-                    // If decoding fails, use the cleaned up version
-                    return url.replace('/rss/articles/', '/articles/');
-                }
-            }
-            return url.replace('/rss/articles/', '/articles/');
-        }
-        
-        // Handle relative URLs from Google News
-        if (url.startsWith('./')) {
-            return `https://news.google.com/${url.slice(2)}`;
-        }
-        if (!url.startsWith('http')) {
-            return `https://news.google.com/${url}`;
-        }
-        
-        return url;
-    } catch (error) {
-        logError('Error processing Google News URL', error);
-        return url;
-    }
-}
-
-// Attempt to resolve the final article URL for Google News links by inspecting the HTML
-async function resolveGoogleNewsFinalUrl(googleNewsUrl: string): Promise<string> {
-    try {
-        const response = await fetch(googleNewsUrl, {
-            headers: {
-                ...DEFAULT_HEADERS,
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-            },
-            next: { revalidate: RSS_REVALIDATE_TIME }
-        });
-
-        if (!response.ok) {
-            return googleNewsUrl;
-        }
-
-        const html = await response.text();
-
-        // meta refresh redirect
-        const metaRefreshMatch = html.match(/<meta[^>]*http-equiv=["']refresh["'][^>]*content=["'][^"']*url=([^"']+)["'][^>]*>/i);
-        if (metaRefreshMatch?.[1]) {
-            try {
-                return decodeURIComponent(metaRefreshMatch[1]);
-            } catch {
-                return metaRefreshMatch[1];
-            }
-        }
-
-        // JS redirect patterns
-        const jsRedirectMatch = html.match(/location\.(?:replace|href)\(['"]([^'"]+)['"]\)/i);
-        if (jsRedirectMatch?.[1]) {
-            return jsRedirectMatch[1];
-        }
-
-        // Fallback: first absolute external link that is not a Google domain
-        const anchorMatches = html.match(/<a[^>]*href=["']([^"']+)["'][^>]*>/gi) || [];
-        for (const anchor of anchorMatches) {
-            const hrefMatch = anchor.match(/href=["']([^"']+)["']/i);
-            const href = hrefMatch?.[1];
-            if (!href) continue;
-            if (!/^https?:\/\//i.test(href)) continue;
-            try {
-                const { hostname } = new URL(href);
-                const lowerHost = hostname.toLowerCase();
-                const isGoogle = lowerHost.endsWith('google.com') || lowerHost.endsWith('googleusercontent.com') || lowerHost.includes('news.google.com');
-                if (!isGoogle) {
-                    return href;
-                }
-            } catch {
-                // ignore invalid URLs
-            }
-        }
-
-        return googleNewsUrl;
-    } catch {
-        return googleNewsUrl;
-    }
-}
-
-// Function to check if article might be marine-related based on title/description
-function mightBeMarineRelated(title: string, description: string): boolean {
-    const text = `${title} ${description}`.toLowerCase();
-    
-    // Special case: Always allow The Conversation articles to pass through for HTML fetching
-    if (text.includes('the conversation')) {
-        return true;
-    }
-    
-    // Broader set of terms that might indicate marine/science content
-    const potentialMarineTerms = [
-        'shark', 'fish', 'reef', 'coral', 'ocean', 'marine', 'sea', 'underwater',
-        'climate', 'warming', 'acidification', 'ecosystem', 'biology', 'science',
-        'research', 'study', 'university', 'jcu', 'james cook', 'great barrier',
-        'conservation', 'environment', 'species', 'wildlife', 'aquatic'
-    ];
-    
-    return potentialMarineTerms.some(term => text.includes(term));
-}
-
-// Function to extract image from HTML content
-function extractImageFromHtml(html: string, baseUrl: string): string | null {
-    try {
-        // Look for various image patterns - prioritize og:image meta tags
-        const imagePatterns = [
-            // Open Graph image (highest priority - check first)
-            /<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
-            /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?(?:property|name)=['\"]og:image['\"][^>]*?>/i,
-            // Twitter image (including :src)
-            /<meta[^>]*?name=['\"]twitter:image(?::src)?['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
-            /<meta[^>]*?content=['\"]([^'\"]+)['\"][^>]*?name=['\"]twitter:image(?::src)?['\"][^>]*?>/i,
-            // Schema.org image
-            /<meta[^>]*?(?:property|name)=['\"]image['\"][^>]*?content=['\"]([^'\"]+)['\"][^>]*?>/i,
-            // The Conversation magazine style background-image (high priority)
-            /<div[^>]*class="[^"]*image[^"]*"[^>]*style="[^"]*background-image:\s*url\(([^)]+)\)/i,
-            // The Conversation img tag inside image div
-            /<div[^>]*class="[^"]*image[^"]*"[^>]*>.*?<img[^>]*src="([^"]+)"/is,
-            // Large article images (common patterns)
-            /<img[^>]*class="[^"]*hero[^"]*"[^>]*src="([^"]+)"/i,
-            /<img[^>]*class="[^"]*featured[^"]*"[^>]*src="([^"]+)"/i,
-            /<img[^>]*class="[^"]*article[^"]*"[^>]*src="([^"]+)"/i,
-            // First large image in article content
-            /<img[^>]*width="[5-9][0-9][0-9]"[^>]*src="([^"]+)"/i,
-            /<img[^>]*height="[3-9][0-9][0-9]"[^>]*src="([^"]+)"/i,
-            // Any image with reasonable size
-            /<img[^>]*src="([^"]+)"[^>]*>/i
-        ];
-
-        for (let i = 0; i < imagePatterns.length; i++) {
-            const pattern = imagePatterns[i];
-            const match = html.match(pattern);
-            if (match && match[1]) {
-                let imageUrl = match[1];
-
-                // Decode basic HTML entities in URLs
-                imageUrl = imageUrl.replace(/&amp;/g, '&');
-                
-                // Convert relative URLs to absolute
-                if (imageUrl.startsWith('/')) {
-                    const urlObj = new URL(baseUrl);
-                    imageUrl = `${urlObj.protocol}//${urlObj.host}${imageUrl}`;
-                } else if (imageUrl.startsWith('./')) {
-                    const urlObj = new URL(baseUrl);
-                    imageUrl = `${urlObj.protocol}//${urlObj.host}${imageUrl.substring(1)}`;
-                } else if (!imageUrl.startsWith('http')) {
-                    const urlObj = new URL(baseUrl);
-                    imageUrl = `${urlObj.protocol}//${urlObj.host}/${imageUrl}`;
-                }
-
-                // Filter out small images, icons, and common non-article images
-                if (imageUrl.includes('logo') || 
-                    imageUrl.includes('icon') || 
-                    imageUrl.includes('avatar') ||
-                    imageUrl.includes('ad') ||
-                    imageUrl.includes('banner') ||
-                    imageUrl.includes('button') ||
-                    imageUrl.includes('googleusercontent.com') ||
-                    imageUrl.includes('news.google.com') ||
-                    imageUrl.includes('google.com') ||
-                    imageUrl.startsWith('data:image/svg+xml') ||
-                    imageUrl.includes('placeholder')) {
-                    continue;
-                }
-                
-                        // Additional validation: ensure we're not returning SVG placeholders
-        if (imageUrl.startsWith('data:image/svg+xml') || imageUrl.includes('placeholder')) {
-            continue;
-        }
-
-        // Special handling for Oceanographic Magazine: prioritize their image patterns
-        if (baseUrl.includes('oceanographic-magazine.com') && imageUrl.includes('oceanographic')) {
-            return imageUrl;
-        }
-                
-                return imageUrl;
-            }
-        }
-
-        // No image found
-        return null;
-
-        return null;
-    } catch (error) {
-        logWarn('Error extracting image from HTML');
-        return null;
-    }
-}
-
-// Function to fetch and check article content
-async function checkArticleContent(url: string, title: string): Promise<{ hasRummer: boolean; hasMarineKeywords: boolean; content: string; image?: string }> {
-    try {
-        const response = await fetch(url, {
-            headers: {
-                ...DEFAULT_HEADERS,
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            },
-            next: { revalidate: ARTICLE_REVALIDATE_TIME }
-        });
-
-        if (!response.ok) {
-            logWarn(`Failed to fetch article content for "${title}": ${response.status}`);
-            return { hasRummer: false, hasMarineKeywords: false, content: '' };
-        }
-
-        const html = await response.text();
-        
-        // Extract text content from HTML (basic approach)
-        const textContent = html
-            .replace(/<script[^>]*>.*?<\/script>/gs, '') // Remove scripts
-            .replace(/<style[^>]*>.*?<\/style>/gs, '') // Remove styles
-            .replace(/<[^>]+>/g, ' ') // Remove HTML tags
-            .replace(/\s+/g, ' ') // Normalize whitespace
-            .toLowerCase();
-
-        let hasRummer = doesArticleMentionRummer(textContent, title.toLowerCase(), '');
-        const hasMarineKeywords = containsMarineKeywords({ 
-            title, 
-            content: textContent, 
-            contentSnippet: '' 
-        } as RSSItem);
-
-        // Special handling for The Conversation: detect author meta and twitter creator
-        if (!hasRummer && url.includes('theconversation.com')) {
-            const authorMetaMatch = html.match(/<meta[^>]*(?:name|property)=["']author["'][^>]*content=["']([^"']+)["']/i);
-            const twitterCreatorMatch = html.match(/<meta[^>]*name=["']twitter:creator["'][^>]*content=["']([^"']+)["']/i);
-            const authorContent = (authorMetaMatch?.[1] || '').toLowerCase();
-            const twitterCreator = (twitterCreatorMatch?.[1] || '').toLowerCase();
-
-            const authorIndicatesRummer = authorContent.includes('rummer') || authorContent.includes('jodie');
-            const twitterIndicatesRummer = twitterCreator.includes('physiologyfish') || twitterCreator.includes('jodierummer');
-
-            if (authorIndicatesRummer || twitterIndicatesRummer) {
-                hasRummer = true;
-            }
-        }
-
-        // Special handling for Cosmos Magazine: check for specific article about Dr. Rummer
-        if (!hasRummer && url.includes('cosmosmagazine.com')) {
-            // Check for specific article about Dr. Rummer's fish physiology career
-            if (url.includes('jodie-rummer-fish-physiology') || 
-                textContent.includes('jodie rummer') || 
-                textContent.includes('dr rummer') ||
-                textContent.includes('professor rummer')) {
-                hasRummer = true;
-            }
-        }
-
-        // Special handling for Oceanographic Magazine: check for Dr. Rummer articles
-        if (!hasRummer && url.includes('oceanographic-magazine.com')) {
-            if (textContent.includes('jodie rummer') || 
-                textContent.includes('dr rummer') ||
-                textContent.includes('professor rummer') ||
-                title.toLowerCase().includes('jodie rummer')) {
-                hasRummer = true;
-            }
-        }
-
-        // Extract image from HTML
-        let image = extractImageFromHtml(html, url);
-        
-        // Special handling for the specific Dr. Rummer Cosmos article
-        if (url.includes('cosmosmagazine.com') && url.includes('jodie-rummer-fish-physiology')) {
-            // Look specifically for the expected image URL in meta tags
-            const expectedImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*)['\"][^>]*?>/i);
-            if (expectedImageMatch && expectedImageMatch[1]) {
-                image = expectedImageMatch[1];
-            } else {
-                // Fallback: look for the image URL in the HTML content
-                const imageUrlMatch = html.match(/https:\/\/cosmosmagazine\.com\/wp-content\/uploads\/[^'\"]*Dr\.-Jodie-Rummer-with-blacktip-reef-shark[^'\"]*\.jpg/);
-                if (imageUrlMatch) {
-                    image = imageUrlMatch[0];
-                }
-            }
-        }
-
-        // Special handling for Oceanographic Magazine articles
-        if (url.includes('oceanographic-magazine.com')) {
-            // Look for Oceanographic's specific image patterns
-            const oceanographicImageMatch = html.match(/<meta[^>]*?(?:property|name)=['\"]og:image['\"][^>]*?content=['\"]([^'\"]*oceanographic[^'\"]*)['\"][^>]*?>/i);
-            if (oceanographicImageMatch && oceanographicImageMatch[1]) {
-                image = oceanographicImageMatch[1];
-            } else {
-                // Fallback: look for Oceanographic's image URLs in the HTML content
-                const oceanographicUrlMatch = html.match(/https:\/\/[^'\"]*oceanographic[^'\"]*\.(?:jpg|jpeg|png|webp)/i);
-                if (oceanographicUrlMatch) {
-                    image = oceanographicUrlMatch[0];
-                }
-            }
-        }
-        
-        // Log debugging info for Cosmos Magazine articles (reduced logging)
-        if (process.env.NODE_ENV === 'development' && url.includes('cosmosmagazine.com')) {
-            logInfo(`Cosmos article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
-        }
-
-        // Log debugging info for Oceanographic Magazine articles
-        if (process.env.NODE_ENV === 'development' && url.includes('oceanographic-magazine.com')) {
-            logInfo(`Oceanographic article "${title}": hasRummer=${hasRummer}, image=${image ? 'found' : 'none'}`);
-        }
-        
-        return { 
-            hasRummer, 
-            hasMarineKeywords, 
-            content: textContent.substring(0, 200) + '...',
-            ...(image && { image })
-        };
-    } catch (error) {
-        logWarn(`Error fetching article content for "${title}"`);
-        return { hasRummer: false, hasMarineKeywords: false, content: '' };
-    }
-}
-
 // Add Google News fetcher
 export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
     try {
@@ -1280,7 +1353,8 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
                     let actualSource = 'Google News';
                     
                     // Look for source name patterns like "- Source Name" or " - Source Name"
-                    const sourceMatch = title.match(/\s*[-–—]\s*([^-–—]+?)(?:\s*[-–—]\s*[^-–—]+?)*$/);
+                    // Fixed regex to avoid exponential backtracking - simplified pattern
+                    const sourceMatch = title.match(/\s*[-–—]\s*([^-–—]+?)$/);
                     if (sourceMatch) {
                         actualSource = sourceMatch[1].trim();
                     }
@@ -1322,7 +1396,6 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
     }
 });
 
-
 // Update Guardian article filter
 export const fetchGuardianArticles = cache(async (): Promise<MediaItem[]> => {
     const data = await fetchWithRetry<GuardianResponse>(
@@ -1334,7 +1407,7 @@ export const fetchGuardianArticles = cache(async (): Promise<MediaItem[]> => {
         return [];
     }
 
-            const filteredArticles = data.response.results
+    const filteredArticles = data.response.results
         .filter(article => {
             const bodyText = article.fields.bodyText?.toLowerCase() || '';
             const headline = article.fields.headline?.toLowerCase() || '';
@@ -1706,6 +1779,6 @@ export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
         console.error('Error in fetchAllNews');
         return [];
     }
-}); 
+});
 
  
