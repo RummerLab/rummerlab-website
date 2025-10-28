@@ -62,7 +62,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </head>
-      <body className={`${inter.className} min-h-screen bg-white dark:bg-gray-950 transition-colors duration-200`}>
+      <body className={`${inter.className} min-h-screen bg-white dark:bg-gray-950 transition-colors duration-200`} suppressHydrationWarning>
         <Navbar />
         <main className="pt-16">
           {children}
