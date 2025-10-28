@@ -62,3 +62,23 @@ ul li {
 a {
     @apply text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 no-underline cursor-pointer;
 }
+
+/* Mobile canvas optimizations */
+canvas {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure canvas renders properly on mobile */
+@media (max-width: 768px) {
+    canvas {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}

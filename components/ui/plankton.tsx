@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 interface PlanktonCoreProps {
   id: string;
@@ -30,29 +30,76 @@ export const PlanktonCore = ({
   const animationRef = useRef<number | null>(null);
   const mouseRef = useRef<{ x: number | null; y: number | null }>({ x: null, y: null });
   const timeRef = useRef<number>(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [shouldRender, setShouldRender] = useState(true);
 
-  // Handle mouse movement
+  // Device detection and performance optimization
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
+    const checkDevice = () => {
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isLowEndDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+      
+      setIsMobile(isMobileDevice || isTouchDevice);
+      
+      // Disable on very low-end devices or if user prefers reduced motion
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setShouldRender(!isLowEndDevice && !prefersReducedMotion);
+    };
+
+    checkDevice();
+    
+    // Listen for changes in reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const handleChange = () => setShouldRender(!mediaQuery.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Handle mouse and touch movement
+  useEffect(() => {
+    const updatePosition = (clientX: number, clientY: number) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
       
       const rect = canvas.getBoundingClientRect();
       mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
+        x: clientX - rect.left,
+        y: clientY - rect.top
       };
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      updatePosition(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault(); // Prevent scrolling
+      if (e.touches.length > 0) {
+        updatePosition(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+
+    const handleTouchEnd = () => {
+      mouseRef.current = { x: null, y: null };
     };
     
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd);
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
   // Main animation effect
   useEffect(() => {
+    if (!shouldRender) return;
+    
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -70,7 +117,14 @@ export const PlanktonCore = ({
     // Initialize particles
     const initParticles = () => {
       particles.current = [];
-      const particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 10000) * particleDensity, 500);
+      
+      // Reduce particle count on mobile for better performance
+      const densityMultiplier = isMobile ? 0.5 : 1;
+      const maxParticles = isMobile ? 150 : 500;
+      const particleCount = Math.min(
+        Math.floor((canvas.width * canvas.height) / 10000) * particleDensity * densityMultiplier, 
+        maxParticles
+      );
       
       for (let i = 0; i < particleCount; i++) {
         particles.current.push({
@@ -108,10 +162,11 @@ export const PlanktonCore = ({
 
     // Animation loop
     const animate = (timestamp: number) => {
-      if (!canvas || !ctx) return;
+      if (!canvas || !ctx || !shouldRender) return;
       
-      // Update time
-      timeRef.current += 0.01;
+      // Update time with mobile-optimized speed
+      const timeIncrement = isMobile ? 0.005 : 0.01;
+      timeRef.current += timeIncrement;
       const time = timeRef.current;
       
       // Clear canvas
@@ -246,8 +301,13 @@ export const PlanktonCore = ({
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [background, maxSize, minSize, particleColor, particleDensity, interactionRadius, repulsionStrength]);
+  }, [background, maxSize, minSize, particleColor, particleDensity, interactionRadius, repulsionStrength, isMobile, shouldRender]);
   
+  // Don't render if shouldRender is false
+  if (!shouldRender) {
+    return <div className={className} style={{ width: "100%", height: "100%" }} />;
+  }
+
   return (
     <canvas
       ref={canvasRef}
