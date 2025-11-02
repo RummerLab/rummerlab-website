@@ -4,9 +4,9 @@
  * @returns The long-lived token, or an error message if the exchange fails.
  */
 export async function getLongLivedToken(shortLivedToken: string): Promise<string> {
-    const clientId = process.env.INSTAGRAM_CLIENT_ID;
+    // const clientId = process.env.INSTAGRAM_CLIENT_ID; // Not used in current implementation
     const clientSecret = process.env.INSTAGRAM_CLIENT_SECRET; 
-    const redirectUri = 'YOUR_REDIRECT_URI';
+    // const redirectUri = 'YOUR_REDIRECT_URI'; // Not used in current implementation
     const grantType = 'ig_exchange_token'; // The grant type for token exchange
 
     // Construct the request URL
@@ -69,7 +69,7 @@ async function accessTokenExpired(accessToken: string): Promise<boolean> {
 export async function getInstagramPostData(id: string | null) {
     try {
         //const accessToken = await getLongLivedToken();
-        let accessToken = process.env.APP_ACCESS_TOKEN;
+        const accessToken = process.env.APP_ACCESS_TOKEN;
         // https://www.youtube.com/watch?v=kLFSTaCqzdQ
         // Get access token: https://developers.facebook.com/apps/362219269878369/instagram-basic-display/basic-display/?business_id=3489130994739818
 
@@ -231,7 +231,7 @@ export function truncateSentence(text: string, numberOfCharacters: number) {
 export function generateAlt(caption: string) {
     let text = caption.split('\n')[0].trim();
     text = truncateSentence(text, 30);
-    let words = text.split(' ');
+    const words = text.split(' ');
     words.forEach((word, index) => {
         if (word.startsWith("#")) {
             word = word.replace(/[A-Z]/g, str => ' ' + str);
@@ -246,7 +246,7 @@ export function generateAlt(caption: string) {
     return text
 }
 export function generateCaption(caption: string) {
-    let words = caption.split(' ');
+    const words = caption.split(' ');
     words.forEach((word, index) => {
         if (word.startsWith("#")) {
             word = word.replace(/[A-Z]/g, str => ' ' + str);

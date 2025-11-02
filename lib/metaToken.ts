@@ -1,16 +1,10 @@
 // Function to exchange a short-lived token for a long-lived token
-let longLivedToken = '';
-
+// Note: Token caching logic appears incomplete - token is never reassigned
+// This may need to be refactored to properly cache the token
 export async function getLongLivedToken() {
-  if (!longLivedToken) {
-    return await exchangeShortLivedTokenForLongLivedToken();
-  }
-  const isTokenValid = await revalidateLongLivedToken(longLivedToken);
-  if (!isTokenValid) {
-    return await exchangeShortLivedTokenForLongLivedToken();
-  }
-  return longLivedToken;
-  
+  // Always fetch a new token since caching logic is not implemented
+  // TODO: Implement proper token caching if needed
+  return await exchangeShortLivedTokenForLongLivedToken();
 };
 
 async function exchangeShortLivedTokenForLongLivedToken() {
@@ -61,6 +55,8 @@ async function exchangeShortLivedTokenForLongLivedToken() {
 };
 
 // Function to revalidate a long-lived token
+// Note: Currently unused, kept for potential future use
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function revalidateLongLivedToken(longLivedToken: string) {
   const appAccessToken = `${process.env.APP_ID}|${process.env.APP_SECRET}`;
 

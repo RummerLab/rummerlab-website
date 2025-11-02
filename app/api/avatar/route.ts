@@ -13,7 +13,7 @@ interface ScholarProfile {
     scholarId: string;
     avatar?: string;
   }>;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 function cleanName(name: string): string {

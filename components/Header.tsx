@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { TextReveal } from "./TextReveal";
-import Menu from "./Menu";
 import Logo from "./Logo";
 
 export default function Header() {

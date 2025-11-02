@@ -25,7 +25,7 @@ export type Author = {
   export type CoAuthor = {
     affiliation: string;
     container_type: string;
-    filled: any[];
+    filled: unknown[];
     name: string;
     scholar_id: string;
     source: string;

@@ -142,7 +142,7 @@ class ScholarEmbed {
             lastModified,
             name,
             affiliation,
-            organization,
+            // organization, // Not used in current implementation
             citedby,
             publications,
             hindex,

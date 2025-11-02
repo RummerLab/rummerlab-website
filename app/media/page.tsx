@@ -1,5 +1,4 @@
 import { fetchAllNews } from "@/services/news";
-import { MediaItem } from "@/types/media";
 import { ArticleImage } from "./ArticleImage";
 
 export const metadata = {

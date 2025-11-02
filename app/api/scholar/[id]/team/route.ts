@@ -10,7 +10,22 @@ const ensureHttps = (url: string | undefined): string => {
   return url.startsWith('http') ? url : `https://${url}`;
 };
 
-const constructServiceUrls = (links: any = {}) => {
+interface TeamLinks {
+  personalWebsite?: string;
+  labWebsite?: string;
+  projectWebsite?: string;
+  researchGateSlug?: string;
+  googleScholarId?: string;
+  orcid?: string;
+  x?: string;
+  bluesky?: string;
+  facebook?: string;
+  instagram?: string;
+  linkedin?: string;
+  github?: string;
+}
+
+const constructServiceUrls = (links: TeamLinks = {}) => {
   if (!links) return {};
   
   return {

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getCoAuthors } from '@/lib/scholarly';
+import { CoAuthor } from '@/types/scholarly';
 
 export const metadata = {
     title: "Embedding your Google Scholar Profile on your website",
@@ -9,7 +10,7 @@ export const metadata = {
 export default async function Embed() {
     const jodie = "ynWS968AAAAJ";
     const coAuthors = await getCoAuthors(jodie);
-    const coAuthorDetails = coAuthors.map((author: any) => `${author.scholar_id} - ${author.name}`);
+    const coAuthorDetails = coAuthors.map((author: CoAuthor) => `${author.scholar_id} - ${author.name}`);
     coAuthorDetails.push("g9B1IoQAAAAJ - Brock Bergseth");
     const coAuthorsFormatted = coAuthorDetails.join('\n');
 

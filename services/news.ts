@@ -17,7 +17,7 @@ const logWarn = (message: string) => {
     console.warn(`[News Service] ${message}`);
 };
 
-const logError = (message: string, error?: any) => {
+const logError = (message: string, error?: unknown) => {
     console.error(`[News Service] ${message}`, error);
 };
 
@@ -57,6 +57,9 @@ function stripHtml(html: string): string {
       .trim();
 }
 
+// Function to extract image from HTML content
+// Currently unused but kept for potential future use
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function extractImageFromContent(content: string): string | null {
     const imgRegex = /<img[^>]+src="([^">]+)"/;
     const match = content?.match(imgRegex);
@@ -82,7 +85,8 @@ async function fetchWithRetry<T>(
         
         const data = await response.json();
         return data;
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
         if (retries > 0) {
             console.warn(`Retrying fetch for ${url}, ${retries} attempts remaining`);
             await new Promise(resolve => setTimeout(resolve, 1000));
@@ -139,7 +143,8 @@ async function fetchRSSFeed(
             
             return mediaItem;
         });
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
         console.error(`Error fetching ${source} articles`);
         return [];
     }
@@ -552,7 +557,8 @@ function extractImageFromHtml(html: string, baseUrl: string): string | null {
 
         // No image found
         return null;
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
         logWarn('Error extracting image from HTML');
         return null;
     }
@@ -676,7 +682,8 @@ async function checkArticleContent(url: string, title: string): Promise<{ hasRum
             content: textContent.substring(0, 200) + '...',
             ...(image && { image })
         };
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
         logWarn(`Error fetching article content for "${title}"`);
         return { hasRummer: false, hasMarineKeywords: false, content: '' };
     }
@@ -686,7 +693,8 @@ export const fetchConversationArticles = cache(async (): Promise<MediaItem[]> =>
     const articles = await fetchRSSFeed(
         'https://theconversation.com/profiles/jodie-l-rummer-711270/articles.atom',
         'The Conversation',
-        (item: RSSItem): boolean => true,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        (_item: RSSItem): boolean => true,
         DEFAULT_HEADERS
     );
 
@@ -831,10 +839,6 @@ export const fetchSBSScienceArticles = cache(() =>
         'https://www.sbs.com.au/news/feed',
         'SBS News',
         (item: RSSItem): boolean => {
-            const content = (item.content || '').toLowerCase();
-            const title = (item.title || '').toLowerCase();
-            const description = (item.contentSnippet || '').toLowerCase();
-            
             const isRelevant = containsRummer(item); // || containsMarineKeywords(item);
             /*const isScience = content.includes('science') ||
                             title.includes('science') ||
@@ -1038,8 +1042,10 @@ export const fetchNewsAPIOrgArticles = cache(async (): Promise<MediaItem[]> => {
     //const fs = require('fs');
     //fs.writeFileSync('newsapi.json', JSON.stringify(uniqueArticles, null, 2));
 
+    type NewsAPIArticle = NonNullable<NewsAPIAIResponse['articles']>[number];
+    
     const filteredArticles = uniqueArticles
-        .filter((article: any) => {
+        .filter((article: NewsAPIArticle) => {
             const title = article.title ?? '';
             const description = article.description ?? '';
             const content = `${title} ${description}`.toLowerCase();
@@ -1061,7 +1067,7 @@ export const fetchNewsAPIOrgArticles = cache(async (): Promise<MediaItem[]> => {
     }
 
     return filteredArticles
-        .map((article: any) => ({
+        .map((article: NewsAPIArticle) => ({
             type: 'article' as const,
             source: article.source.name,
             title: article.title,
@@ -1158,8 +1164,10 @@ export const fetchNewsAPIAIArticles = cache(async (): Promise<MediaItem[]> => {
         index === self.findIndex(a => a.url === article.url)
     );
 
+    type NewsAPIArticle = NonNullable<NewsAPIAIResponse['articles']>[number];
+    
     return uniqueArticles
-        .filter((article: any) => {
+        .filter((article: NewsAPIArticle) => {
             const title = article.title ?? '';
             const description = article.description ?? '';
             const content = article.content ?? '';
@@ -1179,7 +1187,7 @@ export const fetchNewsAPIAIArticles = cache(async (): Promise<MediaItem[]> => {
             // Include articles that mention Dr. Rummer OR are marine-related
             return hasRummer || hasMarineKeywords;
         })
-        .map((article: any) => ({
+        .map((article: NewsAPIArticle) => ({
             type: 'article' as const,
             source: article.source.name,
             title: article.title,
@@ -1252,8 +1260,10 @@ export const fetchNewsAPIComArticles = cache(async (): Promise<MediaItem[]> => {
         index === self.findIndex(a => a.url === article.url)
     );
 
+    type NewsAPIComArticle = NewsAPIComResponse['articles'][number];
+    
     return uniqueArticles
-        .filter((article: any) => {
+        .filter((article: NewsAPIComArticle) => {
             const title = article.title ?? '';
             const description = article.description ?? '';
             const content = article.content ?? '';
@@ -1273,7 +1283,7 @@ export const fetchNewsAPIComArticles = cache(async (): Promise<MediaItem[]> => {
             // Include articles that mention Dr. Rummer OR are marine-related
             return hasRummer || hasMarineKeywords;
         })
-        .map((article: any) => ({
+        .map((article: NewsAPIComArticle) => ({
             type: 'article' as const,
             source: article.source.name,
             title: article.title,
@@ -1333,7 +1343,8 @@ export const fetchGoogleNewsArticles = cache(async (): Promise<MediaItem[]> => {
                     if (fixedUrl.includes('news.google.com')) {
                         try {
                             fixedUrl = await resolveGoogleNewsFinalUrl(fixedUrl);
-                        } catch (error) {
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                        } catch (_error) {
                             logWarn(`Failed to resolve Google News URL: ${fixedUrl}`);
                             // Keep the original URL if resolution fails
                         }
@@ -1503,7 +1514,8 @@ export const fetchTownsvilleBulletinArticles = cache(async (): Promise<MediaItem
         }
 
         return articles;
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
         console.error('Error fetching Townsville Bulletin articles');
         return [];
     }
@@ -1683,7 +1695,8 @@ async function verifyArticleContent(articles: MediaItem[]): Promise<MediaItem[]>
                 
                 const { hasRummer } = await checkArticleContent(article.url, article.title);
                 return hasRummer ? article : null;
-            } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            } catch (_error) {
                 logWarn(`Failed to verify article: ${article.title}`);
                 return null;
             }
@@ -1723,7 +1736,8 @@ async function extractMissingImages(articles: MediaItem[]): Promise<MediaItem[]>
                     article.image = { url: image, alt: article.title };
                 }
                 return article;
-            } catch (error) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            } catch (_error) {
                 logWarn(`Failed to extract image for: ${article.title}`);
                 return article;
             }
@@ -1775,7 +1789,8 @@ export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
         }
         
         return finalArticles;
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_error) {
         console.error('Error in fetchAllNews');
         return [];
     }

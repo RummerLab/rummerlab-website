@@ -6,7 +6,7 @@ import { CoAuthor } from "@/types/scholarly";
 export async function AnimatedCollaborators() {
   const coauthors: CoAuthor[] = await getCoAuthors("ynWS968AAAAJ");
 
-  const people = coauthors.map((author: any, index: number) => ({
+  const people = coauthors.map((author, index: number) => ({
     id: index + 1,
     name: author.name,
     designation: author.affiliation,

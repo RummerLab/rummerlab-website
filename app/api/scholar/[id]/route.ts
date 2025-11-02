@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getCoAuthors, getScholarById } from '@/lib/scholarly';
+import { CoAuthor } from '@/types/scholarly';
 
 export async function GET(request: Request, props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -10,7 +11,7 @@ export async function GET(request: Request, props: { params: Promise<{ id: strin
     const jodie = "ynWS968AAAAJ";
     // allowed at Jodie's coauthors/collaborators
     const coAuthors = await getCoAuthors(jodie);
-    const allowedIds = coAuthors.map((author: any) => author.scholar_id)
+    const allowedIds = coAuthors.map((author: CoAuthor) => author.scholar_id)
     allowedIds.push(jodie);
     allowedIds.push("g9B1IoQAAAAJ"); // Brock Bergseth
 

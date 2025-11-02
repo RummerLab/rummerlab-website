@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export async function PublicationsCards() {
   const publications = await getPublications("ynWS968AAAAJ");
   
-  publications.sort((a: any, b: any) => b.bib.pub_year - a.bib.pub_year);
+  publications.sort((a: Publication, b: Publication) => Number(b.bib.pub_year) - Number(a.bib.pub_year));
 
   return (
     <div className="max-w-7xl mx-auto my-8">

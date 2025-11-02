@@ -2,8 +2,8 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { FaYoutube, FaInstagram, FaFacebook, FaChevronDown } from "react-icons/fa"
-import { SiBluesky, SiResearchgate, SiGooglescholar } from "react-icons/si"
+import { FaInstagram, FaFacebook, FaChevronDown } from "react-icons/fa"
+import { SiBluesky } from "react-icons/si"
 import { useState } from "react"
 import { IconType } from "react-icons"
 import type { ReactElement } from 'react'

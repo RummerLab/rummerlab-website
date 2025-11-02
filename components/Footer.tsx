@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { SiBluesky, SiResearchgate, SiGooglescholar } from 'react-icons/si';
-import { FaInstagram, FaFacebook, FaYoutube, FaGlobe } from 'react-icons/fa';
+import { FaInstagram, FaFacebook, FaYoutube } from 'react-icons/fa';
 
 export default function Footer() {
   return (

@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getCoAuthors } from '@/lib/scholarly';
+import { NextRequest } from 'next/server';
 
-export async function GET(req: any, res: any) {
+export async function GET(req: NextRequest) {
   try {
     const id = req.nextUrl.searchParams.get('id');
     if (!id) {

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { getScholarById } from '@/lib/scholarly';
+import { NextRequest } from 'next/server';
 
-export async function GET(req: any, res: any) {
+export async function GET(req: NextRequest) {
   return NextResponse.redirect(new URL('/api/scholar/ynWS968AAAAJ', req.url))
   /*try {
     const scholar = await getScholarById("ynWS968AAAAJ"); // Jodie Rummer's Google Scholar ID
