@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ContentImage } from '@/components/ContentImage';
 
 export const metadata = {
     title: "Future Environments Research",
@@ -27,11 +27,10 @@ export default function FutureEnvironments() {
                             <p className="text-gray-600 dark:text-gray-300">Our research focuses on understanding how marine organisms will respond to future ocean conditions, particularly the combined effects of warming, acidification, and deoxygenation. We use cutting-edge techniques to simulate future ocean environments and study organismal responses across multiple generations.</p>
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/epaulette-shark-coral-habitat-johnny-gaskell.jpg"
                                     alt="Coral reef habitat"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
 
@@ -62,11 +61,10 @@ export default function FutureEnvironments() {
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Methodology & Approach</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/dr-rummer-wheeler-epaulette-shark-ultrasound-grumpy-turtle.jpg"
                                     alt="Advanced research techniques"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
                             <p className="text-gray-600 dark:text-gray-300">Our research employs state-of-the-art experimental systems to simulate future ocean conditions, combined with cutting-edge physiological and molecular techniques to understand organismal responses.</p>
@@ -81,11 +79,11 @@ export default function FutureEnvironments() {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
-                                    <Image
+                                    <ContentImage
                                         src="/images/gallery/epaulette-shark-hunting-behavior-laine.jpg"
                                         alt="Marine behavior studies"
-                                        fill
-                                        className="object-cover rounded-lg"
+                                        variant="sidebarSquare"
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
@@ -95,11 +93,11 @@ export default function FutureEnvironments() {
                             </li>
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
-                                    <Image
+                                    <ContentImage
                                         src="/images/gallery/epaulette-shark-embryo-development-rummerlab.jpg"
                                         alt="Development studies"
-                                        fill
-                                        className="object-cover rounded-lg"
+                                        variant="sidebarSquare"
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
@@ -113,11 +111,11 @@ export default function FutureEnvironments() {
                     <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Conservation Implications</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
-                            <Image
+                            <ContentImage
                                 src="/images/gallery/blacktip-shark-school-blue-water-french-polynesia-thiault.jpg"
                                 alt="Marine life in future oceans"
-                                fill
-                                className="object-cover"
+                                variant="sidebarWide"
+                                className="rounded-lg"
                             />
                         </div>
                         <p className="text-gray-600 dark:text-gray-300">Our findings help inform conservation strategies and policy decisions for protecting marine ecosystems in a changing climate.</p>

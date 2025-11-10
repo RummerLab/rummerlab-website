@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { ContentImage } from '@/components/ContentImage';
 
 export const metadata = {
     title: "Whole-animal responses to environmental stress",
@@ -27,11 +27,10 @@ export default function EnvironmentalStresses() {
                             <p className="text-gray-600 dark:text-gray-300">Early in my research career, I conducted a rigorous assessment of the physiological responses to decompression stress caused by fishing, injuries resulting from swim bladder overexpansion and gas embolisms. This seminal research has been well cited and is utilized as a model for fisheries management surrounding catch-and-release protocols and conservation organizations worldwide.</p>
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/blacktip-shark-temperature-tolerance-research-french-polynesia-vierus.jpg"
                                     alt="Temperature tolerance research"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
 
@@ -50,11 +49,10 @@ export default function EnvironmentalStresses() {
                             </div>
 
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/dr-rummer-epaulette-shark-measurement-grumpy-turtle.jpg"
                                     alt="Taking measurements during research"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
 
@@ -67,11 +65,10 @@ export default function EnvironmentalStresses() {
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Larval Fish Research</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/epaulette-shark-research-specimen-heron-island-grumpy-turtle.jpg"
                                     alt="Research specimen examination"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
                             <p className="text-gray-600 dark:text-gray-300">While much of my whole-animal work has been done on adult fishes, I have integrated several studies on larval fishes into my program. I recently collaborated with Dr. Shaun Killen to understand the tradeoffs between dominant behaviours and aerobic metabolic scope in larval coral reef damselfish.</p>
@@ -86,11 +83,11 @@ export default function EnvironmentalStresses() {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
-                                    <Image
+                                    <ContentImage
                                         src="/images/gallery/dr-rummer-shark-tagging-pregnant-moore.jpg"
                                         alt="Shark tagging research"
-                                        fill
-                                        className="object-cover rounded-lg"
+                                        variant="sidebarSquare"
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
@@ -100,11 +97,11 @@ export default function EnvironmentalStresses() {
                             </li>
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
-                                    <Image
+                                    <ContentImage
                                         src="/images/gallery/epaulette-shark-shallow-habitat-gaskell.jpg"
                                         alt="Shark in natural habitat"
-                                        fill
-                                        className="object-cover rounded-lg"
+                                        variant="sidebarSquare"
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
@@ -118,11 +115,11 @@ export default function EnvironmentalStresses() {
                     <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Impact</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
-                            <Image
+                            <ContentImage
                                 src="/images/gallery/grey-reef-sharks-surgeonfish-fakarava-weschke.jpg"
                                 alt="Marine ecosystem research"
-                                fill
-                                className="object-cover"
+                                variant="sidebarWide"
+                                className="rounded-lg"
                             />
                         </div>
                         <p className="text-gray-600 dark:text-gray-300">Our research contributes to understanding and protecting marine ecosystems in the face of environmental change.</p>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import { ContentImage } from '@/components/ContentImage';
 
 export default function ClimateChangePage() {
     return (
@@ -20,11 +20,10 @@ export default function ClimateChangePage() {
                             <p className="text-gray-600 dark:text-gray-300">Our research investigates how marine organisms respond and adapt to climate change stressors, particularly ocean warming and acidification. We focus on understanding the mechanisms that enable species to cope with environmental changes and identifying populations with enhanced resilience.</p>
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/healthy-coral-seascape-outer-gbr-rummer.jpg"
                                     alt="Coral reef ecosystem under study"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
 
@@ -47,11 +46,10 @@ export default function ClimateChangePage() {
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Ocean Acidification Research</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/dr-rummer-epaulette-shark-release-post-experiment-grumpy-turtle.jpg"
                                     alt="Research protocols and measurements"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
                             <p className="text-gray-600 dark:text-gray-300">Our ocean acidification research examines how changes in seawater chemistry affect marine organisms at multiple levels of biological organization. We study impacts on development, physiology, and behavior, while also investigating potential adaptation mechanisms.</p>
@@ -66,11 +64,11 @@ export default function ClimateChangePage() {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
-                                    <Image
+                                    <ContentImage
                                         src="/images/gallery/epaulette-shark-tail-heron-island-laine.jpg"
                                         alt="Marine life research"
-                                        fill
-                                        className="object-cover rounded-lg"
+                                        variant="sidebarSquare"
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
@@ -80,11 +78,11 @@ export default function ClimateChangePage() {
                             </li>
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
-                                    <Image
+                                    <ContentImage
                                         src="/images/gallery/blacktip-shark-aquaria-french-polynesia-huertas.jpg"
                                         alt="Environmental research"
-                                        fill
-                                        className="object-cover rounded-lg"
+                                        variant="sidebarSquare"
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
@@ -98,11 +96,11 @@ export default function ClimateChangePage() {
                     <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Impact</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
-                            <Image
+                            <ContentImage
                                 src="/images/gallery/dr-rummer-epaulette-shark-release-post-research-grumpy-turtle.jpg"
                                 alt="Marine conservation"
-                                fill
-                                className="object-cover"
+                                variant="sidebarWide"
+                                className="rounded-lg"
                             />
                         </div>
                         <p className="text-gray-600 dark:text-gray-300">Our research informs conservation strategies and policy decisions for protecting marine ecosystems in a changing climate.</p>

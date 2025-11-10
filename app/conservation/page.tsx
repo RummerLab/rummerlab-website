@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+import { ContentImage } from '@/components/ContentImage';
 
 export default function ConservationPage() {
     return (
@@ -20,11 +20,10 @@ export default function ConservationPage() {
                             <p className="text-gray-600 dark:text-gray-300">Our conservation research focuses on understanding and protecting marine species and their habitats. We combine field studies, physiological research, and ecological monitoring to develop effective conservation strategies for vulnerable marine ecosystems.</p>
                             
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/dr-rummer-heron-island-southern-gbr-grumpy-turtle.jpg"
                                     alt="Marine conservation research"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
 
@@ -47,11 +46,10 @@ export default function ConservationPage() {
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Ecosystem Management</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
-                                <Image
+                                <ContentImage
                                     src="/images/gallery/healthy-coral-seascape-outer-gbr-rummer.jpg"
                                     alt="Coral reef ecosystem"
-                                    fill
-                                    className="object-cover"
+                                    className="rounded-lg"
                                 />
                             </div>
                             <p className="text-gray-600 dark:text-gray-300">Our ecosystem management research focuses on developing and implementing strategies for maintaining healthy marine environments. We work closely with local communities and stakeholders to ensure sustainable use of marine resources while preserving biodiversity.</p>
@@ -66,11 +64,11 @@ export default function ConservationPage() {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
-                                    <Image
+                                    <ContentImage
                                         src="/images/gallery/blacktip-shark-nursery-sampling-french-polynesia-edwards-ingle.jpg"
                                         alt="Shark conservation"
-                                        fill
-                                        className="object-cover rounded-lg"
+                                        variant="sidebarSquare"
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
@@ -80,11 +78,11 @@ export default function ConservationPage() {
                             </li>
                             <li className="flex items-start gap-4">
                                 <div className="relative w-20 h-20 flex-shrink-0">
-                                    <Image
+                                    <ContentImage
                                         src="/images/gallery/epaulette-shark-research-heron-island-gbr-grumpy-turtle.jpg"
                                         alt="Underwater research"
-                                        fill
-                                        className="object-cover rounded-lg"
+                                        variant="sidebarSquare"
+                                        className="rounded-lg"
                                     />
                                 </div>
                                 <div>
@@ -98,11 +96,11 @@ export default function ConservationPage() {
                     <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Conservation Impact</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
-                            <Image
+                            <ContentImage
                                 src="/images/gallery/dr-rummer-shark-release-french-polynesia-vierus.jpg"
                                 alt="Conservation research"
-                                fill
-                                className="object-cover"
+                                variant="sidebarWide"
+                                className="rounded-lg"
                             />
                         </div>
                         <p className="text-gray-600 dark:text-gray-300">Our conservation efforts contribute to the long-term sustainability of marine ecosystems and the communities that depend on them.</p>
