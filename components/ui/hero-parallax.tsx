@@ -69,7 +69,7 @@ export const HeroParallax = ({
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300" />
                 
                 <div className="absolute inset-0 flex flex-col items-center justify-end p-8">
                   <div className="w-full">
@@ -86,7 +86,7 @@ export const HeroParallax = ({
                     <div className="h-1 w-16 bg-blue-500 mx-auto mb-4 transform scale-0 group-hover:scale-100 transition-transform duration-300 origin-center"></div>
                     
                     <div className="flex justify-center">
-                      <span className="px-6 py-2.5 bg-black/30 backdrop-blur-sm text-white text-sm rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                      <span className="px-6 py-2.5 bg-black/30 backdrop-blur-xs text-white text-sm rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
                         Explore Project
                       </span>
                     </div>
@@ -122,7 +122,7 @@ export const HeroParallax = ({
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300" />
                 
                 <div className="absolute inset-0 flex flex-col items-center justify-end p-8">
                   <div className="w-full">
@@ -139,7 +139,7 @@ export const HeroParallax = ({
                     <div className="h-1 w-16 bg-blue-500 mx-auto mb-4 transform scale-0 group-hover:scale-100 transition-transform duration-300 origin-center"></div>
                     
                     <div className="flex justify-center">
-                      <span className="px-6 py-2.5 bg-black/30 backdrop-blur-sm text-white text-sm rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                      <span className="px-6 py-2.5 bg-black/30 backdrop-blur-xs text-white text-sm rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
                         Explore Project
                       </span>
                     </div>
@@ -175,7 +175,7 @@ export const HeroParallax = ({
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300" />
                 
                 <div className="absolute inset-0 flex flex-col items-center justify-end p-8">
                   <div className="w-full">
@@ -192,7 +192,7 @@ export const HeroParallax = ({
                     <div className="h-1 w-16 bg-blue-500 mx-auto mb-4 transform scale-0 group-hover:scale-100 transition-transform duration-300 origin-center"></div>
                     
                     <div className="flex justify-center">
-                      <span className="px-6 py-2.5 bg-black/30 backdrop-blur-sm text-white text-sm rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                      <span className="px-6 py-2.5 bg-black/30 backdrop-blur-xs text-white text-sm rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
                         Explore Project
                       </span>
                     </div>
@@ -228,7 +228,7 @@ export const HeroParallax = ({
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 group-hover:via-black/30 transition-all duration-300" />
                 
                 <div className="absolute inset-0 flex flex-col items-center justify-end p-8">
                   <div className="w-full">
@@ -245,7 +245,7 @@ export const HeroParallax = ({
                     <div className="h-1 w-16 bg-blue-500 mx-auto mb-4 transform scale-0 group-hover:scale-100 transition-transform duration-300 origin-center"></div>
                     
                     <div className="flex justify-center">
-                      <span className="px-6 py-2.5 bg-black/30 backdrop-blur-sm text-white text-sm rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
+                      <span className="px-6 py-2.5 bg-black/30 backdrop-blur-xs text-white text-sm rounded-full border border-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">
                         Explore Project
                       </span>
                     </div>

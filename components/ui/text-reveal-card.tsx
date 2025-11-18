@@ -75,7 +75,7 @@ export const TextRevealCard = ({
   if (!isMounted) {
     return (
       <div className={cn(
-        "bg-[#1d1c20] dark:bg-gray-900 border border-white/[0.08] w-full sm:w-[40rem] rounded-lg p-4 sm:p-8 relative overflow-hidden",
+        "bg-[#1d1c20] dark:bg-gray-900 border border-white/8 w-full sm:w-160 rounded-lg p-4 sm:p-8 relative overflow-hidden",
         className
       )}>
         {children}
@@ -97,7 +97,7 @@ export const TextRevealCard = ({
       onMouseMove={mouseMoveHandler}
       ref={cardRef}
       className={cn(
-        "bg-[#1d1c20] dark:bg-gray-900 border border-white/[0.08] w-full sm:w-[40rem] rounded-lg p-4 sm:p-8 relative overflow-hidden",
+        "bg-[#1d1c20] dark:bg-gray-900 border border-white/8 w-full sm:w-160 rounded-lg p-4 sm:p-8 relative overflow-hidden",
         className
       )}
     >
@@ -125,7 +125,7 @@ export const TextRevealCard = ({
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-            className="text-xl sm:text-2xl md:text-[3rem] py-10 font-bold text-white dark:text-gray-100 bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
+            className="text-xl sm:text-2xl md:text-[3rem] py-10 font-bold text-white dark:text-gray-100 bg-clip-text text-transparent bg-linear-to-b from-white to-neutral-300"
           >
             {revealText}
           </p>
@@ -140,7 +140,7 @@ export const TextRevealCard = ({
           className="h-40 w-[8px] bg-linear-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform"
         ></motion.div>
 
-        <div className="overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)] relative left-1/2 -translate-x-1/2">
+        <div className="overflow-hidden mask-[linear-gradient(to_bottom,transparent,white,transparent)] relative left-1/2 -translate-x-1/2">
           <p className="text-xl sm:text-2xl md:text-[3rem] py-10 font-bold bg-clip-text text-transparent bg-[#323238] dark:bg-gray-700">
             {text}
           </p>

@@ -82,7 +82,7 @@ export default function EnvironmentalStresses() {
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Highlights</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
-                                <div className="relative w-20 h-20 flex-shrink-0">
+                                <div className="relative w-20 h-20 shrink-0">
                                     <ContentImage
                                         src="/images/gallery/dr-rummer-shark-tagging-pregnant-moore.jpg"
                                         alt="Shark tagging research"
@@ -96,7 +96,7 @@ export default function EnvironmentalStresses() {
                                 </div>
                             </li>
                             <li className="flex items-start gap-4">
-                                <div className="relative w-20 h-20 flex-shrink-0">
+                                <div className="relative w-20 h-20 shrink-0">
                                     <ContentImage
                                         src="/images/gallery/epaulette-shark-shallow-habitat-gaskell.jpg"
                                         alt="Shark in natural habitat"

@@ -11,7 +11,7 @@ interface TeamMemberCardProps {
 
 export function TeamMemberCard({ member }: TeamMemberCardProps) {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xs overflow-hidden hover:shadow-md transition-shadow duration-200">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xs overflow-hidden hover:shadow-md transition-shadow duration-200">
       {member.image && (
         <div className="relative aspect-w-16 aspect-h-9">
           <Image

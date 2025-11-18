@@ -78,7 +78,7 @@ export default function FutureEnvironments() {
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Key Findings</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
-                                <div className="relative w-20 h-20 flex-shrink-0">
+                                <div className="relative w-20 h-20 shrink-0">
                                     <ContentImage
                                         src="/images/gallery/epaulette-shark-hunting-behavior-laine.jpg"
                                         alt="Marine behavior studies"
@@ -92,7 +92,7 @@ export default function FutureEnvironments() {
                                 </div>
                             </li>
                             <li className="flex items-start gap-4">
-                                <div className="relative w-20 h-20 flex-shrink-0">
+                                <div className="relative w-20 h-20 shrink-0">
                                     <ContentImage
                                         src="/images/gallery/epaulette-shark-embryo-development-rummerlab.jpg"
                                         alt="Development studies"

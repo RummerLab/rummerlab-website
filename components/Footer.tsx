@@ -86,7 +86,7 @@ export default function Footer() {
                     src="https://physioshark.org/Physioshark_icon.svg"
                     alt="Physioshark Logo"
                     fill
-                    className="object-contain brightness-0 dark:brightness-100 dark:invert opacity-60 hover:brightness-100 hover:dark:invert-0 hover:opacity-100 transition-all duration-200"
+                    className="object-contain brightness-0 dark:brightness-100 dark:invert opacity-60 hover:brightness-100 dark:hover:invert-0 hover:opacity-100 transition-all duration-200"
                     sizes="24px"
                     unoptimized
                   />

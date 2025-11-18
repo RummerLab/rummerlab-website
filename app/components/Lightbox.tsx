@@ -67,7 +67,7 @@ export default function Lightbox({ isOpen, onClose, image }: LightboxProps) {
                     </svg>
                 </button>
 
-                <div className={`relative w-full ${isPortrait ? 'h-[60vh]' : 'aspect-[16/9]'} max-w-7xl mx-auto`}>
+                <div className={`relative w-full ${isPortrait ? 'h-[60vh]' : 'aspect-video'} max-w-7xl mx-auto`}>
                     <Image
                         src={image.src}
                         alt={image.alt}
@@ -80,7 +80,7 @@ export default function Lightbox({ isOpen, onClose, image }: LightboxProps) {
                 </div>
 
                 {(image.caption || image.credit) && (
-                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/75 backdrop-blur-sm">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-black/75 backdrop-blur-xs">
                         {image.caption && (
                             <p className="text-white text-sm sm:text-lg font-light mb-2 leading-relaxed">
                                 {image.caption}

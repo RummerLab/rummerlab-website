@@ -41,7 +41,7 @@ const ExpandableText = ({ text, maxLength = 200, className = '' }: ExpandableTex
       <button
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
-        className="mt-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded"
+        className="mt-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-sm"
         aria-label={isExpanded ? 'Show less' : 'Read more'}
         tabIndex={0}
       >

@@ -63,7 +63,7 @@ export default function ConservationPage() {
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Conservation Highlights</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
-                                <div className="relative w-20 h-20 flex-shrink-0">
+                                <div className="relative w-20 h-20 shrink-0">
                                     <ContentImage
                                         src="/images/gallery/blacktip-shark-nursery-sampling-french-polynesia-edwards-ingle.jpg"
                                         alt="Shark conservation"
@@ -77,7 +77,7 @@ export default function ConservationPage() {
                                 </div>
                             </li>
                             <li className="flex items-start gap-4">
-                                <div className="relative w-20 h-20 flex-shrink-0">
+                                <div className="relative w-20 h-20 shrink-0">
                                     <ContentImage
                                         src="/images/gallery/epaulette-shark-research-heron-island-gbr-grumpy-turtle.jpg"
                                         alt="Underwater research"

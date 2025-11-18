@@ -15,7 +15,7 @@ export const ResearchCard = ({ title, description, icon, link }: ResearchCardPro
   return (
     <Link href={link} className="no-underline">
       <motion.div 
-        className="relative bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 h-full transition-all duration-300 cursor-pointer group overflow-hidden"
+        className="relative bg-gray-800/50 backdrop-blur-xs border border-gray-700/50 rounded-xl p-6 h-full transition-all duration-300 cursor-pointer group overflow-hidden"
         whileHover={{ y: -5, boxShadow: "0 10px 30px -15px rgba(0, 0, 0, 0.5)" }}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ export const ResearchCard = ({ title, description, icon, link }: ResearchCardPro
         transition={{ duration: 0.5 }}
       >
         {/* Background gradient that appears on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-cyan-500/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-cyan-500/10 to-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         
         {/* Glowing border effect */}
         <div className="absolute inset-0 rounded-xl border border-blue-500/0 group-hover:border-blue-500/30 group-hover:shadow-[inset_0px_0px_20px_rgba(59,130,246,0.2)] transition-all duration-500"></div>

@@ -36,7 +36,7 @@ export async function PublicationsCards() {
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                   {publication.bib.title}
                 </h3>
-                <div className="mb-3 flex-grow">
+                <div className="mb-3 grow">
                   <p className="text-blue-600 dark:text-blue-400 font-medium mb-2">{formattedAuthors}</p>
                   <p className="text-gray-600 dark:text-gray-400">
                     <span className="font-semibold">{publication.bib.journal || publication.bib.booktitle || 'Publication'}</span>

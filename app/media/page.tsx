@@ -68,14 +68,14 @@ export default async function MediaPage() {
                         return (
                             <article 
                                 key={`${article.sourceType}-${index}`}
-                                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden"
+                                className="bg-white dark:bg-gray-800 rounded-lg shadow-xs overflow-hidden"
                             >
                                 <div className="flex flex-col md:flex-row">
                                     {article.image && (
                                         <ArticleImage image={article.image} />
                                     )}
                                     <div className={`flex-1 p-6`}>
-                                        <span className={`inline-block px-2 py-1 text-sm font-medium ${bgColor} ${textColor} rounded mb-4`}>
+                                        <span className={`inline-block px-2 py-1 text-sm font-medium ${bgColor} ${textColor} rounded-sm mb-4`}>
                                             {article.source}
                                         </span>
                                         <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">

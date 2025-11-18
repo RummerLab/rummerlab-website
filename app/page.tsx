@@ -23,7 +23,7 @@ export default function Home() {
               className="object-cover"
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80 z-10"></div>
+            <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black/80 z-10"></div>
           </div>
           
           <div className="relative z-20 h-full flex flex-col items-center justify-center px-6 text-center">
@@ -42,7 +42,7 @@ export default function Home() {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+              <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-cyan-300">
                 RummerLab
               </span>
             </h1>
@@ -71,7 +71,7 @@ export default function Home() {
         </section>
         
         {/* Mission Statement with Text Reveal */}
-        <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-950">
+        <section className="py-20 bg-linear-to-b from-gray-900 to-gray-950">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Our Mission</h2>
@@ -131,9 +131,9 @@ export default function Home() {
         </section>
         
         {/* Featured Projects with Parallax Cards */}
-        <section className="py-32 bg-gradient-to-b from-gray-950 to-gray-900 relative overflow-hidden">
+        <section className="py-32 bg-linear-to-b from-gray-950 to-gray-900 relative overflow-hidden">
           {/* Background decorative elements */}
-          <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-blue-500/10 to-transparent"></div>
+          <div className="absolute top-0 left-0 w-full h-64 bg-linear-to-b from-blue-500/10 to-transparent"></div>
           <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-blue-600/5 blur-3xl"></div>
           <div className="absolute top-1/3 left-1/4 w-32 h-32 rounded-full bg-cyan-500/10 blur-2xl"></div>
           
@@ -145,7 +145,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
                 Featured Projects
               </h2>
-              <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto mb-10"></div>
+              <div className="h-1 w-24 bg-linear-to-r from-blue-500 to-cyan-400 mx-auto mb-10"></div>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
                 Explore our groundbreaking research initiatives focused on understanding and protecting marine ecosystems
               </p>
@@ -194,9 +194,9 @@ export default function Home() {
         </section>
         
         {/* Call to Action - Donate */}
-        <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
+        <section className="py-20 bg-linear-to-b from-gray-900 to-black">
           <div className="max-w-4xl mx-auto px-6">
-            <div className="bg-gradient-to-r from-blue-900/50 to-cyan-900/50 rounded-3xl p-10 shadow-xl backdrop-blur-sm border border-blue-500/20">
+            <div className="bg-linear-to-r from-blue-900/50 to-cyan-900/50 rounded-3xl p-10 shadow-xl backdrop-blur-xs border border-blue-500/20">
               <div className="text-center mb-8">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Support Our Research</h2>
                 <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -204,7 +204,7 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mt-8">
+              <div className="bg-white/10 backdrop-blur-xs rounded-xl p-6 mt-8">
                 <h3 className="text-2xl font-semibold text-white mb-4 text-center">
                   How to Donate
                 </h3>
@@ -214,7 +214,7 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link 
                     href="https://www.jcu.edu.au/give/give-to-innovation-and-discovery/baby-sharks-in-a-changing-world"
-                    className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white hover:text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/40 overflow-hidden"
+                    className="group relative px-8 py-4 bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white hover:text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/40 overflow-hidden"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -233,11 +233,11 @@ export default function Home() {
                         />
                       </svg>
                     </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
+                    <span className="absolute inset-0 bg-linear-to-r from-blue-400/20 to-cyan-400/20 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
                   </Link>
                   <Link 
                     href="https://jcuamerica.org/home/jcu-physioshark-research-program"
-                    className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white hover:text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/40 overflow-hidden"
+                    className="group relative px-8 py-4 bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white hover:text-white font-medium rounded-lg transition-all duration-300 shadow-lg hover:shadow-blue-500/40 overflow-hidden"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -256,7 +256,7 @@ export default function Home() {
                         />
                       </svg>
                     </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
+                    <span className="absolute inset-0 bg-linear-to-r from-blue-400/20 to-cyan-400/20 transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
                   </Link>
                 </div>
               </div>

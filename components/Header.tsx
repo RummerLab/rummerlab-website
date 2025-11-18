@@ -7,7 +7,7 @@ export default function Header() {
     return (
       <>
         <div className="max-w-4xl mx-auto py-12 px-4 text-center">
-          <h1 className="text-7xl font-bold text-gray-900 dark:text-gray-50 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">
+          <h1 className="text-7xl font-bold text-gray-900 dark:text-gray-50 bg-clip-text text-transparent bg-linear-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">
             RummerLab
           </h1>
           <p className="text-base md:text-lg mt-4 text-gray-800 dark:text-gray-300">
