@@ -151,7 +151,7 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="pb-16">
+            <div className="pb-16 relative">
               <HeroParallax products={[
                 {
                   title: "Physioshark Project",

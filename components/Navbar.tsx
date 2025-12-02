@@ -104,6 +104,7 @@ export default function Navbar() {
             items: [
                 { href: "/media", label: "Media" },
                 { href: "/gallery", label: "Gallery" },
+                { href: "/blog", label: "Blog" },
             ]
         },
         { href: "/physioshark-project", label: "Physioshark" },
