@@ -7,8 +7,6 @@ paper: "/papers/Wheeler et al., 2025 Biology Open.pdf"
 spotify: ""
 ---
 
-# The zero-cost mystery: how epaulette sharks may be reproducing for free
-
 It’s one of biology’s oldest assumptions: making babies is expensive. Whether you’re a fish, a bird, a reptile, or a human, reproduction draws heavily on energy reserves. Building yolk, forming tissues, maintaining pregnancy or producing eggs — it all adds up.
 
 But new research led by Dr Carolyn Wheeler, Dr Jodie Rummer, Dr Cynthia Awruch, and Dr John Mandelman has uncovered something extraordinary. A small, resilient carpet shark from the Great Barrier Reef appears to be doing the impossible: laying eggs without any measurable rise in metabolic cost.
