@@ -7,7 +7,8 @@ coverImage: "/images/blog/wheeler-et-al-2025-biology-open/carolyn-wheeler-with-e
 title: "The zero-cost mystery: how epaulette sharks may be reproducing for free"
 excerpt: "New research reveals that epaulette sharks can lay eggs without any measurable rise in metabolic cost, challenging long-held assumptions about reproductive energetics in marine animals."
 paper: "/papers/Wheeler et al., 2025 Biology Open.pdf"
-spotify: ""
+spotify: "https://drive.google.com/file/d/1EqkZF5uMAKQkgJZJHY_c9POKGrDbFOpq/view?usp=drive_link"
+youtube: "https://drive.google.com/file/d/1EqkZF5uMAKQkgJZJHY_c9POKGrDbFOpq/view?usp=drive_link"
 gallery:
   - src: "/images/blog/wheeler-et-al-2025-biology-open/carolyn-wheeler-measuring-adult-epaulette-sharks.jpg"
     alt: "Carolyn Wheeler measuring adult epaulette sharks"

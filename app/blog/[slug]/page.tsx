@@ -28,9 +28,67 @@ export async function generateMetadata({
     };
   }
 
+  const title = `${post.title} | RummerLab Blog`;
+  const description = post.excerpt || post.content.substring(0, 160);
+  const url = `https://rummerlab.com/blog/${slug}`;
+  const coverImageUrl = post.coverImage 
+    ? `https://rummerlab.com${post.coverImage}`
+    : 'https://rummerlab.com/images/rummerlab_logo_transparent.png';
+
   return {
-    title: `${post.title} | RummerLab Blog`,
-    description: post.excerpt || post.content.substring(0, 160),
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: 'RummerLab',
+      images: [
+        {
+          url: coverImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      locale: 'en_US',
+      type: 'article',
+      publishedTime: post.date,
+      authors: ['RummerLab'],
+      ...(post.journal && {
+        section: post.journal,
+      }),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [coverImageUrl],
+      creator: '@rummerlab',
+      site: '@rummerlab',
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    ...(post.doi && {
+      other: {
+        'citation_doi': post.doi,
+        ...(post.journal && {
+          'citation_journal_title': post.journal,
+        }),
+      },
+    }),
   };
 }
 
@@ -132,7 +190,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         )}
 
         {/* Links */}
-        {(post.paper || post.spotify) && (
+        {(post.paper || post.spotify || post.youtube) && (
           <div className="flex flex-wrap gap-4 mb-6">
             {post.paper && (
               <a
@@ -154,6 +212,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               >
                 <span>🎧</span>
                 <span>Listen on Spotify</span>
+              </a>
+            )}
+            {post.youtube && (
+              <a
+                href={post.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              >
+                <span>▶️</span>
+                <span>Watch on YouTube</span>
               </a>
             )}
           </div>

@@ -102,6 +102,16 @@ export default function BlogPage() {
                     🎧 Listen on Spotify
                   </a>
                 )}
+                {post.youtube && (
+                  <a
+                    href={post.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors text-sm"
+                  >
+                    ▶️ Watch on YouTube
+                  </a>
+                )}
               </div>
             </article>
           ))
