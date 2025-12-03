@@ -79,6 +79,43 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.title}
         </h1>
 
+        {/* Journal and DOI */}
+        {(post.journal || post.doi) && (
+          <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
+            {post.journal && (
+              <span className="font-medium">
+                Published in:{' '}
+                {post.journalUrl ? (
+                  <a
+                    href={post.journalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    {post.journal}
+                  </a>
+                ) : (
+                  post.journal
+                )}
+              </span>
+            )}
+            {post.journal && post.doi && <span className="mx-2">•</span>}
+            {post.doi && (
+              <span>
+                DOI:{' '}
+                <a
+                  href={`https://doi.org/${post.doi}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  {post.doi}
+                </a>
+              </span>
+            )}
+          </div>
+        )}
+
         {/* Cover Image */}
         {post.coverImage && (
           <div className="mb-6 rounded-lg overflow-hidden">

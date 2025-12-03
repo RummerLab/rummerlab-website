@@ -27,6 +27,7 @@
   }
 }
 
+
 /*
   Prose/article content styling - only apply to content sections, not globally.
   These styles should be applied via a wrapper class like .prose or .content
@@ -66,5 +67,38 @@
   .prose a,
   article a {
     @apply text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 no-underline cursor-pointer;
+  }
+}
+
+/*
+  Explicit hover states for navigation to ensure they work in Tailwind v4
+*/
+@layer utilities {
+  nav a[href]:hover, nav button:hover {
+    color: rgb(37, 99, 235) !important;
+  }
+  /* Navigation links hover - only for main nav items, not social icons */
+  nav a[href].rounded-md:hover,
+  nav button.rounded-md:hover {
+    background-color: rgb(239, 246, 255) !important;
+  }
+
+  nav a[href]:hover.dark, nav button:hover.dark {
+    color: rgb(96, 165, 250) !important;
+  }
+  nav a[href].rounded-md:hover.dark,
+  nav button.rounded-md:hover.dark {
+    background-color: rgba(30, 58, 138, 0.2) !important;
+  }
+  
+  /* Dropdown menu items hover */
+  nav [role="menu"] a:hover {
+    color: rgb(37, 99, 235) !important;
+    background-color: rgb(239, 246, 255) !important;
+  }
+  
+  nav [role="menu"] a:hover.dark {
+    color: rgb(96, 165, 250) !important;
+    background-color: rgba(30, 58, 138, 0.2) !important;
   }
 }

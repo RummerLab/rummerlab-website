@@ -28,13 +28,20 @@ export default function Navbar() {
         {
             href: "https://jodierummer.com",
             icon: () => (
-                <div className="relative w-5 h-5" title="Visit Jodie Rummer's website">
+                <div className="relative w-5 h-5 group" title="Visit Jodie Rummer's website">
                     <Image
                         src="https://jodierummer.com/favicon.png"
                         alt="Jodie Rummer Logo"
                         fill
-                        className="object-contain brightness-0 dark:brightness-100 dark:invert opacity-60 hover:opacity-100 transition-opacity duration-200"
+                        className="object-contain opacity-60 group-hover:opacity-100 transition-all duration-200 brightness-0 dark:brightness-100 dark:invert"
                         sizes="20px"
+                    />
+                    <div 
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                        style={{
+                            backgroundColor: 'rgb(37, 99, 235)',
+                            mixBlendMode: 'screen',
+                        }}
                     />
                 </div>
             ),
@@ -43,13 +50,20 @@ export default function Navbar() {
         {
             href: "https://physioshark.org",
             icon: () => (
-                <div className="relative w-5 h-5" title="Visit Physioshark Project website">
+                <div className="relative w-5 h-5 group" title="Visit Physioshark Project website">
                     <Image
                         src="https://physioshark.org/Physioshark_icon.svg"
                         alt="Physioshark Logo"
                         fill
-                        className="object-contain brightness-0 dark:brightness-100 dark:invert opacity-60 hover:brightness-100 dark:hover:invert-0 hover:opacity-100 transition-all duration-200"
+                        className="object-contain opacity-60 group-hover:opacity-100 transition-all duration-200 brightness-0 dark:brightness-100 dark:invert"
                         sizes="20px"
+                    />
+                    <div 
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                        style={{
+                            backgroundColor: 'rgb(37, 99, 235)',
+                            mixBlendMode: 'screen',
+                        }}
                     />
                 </div>
             ),
@@ -129,7 +143,7 @@ export default function Navbar() {
                     <div className="hidden md:flex md:items-center md:space-x-6">
                         <Link 
                             href="/"
-                            className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                            className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                         >
                             Home
                         </Link>
@@ -142,7 +156,7 @@ export default function Navbar() {
                                     onMouseLeave={() => setActiveDropdown(null)}
                                 >
                                     <button
-                                        className="flex items-center text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
+                                        className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
                                         onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
                                         aria-expanded={activeDropdown === item.label}
                                     >
@@ -156,12 +170,12 @@ export default function Navbar() {
                                                 : 'opacity-0 invisible scale-95 pointer-events-none'
                                         }`}
                                     >
-                                        <div className="rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 py-1" role="menu">
+                                        <div className="rounded-md shadow-lg bg-white dark:bg-gray-900 py-1" role="menu">
                                             {item.items.map((subItem) => (
                                                 <Link
                                                     key={subItem.href}
                                                     href={subItem.href}
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 transition-colors duration-200"
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 transition-colors duration-200"
                                                     onClick={handleLinkClick}
                                                 >
                                                     {subItem.label}
@@ -174,7 +188,7 @@ export default function Navbar() {
                                 <Link 
                                     key={item.href}
                                     href={item.href as string} 
-                                    className="text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                    className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                                 >
                                     {item.label}
                                 </Link>
@@ -190,15 +204,17 @@ export default function Navbar() {
                                 <Link 
                                     key={link.href}
                                     href={link.href} 
-                                    className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200"
+                                    className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-200 group"
                                     aria-label={link.ariaLabel}
                                     title={link.title}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                     {typeof Icon === 'function' && !('$$typeof' in Icon) ? 
-                                        <Icon /> : 
-                                        <Icon className="h-5 w-5" />
+                                        <div className="group-hover:opacity-100 opacity-60 transition-opacity duration-200">
+                                            <Icon />
+                                        </div> : 
+                                        <Icon className="h-5 w-5 opacity-60 group-hover:opacity-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all duration-200" />
                                     }
                                 </Link>
                             )
@@ -283,7 +299,7 @@ export default function Navbar() {
                             <Link 
                                 key={link.href}
                                 href={link.href} 
-                                className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200"
+                                className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-200 group"
                                 onClick={handleLinkClick}
                                 aria-label={link.ariaLabel}
                                 title={link.title}
@@ -291,8 +307,10 @@ export default function Navbar() {
                                 rel="noopener noreferrer"
                             >
                                 {typeof Icon === 'function' && !('$$typeof' in Icon) ? 
-                                    <Icon /> : 
-                                    <Icon className="h-6 w-6" />
+                                    <div className="group-hover:opacity-100 opacity-60 transition-opacity duration-200">
+                                        <Icon />
+                                    </div> : 
+                                    <Icon className="h-6 w-6 opacity-60 group-hover:opacity-100 transition-opacity duration-200" />
                                 }
                             </Link>
                         )
