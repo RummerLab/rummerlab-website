@@ -10,9 +10,11 @@ import type { ReactElement } from 'react'
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
 
     const handleLinkClick = () => {
         setIsMenuOpen(false)
+        setActiveDropdown(null)
     }
 
     type SocialLink = {
@@ -133,20 +135,34 @@ export default function Navbar() {
                         </Link>
                         {navItems.map((item) => (
                             item.type === 'dropdown' ? (
-                                <div key={item.label} className="relative group">
+                                <div 
+                                    key={item.label} 
+                                    className="relative"
+                                    onMouseEnter={() => setActiveDropdown(item.label)}
+                                    onMouseLeave={() => setActiveDropdown(null)}
+                                >
                                     <button
-                                        className="flex items-center text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                        className="flex items-center text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
+                                        onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
+                                        aria-expanded={activeDropdown === item.label}
                                     >
                                         {item.label}
-                                        <FaChevronDown className="ml-1 h-3 w-3" />
+                                        <FaChevronDown className={`ml-1 h-3 w-3 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
                                     </button>
-                                    <div className="absolute left-0 top-full pt-2 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible pointer-events-none group-hover:pointer-events-auto transition-all duration-200 z-50">
+                                    <div 
+                                        className={`absolute left-0 top-full pt-2 w-48 z-50 transition-all duration-200 origin-top-left ${
+                                            activeDropdown === item.label 
+                                                ? 'opacity-100 visible scale-100' 
+                                                : 'opacity-0 invisible scale-95 pointer-events-none'
+                                        }`}
+                                    >
                                         <div className="rounded-md shadow-lg bg-white dark:bg-gray-900 ring-1 ring-black ring-opacity-5 py-1" role="menu">
                                             {item.items.map((subItem) => (
                                                 <Link
                                                     key={subItem.href}
                                                     href={subItem.href}
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800 transition-colors duration-200"
+                                                    onClick={handleLinkClick}
                                                 >
                                                     {subItem.label}
                                                 </Link>
