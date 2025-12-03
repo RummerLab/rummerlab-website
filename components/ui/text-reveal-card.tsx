@@ -187,10 +187,10 @@ const Stars = () => {
         <motion.span
           key={`star-${i}`}
           animate={{
-            top: `calc(${star.baseTop}% + ${star.moveY}px)`,
-            left: `calc(${star.baseLeft}% + ${star.moveX}px)`,
-            opacity: star.opacity,
-            scale: [1, 1.2, 0],
+            x: [0, star.moveX * 20, star.moveX * 40, 0],
+            y: [0, star.moveY * 20, star.moveY * 40, 0],
+            opacity: [star.opacity, star.opacity * 0.5, star.opacity, star.opacity],
+            scale: [1, 1.2, 1, 0.8, 1],
           }}
           transition={{
             duration: star.duration,
