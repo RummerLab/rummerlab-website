@@ -72,30 +72,40 @@
 
 /*
   Explicit hover states for navigation to ensure they work in Tailwind v4
-  Using !important to override any specificity issues
+  Using higher specificity selectors to avoid !important
+  Tailwind v4 wraps hover in @media (hover: hover), which can cause specificity issues
 */
 @layer utilities {
   /* Navigation links hover - only for main nav items with rounded-md, not social icons */
-  nav a[href].rounded-md:hover,
-  nav button.rounded-md:hover {
-    color: rgb(37, 99, 235) !important;
-    background-color: rgb(239, 246, 255) !important;
+  /* Higher specificity: nav > element with class + hover */
+  nav > div > a[href].rounded-md:hover,
+  nav > div > button.rounded-md:hover,
+  nav a[href].rounded-md.text-sm:hover,
+  nav button.rounded-md.text-sm:hover {
+    color: rgb(37, 99, 235);
+    background-color: rgb(239, 246, 255);
   }
   
-  nav a[href].rounded-md:hover.dark,
-  nav button.rounded-md:hover.dark {
-    color: rgb(96, 165, 250) !important;
-    background-color: rgba(30, 58, 138, 0.2) !important;
+  /* Dark mode with higher specificity */
+  .dark nav > div > a[href].rounded-md:hover,
+  .dark nav > div > button.rounded-md:hover,
+  .dark nav a[href].rounded-md.text-sm:hover,
+  .dark nav button.rounded-md.text-sm:hover {
+    color: rgb(96, 165, 250);
+    background-color: rgba(30, 58, 138, 0.2);
   }
   
-  /* Dropdown menu items hover */
-  nav [role="menu"] a:hover {
-    color: rgb(37, 99, 235) !important;
-    background-color: rgb(239, 246, 255) !important;
+  /* Dropdown menu items hover with higher specificity */
+  nav [role="menu"] > a.block:hover,
+  nav [role="menu"] a.text-sm:hover {
+    color: rgb(37, 99, 235);
+    background-color: rgb(239, 246, 255);
   }
   
-  nav [role="menu"] a:hover.dark {
-    color: rgb(96, 165, 250) !important;
-    background-color: rgba(30, 58, 138, 0.2) !important;
+  /* Dark mode dropdown */
+  .dark nav [role="menu"] > a.block:hover,
+  .dark nav [role="menu"] a.text-sm:hover {
+    color: rgb(96, 165, 250);
+    background-color: rgba(30, 58, 138, 0.2);
   }
 }
