@@ -156,15 +156,36 @@ const doesArticleMentionRummer = (content: string, title: string, description: s
     const normalizedTitle = title.toLowerCase();
     const normalizedDescription = description.toLowerCase();
     
+    // Exclude articles about Kirstein Rummery (not Jodie Rummer)
+    const excludeKeywords = [
+        'kirstein rummery',
+        'kirstein rummer',
+        'kirstein r.',
+        'kirstein r ',
+        'edited by teppo kroger',
+        'care poverty and unmet needs',
+        'social care systems'
+    ];
+    
+    // Check if article is about Kirstein Rummery (should be excluded)
+    const isAboutKirsteinRummery = excludeKeywords.some(keyword => 
+        normalizedTitle.includes(keyword) || 
+        normalizedDescription.includes(keyword) || 
+        normalizedContent.includes(keyword)
+    );
+    
+    if (isAboutKirsteinRummery) {
+        return false;
+    }
+    
     // Primary requirement: Must mention Dr. Rummer, RummerLab, or Physioshark
     const rummerKeywords = [
-        'rummer',
         'rummerlab',
         'physioshark',
         'physiologyfish'
     ];
     
-    // Check for Dr. Rummer specific mentions
+    // Check for Dr. Rummer specific mentions (more specific to avoid matching "Rummery")
     const drRummerMentions = [
         'dr rummer',
         'dr. rummer',
@@ -176,8 +197,16 @@ const doesArticleMentionRummer = (content: string, title: string, description: s
         'prof rummer',
         'prof jodie rummer',
         'jodie rummer',
-        'jodie l. rummer'
+        'jodie l. rummer',
+        'jodie l rummer'
     ];
+    
+    // Check for "rummer" as a standalone word (not part of "Rummery")
+    // Use word boundaries to avoid matching "Rummery"
+    const rummerWordPattern = /\brummer\b/i;
+    const hasRummerWord = rummerWordPattern.test(normalizedTitle) || 
+                         rummerWordPattern.test(normalizedDescription) || 
+                         rummerWordPattern.test(normalizedContent);
     
     // Check if any of the primary keywords are mentioned
     const hasPrimaryKeyword = rummerKeywords.some(keyword => 
@@ -188,10 +217,13 @@ const doesArticleMentionRummer = (content: string, title: string, description: s
     
     // Check for Dr. Rummer specific mentions in content
     const hasDrRummerMention = drRummerMentions.some(mention => 
-        normalizedContent.includes(mention)
+        normalizedContent.includes(mention) ||
+        normalizedTitle.includes(mention) ||
+        normalizedDescription.includes(mention)
     );
     
-    return hasPrimaryKeyword || hasDrRummerMention;
+    // Only return true if we have a match AND it's not about Kirstein Rummery
+    return (hasPrimaryKeyword || hasDrRummerMention || hasRummerWord);
 };
 
 const containsRummer = (item: RSSItem): boolean => {
