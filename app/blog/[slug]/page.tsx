@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getBlogPostBySlug, getAllBlogSlugs } from '@/lib/blog';
+import BlogGallery from '@/components/BlogGallery';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -164,6 +165,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         className="prose prose-lg prose-gray dark:prose-invert max-w-none"
         dangerouslySetInnerHTML={{ __html: post.htmlContent }}
       />
+
+      {/* Gallery */}
+      {post.gallery && post.gallery.length > 0 && (
+        <BlogGallery images={post.gallery} />
+      )}
     </div>
   );
 }

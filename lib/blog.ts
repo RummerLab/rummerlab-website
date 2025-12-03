@@ -6,6 +6,13 @@ import remarkHtml from 'remark-html';
 
 const blogsDirectory = path.join(process.cwd(), '_blogs');
 
+export interface BlogGalleryImage {
+  src: string;
+  alt: string;
+  caption?: string;
+  credit?: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -17,6 +24,7 @@ export interface BlogPost {
   journal?: string;
   journalUrl?: string;
   doi?: string;
+  gallery?: BlogGalleryImage[];
   content: string;
   htmlContent: string;
 }
@@ -53,6 +61,7 @@ export const getAllBlogPosts = (): BlogPost[] => {
         journal: data.journal || undefined,
         journalUrl: data.journalUrl || undefined,
         doi: data.doi || undefined,
+        gallery: data.gallery || undefined,
         content,
         htmlContent,
       };
@@ -90,6 +99,7 @@ export const getBlogPostBySlug = (slug: string): BlogPost | null => {
     journal: data.journal || undefined,
     journalUrl: data.journalUrl || undefined,
     doi: data.doi || undefined,
+    gallery: data.gallery || undefined,
     content,
     htmlContent,
   };
