@@ -139,8 +139,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {post.title}
         </h1>
 
-        {/* Journal and DOI */}
-        {(post.journal || post.doi) && (
+        {/* Journal, DOI, and Podcast */}
+        {(post.journal || post.doi || post.podcast) && (
           <div className="mb-6 text-sm text-gray-600 dark:text-gray-400">
             {post.journal && (
               <span className="font-medium">
@@ -173,6 +173,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </a>
               </span>
             )}
+            {(post.journal || post.doi) && post.podcast && <span className="mx-2">•</span>}
+            {post.podcast && (
+              <span className="font-medium">
+                Featured on: {post.podcast}
+              </span>
+            )}
           </div>
         )}
 
@@ -192,15 +198,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Links */}
         {(post.paper || post.spotify || post.youtube) && (
-          <div className="flex flex-wrap gap-4 mb-6">
+          <div className="flex flex-wrap gap-3 mb-6">
             {post.paper && (
               <a
                 href={post.paper}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-0.5 focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 font-medium"
               >
-                <span>📄</span>
+                <span className="text-lg" aria-hidden="true">📄</span>
                 <span>Read Paper</span>
               </a>
             )}
@@ -209,9 +215,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 href={post.spotify}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-cyan-500/30 transform hover:-translate-y-0.5 focus:outline-hidden focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 font-medium"
               >
-                <span>🎧</span>
+                <span className="text-lg" aria-hidden="true">🎧</span>
                 <span>Listen on Spotify</span>
               </a>
             )}
@@ -220,9 +226,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 href={post.youtube}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                className="inline-flex items-center gap-2.5 px-5 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-400/30 transform hover:-translate-y-0.5 focus:outline-hidden focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 dark:focus:ring-offset-gray-900 font-medium"
               >
-                <span>▶️</span>
+                <span className="text-lg" aria-hidden="true">▶️</span>
                 <span>Watch on YouTube</span>
               </a>
             )}

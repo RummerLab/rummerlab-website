@@ -1,5 +1,5 @@
 ---
-date: "2025-12-03T08:00:00+10:00"
+date: "2025-12-04T12:00:00+10:00"
 journal: "Biology Open"
 journalUrl: "https://journals.biologists.com/bio"
 doi: "10.1242/bio.062076"
@@ -7,6 +7,7 @@ coverImage: "/images/blog/wheeler-et-al-2025-biology-open/carolyn-wheeler-with-e
 title: "The zero-cost mystery: how epaulette sharks may be reproducing for free"
 excerpt: "New research reveals that epaulette sharks can lay eggs without any measurable rise in metabolic cost, challenging long-held assumptions about reproductive energetics in marine animals."
 paper: "/papers/Wheeler et al., 2025 Biology Open.pdf"
+podcast: "Athletes of the Reef"
 spotify: "https://open.spotify.com/episode/0V7q9E9JZ1iEwjVxnFX0Fw"
 youtube: "https://youtu.be/k-avjr83-FA"
 gallery:

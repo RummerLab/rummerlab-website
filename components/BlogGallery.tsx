@@ -91,7 +91,7 @@ export default function BlogGallery({ images }: BlogGalleryProps) {
       {/* Lightbox Modal */}
       {selectedImage !== null && (
         <div
-          className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
           onClick={handleCloseModal}
           onKeyDown={handleKeyDown}
           tabIndex={-1}

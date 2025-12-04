@@ -20,6 +20,7 @@ export interface BlogPost {
   excerpt?: string;
   coverImage?: string;
   paper?: string;
+  podcast?: string;
   spotify?: string;
   youtube?: string;
   journal?: string;
@@ -58,6 +59,7 @@ export const getAllBlogPosts = (): BlogPost[] => {
         excerpt: data.excerpt || undefined,
         coverImage: data.coverImage || undefined,
         paper: data.paper || undefined,
+        podcast: data.podcast || undefined,
         spotify: data.spotify || undefined,
         youtube: data.youtube || undefined,
         journal: data.journal || undefined,
@@ -97,6 +99,7 @@ export const getBlogPostBySlug = (slug: string): BlogPost | null => {
     excerpt: data.excerpt || undefined,
     coverImage: data.coverImage || undefined,
     paper: data.paper || undefined,
+    podcast: data.podcast || undefined,
     spotify: data.spotify || undefined,
     youtube: data.youtube || undefined,
     journal: data.journal || undefined,

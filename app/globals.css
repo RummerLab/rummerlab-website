@@ -1,6 +1,14 @@
 @import 'tailwindcss';
 
 /*
+  Tailwind v4 hover fix
+  In v4, Tailwind wraps hover in @media (hover: hover) by default, which means
+  hover only works on devices that support hover. This custom variant makes hover
+  work on all devices (including touch screens) by using &:hover directly.
+*/
+@custom-variant hover (&:hover);
+
+/*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
@@ -24,6 +32,12 @@
 
   svg {
     display: inline-block;
+  }
+
+  /* Buttons use cursor: pointer by default (v4 changed to cursor: default) */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 }
 
@@ -67,40 +81,5 @@
   .prose a,
   article a {
     @apply text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 no-underline cursor-pointer;
-  }
-}
-
-/*
-  Navigation hover states - Tailwind v4 workaround
-  Required due to Tailwind v4 wrapping hover in @media (hover: hover) causing specificity issues
-  Scoped to nav elements with rounded-md class to avoid affecting social icons
-*/
-@layer utilities {
-  nav > div > a[href].rounded-md:hover,
-  nav > div > button.rounded-md:hover,
-  nav a[href].rounded-md.text-sm:hover,
-  nav button.rounded-md.text-sm:hover {
-    color: rgb(37, 99, 235) !important;
-    background-color: rgb(239, 246, 255) !important;
-  }
-  
-  .dark nav > div > a[href].rounded-md:hover,
-  .dark nav > div > button.rounded-md:hover,
-  .dark nav a[href].rounded-md.text-sm:hover,
-  .dark nav button.rounded-md.text-sm:hover {
-    color: rgb(96, 165, 250) !important;
-    background-color: rgba(30, 58, 138, 0.2) !important;
-  }
-  
-  nav [role="menu"] > a.block:hover,
-  nav [role="menu"] a.text-sm:hover {
-    color: rgb(37, 99, 235) !important;
-    background-color: rgb(239, 246, 255) !important;
-  }
-  
-  .dark nav [role="menu"] > a.block:hover,
-  .dark nav [role="menu"] a.text-sm:hover {
-    color: rgb(96, 165, 250) !important;
-    background-color: rgba(30, 58, 138, 0.2) !important;
   }
 }
