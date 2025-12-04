@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getBlogPostBySlug, getAllBlogSlugs } from '@/lib/blog';
 import BlogGallery from '@/components/BlogGallery';
+import { sanitizeSlugForUrl } from '@/lib/utils';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -30,7 +31,7 @@ export async function generateMetadata({
 
   const title = `${post.title} | RummerLab Blog`;
   const description = post.excerpt || post.content.substring(0, 160);
-  const url = `https://rummerlab.com/blog/${slug}`;
+  const url = `https://rummerlab.com/blog/${sanitizeSlugForUrl(slug)}`;
   const coverImageUrl = post.coverImage 
     ? `https://rummerlab.com${post.coverImage}`
     : 'https://rummerlab.com/images/rummerlab_logo_transparent.png';

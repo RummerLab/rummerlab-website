@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllBlogPosts } from '@/lib/blog';
+import { sanitizeSlugForUrl } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Blog | RummerLab',
@@ -60,7 +61,7 @@ export default function BlogPage() {
 
               <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${sanitizeSlugForUrl(post.slug)}`}
                   className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   {post.title}
@@ -77,7 +78,7 @@ export default function BlogPage() {
 
               <div className="flex flex-wrap gap-4 items-center">
                 <Link
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${sanitizeSlugForUrl(post.slug)}`}
                   className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
                 >
                   Read more →
