@@ -132,8 +132,8 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex items-center">
-                        <Link href="/" className="flex items-center">
-                            <span className="text-2xl font-bold text-gray-900 dark:text-gray-50 bg-clip-text text-transparent bg-linear-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400">
+                        <Link href="/" className="flex items-center group">
+                            <span className="text-2xl font-bold text-gray-900 dark:text-gray-50 bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 dark:from-blue-400 dark:via-cyan-300 dark:to-blue-400 bg-[length:200%_100%] bg-[position:0%_50%] group-hover:bg-[position:100%_50%] transition-all duration-500 ease-in-out">
                                 RummerLab
                             </span>
                         </Link>
@@ -204,17 +204,18 @@ export default function Navbar() {
                                 <Link 
                                     key={link.href}
                                     href={link.href} 
-                                    className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-200 group"
+                                    className={typeof Icon === 'function' && !('$$typeof' in Icon) 
+                                        ? "text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-200" 
+                                        : "text-gray-500 transition-all duration-200"
+                                    }
                                     aria-label={link.ariaLabel}
                                     title={link.title}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
                                     {typeof Icon === 'function' && !('$$typeof' in Icon) ? 
-                                        <div className="group-hover:opacity-100 opacity-60 transition-opacity duration-200">
-                                            <Icon />
-                                        </div> : 
-                                        <Icon className="h-5 w-5 opacity-60 group-hover:opacity-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-all duration-200" />
+                                        <Icon /> : 
+                                        <Icon className="h-5 w-5 opacity-60 hover:opacity-100 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200" />
                                     }
                                 </Link>
                             )
@@ -299,7 +300,10 @@ export default function Navbar() {
                             <Link 
                                 key={link.href}
                                 href={link.href} 
-                                className="text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-200 group"
+                                className={typeof Icon === 'function' && !('$$typeof' in Icon) 
+                                    ? "transition-all duration-200" 
+                                    : "text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-200 group"
+                                }
                                 onClick={handleLinkClick}
                                 aria-label={link.ariaLabel}
                                 title={link.title}
@@ -307,9 +311,7 @@ export default function Navbar() {
                                 rel="noopener noreferrer"
                             >
                                 {typeof Icon === 'function' && !('$$typeof' in Icon) ? 
-                                    <div className="group-hover:opacity-100 opacity-60 transition-opacity duration-200">
-                                        <Icon />
-                                    </div> : 
+                                    <Icon /> : 
                                     <Icon className="h-6 w-6 opacity-60 group-hover:opacity-100 transition-opacity duration-200" />
                                 }
                             </Link>
