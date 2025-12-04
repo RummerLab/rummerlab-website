@@ -42,3 +42,5 @@ Follow these rules when you write code:
 - Use consts instead of functions, for example, "const toggle = () =>". Also, define a type if possible.
 
 Before completion, please run `npm run lint` and `npm run build` if there are any code changes.
+
+If you suspect any security issues, please run `snyk test`.
