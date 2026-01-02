@@ -20,6 +20,22 @@ gallery:
     alt: "Epaulette shark belly"
     caption: "Epaulette shark belly"
     credit: "Photo: Laura Boderke on behalf of Physioshark"
+  - src: "/images/blog/debaere-et-al-2025-j-fish-biology/Cm_injury2_16-11-2016_MAH.jpg"
+    alt: "Shark injury documentation"
+    caption: "Injury documentation on neonatal shark"
+    credit: "Photo: RummerLab"
+  - src: "/images/blog/debaere-et-al-2025-j-fish-biology/Cm1_injury1_20-11-2016_PAP.jpg"
+    alt: "Shark injury measurement"
+    caption: "Measuring shark injury for healing rate study"
+    credit: "Photo: RummerLab"
+  - src: "/images/blog/debaere-et-al-2025-j-fish-biology/Cm1_injury4_20-11-2016_PAP.jpg"
+    alt: "Shark injury tracking"
+    caption: "Tracking injury healing progression in neonatal shark"
+    credit: "Photo: RummerLab"
+  - src: "/images/blog/debaere-et-al-2025-j-fish-biology/NA45_Hook_1_2018.jpg"
+    alt: "Shark hook injury"
+    caption: "Hook-related injury on neonatal shark"
+    credit: "Photo: RummerLab"
 ---
 
 **Imagine being born into a shark tank.** Literally.
