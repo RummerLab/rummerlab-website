@@ -100,6 +100,7 @@ export const getBlogPostBySlug = (slug: string): BlogPost | null => {
     date: data.date || '',
     excerpt: data.excerpt || undefined,
     coverImage: data.coverImage || undefined,
+    coverImageAlt: data.coverImageAlt || undefined,
     paper: data.paper || undefined,
     podcast: data.podcast || undefined,
     spotify: data.spotify || undefined,
