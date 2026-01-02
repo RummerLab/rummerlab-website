@@ -4,6 +4,7 @@ journal: "Journal of Fish Biology"
 journalUrl: "https://onlinelibrary.wiley.com/journal/10958649"
 doi: "10.1111/jfb.16059"
 coverImage: "/images/blog/debaere-et-al-2025-j-fish-biology/epaulette-shark-belly-button-measurement.jpg"
+coverImageAlt: "Researcher measuring the umbilical scar on a neonatal epaulette shark, studying healing rates and resilience in baby reef sharks"
 title: "Baby Sharks, Belly Buttons, and the Science of Invincibility"
 excerpt: "New research reveals that baby reef sharks are astonishingly resilient, healing from open umbilical wounds without slowing growth or losing condition. Studying neonatal sharks in Moorea and the Seychelles, scientists show how temperature, injury, and energy budgets shape survival in a warming ocean - with major implications for shark conservation and climate change."
 paper: "/papers/Debaere et al., 2025 J Fish Biology.pdf"
@@ -13,12 +14,12 @@ youtube: "https://youtu.be/"
 gallery:
   - src: "/images/blog/debaere-et-al-2025-j-fish-biology/epaulette-shark-belly-button-measurement.jpg"
     alt: "Epaulette shark belly button measurement"
-    caption: "Shamil Debaere measuring the epaulette shark belly"
-    credit: "Photo: RummerLab"
+    caption: "Measuring the epaulette shark belly"
+    credit: "Photo: Laura Boderke on behalf of Physioshark"
   - src: "/images/blog/debaere-et-al-2025-j-fish-biology/epaulette-shark-belly-button.jpg"
     alt: "Epaulette shark belly"
     caption: "Epaulette shark belly"
-    credit: "Photo: RummerLab"
+    credit: "Photo: Laura Boderke on behalf of Physioshark"
 ---
 
 **Imagine being born into a shark tank.** Literally.
@@ -57,16 +58,19 @@ The team analyzed long-term datasets from Moorea, French Polynesia, and St. Jose
 The results of the study were unexpected and highlighted the incredible evolutionary design of elasmobranchs (sharks, skates, and rays).
 
 ### 1. The Cost of Injury is... Zero?
+
 The most surprising finding was the lack of a trade-off. The researchers found **no impact** of minor external injuries on the growth or body condition of neonatal Blacktip Reef or Sicklefin Lemon sharks.
 
 Despite the theoretical "household budget" constraints, these baby sharks managed to heal from minor wounds while continuing to grow just as fast and stay just as chubby (body condition) as their uninjured counterparts. They appear to possess a "super-power" capacity for tissue regeneration that doesn't bankrupt their energy reserves.
 
 ### 2. Some Like it Hot (But is that Good?)
+
 The study also looked at the influence of temperature. Sharks are ectotherms (cold-blooded), meaning the outside temperature dictates their internal metabolism.
 
 When neonatal Blacktip Reef sharks were kept in warmer water (29°C vs. 25°C), their umbilical wounds healed significantly faster. While this sounds positive, it’s a double-edged sword. Faster metabolism means faster healing, but it also means the shark burns through energy much quicker, requiring more food in an environment where hunting is already difficult and dangerous.
 
 ### 3. Species are Not Created Equal
+
 The study highlighted that not all reef sharks heal the same way. There were distinct differences in healing rates between the Blacktip Reef sharks and the Sicklefin Lemon sharks. This reminds us that we cannot apply a "one-size-fits-all" approach to conservation; different species respond differently to environmental stressors.
 
 ## Why This Matters: Climate Change and Conservation

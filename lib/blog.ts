@@ -19,6 +19,7 @@ export interface BlogPost {
   date: string;
   excerpt?: string;
   coverImage?: string;
+  coverImageAlt?: string;
   paper?: string;
   podcast?: string;
   spotify?: string;
@@ -58,6 +59,7 @@ export const getAllBlogPosts = (): BlogPost[] => {
         date: data.date || '',
         excerpt: data.excerpt || undefined,
         coverImage: data.coverImage || undefined,
+        coverImageAlt: data.coverImageAlt || undefined,
         paper: data.paper || undefined,
         podcast: data.podcast || undefined,
         spotify: data.spotify || undefined,

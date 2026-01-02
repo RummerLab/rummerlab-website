@@ -35,6 +35,7 @@ export async function generateMetadata({
   const coverImageUrl = post.coverImage 
     ? `https://rummerlab.com${post.coverImage}`
     : 'https://rummerlab.com/images/rummerlab_logo_transparent.png';
+  const coverImageAlt = post.coverImageAlt || post.title;
 
   return {
     title,
@@ -52,7 +53,7 @@ export async function generateMetadata({
           url: coverImageUrl,
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: coverImageAlt,
         },
       ],
       locale: 'en_US',
@@ -187,7 +188,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="mb-6 rounded-lg overflow-hidden">
             <Image
               src={post.coverImage}
-              alt={post.title}
+              alt={post.coverImageAlt || post.title}
               width={1200}
               height={630}
               className="w-full h-auto object-cover"
