@@ -100,6 +100,7 @@ export default function Navbar() {
                 { href: "/in-vivo-protocols", label: "In Vivo Protocols" },
                 { href: "/climate-change", label: "Climate Change" },
                 { href: "/conservation", label: "Conservation" },
+                { href: "/donations", label: "Donations" },
             ]
         },
         { 
