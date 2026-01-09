@@ -13,7 +13,7 @@
     "resize-images": "ts-node --project tsconfig.script.json scripts/resize-images.ts"
   },
   "dependencies": {
-    "@next/third-parties": "16.0.10",
+    "@next/third-parties": "16.1.0",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^1.3.1",
     "cheerio": "^1.1.2",
