@@ -10,7 +10,7 @@ excerpt: "New research reveals that baby reef sharks are astonishingly resilient
 paper: "/papers/Debaere et al., 2025 J Fish Biology.pdf"
 podcast: "Athletes of the Reef"
 spotify: "https://open.spotify.com/episode/4IdNdbeErmBprU2Ml2IMna"
-youtube: ""
+youtube: "https://youtu.be/KFuEjGxkcAY"
 gallery:
   - src: "/images/blog/debaere-et-al-2025-j-fish-biology/blacktip-reef-shark-belly-button-measurement.jpg"
     alt: "Blacktip reef shark belly button measurement"
