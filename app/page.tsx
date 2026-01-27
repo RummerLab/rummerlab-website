@@ -43,7 +43,7 @@ export default function Home() {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-blue-400 to-cyan-400">
+              <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-blue-400 to-cyan-400">
                 RummerLab
               </span>
             </h1>
