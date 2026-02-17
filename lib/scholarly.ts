@@ -93,6 +93,17 @@ export async function getCoAuthors(id: string) {
   }
 }
 
+/** Scholar IDs allowed for API access (Jodie's coauthors + Jodie + Brock Bergseth + Nicholas C. Wu). */
+export async function getAllowedScholarIds(): Promise<string[]> {
+  const jodie = 'ynWS968AAAAJ';
+  const coAuthors = await getCoAuthors(jodie);
+  const allowedIds = coAuthors.map((author: { scholar_id: string }) => author.scholar_id);
+  allowedIds.push(jodie);
+  allowedIds.push('g9B1IoQAAAAJ'); // Brock Bergseth
+  allowedIds.push('cXDRggIAAAAJ'); // Nicholas C. Wu
+  return allowedIds;
+}
+
 export async function searchPublication(query: string) {
   try {
     if (!query) {
