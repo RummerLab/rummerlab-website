@@ -43,7 +43,7 @@
     "@types/react-dom": "19.2.3",
     "@types/sanitize-html": "^2.13.0",
     "baseline-browser-mapping": "^2.8.32",
-    "eslint": "^9.20.1",
+    "eslint": "^9.39.2",
     "eslint-config-next": "16.1.6",
     "postcss": "^8.4.38",
     "tailwindcss": "^4.1.18",

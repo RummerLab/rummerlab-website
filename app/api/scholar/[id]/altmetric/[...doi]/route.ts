@@ -3,7 +3,7 @@ import { getAllowedScholarIds } from '@/lib/scholarly';
 
 const CACHE_SECONDS = 86400; // 1 day
 
-export const revalidate = CACHE_SECONDS;
+export const revalidate = 86400; // 1 day (must be literal for segment config)
 
 export async function GET(
   _request: Request,
