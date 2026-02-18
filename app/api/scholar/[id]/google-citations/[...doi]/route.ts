@@ -23,7 +23,7 @@ export async function GET(
       return NextResponse.json({ message: 'Missing doi' }, { status: 400 });
     }
 
-    const url = `https://api.rummerlab.com/scholar-citations/${encodeURIComponent(doi)}`;
+    const url = `https://api.rummerlab.com/google-citations/${encodeURIComponent(doi)}`;
     const response = await fetch(url, {
       next: { revalidate: CACHE_SECONDS },
     });
