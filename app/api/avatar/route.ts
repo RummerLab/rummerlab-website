@@ -22,6 +22,26 @@ function cleanName(name: string): string {
     .trim();
 }
 
+function buildValidatedImageUrl(imageUrl: string): string {
+  try {
+    // Minimal path validation
+    if (imageUrl.includes('/../') || /\/%2e%2e\//i.test(imageUrl)) {
+      throw new Error('Invalid path');
+    }
+    
+    const url = new URL(imageUrl);
+    
+    // Protocol check
+    if (!['http:', 'https:'].includes(url.protocol)) {
+      throw new Error('Invalid protocol');
+    }
+    
+    return url.href;
+  } catch {
+    throw new Error('Invalid URL');
+  }
+}
+
 // Validate scholarId to prevent SSRF
 function validateScholarId(scholarId: string | null): string | null {
   if (!scholarId) return null;
@@ -112,7 +132,8 @@ async function getAvatarImage(email: string, name: string, scholarId: string | n
     console.log(data);
 
     if (data.Success && data.Image) {
-      const imageResponse = await fetch(data.Image);
+      const validatedImageUrl = buildValidatedImageUrl(data.Image);
+      const imageResponse = await fetch(validatedImageUrl);
       return imageResponse;
     }
 
