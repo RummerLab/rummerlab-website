@@ -83,6 +83,9 @@ export const getAllBlogPosts = (): BlogPost[] => {
 };
 
 export const getBlogPostBySlug = (slug: string): BlogPost | null => {
+  if (slug.includes('..')) {
+    throw new Error('Invalid slug format');
+  }
   const fullPath = path.join(blogsDirectory, `${slug}.md`);
   
   if (!fs.existsSync(fullPath)) {
