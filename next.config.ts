@@ -2,6 +2,8 @@ import type { NextConfig } from 'next'
 
 const config: NextConfig = {
   images: {
+    deviceSizes: [640, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 64, 128, 256, 384],
     remotePatterns: [
       {
         protocol: 'https',
@@ -92,31 +94,42 @@ const config: NextConfig = {
     ]
   },
   async headers() {
-      // CORS blanket statement over all endpoints
-      return [
+    const oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+    const expiresHeader = oneYearFromNow.toUTCString();
+
+    return [
+      {
+        source: '/images/:path*',
+        headers: [
           {
-              // Routes this applies to
-              source: '/api/(.*)',
-              // Headers
-              headers: [
-                  // Allow all domains to have access
-                  {
-                      key: 'Access-Control-Allow-Origin',
-                      value: '*',
-                  },
-                  // Allows for specific methods accepted
-                  {
-                      key: 'Access-Control-Allow-Methods',
-                      value: 'GET',
-                  },
-                  // Allows for specific headers accepted (These are a few standard ones)
-                  {
-                      key: 'Access-Control-Allow-Headers',
-                      value: 'Content-Type, Authorization, Accept',
-                  },
-              ],
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
           },
-      ]
+          {
+            key: 'Expires',
+            value: expiresHeader,
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+        ],
+      },
+      {
+        source: '/_next/image',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
+          },
+          {
+            key: 'Expires',
+            value: expiresHeader,
+          },
+        ],
+      },
+    ];
   },
 }
 

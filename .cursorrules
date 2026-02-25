@@ -41,6 +41,16 @@ Follow these rules when you write code:
 - Implement accessibility features on elements. For example, a tag should have a tabindex="0", aria-label, on:click, and on:keydown, and similar attributes.
 - Use consts instead of functions, for example, "const toggle = () =>". Also, define a type if possible.
 
+## Image optimization and transformations
+
+Keep Vercel Image Optimization usage (and transformation count) in mind when adding or changing images:
+
+- Use `priority` only for above-the-fold images (e.g. hero, first blog cover, first 1–2 team photos). Do not set `priority` on gallery thumbnails, lightbox images, or below-the-fold content.
+- Prefer `fill` with a constrained `sizes` (e.g. `(max-width: 1200px) 100vw, 1200px`) over fixed large `width`/`height` (e.g. 2000×1334) so the optimizer does not generate oversized variants.
+- Use `quality={85}` (or 90) unless there is a strong reason for 100; lower quality reduces transformation cost and bandwidth.
+- Do not add new `deviceSizes` or `imageSizes` in next.config.ts without need; fewer breakpoints mean fewer distinct transformations per image.
+- When adding new pages with many images (e.g. galleries), ensure thumbnails are lazy-loaded (no `priority`) and lightbox/modal images use bounded `sizes` and no `priority`.
+
 Before completion, please run `npm run lint` and `npm run build` if there are any code changes.
 
 If you suspect any security issues, please run `snyk test`.

@@ -38,7 +38,6 @@ export default function GalleryItem({ image }: GalleryItemProps) {
                     alt={image.alt}
                     fill
                     sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
-                    priority
                     quality={85}
                     className={`
                         object-cover transition-transform duration-300 group-hover:scale-105

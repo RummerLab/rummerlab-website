@@ -1790,6 +1790,22 @@ async function extractMissingImages(articles: MediaItem[]): Promise<MediaItem[]>
     return finalArticles;
 }
 
+// Articles to exclude from media coverage (e.g. false positives: same keyword, different subject)
+const EXCLUDED_ARTICLES: { sourceContains: string; titleContains: string }[] = [
+    {
+        sourceContains: 'thelineofbestfit',
+        titleContains: 'Billy Fuller'
+    }
+];
+
+function isExcludedArticle(article: MediaItem): boolean {
+    const sourceLower = article.source.toLowerCase();
+    const titleLower = article.title.toLowerCase();
+    return EXCLUDED_ARTICLES.some(
+        (ex) => sourceLower.includes(ex.sourceContains.toLowerCase()) && titleLower.includes(ex.titleContains.toLowerCase())
+    );
+}
+
 // Main function to fetch all news
 export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
     try {
@@ -1805,8 +1821,8 @@ export const fetchAllNews = cache(async (): Promise<MediaItem[]> => {
         // Phase 4: Extract images for articles without thumbnails
         const articlesWithImages = await extractMissingImages(verifiedArticles);
         
-        // Use all articles (no date filtering)
-        const finalArticles = articlesWithImages;
+        // Exclude specific articles (e.g. Thelineofbestfit.com Billy Fuller / "Rummer" track false positive)
+        const finalArticles = articlesWithImages.filter((article) => !isExcludedArticle(article));
         
         // Log articles count
         if (process.env.NODE_ENV === 'development') {

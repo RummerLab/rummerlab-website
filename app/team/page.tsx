@@ -82,7 +82,7 @@ export default function TeamPage() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                   style={{ objectPosition: '50% 10%' }}
-                  priority={index < 6}
+                  priority={index < 2}
                 />
               ) : (
                 <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">

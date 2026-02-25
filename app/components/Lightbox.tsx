@@ -74,8 +74,7 @@ export default function Lightbox({ isOpen, onClose, image }: LightboxProps) {
                         fill
                         className="object-contain"
                         sizes={isPortrait ? '100vh' : '100vw'}
-                        priority
-                        quality={100}
+                        quality={85}
                     />
                 </div>
 

@@ -128,16 +128,15 @@ export default function BlogGallery({ images }: BlogGalleryProps) {
             </button>
           )}
           <div
-            className="relative max-w-7xl max-h-full"
+            className="relative w-full max-w-5xl max-h-[90vh] min-h-[50vh] mx-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
               src={images[selectedImage].src}
               alt={images[selectedImage].alt}
-              width={2000}
-              height={1334}
-              className="max-w-full max-h-[90vh] object-contain"
-              priority
+              fill
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              className="object-contain"
             />
             {(images[selectedImage].caption || images[selectedImage].credit) && (
               <div className="mt-4 text-center text-white">
