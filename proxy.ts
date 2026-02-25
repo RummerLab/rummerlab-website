@@ -40,6 +40,8 @@ const CORS_HEADERS_ALLOW_ALL: Record<string, string> = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization, Accept',
 };
 
+const CACHE_CONTROL_API = 'public, max-age=86400, stale-while-revalidate=3600';
+
 function computeWeakEtag(pathname: string, search: string): string {
   const value = pathname + search;
   const encoded = btoa(encodeURIComponent(value));
@@ -94,11 +96,13 @@ export function proxy(request: NextRequest) {
     return res;
   }
 
-  // API routes: add CORS allow-all (no hotlink check)
-  // For Brock's website
+  // API routes: add CORS allow-all and 1-day cache for GET
   if (isApiRoute) {
     const res = NextResponse.next();
     Object.entries(CORS_HEADERS_ALLOW_ALL).forEach(([k, v]) => res.headers.set(k, v));
+    if (request.method === 'GET') {
+      res.headers.set('Cache-Control', CACHE_CONTROL_API);
+    }
     return res;
   }
 
