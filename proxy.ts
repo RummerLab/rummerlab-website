@@ -46,7 +46,7 @@ function computeWeakEtag(pathname: string, search: string): string {
   return `W/"${encoded}"`;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const origin = request.headers.get('Origin') ?? getOriginFromReferer(request.headers.get('Referer'));
   const isAssetRoute = pathname.startsWith('/images/') || pathname === '/_next/image';
