@@ -7,12 +7,15 @@ export const metadata = {
     description: "A guide for collaborators of Dr. Jodie Rummer on how to embed their Google Scholar profile onto their website."
 };
 
+const JODIE_SCHOLAR_ID = "ynWS968AAAAJ";
+const STATIC_COAUTHORS_FALLBACK = ["g9B1IoQAAAAJ - Brock Bergseth"];
+
 export default async function Embed() {
-    const jodie = "ynWS968AAAAJ";
-    const coAuthors = await getCoAuthors(jodie);
+    const coAuthors = await getCoAuthors(JODIE_SCHOLAR_ID);
     const coAuthorDetails = coAuthors.map((author: CoAuthor) => `${author.scholar_id} - ${author.name}`);
-    coAuthorDetails.push("g9B1IoQAAAAJ - Brock Bergseth");
+    coAuthorDetails.push(...STATIC_COAUTHORS_FALLBACK);
     const coAuthorsFormatted = coAuthorDetails.join('\n');
+    const isPartialList = coAuthors.length === 0;
 
         const embedCode = `<script src="https://rummerlab.com/embed/scholar.js"></script>
     <div id="scholar-embed" scholar-id="YOUR_SCHOLAR_ID"></div>`;
@@ -27,6 +30,9 @@ export default async function Embed() {
                 <br></br>
                 <p>Replace &quot;YOUR_SCHOLAR_ID&quot; with your Google Scholar ID found below or in the URL when on your Google Scholar - e.g., <Link href="https://scholar.google.com/citations?user=ynWS968AAAAJ&hl=en&oi=ao">https://scholar.google.com/citations?user=<strong>ynWS968AAAAJ</strong>&hl=en&oi=ao</Link></p>
                 <p>Here are the Google Scholar IDs of Dr. Jodie Rummer&apos;s collaborators:</p>
+                {isPartialList && (
+                    <p className="text-amber-600 dark:text-amber-400 text-sm mb-2">Collaborator list is temporarily unavailable; showing known IDs. The full list will appear when the data source is reachable.</p>
+                )}
                 <pre><code>{coAuthorsFormatted}</code></pre>
             </div>
         );

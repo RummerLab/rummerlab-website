@@ -23,29 +23,29 @@ export async function getScholarByName(name: string) {
   }
 }
 
+/** Safe default when external scholarly API is unreachable (e.g. at build time on Vercel). */
+const EMPTY_SCHOLAR = { coauthors: [] as { scholar_id: string; name: string }[], publications: [] };
+
 export async function getScholarById(id: string) {
   try {
     if (!id) {
       throw new Error('Id is empty.');
     }
     const url = `https://scholarly.rummerlab.com/search_author_id?id=${encodeURIComponent(id)}`;
-    
-    const response = await fetch(url, { 
-      next: { 
-        revalidate: 604800 // 1 week
-      }
+    const response = await fetch(url, {
+      next: { revalidate: 604800 }, // 1 week
+      signal: AbortSignal.timeout(15000),
     });
 
     if (!response.ok) {
-      throw new Error(`Network response was not ok. URL: ${url}`);
+      console.error(`Scholarly API returned ${response.status} for ${url}`);
+      return EMPTY_SCHOLAR;
     }
-
     const json = await response.json();
-
     return json;
   } catch (error) {
     console.error('Error fetching scholar data:', error);
-    throw error;
+    return EMPTY_SCHOLAR;
   }
 }
 
@@ -77,20 +77,11 @@ export async function getPublications(scholarId: string) {
 }
 
 export async function getCoAuthors(id: string) {
-  try {
-    if (!id) {
-      throw new Error('Id is empty');
-    }
-    // http://scholarly.rummerlab.com/get_coauthors?author_id=ynWS968AAAAJ
-    const scholar = await getScholarById(id);
-
-    const coauthors = scholar.coauthors;
-
-    return coauthors;
-  } catch (error) {
-    console.error('Error fetching coauthors data:', error);
-    throw error;
+  if (!id) {
+    return [];
   }
+  const scholar = await getScholarById(id);
+  return Array.isArray(scholar?.coauthors) ? scholar.coauthors : [];
 }
 
 /** Scholar IDs allowed for API access (Jodie's coauthors + Jodie + Brock Bergseth + Nicholas C. Wu). */
