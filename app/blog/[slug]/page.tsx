@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { getBlogPostBySlug, getAllBlogSlugs } from '@/lib/blog';
 import BlogGallery from '@/components/BlogGallery';
 import { sanitizeSlugForUrl } from '@/lib/utils';
+import { sanitizeHtml } from '@/lib/sanitize';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -240,7 +241,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Article Content */}
       <article
         className="prose prose-lg prose-gray dark:prose-invert max-w-none"
-        dangerouslySetInnerHTML={{ __html: post.htmlContent }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.htmlContent) }}
       />
 
       {/* Gallery */}
