@@ -103,13 +103,12 @@ export default function Navbar() {
                 { href: "/donations", label: "Donations" },
             ]
         },
-        { 
+        {
             label: "RummerLab",
             type: "dropdown",
             items: [
+                { href: "/about", label: "About" },
                 { href: "/team", label: "Team" },
-                //{ href: "/rummerlab", label: "About" },
-                //{ href: "/lab", label: "Lab Members" },
                 { href: "/collaborators", label: "Collaborators" },
                 { href: "/join", label: "Join Us" },
             ]
