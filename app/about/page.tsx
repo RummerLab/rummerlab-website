@@ -77,7 +77,7 @@ export default function AboutPage() {
       <section className="relative h-[70vh] w-full overflow-hidden">
         <Image
           src="/images/gallery/sea-eagle-catch-rummer.jpg"
-          alt="A sea eagle diving to catch a fish over calm ocean water, photographed by Dr. Jodie Rummer"
+          alt="A sea eagle diving to catch a fish over calm ocean water, photo by Australian Geographic"
           fill
           priority
           className="object-cover object-center"
@@ -103,7 +103,7 @@ export default function AboutPage() {
 
         {/* Photo credit */}
         <p className="absolute bottom-3 right-4 text-xs text-white/50 z-10">
-          Photo by Dr. Jodie Rummer
+          Photo is by Australian Geographic
         </p>
       </section>
 
