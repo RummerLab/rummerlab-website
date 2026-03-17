@@ -91,6 +91,16 @@ const config: NextConfig = {
         destination: '/team',
         permanent: true,
       },
+      {
+        source: '/blog',
+        destination: '/podcast',
+        permanent: true,
+      },
+      {
+        source: '/blog/:slug',
+        destination: '/podcast/:slug',
+        permanent: true,
+      },
     ]
   },
   async headers() {
