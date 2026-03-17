@@ -51,7 +51,10 @@
         "description": "Best Australian Scientist under 40"
       }
     ],
-    "languages": ["English", "French (Conversational)"]
+    "languages": [
+      "English",
+      "French (Conversational)"
+    ]
   },
   {
     "name": "Dr. Johann Mourier",
@@ -198,7 +201,7 @@
     "role": "PhD Candidate",
     "email": "carolyn.wheeler23@gmail.com",
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Originally from New York, Carolyn completed her BS in Marine Science at the University of New England in Maine. Her undergraduate honor's thesis focused on determining sex and maturity of Atlantic sturgeon using non-lethal techniques. Additionally during this time, she collaborated with the University of Miami to study the reproductive biology of tiger sharks at an aggregation site in the Bahamas. These projects piqued her interest in fish physiology.\n\nCarolyn is a co-tutelle PhD student at the School for the Environment at the University of Massachusetts Boston and the ARC Centre of Excellence for Coral Reef Studies at James Cook University (JCU). She spent the first half of her PhD working with the Anderson Cabot Center for Ocean Life at the New England Aquarium in Boston studying the effects of temperature on development and physiological performance of epaulette shark embryos and hatchlings. She was recently awarded a graduate research fellowship through the American Australian Association to continue her research at JCU assessing the impacts of thermal stress on reproductive success in adult epaulette sharks.",
     "image": "/images/team/team-carolyn-wheeler-profile.jpg",
     "alt": "Carolyn Wheeler, PhD Candidate",
@@ -271,7 +274,7 @@
     "role": "PhD Candidate",
     "email": null,
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "José is a PhD student investigating the ecological importance of nursery grounds to shark populations. His research is focused in the interplay between the habitat configuration and the mechanisms newborn sharks employ to deal with predation. His research tries to understand how the structural complexity of habitats and the environmental conditions are related to sharks' refuge availability, and how the anti-predator strategies of newborn sharks are affected by the habitat they inhabit.\n\nHis previous study related to the ecology of shark nursery grounds investigated the effect of kelp forest complexity in nursery habitat selection in egg laying sharks.",
     "image": "/images/team/team-jose-trujillo-profile.jpg",
     "alt": "José E. Trujillo, PhD Candidate",
@@ -317,7 +320,7 @@
     "role": "Post-doc",
     "email": "bjoern.illing@gmail.com",
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Originally from Germany, Dr. Illing earned his diploma (2009) at the University of Hamburg conducting eco-morphological research on spawning aggregations of a temperate clupeid fish species. His doctoral studies (2016) focused on how environmental stressors affect the growth, condition and survival of Atlantic herring offspring at the University of Hamburg, working in parallel at a federal German research institute developing a novel hyperbaric swimming flume for testing fish species during extended oceanic spawning migrations. Currently in the Rummer lab, he investigates the effects of environmental stressors on coral reef fish larvae. His research is partially funded by the Company of Biologists.",
     "image": "/images/team/bjorn-illing.png",
     "alt": "Dr. Björn Illing, Post-doctoral Researcher",
@@ -340,7 +343,10 @@
       }
     ],
     "awards": [],
-    "languages": ["German", "English"]
+    "languages": [
+      "German",
+      "English"
+    ]
   },
   {
     "name": "Sybille Hess",
@@ -348,7 +354,7 @@
     "role": "PhD Candidate",
     "email": "sybille.hess@gmail.com",
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Originally from Switzerland, Sybille completed her MSc at JCU with Drs Jodie Rummer & Amelia Wenger. Her PhD research at JCU, supervised by Dr Rummer and co-supervised by Drs Andy Hoey & Amelia Wenger, investigates how poor water quality (e.g., increasing levels of suspended sediments) affects fish metabolic performance, the consequences for activities such as swimming, and potential impacts on fish community structure. Her work primarily focuses on fish larvae and juveniles, combining lab-based and field experiments.",
     "image": "/images/team/sybille-hess.png",
     "alt": "Sybille Hess, PhD Candidate",
@@ -378,7 +384,7 @@
     "role": "PhD Candidate",
     "email": "tiffany.nay@gmail.com",
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Tiffany earned her BSc in Marine Biology from the University of West Florida, spending summers in Wakatobi, Southeast Sulawesi, Indonesia studying crab-eating frogs, mudskipper fishes, and sea snakes. After completing her MSc at JCU researching fish microhabitat use in coral reefs and mangrove ecosystems, she began her PhD under the supervision of Drs. Rummer, Hoey, and Johansen, expanding upon her interests in microhabitat use.",
     "image": "/images/team/tiffany-nay.png",
     "alt": "Tiffany Nay, PhD Candidate",
@@ -414,7 +420,7 @@
     "role": "MSc Student",
     "email": "eva.jacquesson@gmail.com",
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Eva is based at the Centre de Recherche Insulaire et Observatoire de l'Environnement (CRIOBE) in Papetoai, Moorea, Polynésie française.",
     "image": "/images/team/eva-jacquesson.jpeg",
     "alt": "Eva Jacquesson, MSc Student",
@@ -459,7 +465,10 @@
       }
     ],
     "awards": [],
-    "languages": ["Japanese", "French"]
+    "languages": [
+      "Japanese",
+      "French"
+    ]
   },
   {
     "name": "Dr. Ian McLeod",
@@ -499,7 +508,7 @@
     "role": "MSc Student",
     "email": "morinmonica12@gmail.com",
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Originally from Massachusetts, Monica earned her BS in Marine Science from the University of New England in Maine. Her senior research focused on ecosystem based modeling to determine carrying capacity of bivalve aquaculture. She has been interested in the impacts climate change has on marine ecosystems, and will be working with Dr. Rummer to determine how these impacts will effect the future of reef fish in coral reef systems.",
     "image": "/images/team/monica-morin.png",
     "alt": "Monica Morin, MSc Student",
@@ -559,7 +568,7 @@
     "role": "Honours Student",
     "email": "dare.lawrence@my.jcu.edu.au",
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "My interests are in heavy metal accumulation in fish that are ecologically and commercially important. My research spans the North Queensland Coast and inland parts of the Great Barrier Reef. I am co-supervised by Dr. Rummer and Dr. Angela Capper.",
     "image": null,
     "alt": "Dare Lawrence, Honours Student",
@@ -582,7 +591,7 @@
     "role": "Honours Student",
     "email": "kristy.potgieter@my.jcu.edu.au",
     "startDate": null,
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "",
     "image": null,
     "alt": "Kristy Potgieter, Honours Student",
@@ -1040,7 +1049,10 @@
       }
     ],
     "awards": [],
-    "languages": ["Danish", "English"]
+    "languages": [
+      "Danish",
+      "English"
+    ]
   },
   {
     "name": "Giverny Rodgers",
@@ -1106,7 +1118,9 @@
       }
     ],
     "awards": [],
-    "languages": ["French"]
+    "languages": [
+      "French"
+    ]
   },
   {
     "name": "Laura Kanzler-Boderke",
@@ -1114,7 +1128,7 @@
     "role": "Team Manager",
     "email": "laura.boderke@my.jcu.edu.au",
     "startDate": "2024-02-01",
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Laura is currently pursuing an Undergraduate Degree in Science, majoring in Marine Biology at JCU. She joined the lab in early 2024 as a husbandry volunteer, took on the role of assistant lab manager in June 2024, and is now supporting the team as the lab manager. Her primary interests focus on science communication as well as social science within shark conservation.",
     "image": "/images/team/laura-kanzler-boderke.jpg",
     "alt": "Laura Kanzler-Boderke, Rummer Lab Volunteer",
@@ -1761,7 +1775,7 @@
     "role": "Masters Student",
     "email": "katie.seidel@my.jcu.edu.au",
     "startDate": "2023-07-20",
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Originally from Florida, Katie Seidel earned her BSc in Marine Biology from the University of South Florida. Katie is currently a Master's student conducting her research thesis on the effects of geomorphology on the spatial distribution of juvenile blacktip reef and sicklefin lemon sharks around the island of Moorea, French Polynesia under the supervision of Dr. Jodie Rummer. Passionate about Geographic Information Systems (GIS), Katie's research interest focuses on the impacts of climate change on the ecology and spatial distribution of global shark species.",
     "image": "/images/team/katie-seidel.jpg",
     "alt": "Katie Seidel, JCU Master's Student",
@@ -1810,7 +1824,7 @@
     "role": "Volunteer",
     "email": "emmaolivia.tormalm@my.jcu.edu.au",
     "startDate": "2024-03-10",
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Emma Olivia Tormalm is an undergraduate student pursuing a Bachelors in Marine Science at James Cook University. She has been a volunteer for the Rummer Lab since the beginning of 2024 and has through her role become proficient in shark husbandry, embryonic development of epaulette sharks and assisting in physiological research methodologies. Her role as senior volunteer has helped bridge the gap between lab- and fieldwork, able to pursue an epaulette shark monitoring internship with Elasmobranch Project Indonesia and the FINstitute, where she was able to gain hands-on experience in shark tagging, DNA sampling, coral photogrammetry and population surveys.",
     "image": "/images/team/emma-tormalm.jpg",
     "alt": "Emma Olivia Tormalm, Volunteer at the Rummer Lab",
@@ -1908,7 +1922,7 @@
     "role": "Masters Student",
     "email": "miriam.zanforlin@my.jcu.edu.au",
     "startDate": "2023-05-01",
-    "endDate": null,
+    "endDate": "2026-01-01",
     "description": "Originally from Milan, Italy, Miriam earned her BSc in Biological Sciences from University of Milan. Since May 2024, she has been a husbandry volunteer in Dr. Jodie Rummer's lab. Her research investigates the energetic costs associated with digestion in neonate epaulette sharks (Hemiscyllium ocellatum), with a particular focus on the influence of temperature. She examines specific dynamic action (SDA) as a critical component of the neonatal energy budget, using intermittent flow respirometry to quantify oxygen uptake rates during ingestion, digestion and assimilation. Her study aims to elucidate the energetic demands of early growth, the energetic cost of the metabolic transition from endogenous yolk reserves to active foraging, and the potential constraints imposed by increased temperatures. By integrating physiological and ecological perspectives, her research contributes to a broader understanding of thermal tolerance in early life stages and the implications of climate change on developmental energetics in elasmobranchs.",
     "image": "/images/team/miriam-zanforlin.jpg",
     "alt": "Miriam Zanforlin, Masters Student",
@@ -1950,5 +1964,77 @@
     ],
     "awards": [],
     "languages": []
+  },
+  {
+    "name": "Nora Louw",
+    "title": "PhD Candidate",
+    "role": "PhD Candidate",
+    "email": "",
+    "startDate": "2024-01-01",
+    "endDate": null,
+    "description": "Nora Louw is a PhD candidate co-supervised by Jodie Rummer. Her primary supervisor is Associate Professor Naomi Gardner. She researches sea snake bycatch.",
+    "image": "",
+    "alt": "Nora Louw, PhD Candidate",
+    "links": {}
+  },
+  {
+    "name": "Kirsty Ballard",
+    "title": "PhD Candidate",
+    "role": "PhD Candidate",
+    "email": "",
+    "startDate": "2024-01-01",
+    "endDate": null,
+    "description": "Kirsty Ballard is a PhD candidate based at Oregon State University, co-supervised by Jodie Rummer. Her primary supervisor is Professor James Sulikowski. She researches pregnant mother blacktip reef sharks at the RummerLab field site in French Polynesia.",
+    "image": "",
+    "alt": "Kirsty Ballard, PhD Candidate",
+    "links": {}
+  },
+  {
+    "name": "Arielle Cowton",
+    "title": "Masters Student",
+    "role": "Masters Student",
+    "email": "",
+    "startDate": "2024-01-01",
+    "endDate": null,
+    "description": "Arielle Cowton is an MSc student researching the effects of photoperiod during embryonic development in epaulette sharks.",
+    "image": "",
+    "alt": "Arielle Cowton, Masters Student",
+    "links": {}
+  },
+  {
+    "name": "Tara Newberry",
+    "title": "Masters Student",
+    "role": "Masters Student",
+    "email": "",
+    "startDate": "2024-01-01",
+    "endDate": null,
+    "description": "Tara Newberry is an MSc student researching the reproductive behaviour and distribution of nurse sharks in French Polynesia.",
+    "image": "",
+    "alt": "Tara Newberry, Masters Student",
+    "links": {}
+  },
+  {
+    "name": "Jodie Bailie",
+    "title": "Masters Student",
+    "role": "Masters Student",
+    "email": "",
+    "startDate": "2024-01-01",
+    "endDate": null,
+    "description": "Jodie Bailie is an MSc student researching when sharks are hungry — looking at season, reproductive state, and temperature.",
+    "image": "",
+    "alt": "Jodie Bailie, Masters Student",
+    "links": {}
+  },
+  {
+    "name": "Dr. Clementine Séguigne",
+    "title": "Postdoctoral Researcher",
+    "role": "Postdoctoral Researcher",
+    "email": "",
+    "startDate": "2026-01-01",
+    "endDate": null,
+    "description": "Dr. Clementine Séguigne is an incoming postdoctoral fellow at the RummerLab.",
+    "image": "",
+    "alt": "Dr. Clementine Séguigne, Postdoctoral Researcher",
+    "links": {}
   }
 ]
