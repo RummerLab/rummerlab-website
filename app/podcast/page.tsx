@@ -34,12 +34,11 @@ export default function PodcastPage() {
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300">
           Athletes of the Reef brings you into the world of sharks and reef fishes pushing the
-          limits of life in a changing ocean. Hosted by marine biologist Dr Jodie Rummer and the
-          RummerLab team, the series shares discoveries from the Physioshark Project and
-          collaborations across the Great Barrier Reef and Indo-Pacific. From heatwaves and low
-          oxygen to surprising survival strategies, each episode reveals how these remarkable
-          animals perform, adapt, and thrive — and what their stories mean for the future of our
-          reefs.
+          limits of life in a changing ocean. Hosted by marine biologist Dr Jodie Rummer, along 
+          with guest host Alex Morgan, and the RummerLab team, the series shares discoveries 
+          from the Physioshark Project and collaborations across the Great Barrier Reef and Indo-Pacific.
+          From heatwaves and low oxygen to surprising survival strategies, each episode reveals how these remarkable
+          animals perform, adapt, and thrive — and what their stories mean for the future of our reefs.
         </p>
       </div>
 

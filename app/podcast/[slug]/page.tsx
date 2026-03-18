@@ -125,7 +125,7 @@ export default async function PodcastEpisodePage({ params }: PodcastEpisodePageP
         href="/podcast"
         className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-8"
       >
-        ← Back to Athletes of the Reef
+        ← Back to Athletes of the Reef Podcast
       </Link>
 
       {/* Article Header */}
