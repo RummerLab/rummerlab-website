@@ -120,7 +120,7 @@ export default function Navbar() {
             items: [
                 { href: "/media", label: "Media" },
                 { href: "/gallery", label: "Gallery" },
-                { href: "/blog", label: "Blog" },
+                { href: "/podcast", label: "Podcast" },
             ]
         },
         { href: "/physioshark-project", label: "Physioshark" },

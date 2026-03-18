@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import remarkHtml from 'remark-html';
 
-const blogsDirectory = path.join(process.cwd(), '_blogs');
+const blogsDirectory = path.join(process.cwd(), '_podcast-episodes');
 
 export interface BlogGalleryImage {
   src: string;
