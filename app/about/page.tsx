@@ -1,7 +1,8 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'About | RummerLab',
   description:
     'Learn about RummerLab — Dr. Jodie Rummer\'s marine science laboratory at James Cook University, pioneering research in fish physiology, shark biology, and climate change impacts on ocean ecosystems.',

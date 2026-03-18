@@ -1,8 +1,9 @@
+import type { Metadata } from 'next';
 import GalleryItem from "./GalleryItem";
 import NoExtensionsWrapper from "../components/NoExtensionsWrapper";
 import { gallerySections } from "./galleryData";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Gallery | RummerLab",
     description: 'Photo gallery showcasing marine research, conservation efforts, and life in the RummerLab.',
 }

@@ -1,6 +1,7 @@
+import type { Metadata } from 'next';
 import { AnimatedCollaborators } from '../../components/AnimatedCollaborators';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Collaborators",
     description: 'Our research collaborators from around the world',
 }

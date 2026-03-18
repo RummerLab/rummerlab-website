@@ -1,6 +1,7 @@
+import type { Metadata } from 'next';
 import { ContentImage } from '@/components/ContentImage';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Future Environments Research",
     description: 'Research on marine organisms in future ocean environments, focusing on climate change impacts and adaptation.',
 }

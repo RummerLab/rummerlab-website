@@ -1,6 +1,7 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "In Vivo Research Protocols",
     description: 'Advanced research protocols for studying marine organisms in their natural environment and laboratory settings.',
 }

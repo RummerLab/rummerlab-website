@@ -1,8 +1,9 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getCoAuthors } from '@/lib/scholarly';
 import { CoAuthor } from '@/types/scholarly';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Embedding your Google Scholar Profile on your website",
     description: "A guide for collaborators of Dr. Jodie Rummer on how to embed their Google Scholar profile onto their website."
 };

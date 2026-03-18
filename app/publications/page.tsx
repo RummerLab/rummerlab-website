@@ -1,9 +1,10 @@
+import type { Metadata } from 'next';
 import { PublicationsCards } from "@/components/PublicationsCards"
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Publications | RummerLab",
   description: 'Research papers and publications from RummerLab',
 }

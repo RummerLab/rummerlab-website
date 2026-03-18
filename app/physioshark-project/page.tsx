@@ -1,6 +1,7 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Physioshark Project",
     description: 'The Physioshark Project - Conservation physiology research on shark nurseries in Moorea, French Polynesia',
 }

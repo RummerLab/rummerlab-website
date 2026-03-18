@@ -1,6 +1,7 @@
+import type { Metadata } from 'next';
 import { ContentImage } from '@/components/ContentImage';
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Whole-animal responses to environmental stress",
     description: 'Research on marine animal responses to environmental stressors including temperature, hypoxia, and ocean acidification.',
 }

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -8,7 +9,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL('https://rummerlab.com'),
   title: "RummerLab",
   description: 'Dr Jodie Rummer\'s lab',

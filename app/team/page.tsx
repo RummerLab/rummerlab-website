@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { type TeamMember } from '@/types/team';
@@ -6,7 +7,7 @@ import { SiBluesky, SiGooglescholar } from "react-icons/si";
 import { externalLinks } from '@/data/links';
 import ExpandableText from '@/components/ExpandableText';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Our Team | RummerLab",
   description: 'Meet the dedicated researchers, students, and staff of the RummerLab, where we conduct cutting-edge research in marine biology and conservation.',
 };

@@ -1,10 +1,11 @@
+import type { Metadata } from "next";
 import { fetchAllNews } from "@/services/news";
 import { ArticleImage } from "./ArticleImage";
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "Media | Dr. Jodie Rummer",
     description: 'Media appearances, interviews, and news coverage featuring Dr. Jodie Rummer\'s research and expertise in marine biology and conservation.',
-}
+};
 
 // Set revalidation to one week
 export const revalidate = 604800;

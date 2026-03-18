@@ -30,7 +30,7 @@ export default function PodcastPage() {
       {/* Hero Section */}
       <div className="max-w-3xl mx-auto text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          Athletes of the Reef
+          Athletes of the Reef podcast
         </h1>
         <p className="text-xl text-gray-600 dark:text-gray-300">
           Athletes of the Reef brings you into the world of sharks and reef fishes pushing the
