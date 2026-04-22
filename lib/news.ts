@@ -45,9 +45,3 @@ export const fetchNewsPage = async (params: {
     media,
   };
 };
-
-/** Back-compat: returns the first page's media array. */
-export const fetchAllNews = async (): Promise<MediaItem[]> => {
-  const page = await fetchNewsPage({ scholarId: "ynWS968AAAAJ", limit: 100, offset: 0 });
-  return page.media;
-};
