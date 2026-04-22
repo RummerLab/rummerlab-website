@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getScholarById } from '@/lib/scholarly';
+import { getPublicationsPage } from '@/lib/scholarly';
 
 export async function GET(request: Request, props: { params: Promise<{ publicationId: string }> }) {
   const params = await props.params;
@@ -11,12 +11,9 @@ export async function GET(request: Request, props: { params: Promise<{ publicati
     if (!publicationId || !allowedPublications.includes(publicationId)) {
       return NextResponse.json({ message: "Invalid publication ID" });
     }
-    //const scholar = await searchPublication(publicationId);
 
-    const temp = await getScholarById("ynWS968AAAAJ")
-    const scholar = temp.publications;
-
-    return NextResponse.json(scholar);
+    const page = await getPublicationsPage({ scholarId: "ynWS968AAAAJ", limit: 50, offset: 0 });
+    return NextResponse.json(page);
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: "Error fetching data" });

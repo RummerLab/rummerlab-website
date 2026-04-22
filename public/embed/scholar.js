@@ -2,7 +2,7 @@ class ScholarEmbed {
     constructor(scholarId, container) {
         this.scholarId = scholarId
         this.container = container
-        this.baseUrl = 'https://rummerlab.com/api/scholar'
+        this.baseUrl = 'https://api.rummerlab.com/scholar'
         this.init()
     }
 
@@ -24,28 +24,62 @@ class ScholarEmbed {
 
     async fetchScholar() {
         try {
-            const response = await fetch(`${this.baseUrl}/${this.scholarId}`, {
+            const profileRes = await fetch(`${this.baseUrl}/${this.scholarId}/gscholar`, {
                 method: 'GET',
                 mode: 'cors',
                 credentials: 'omit',
-                headers: {
-                    Accept: 'application/json',
-                },
+                headers: { Accept: 'application/json' },
             })
 
-            if (!response.ok) {
-                const errorText = await response.text()
+            if (!profileRes.ok) {
+                const errorText = await profileRes.text()
                 console.error('Server response:', errorText)
-                throw new Error(`HTTP error! status: ${response.status}`)
+                throw new Error(`HTTP error! status: ${profileRes.status}`)
             }
 
-            const data = await response.json()
-            const lastModified = response.headers.get('Last-Modified')
-            data.lastModified = lastModified
+            const profile = await profileRes.json()
+            const lastModified = profileRes.headers.get('Last-Modified')
+            profile.lastModified = lastModified
                 ? new Date(lastModified).toLocaleDateString()
                 : new Date().toLocaleDateString()
 
-            return data
+            const pubsRes = await fetch(
+                `${this.baseUrl}/${this.scholarId}/publications?limit=200&offset=0`,
+                {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'omit',
+                    headers: { Accept: 'application/json' },
+                }
+            )
+
+            if (pubsRes.ok) {
+                const pubsJson = await pubsRes.json()
+                profile.publications = Array.isArray(pubsJson.publications)
+                    ? pubsJson.publications
+                    : []
+            } else {
+                profile.publications = []
+            }
+
+            const newsRes = await fetch(
+                `${this.baseUrl}/${this.scholarId}/news?limit=50&offset=0`,
+                {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'omit',
+                    headers: { Accept: 'application/json' },
+                }
+            )
+
+            if (newsRes.ok) {
+                const newsJson = await newsRes.json()
+                profile.media = Array.isArray(newsJson.media) ? newsJson.media : []
+            } else {
+                profile.media = []
+            }
+
+            return profile
         } catch (error) {
             console.error('Error fetching scholar data:', error)
             return null

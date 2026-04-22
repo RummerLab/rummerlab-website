@@ -5,6 +5,8 @@ export const metadata: Metadata = {
     title: "Collaborators",
     description: 'Our research collaborators from around the world',
 }
+
+export const dynamic = "force-dynamic";
   
 export default function Collaborators() {
     return (

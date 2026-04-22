@@ -1,4 +1,6 @@
 const API_BASE = 'https://api.rummerlab.com';
+const DEV_NEWS_BASE = 'http://localhost:5000';
+const getNewsApiBase = () => (process.env.NODE_ENV === 'development' ? DEV_NEWS_BASE : API_BASE);
 
 const FETCH_OPTIONS = {
   next: { revalidate: 604800 }, // 1 week
@@ -12,11 +14,16 @@ const EMPTY_SCHOLAR = {
 };
 
 export async function getScholarById(id: string) {
+  return getScholarProfileById(id);
+}
+
+/** New split endpoint: profile only (no publications, no media). */
+export async function getScholarProfileById(id: string) {
   try {
     if (!id) {
       throw new Error('Id is empty.');
     }
-    const url = `${API_BASE}/scholar/${encodeURIComponent(id)}`;
+    const url = `${API_BASE}/scholar/${encodeURIComponent(id)}/gscholar`;
     const response = await fetch(url, FETCH_OPTIONS);
 
     if (!response.ok) {
@@ -71,9 +78,8 @@ export async function getPublications(scholarId: string) {
   if (!scholarId) {
     throw new Error('Scholar ID is empty');
   }
-  const json = await getScholarById(scholarId);
-  const publications = json?.publications;
-  return Array.isArray(publications) ? publications : [];
+  const page = await getPublicationsPage({ scholarId, limit: 50, offset: 0 });
+  return Array.isArray(page.publications) ? page.publications : [];
 }
 
 export async function getCoAuthors(id: string) {
@@ -82,6 +88,81 @@ export async function getCoAuthors(id: string) {
   }
   const scholar = await getScholarById(id);
   return Array.isArray(scholar?.coauthors) ? scholar.coauthors : [];
+}
+
+export type ScholarNewsPage = {
+  id: string;
+  total: number;
+  limit: number;
+  offset: number;
+  media: unknown[];
+};
+
+export async function getNewsPage(params: { scholarId: string; limit?: number; offset?: number }) {
+  const { scholarId, limit = 100, offset = 0 } = params;
+  if (!scholarId) {
+    return { id: '', total: 0, limit, offset, media: [] } as const;
+  }
+
+  const base = getNewsApiBase();
+  const url = `${base}/scholar/${encodeURIComponent(scholarId)}/news?limit=${encodeURIComponent(
+    String(limit)
+  )}&offset=${encodeURIComponent(String(offset))}`;
+
+  try {
+    const response = await fetch(url, FETCH_OPTIONS);
+    if (!response.ok) {
+      return { id: scholarId, total: 0, limit, offset, media: [] } as const;
+    }
+    const json = (await response.json()) as Partial<ScholarNewsPage>;
+    return {
+      id: typeof json.id === 'string' ? json.id : scholarId,
+      total: typeof json.total === 'number' ? json.total : 0,
+      limit: typeof json.limit === 'number' ? json.limit : limit,
+      offset: typeof json.offset === 'number' ? json.offset : offset,
+      media: Array.isArray(json.media) ? json.media : [],
+    };
+  } catch (error) {
+    console.error('Error fetching scholar news:', error);
+    return { id: scholarId, total: 0, limit, offset, media: [] } as const;
+  }
+}
+
+export type ScholarPublicationsPage = {
+  id: string;
+  total: number;
+  limit: number;
+  offset: number;
+  publications: unknown[];
+};
+
+export async function getPublicationsPage(params: { scholarId: string; limit?: number; offset?: number }) {
+  const { scholarId, limit = 50, offset = 0 } = params;
+  if (!scholarId) {
+    return { id: '', total: 0, limit, offset, publications: [] } as const;
+  }
+
+  const url = `${API_BASE}/scholar/${encodeURIComponent(scholarId)}/publications?limit=${encodeURIComponent(
+    String(limit)
+  )}&offset=${encodeURIComponent(String(offset))}`;
+
+  try {
+    const response = await fetch(url, FETCH_OPTIONS);
+    if (!response.ok) {
+      return { id: scholarId, total: 0, limit, offset, publications: [] } as const;
+    }
+    const json = (await response.json()) as Partial<ScholarPublicationsPage>;
+    return {
+      id: typeof json.id === 'string' ? json.id : scholarId,
+      total: typeof json.total === 'number' ? json.total : 0,
+      limit: typeof json.limit === 'number' ? json.limit : limit,
+      offset: typeof json.offset === 'number' ? json.offset : offset,
+      publications: Array.isArray(json.publications) ? json.publications : [],
+    };
+  } catch (error) {
+    console.error('Error fetching scholar publications:', error);
+    return { id: scholarId, total: 0, limit, offset, publications: [] } as const;
+  }
 }
 
 /** Scholar IDs from API (GET /scholars). */

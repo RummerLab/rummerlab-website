@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { getInstagramPosts, formatInstagramDate, getMediaUrl } from '@/services/instagram';
+import { getInstagramPosts, formatInstagramDate, getMediaUrl } from '@/lib/instagram';
 import { FaInstagram } from 'react-icons/fa';
 import type { InstagramMedia } from '@/types/instagram';
 

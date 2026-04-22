@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     description: "A guide for collaborators of Dr. Jodie Rummer on how to embed their Google Scholar profile onto their website."
 };
 
+export const dynamic = "force-dynamic";
+
 const JODIE_SCHOLAR_ID = "ynWS968AAAAJ";
 const STATIC_COAUTHORS_FALLBACK = ["g9B1IoQAAAAJ - Brock Bergseth"];
 

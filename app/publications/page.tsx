@@ -9,6 +9,8 @@ export const metadata: Metadata = {
   description: 'Research papers and publications from RummerLab',
 }
 
+export const dynamic = "force-dynamic";
+
 const getPapers = (): string[] => {
   const papersDirectory = path.join(process.cwd(), 'public', 'papers');
   

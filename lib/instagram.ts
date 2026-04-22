@@ -21,7 +21,7 @@ export const getInstagramPosts = unstable_cache(
   async (options: FetchPostsOptions = {}) => {
     const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
     const limit = options.limit || DEFAULT_POST_LIMIT;
-    
+
     if (!accessToken) {
       console.error('Instagram access token not found');
       return { posts: [], hasMore: false };
@@ -44,7 +44,7 @@ export const getInstagramPosts = unstable_cache(
       url.searchParams.append('fields', fields);
       url.searchParams.append('access_token', accessToken);
       url.searchParams.append('limit', limit.toString());
-      
+
       if (options.after) {
         url.searchParams.append('after', options.after);
       }
@@ -64,7 +64,7 @@ export const getInstagramPosts = unstable_cache(
       }
 
       const data = (await response.json()) as InstagramResponse;
-      
+
       return {
         posts: data.data.map(post => ({
           ...post,
@@ -104,4 +104,4 @@ export const getMediaUrl = (post: InstagramMedia): string => {
     return post.thumbnail_url;
   }
   return post.media_url;
-}; 
+};
