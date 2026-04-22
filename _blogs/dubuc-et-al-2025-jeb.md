@@ -9,13 +9,13 @@ title: "Episode 4: The Lost Manual: Why Policymakers Are Ignoring the Fish's Use
 excerpt: "In Episode 4 of *Athletes of the Reef*, host Alex Morgan and Dr. Jodie Rummer tackle a systemic issue in marine science: the disconnect between biological data and government policy. Based on the 2025 perspective paper \"Harnessing physiological research for smarter environmental policy\" published in the *Journal of Experimental Biology*."
 paper: "/papers/Dubuc et al., 2025 JEB.pdf"
 podcast: "Athletes of the Reef"
-spotify: ""
-youtube: ""
+spotify: "https://open.spotify.com/episode/1FpjebINd0iiDSr63TCJTr?si=KKa8Mi73Qba9xCuzyLLfsg"
+youtube: "https://www.youtube.com/watch?v=9Q59g4_wJho"
 gallery:
   - src: "/images/blog/dubuc-et-al-2025-jeb/image_0.jpeg"
     alt: "Four-panel scientific infographic showing major environmental stressors on marine ecosystems: UV radiation causing coral and DNA damage, climate warming and biodiversity loss, oxygen thresholds vital for conservation, and pollution from pesticides, oil, ammonia, heavy metals, and organophosphates"
     caption: ""
-    credit: ""
+    credit: "RummerLab"
 ---
 
 ## The Lost Manual: Why Policymakers Are Ignoring the Ocean's User Guide
