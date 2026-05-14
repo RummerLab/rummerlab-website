@@ -12,6 +12,12 @@ const FETCH_OPTIONS = {
   signal: AbortSignal.timeout(15000),
 } as const;
 
+/** Scholar `/news` changes often; revalidate daily (other endpoints keep FETCH_OPTIONS). */
+const NEWS_FETCH_OPTIONS = {
+  next: { revalidate: 24 * 60 * 60 },
+  signal: AbortSignal.timeout(15000),
+} as const;
+
 const GSCHOLAR_TIMEOUT_MS = 15_000;
 
 /**
@@ -163,7 +169,7 @@ export async function getNewsPage(params: { scholarId: string; limit?: number; o
   )}&offset=${encodeURIComponent(String(offset))}`;
 
   try {
-    const response = await fetch(url, FETCH_OPTIONS);
+    const response = await fetch(url, NEWS_FETCH_OPTIONS);
     if (!response.ok) {
       return { id: scholarId, total: 0, limit, offset, media: [] } as const;
     }

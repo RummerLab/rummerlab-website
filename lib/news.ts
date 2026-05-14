@@ -4,7 +4,7 @@ const PRODUCTION_API_BASE = "https://api.rummerlab.com";
 
 /** Set `NEWS_API_BASE=http://localhost:5000` when running the news API locally. */
 const getNewsApiBase = () => process.env.NEWS_API_BASE ?? PRODUCTION_API_BASE;
-const REVALIDATE_SECONDS = 7 * 24 * 60 * 60; // 1 week
+const REVALIDATE_SECONDS = 24 * 60 * 60; // 1 day
 
 export type ScholarNewsPage = {
   id: string;
