@@ -108,24 +108,28 @@ const config: NextConfig = {
     const oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
     const expiresHeader = oneYearFromNow.toUTCString();
+    const isDev = process.env.NODE_ENV === 'development';
+
+    // Long immutable cache can confuse Next dev image disk cache on some setups (paths keyed by max-age).
+    const staticImageHeaders = isDev
+      ? [
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+        ]
+      : [
+          {
+            key: 'Cache-Control',
+            value:
+              'public, max-age=31536000, stale-while-revalidate=86400, immutable',
+          },
+          { key: 'Expires', value: expiresHeader },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+        ];
 
     return [
       {
         source: '/images/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
-          },
-          {
-            key: 'Expires',
-            value: expiresHeader,
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-        ],
+        headers: staticImageHeaders,
       },
     ];
   },

@@ -12,7 +12,8 @@ import SupportOurResearch from '../components/SupportOurResearch';
 export default function Home() {
   return (
     <>
-      <main className="relative overflow-hidden">
+      {/* Layout already provides <main>; use a div to avoid nested mains and odd scroll measurement */}
+      <div className="relative overflow-x-hidden">
         {/* Hero Section with Parallax Effect */}
         <section className="relative h-[90vh] w-full overflow-hidden">
           <div className="absolute inset-0 z-0">
@@ -196,7 +197,7 @@ export default function Home() {
         
         {/* Call to Action - Donate */}
         <SupportOurResearch />
-      </main>
+      </div>
     </>
   );
 };
