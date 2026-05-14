@@ -51,7 +51,9 @@ function computeWeakEtag(pathname: string, search: string): string {
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const origin = request.headers.get('Origin') ?? getOriginFromReferer(request.headers.get('Referer'));
-  const isAssetRoute = pathname.startsWith('/images/') || pathname === '/_next/image';
+  const isNextImage = pathname === '/_next/image';
+  const isStaticImage = pathname.startsWith('/images/');
+  const isAssetRoute = isStaticImage || isNextImage;
   const isApiRoute = pathname.startsWith('/api/');
 
   // OPTIONS preflight: API allows all origins; assets use allowlist
@@ -74,7 +76,15 @@ export function proxy(request: NextRequest) {
       return new NextResponse('Forbidden', { status: 403 });
     }
 
-    // ETag and 304 for GET assets
+    // Do not override Cache-Control / ETag on Next.js image optimizer (dev cache + warnings).
+    if (isNextImage) {
+      const res = NextResponse.next();
+      const cors = getCorsHeaders(request.headers.get('Origin'));
+      Object.entries(cors).forEach(([k, v]) => res.headers.set(k, v));
+      return res;
+    }
+
+    // ETag and 304 for GET static images under /images/
     const etag = computeWeakEtag(pathname, search);
     const ifNoneMatch = request.headers.get('If-None-Match');
     const etagMatch = ifNoneMatch && (ifNoneMatch === etag || ifNoneMatch.includes(etag));

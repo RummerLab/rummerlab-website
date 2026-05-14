@@ -1,9 +1,9 @@
 import type { MediaItem } from "@/types/media";
 
 const PRODUCTION_API_BASE = "https://api.rummerlab.com";
-const DEV_NEWS_BASE = "http://localhost:5000";
-const getNewsApiBase = () =>
-  process.env.NODE_ENV === "development" ? DEV_NEWS_BASE : PRODUCTION_API_BASE;
+
+/** Set `NEWS_API_BASE=http://localhost:5000` when running the news API locally. */
+const getNewsApiBase = () => process.env.NEWS_API_BASE ?? PRODUCTION_API_BASE;
 const REVALIDATE_SECONDS = 7 * 24 * 60 * 60; // 1 week
 
 export type ScholarNewsPage = {

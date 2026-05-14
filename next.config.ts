@@ -2,6 +2,7 @@ import type { NextConfig } from 'next'
 
 const config: NextConfig = {
   images: {
+    qualities: [75, 85],
     deviceSizes: [640, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 64, 128, 256, 384],
     remotePatterns: [
@@ -123,19 +124,6 @@ const config: NextConfig = {
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
-          },
-        ],
-      },
-      {
-        source: '/_next/image',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, stale-while-revalidate=86400, immutable',
-          },
-          {
-            key: 'Expires',
-            value: expiresHeader,
           },
         ],
       },

@@ -11,6 +11,7 @@ interface GalleryItemProps {
         alt: string;
         caption: string;
         credit: string;
+        priority?: boolean;
     };
 }
 
@@ -37,6 +38,7 @@ export default function GalleryItem({ image }: GalleryItemProps) {
                     src={image.src}
                     alt={image.alt}
                     fill
+                    priority={image.priority}
                     sizes="(min-width: 1024px) 50vw, (min-width: 768px) 50vw, 100vw"
                     quality={85}
                     className={`

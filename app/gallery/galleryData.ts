@@ -3,6 +3,8 @@ interface GalleryImage {
     alt: string;
     caption: string;
     credit: string;
+    /** Eager-load for above-the-fold / LCP (maps to `priority` on `next/image`) */
+    priority?: boolean;
 }
 
 interface GallerySection {
@@ -20,13 +22,15 @@ export const gallerySections: GallerySection[] = [
                 src: "/images/gallery/blacktip-reef-shark-nursery-habitat-french-polynesia-huertas.jpg",
                 alt: "Blacktip reef shark in its nursery habitat",
                 caption: "Natural nursery habitat of blacktip reef sharks in French Polynesia",
-                credit: "Photo: Victor Huertas"
+                credit: "Photo: Victor Huertas",
+                priority: true,
             },
             {
                 src: "/images/gallery/blacktip-reef-shark-french-polynesia-vierus.jpg",
                 alt: "Blacktip reef shark in French Polynesia",
                 caption: "Blacktip reef shark in its natural habitat",
-                credit: "Photo: Tom Vierus"
+                credit: "Photo: Tom Vierus",
+                priority: true,
             },
             {
                 src: "/images/gallery/baby-blacktip-shark-degraded-coral-french-polynesia-vierus.jpg",
@@ -44,13 +48,15 @@ export const gallerySections: GallerySection[] = [
                 src: "/images/gallery/blacktip-shark-school-blue-water-french-polynesia-thiault.jpg",
                 alt: "School of blacktip sharks in blue water",
                 caption: "A school of blacktip sharks swimming in crystal clear waters",
-                credit: "Photo: Lauric Thiault"
+                credit: "Photo: Lauric Thiault",
+                priority: true,
             },
             {
                 src: "/images/gallery/blacktip-shark-temperature-tolerance-research-french-polynesia-vierus.jpg",
                 alt: "Temperature tolerance research on blacktip sharks",
                 caption: "Conducting temperature tolerance research on blacktip sharks",
-                credit: "Photo: Tom Vierus"
+                credit: "Photo: Tom Vierus",
+                priority: true,
             },
             {
                 src: "/images/gallery/blacktip-shark-lab-aquaria-french-polynesia-huertas.jpg",

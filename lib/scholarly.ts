@@ -1,15 +1,70 @@
+import type { Author } from '@/types/scholarly';
+import * as https from 'node:https';
+import { URL } from 'node:url';
+
 const API_BASE = 'https://api.rummerlab.com';
-const DEV_NEWS_BASE = 'http://localhost:5000';
-const getNewsApiBase = () => (process.env.NODE_ENV === 'development' ? DEV_NEWS_BASE : API_BASE);
+
+/** Use `NEWS_API_BASE=http://localhost:5000` when running the news API locally. */
+const getNewsApiBase = () => process.env.NEWS_API_BASE ?? API_BASE;
 
 const FETCH_OPTIONS = {
   next: { revalidate: 604800 }, // 1 week
   signal: AbortSignal.timeout(15000),
 } as const;
 
+const GSCHOLAR_TIMEOUT_MS = 15_000;
+
+/**
+ * GET JSON without Next.js `fetch` Data Cache (avoids 2MB limit on /scholar/.../gscholar).
+ */
+function fetchGscholarJson(urlString: string): Promise<{
+  ok: boolean;
+  status: number;
+  body: unknown;
+}> {
+  return new Promise((resolve, reject) => {
+    const u = new URL(urlString);
+    const req = https.request(
+      {
+        hostname: u.hostname,
+        port: u.port || 443,
+        path: `${u.pathname}${u.search}`,
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'User-Agent': 'rummerlab-site/1.0',
+        },
+        timeout: GSCHOLAR_TIMEOUT_MS,
+      },
+      (res) => {
+        const status = res.statusCode ?? 500;
+        const chunks: Buffer[] = [];
+        res.on('data', (chunk) => chunks.push(chunk));
+        res.on('end', () => {
+          const text = Buffer.concat(chunks).toString('utf8');
+          let body: unknown;
+          try {
+            body = text ? JSON.parse(text) : null;
+          } catch {
+            body = null;
+          }
+          const ok = status >= 200 && status < 300;
+          resolve({ ok, status, body });
+        });
+      }
+    );
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error('Scholar gscholar request timeout'));
+    });
+    req.end();
+  });
+}
+
 /** Safe default when external scholarly API is unreachable (e.g. at build time on Vercel). */
-const EMPTY_SCHOLAR = {
-  coauthors: [] as { scholar_id: string; name: string }[],
+const EMPTY_SCHOLAR: Partial<Author> = {
+  coauthors: [],
   publications: [],
 };
 
@@ -18,25 +73,23 @@ export async function getScholarById(id: string) {
 }
 
 /** New split endpoint: profile only (no publications, no media). */
-export async function getScholarProfileById(id: string) {
+export async function getScholarProfileById(id: string): Promise<Partial<Author>> {
   try {
     if (!id) {
       throw new Error('Id is empty.');
     }
     const url = `${API_BASE}/scholar/${encodeURIComponent(id)}/gscholar`;
-    const response = await fetch(url, FETCH_OPTIONS);
+    const { ok, status, body } = await fetchGscholarJson(url);
 
-    if (!response.ok) {
-      const errBody = await response.json().catch(() => ({}));
-      const errMsg = (errBody as { error?: string })?.error;
+    if (!ok) {
+      const errMsg = (body as { error?: string } | null)?.error;
       console.error(
-        `Scholarly API returned ${response.status} for ${url}`,
-        errMsg ?? response.statusText
+        `Scholarly API returned ${status} for ${url}`,
+        errMsg ?? 'non-OK response'
       );
       return EMPTY_SCHOLAR;
     }
-    const json = await response.json();
-    return json;
+    return (body && typeof body === 'object' ? body : EMPTY_SCHOLAR) as Partial<Author>;
   } catch (error) {
     console.error('Error fetching scholar data:', error);
     return EMPTY_SCHOLAR;
