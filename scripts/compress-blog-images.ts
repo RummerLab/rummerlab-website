@@ -7,10 +7,10 @@ const TARGET_DPI = 72;
 const QUALITY = 80;
 
 const IMAGE_PATHS = [
-  './public/images/blog/debaere-et-al-2025-j-fish-biology/NA45_Hook_1_2018.jpg',
-  './public/images/blog/debaere-et-al-2025-j-fish-biology/Cm1_injury4_20-11-2016_PAP.jpg',
-  './public/images/blog/debaere-et-al-2025-j-fish-biology/Cm1_injury1_20-11-2016_PAP.jpg',
-  './public/images/blog/debaere-et-al-2025-j-fish-biology/Cm_injury2_16-11-2016_MAH.jpg',
+  './public/images/podcast/debaere-et-al-2025-j-fish-biology/NA45_Hook_1_2018.jpg',
+  './public/images/podcast/debaere-et-al-2025-j-fish-biology/Cm1_injury4_20-11-2016_PAP.jpg',
+  './public/images/podcast/debaere-et-al-2025-j-fish-biology/Cm1_injury1_20-11-2016_PAP.jpg',
+  './public/images/podcast/debaere-et-al-2025-j-fish-biology/Cm_injury2_16-11-2016_MAH.jpg',
 ];
 
 async function resizeImage(filePath: string): Promise<void> {

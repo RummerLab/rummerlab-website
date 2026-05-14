@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 const TEMP_DIR = './temp';
-const OUTPUT_DIR = './public/images/blog/wheeler-et-al-2025-biology-open';
+const OUTPUT_DIR = './public/images/podcast/wheeler-et-al-2025-biology-open';
 const MAX_SIZE = 2000;
 const TARGET_DPI = 72;
 const QUALITY = 80;
