@@ -87,13 +87,8 @@ export function ArticleImage({ image }: ArticleImageProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [imageError, setImageError] = useState(false);
 
-    // Debug: Log what we received
-    console.log(`ArticleImage received:`, image);
-    console.log(`isValidImageUrl result:`, isValidImageUrl(image.url));
-
-    // Don't render anything if it's not a valid image URL
-    if (!isValidImageUrl(image.url) || imageError) {
-        console.log(`ArticleImage not rendering - isValidImageUrl: ${isValidImageUrl(image.url)}, imageError: ${imageError}`);
+    const urlOk = isValidImageUrl(image.url);
+    if (!urlOk || imageError) {
         return null;
     }
 
@@ -109,10 +104,7 @@ export function ArticleImage({ image }: ArticleImageProps) {
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                     sizes="(max-width: 768px) 100vw, 256px"
-                    onError={() => {
-                        console.log(`Thumbnail image failed to load: ${image.url}`);
-                        setImageError(true);
-                    }}
+                    onError={() => setImageError(true)}
                     unoptimized={true}
                 />
                 {/* Hover overlay */}
@@ -150,10 +142,7 @@ export function ArticleImage({ image }: ArticleImageProps) {
                             height={600}
                             className="max-w-full max-h-[85vh] object-contain"
                             unoptimized={true}
-                            onError={() => {
-                                console.log(`Modal image failed to load: ${image.url}`);
-                                setImageError(true);
-                            }}
+                            onError={() => setImageError(true)}
                         />
                     </div>
                 </div>
