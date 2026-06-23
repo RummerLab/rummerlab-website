@@ -63,7 +63,7 @@ export default function PodcastPage() {
                 {post.coverImage && (
                   <Link
                     href={`/podcast/${sanitizeSlugForUrl(post.slug)}`}
-                    className="relative mx-auto w-full max-w-md shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800 aspect-[16/10] sm:mx-0 sm:max-w-none sm:w-52 md:w-60 lg:w-64 sm:aspect-[4/5] outline-offset-2 focus-visible:outline-2 focus-visible:outline-blue-500"
+                    className="relative mx-auto w-full max-w-md shrink-0 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-800 aspect-16/10 sm:mx-0 sm:max-w-none sm:w-52 md:w-60 lg:w-64 sm:aspect-4/5 outline-offset-2 focus-visible:outline-2 focus-visible:outline-blue-500"
                     aria-label={`Episode artwork: ${post.title}`}
                   >
                     <Image

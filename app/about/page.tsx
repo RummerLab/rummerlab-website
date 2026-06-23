@@ -84,7 +84,7 @@ export default function AboutPage() {
           className="object-cover object-center"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-gray-950" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-gray-950" />
 
         <div className="relative z-10 h-full flex flex-col items-center justify-end pb-16 px-6 text-center">
           <span className="inline-block px-3 py-1 bg-blue-900/40 text-blue-300 rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
@@ -92,7 +92,7 @@ export default function AboutPage() {
           </span>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight drop-shadow-lg">
             Decoding Life in a{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+            <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-cyan-400">
               Changing Ocean
             </span>
           </h1>
@@ -109,7 +109,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Who We Are ────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-gray-950 to-gray-900">
+      <section className="py-20 bg-linear-to-b from-gray-950 to-gray-900">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Who We Are</h2>
@@ -211,7 +211,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Values ────────────────────────────────────────────── */}
-      <section className="py-20 bg-gradient-to-b from-gray-900 to-gray-950">
+      <section className="py-20 bg-linear-to-b from-gray-900 to-gray-950">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Values</h2>
