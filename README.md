@@ -85,6 +85,10 @@ The team member information is stored in [`data/team.json`](data/team.json). To 
 6. Commit the changes with a descriptive message (e.g., "Update Dr. Smith's profile information")
 7. Create a pull request if you don't have direct write access
 
+## Security Headers
+
+HTTP security headers (HSTS, X-Frame-Options, CSP, etc.) are defined in code and documented in [docs/security-headers.md](docs/security-headers.md). Production also receives overlapping headers from Cloudflare; keep both in sync.
+
 ## Development
 
 ```bash

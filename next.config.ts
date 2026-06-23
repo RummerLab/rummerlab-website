@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { SECURITY_HEADERS } from './lib/security-headers'
 
 const config: NextConfig = {
   images: {
@@ -127,6 +128,10 @@ const config: NextConfig = {
         ];
 
     return [
+      {
+        source: '/:path*',
+        headers: [...SECURITY_HEADERS],
+      },
       {
         source: '/images/:path*',
         headers: staticImageHeaders,
