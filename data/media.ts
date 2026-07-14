@@ -89,6 +89,15 @@ export const mediaItems: MediaItem[] = [
         url: 'https://www.greenmatters.com/pn/these-walking-sharks-defy-biologys-reproduction-rules-scientists-reveal',
         date: '2026-01-21',
         sourceType: 'Other'
+    },
+    {
+        type: 'podcast',
+        source: 'Where The Ocean Meets',
+        title: "Climate Change is Destroying the Great Barrier Reef | Here's Why",
+        description: "There's a short interactive quiz built into this episode—take a moment to test your knowledge about fish physiology. Witness firsthand the devastating impact of 31-degree water temperatures as Dr. Jodie Rummer describes the beginning of coral bleaching on the Great Barrier Reef. This episode dives into the physiology of the climate crisis—VO2 max, heart rate, oxygen levels, and how fish adapt when the ocean gets too hot—and what it means for the future of ocean life.",
+        url: 'https://www.youtube.com/watch?v=uD67tHh3RWA',
+        date: '2026-02-26',
+        sourceType: 'Science Podcast'
     }
 ];
 
