@@ -89,8 +89,11 @@ export async function getScholarProfileById(id: string): Promise<Partial<Author>
 
     if (!ok) {
       const errMsg = (body as { error?: string } | null)?.error;
+      // Use %s placeholders so user-controlled values are never treated as format strings.
       console.error(
-        `Scholarly API returned ${status} for ${url}`,
+        'Scholarly API returned %s for %s: %s',
+        status,
+        url,
         errMsg ?? 'non-OK response'
       );
       return EMPTY_SCHOLAR;
@@ -231,7 +234,8 @@ export async function getAllowedScholarIds(): Promise<string[]> {
     if (!response.ok) {
       const errBody = await response.json().catch(() => ({}));
       console.error(
-        (errBody as { error?: string })?.error ?? `Scholars list failed: ${response.status}`
+        'Scholars list failed: %s',
+        (errBody as { error?: string })?.error ?? response.status
       );
       return [];
     }
