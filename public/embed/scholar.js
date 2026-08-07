@@ -63,7 +63,7 @@ class ScholarEmbed {
             }
 
             const newsRes = await fetch(
-                `${this.baseUrl}/${this.scholarId}/news?limit=50&offset=0`,
+                `https://rummerlab.com/api/scholar/${this.scholarId}/news?limit=50&offset=0`,
                 {
                     method: 'GET',
                     mode: 'cors',
