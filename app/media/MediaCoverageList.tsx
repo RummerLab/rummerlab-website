@@ -1,12 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { DEFAULT_SCHOLAR_ID } from "@/lib/news";
 import type { MediaItem } from "@/types/media";
 import { ArticleImage } from "./ArticleImage";
 
 const DEFAULT_LIMIT = 100;
 
-function getSourceColors(sourceType: string): { bgColor: string; textColor: string } {
+const getSourceColors = (sourceType: string): { bgColor: string; textColor: string } => {
   switch (sourceType) {
     case "The Conversation":
       return {
@@ -24,10 +25,21 @@ function getSourceColors(sourceType: string): { bgColor: string; textColor: stri
         textColor: "text-purple-800 dark:text-purple-200",
       };
   }
-}
+};
+
+const hasValidUrl = (url: string): boolean => {
+  if (!url || typeof url !== "string") return false;
+  const trimmed = url.trim();
+  if (!trimmed) return false;
+  try {
+    const parsed = new URL(trimmed);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
 
 type Props = {
-  scholarId: string;
   initialItems: MediaItem[];
   initialTotal: number;
   initialLimit?: number;
@@ -35,7 +47,7 @@ type Props = {
 };
 
 export function MediaCoverageList(props: Props) {
-  const { scholarId, initialItems, initialTotal, initialLimit = DEFAULT_LIMIT, initialOffset = 0 } = props;
+  const { initialItems, initialTotal, initialLimit = DEFAULT_LIMIT, initialOffset = 0 } = props;
 
   const [items, setItems] = useState<MediaItem[]>(initialItems);
   const [total, setTotal] = useState<number>(initialTotal);
@@ -57,14 +69,13 @@ export function MediaCoverageList(props: Props) {
     try {
       const nextOffset = offset + limit;
       const response = await fetch(
-        `/api/scholar/${encodeURIComponent(scholarId)}/news?limit=${encodeURIComponent(
+        `/api/scholar/${encodeURIComponent(DEFAULT_SCHOLAR_ID)}/news?limit=${encodeURIComponent(
           String(limit)
         )}&offset=${encodeURIComponent(String(nextOffset))}`,
         { headers: { Accept: "application/json" } }
       );
 
       if (!response.ok) {
-        setIsLoadingMore(false);
         return;
       }
 
@@ -77,7 +88,6 @@ export function MediaCoverageList(props: Props) {
 
       const newItems = Array.isArray(data.media) ? data.media : [];
       if (newItems.length === 0) {
-        setIsLoadingMore(false);
         return;
       }
 
@@ -94,10 +104,11 @@ export function MediaCoverageList(props: Props) {
     <div className="grid gap-8">
       {sortedItems.map((article, index) => {
         const { bgColor, textColor } = getSourceColors(article.sourceType);
+        const urlOk = hasValidUrl(article.url);
 
         return (
           <article
-            key={`${article.sourceType}-${article.url}-${index}`}
+            key={`${article.sourceType}-${article.url || article.title}-${index}`}
             className="bg-white dark:bg-gray-800 rounded-lg shadow-xs overflow-hidden"
           >
             <div className="flex flex-col md:flex-row">
@@ -109,16 +120,23 @@ export function MediaCoverageList(props: Props) {
                   {article.source}
                 </span>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                  <a
-                    href={article.url}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {article.title}
-                  </a>
+                  {urlOk ? (
+                    <a
+                      href={article.url}
+                      className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${article.title} (opens in new tab)`}
+                    >
+                      {article.title}
+                    </a>
+                  ) : (
+                    <span>{article.title}</span>
+                  )}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">{article.description}</p>
+                <p className="text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+                  {article.description}
+                </p>
                 <time
                   dateTime={new Date(article.date).toISOString()}
                   className="block text-sm text-gray-500 dark:text-gray-400"
@@ -154,4 +172,3 @@ export function MediaCoverageList(props: Props) {
     </div>
   );
 }
-

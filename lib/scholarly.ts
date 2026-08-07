@@ -4,17 +4,8 @@ import { URL } from 'node:url';
 
 const API_BASE = 'https://api.rummerlab.com';
 
-/** Use `NEWS_API_BASE=http://localhost:5000` when running the news API locally. */
-const getNewsApiBase = () => process.env.NEWS_API_BASE ?? API_BASE;
-
 const FETCH_OPTIONS = {
   next: { revalidate: 604800 }, // 1 week
-  signal: AbortSignal.timeout(15000),
-} as const;
-
-/** Scholar `/news` changes often; revalidate daily (other endpoints keep FETCH_OPTIONS). */
-const NEWS_FETCH_OPTIONS = {
-  next: { revalidate: 24 * 60 * 60 },
   signal: AbortSignal.timeout(15000),
 } as const;
 
@@ -152,43 +143,10 @@ export async function getCoAuthors(id: string) {
   return Array.isArray(scholar?.coauthors) ? scholar.coauthors : [];
 }
 
-export type ScholarNewsPage = {
-  id: string;
-  total: number;
-  limit: number;
-  offset: number;
-  media: unknown[];
-};
+export type { ScholarNewsPage } from '@/lib/news';
 
-export async function getNewsPage(params: { scholarId: string; limit?: number; offset?: number }) {
-  const { scholarId, limit = 100, offset = 0 } = params;
-  if (!scholarId) {
-    return { id: '', total: 0, limit, offset, media: [] } as const;
-  }
-
-  const base = getNewsApiBase();
-  const url = `${base}/scholar/${encodeURIComponent(scholarId)}/news?limit=${encodeURIComponent(
-    String(limit)
-  )}&offset=${encodeURIComponent(String(offset))}`;
-
-  try {
-    const response = await fetch(url, NEWS_FETCH_OPTIONS);
-    if (!response.ok) {
-      return { id: scholarId, total: 0, limit, offset, media: [] } as const;
-    }
-    const json = (await response.json()) as Partial<ScholarNewsPage>;
-    return {
-      id: typeof json.id === 'string' ? json.id : scholarId,
-      total: typeof json.total === 'number' ? json.total : 0,
-      limit: typeof json.limit === 'number' ? json.limit : limit,
-      offset: typeof json.offset === 'number' ? json.offset : offset,
-      media: Array.isArray(json.media) ? json.media : [],
-    };
-  } catch (error) {
-    console.error('Error fetching scholar news:', error);
-    return { id: scholarId, total: 0, limit, offset, media: [] } as const;
-  }
-}
+/** Local curated media (Scholar `/news` API retired). */
+export { fetchNewsPage as getNewsPage } from '@/lib/news';
 
 export type ScholarPublicationsPage = {
   id: string;

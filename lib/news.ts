@@ -1,10 +1,8 @@
+import { getMediaPage } from "@/data/media";
 import type { MediaItem } from "@/types/media";
 
-const PRODUCTION_API_BASE = "https://api.rummerlab.com";
-
-/** Set `NEWS_API_BASE=http://localhost:5000` when running the news API locally. */
-const getNewsApiBase = () => process.env.NEWS_API_BASE ?? PRODUCTION_API_BASE;
-const REVALIDATE_SECONDS = 24 * 60 * 60; // 1 day
+/** Default Scholar ID for Dr. Jodie Rummer (used for API shape compatibility). */
+export const DEFAULT_SCHOLAR_ID = "ynWS968AAAAJ";
 
 export type ScholarNewsPage = {
   id: string;
@@ -14,34 +12,22 @@ export type ScholarNewsPage = {
   media: MediaItem[];
 };
 
-export const fetchNewsPage = async (params: {
-  scholarId: string;
+/**
+ * Local curated media page (replaces retired Scholar `/news` API).
+ */
+export const fetchNewsPage = (params: {
+  scholarId?: string;
   limit?: number;
   offset?: number;
-}): Promise<ScholarNewsPage> => {
-  const { scholarId, limit = 100, offset = 0 } = params;
-  const base = getNewsApiBase();
-  const url = `${base}/scholar/${encodeURIComponent(scholarId)}/news?limit=${encodeURIComponent(
-    String(limit)
-  )}&offset=${encodeURIComponent(String(offset))}`;
-
-  const response = await fetch(url, {
-    headers: { Accept: "application/json" },
-    next: { revalidate: REVALIDATE_SECONDS },
-  });
-
-  if (!response.ok) {
-    return { id: scholarId, total: 0, limit, offset, media: [] };
-  }
-
-  const data = (await response.json()) as Partial<ScholarNewsPage>;
-  const media = Array.isArray(data.media) ? data.media : [];
+}): ScholarNewsPage => {
+  const { scholarId = DEFAULT_SCHOLAR_ID, limit = 100, offset = 0 } = params;
+  const page = getMediaPage({ limit, offset });
 
   return {
-    id: typeof data.id === "string" ? data.id : scholarId,
-    total: typeof data.total === "number" ? data.total : media.length,
-    limit: typeof data.limit === "number" ? data.limit : limit,
-    offset: typeof data.offset === "number" ? data.offset : offset,
-    media,
+    id: scholarId,
+    total: page.total,
+    limit: page.limit,
+    offset: page.offset,
+    media: page.media,
   };
 };

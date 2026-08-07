@@ -1,12 +1,6 @@
-interface MediaItem {
-    type: 'article' | 'interview' | 'podcast' | 'press';
-    source: string;
-    title: string;
-    description: string;
-    url: string;
-    date: string;
-    sourceType: 'The Conversation' | 'ABC News' | 'CNN' | 'Science Podcast' | 'Research Highlight' | 'Other';
-}
+import type { MediaItem } from "@/types/media";
+
+export type { MediaItem };
 
 export const mediaItems: MediaItem[] = [
     {
@@ -308,14 +302,43 @@ export const mediaItems: MediaItem[] = [
     }
 ];
 
-// Group media items by type
-export const getMediaByType = (type: MediaItem['type']) => {
-    return mediaItems.filter(item => item.type === type);
+const sortMediaByDateDesc = (items: MediaItem[]): MediaItem[] => {
+    return [...items].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
 };
 
-// Get featured media (most recent items)
+export const getSortedMediaItems = (): MediaItem[] => {
+    return sortMediaByDateDesc(mediaItems);
+};
+
+export const getMediaByType = (type: MediaItem['type']) => {
+    return mediaItems.filter((item) => item.type === type);
+};
+
 export const getFeaturedMedia = (count: number = 3) => {
-    return mediaItems
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .slice(0, count);
+    return getSortedMediaItems().slice(0, count);
+};
+
+export type MediaPage = {
+    total: number;
+    limit: number;
+    offset: number;
+    media: MediaItem[];
+};
+
+export const getMediaPage = (params: {
+    limit?: number;
+    offset?: number;
+}): MediaPage => {
+    const limit = Math.max(0, params.limit ?? 100);
+    const offset = Math.max(0, params.offset ?? 0);
+    const sorted = getSortedMediaItems();
+
+    return {
+        total: sorted.length,
+        limit,
+        offset,
+        media: sorted.slice(offset, offset + limit),
+    };
 };
