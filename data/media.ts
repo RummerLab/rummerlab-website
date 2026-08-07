@@ -143,7 +143,7 @@ export const mediaItems: MediaItem[] = [
         source: "This is Money",
         title: "Pictured: Spearfisher tragically killed in horrific shark attack near Queensland's Great Barrier Reef",
         description: "Syndicated online coverage of the Kennedy Shoal spearfishing fatality included in the JCU media monitoring summary alongside Jodie Rummer's shark-management commentary.",
-        url: "",
+        url: "https://www.thisismoney.co.uk/news/article-15846365/shark-attack-Queensland-Michael-Jensz.html",
         date: '2026-05-25',
         sourceType: 'Other'
     },
@@ -152,7 +152,7 @@ export const mediaItems: MediaItem[] = [
         source: "Daily Mail Australia",
         title: "Pictured: Spearfisher tragically killed in horrific shark attack on Queensland's Great Barrier Reef",
         description: "Daily Mail Australia coverage of the Michael Jensz shark fatality included in the JCU online media summary alongside Jodie Rummer's shark-management commentary.",
-        url: "",
+        url: "https://www.dailymail.co.uk/news/article-15846365/shark-attack-Queensland-Michael-Jensz.html",
         date: '2026-05-25',
         sourceType: 'Other'
     },
@@ -230,11 +230,119 @@ export const mediaItems: MediaItem[] = [
     },
     {
         type: 'article',
+        source: "The Guardian",
+        title: "Shark attacks in Australia: where is it safest to swim and what times should I avoid?",
+        description: "While the overall risk of a shark attack remains low, experts say warmer waters, various weather events, shifting prey and busier coastlines can increase the risk",
+        url: "https://www.theguardian.com/australia-news/2026/feb/05/shark-attacks-in-australia-where-is-it-safest-to-swim-and-what-times-should-i-avoid",
+        date: '2026-02-05',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "After four shark attacks in 48 hours, NSW authorities urge beachgoers 'just go to a pool'",
+        description: "Surfer taken to hospital with minor injuries after latest shark attack at Point Plomer beach on mid-north coast",
+        url: "https://www.theguardian.com/australia-news/2026/jan/20/shark-attack-nsw-coast-fourth-incident-man-surfer",
+        date: '2026-01-20',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "Marine wildlife fleeing to poles due to global heating as Australian oceans face 'uncharted' future",
+        description: "From 2040 onwards the average year for marine ecosystems is likely to be more extreme than the worst years experienced up until 2015, researchers say",
+        url: "https://www.theguardian.com/environment/2025/oct/29/climate-change-global-heating-warming-oceans-uncharted-future-australia",
+        date: '2025-10-29',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
         source: "Oceanographic Magazine",
-        title: "Epaulette shark research in Oceanographic Magazine",
-        description: "Feature coverage of RummerLab epaulette shark research highlighting the team's long-running work on climate change, reef sharks, and accessible ocean science.",
-        url: "https://oceanographicmagazine.com/",
-        date: '2021-10-22',
+        title: "Jodie Rummer: For the love of sharks",
+        description: "Oceanographic Magazine feature on Jodie Rummer and her work with sharks, climate change, reef sharks, and accessible ocean science.",
+        url: "https://oceanographicmagazine.com/features/jodie-rummer-for-the-love-of-sharks/",
+        date: '2025-03-03',
+        sourceType: 'Other'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "Pencils with teeth: meet the tiny cookiecutter shark that attacked a catamaran off Cairns",
+        description: "These parasitic sharks glow in the dark and are known to have a go at anything they come across, despite their small size",
+        url: "https://www.theguardian.com/environment/2023/sep/07/cookiecutter-sharks-what-are-cairns-catamaran-attack",
+        date: '2023-09-07',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'interview',
+        source: "WGBH",
+        title: "Dr. Jodie Rummer - WGBH",
+        description: "WGBH coverage featuring Dr. Jodie Rummer.",
+        url: "https://www.wgbh.org/people/dr-jodie-rummer",
+        date: '2023-08-14',
+        sourceType: 'Other'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "Marine heatwave off north-east Australia sets off alarm over health of Great Barrier Reef",
+        description: "Experts fear for health of corals and other marine life as about 1m sq km of ocean experience prolonged elevated temperatures",
+        url: "https://www.theguardian.com/environment/2023/jul/22/marine-heatwave-in-north-east-queensland-sets-off-alarm-over-health-of-great-barrier-reef",
+        date: '2023-07-22',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "'Extinction crisis' of sharks and rays to have devastating effect on other species, study finds",
+        description: "Almost two-thirds of sharks and rays living on world's coral reefs at risk, with 14 of 134 species reviewed critically endangered",
+        url: "https://www.theguardian.com/environment/2023/jan/18/extinction-crisis-of-sharks-and-rays-to-have-devastating-effect-on-other-species-study-finds",
+        date: '2023-01-18',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "Great Barrier Reef on verge of another mass bleaching after highest temperatures on record",
+        description: "'Shocked and concerned' US government scientists say heat stress over Australia's ocean jewel is unprecedented",
+        url: "https://www.theguardian.com/environment/2022/jan/29/great-barrier-reef-on-verge-of-another-mass-bleaching-after-highest-temperatures-on-record",
+        date: '2022-01-29',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "Marine species increasingly can't live at equator due to global heating",
+        description: "Study suggests it is already too warm in tropics for some species to survive",
+        url: "https://www.theguardian.com/environment/2021/apr/08/marine-species-increasingly-cant-live-at-equator-due-to-global-heating",
+        date: '2021-04-08',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "Will sharks survive? Scientists fear for ocean's apex predators without more protection",
+        description: "Australia's spike in shark deaths bears no correlation to how they are doing globally due to overfishing, scientists say",
+        url: "https://www.theguardian.com/environment/2021/jan/31/will-sharks-survive-scientists-fear-for-oceans-apex-predators-without-more-protection",
+        date: '2021-01-31',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
+        source: "The Guardian",
+        title: "Baby sharks emerge from egg cases earlier and weaker in oceans warmed by climate crisis",
+        description: "Weaker sharks are less effective hunters, which can upset the balance of the ecosystem, say authors of study into impacts of hotter oceans",
+        url: "https://www.theguardian.com/environment/2021/jan/12/baby-sharks-emerge-from-egg-cases-earlier-and-weaker-in-oceans-warmed-by-climate-crisis",
+        date: '2021-01-12',
+        sourceType: 'The Guardian'
+    },
+    {
+        type: 'article',
+        source: "Sydney Morning Herald",
+        title: "Shark researcher Jodie Rummer wins UNESCO L'Oreal For Women in Science fellowship",
+        description: "Shark researcher Jodie Rummer wins UNESCO L'Oreal For Women in Science fellowship.",
+        url: "https://www.smh.com.au/technology/shark-researcher-jodie-rummer-wins-unesco-loreal-for-women-in-science-fellowship-20150907-gjgpcz.html",
+        date: '2015-09-08',
         sourceType: 'Other'
     },
     {
@@ -242,7 +350,7 @@ export const mediaItems: MediaItem[] = [
         source: "Sydney Morning Herald",
         title: "Science trails the tales of city's bull sharks",
         description: "Syndicated coverage quoting Jodie Rummer on warming waters, bull shark movements, and the importance of healthy shark populations in healthy marine ecosystems.",
-        url: "",
+        url: "https://www.smh.com.au/politics/nsw/shark-diaries-where-did-lucy-bruce-and-paulie-the-bull-sharks-go-this-week-20240131-p5f19y.html",
         date: '2024-02-01',
         sourceType: 'Other'
     },
@@ -251,7 +359,7 @@ export const mediaItems: MediaItem[] = [
         source: "Brisbane Times / SMH / The Age / WA Today",
         title: "Shark diaries: Where did Lucy, Bruce and Paulie the bull sharks go this week?",
         description: "Online syndicated coverage quoting Jodie Rummer on bull shark migration, warm Sydney waters, and shark conservation.",
-        url: "",
+        url: "https://www.smh.com.au/politics/nsw/shark-diaries-where-did-lucy-bruce-and-paulie-the-bull-sharks-go-this-week-20240131-p5f19y.html",
         date: '2024-01-31',
         sourceType: 'Other'
     },
