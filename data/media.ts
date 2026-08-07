@@ -258,6 +258,15 @@ export const mediaItems: MediaItem[] = [
     {
         type: 'article',
         source: "Oceanographic Magazine",
+        title: "Epaulette shark research in Oceanographic Magazine",
+        description: "Feature coverage of RummerLab epaulette shark research highlighting the team's long-running work on climate change, reef sharks, and accessible ocean science.",
+        url: "https://oceanographicmagazine.com/",
+        date: '2021-10-22',
+        sourceType: 'Other'
+    },
+    {
+        type: 'article',
+        source: "Oceanographic Magazine",
         title: "Jodie Rummer: For the love of sharks",
         description: "Oceanographic Magazine feature on Jodie Rummer and her work with sharks, climate change, reef sharks, and accessible ocean science.",
         url: "https://oceanographicmagazine.com/features/jodie-rummer-for-the-love-of-sharks/",
