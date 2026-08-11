@@ -1,0 +1,29 @@
+# RummerLab
+> RummerLab, led by Professor Jodie Rummer at James Cook University, researches the physiological processes and adaptations of fishes and sharks in response to environmental stressors and climate change.
+
+RummerLab combines ecological, evolutionary, and conservation physiology to understand how marine species maintain performance under stress and their capacity to adapt. A flagship initiative is the Physioshark Project in French Polynesia.
+
+## Pages
+- [Home](https://rummerlab.com/): Overview of RummerLab mission, research areas, and featured projects
+- [About](https://rummerlab.com/about): Background on the lab and its research focus
+- [Research](https://rummerlab.com/research): Overview of ecological, evolutionary, and conservation physiology research
+- [Environmental Stressors](https://rummerlab.com/environmental-stressors): Physiological responses to temperature, pH, oxygen, and other stressors
+- [In Vivo Protocols](https://rummerlab.com/in-vivo-protocols): Novel in vitro and in vivo protocols for studying marine organisms
+- [Climate Change](https://rummerlab.com/climate-change): How marine species adapt to climate change and ocean acidification
+- [Future Environments](https://rummerlab.com/future-environments): Research on performance and adaptation under future ocean conditions
+- [Conservation](https://rummerlab.com/conservation): Evidence-based strategies to protect aquatic species and ecosystems
+- [Team](https://rummerlab.com/team): Lab members, roles, and researcher profiles
+- [Publications](https://rummerlab.com/publications): Academic publications and research outputs
+- [Collaborators](https://rummerlab.com/collaborators): Partner researchers and institutions
+- [Physioshark Project](https://rummerlab.com/physioshark-project): Flagship project on newborn and juvenile reef sharks and climate change
+- [Podcast](https://rummerlab.com/podcast): Athletes of the Reef podcast episodes
+- [Media](https://rummerlab.com/media): Press coverage and media appearances
+- [Gallery](https://rummerlab.com/gallery): Photos from fieldwork and research
+- [Join](https://rummerlab.com/join): Opportunities to join the lab
+- [Contact](https://rummerlab.com/contact): Contact information for the lab
+- [Donations](https://rummerlab.com/donations): Support Baby Sharks in a Changing World and related research
+
+## Optional
+- [Dr. Jodie Rummer](https://jodierummer.com/): Personal site for Professor Jodie Rummer
+- [Physioshark Project](https://physioshark.org/): Dedicated Physioshark Project website
+- [GitHub repository](https://github.com/RummerLab/rummerlab-website): Source code for this website
