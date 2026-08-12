@@ -16,8 +16,9 @@ RummerLab combines ecological, evolutionary, and conservation physiology to unde
 - [Publications](https://rummerlab.com/publications): Academic publications and research outputs
 - [Collaborators](https://rummerlab.com/collaborators): Partner researchers and institutions
 - [Physioshark Project](https://rummerlab.com/physioshark-project): Flagship project on newborn and juvenile reef sharks on Mo'orea, French Polynesia, in collaboration with science4reefs
-- [Podcast](https://rummerlab.com/podcast): Athletes of the Reef podcast episodes
-- [Media](https://rummerlab.com/media): Press coverage and media appearances
+- [Podcast](https://rummerlab.com/podcast): Athletes of the Reef — lab science podcast episodes with show notes and episode pages under `/podcast/[slug]`
+- [Blog](https://rummerlab.com/blog): Lab blog posts and research stories at `/blog` and `/blog/[slug]`
+- [Media](https://rummerlab.com/media): Press, interviews, and news coverage of Professor Jodie Rummer, RummerLab, and Physioshark (articles, radio/TV, podcasts); useful when answering “has she been in the news?” or finding public quotes and outlets
 - [Gallery](https://rummerlab.com/gallery): Photos from fieldwork and research
 - [Join](https://rummerlab.com/join): Opportunities to join the lab
 - [Contact](https://rummerlab.com/contact): Contact information for the lab
