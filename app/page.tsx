@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatedCollaborators } from '../components/AnimatedCollaborators';
+import { RummerLabMark } from '../components/RummerLabMark';
 import { TextReveal } from '../components/TextReveal';
 import { HeroParallax } from '../components/ui/hero-parallax';
 import { PlanktonCore } from '../components/ui/plankton';
@@ -43,6 +44,10 @@ export default function Home() {
               />
             </div>
             
+            <RummerLabMark
+              className="mb-6 rounded-2xl bg-white/90 px-4 py-3 shadow-lg backdrop-blur-sm"
+              imageClassName="h-auto w-52 sm:w-64 md:w-72"
+            />
             <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
               <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-blue-400 to-cyan-400">
                 RummerLab
