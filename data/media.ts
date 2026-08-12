@@ -416,6 +416,33 @@ export const mediaItems: MediaItem[] = [
         url: "",
         date: '2026-05-26',
         sourceType: 'ABC News'
+    },
+    {
+        type: 'article',
+        source: "ABC News",
+        title: "Shark cull will not improve beach safety or reduce attacks, marine biologists say",
+        description: "James Cook University professor of marine biology Jodie Rummer said there was \"no scientific evidence that culling programs work to remove problematic animals\" after the Coogee Beach shark attack. \"It's not that there are more sharks in the water, it's just that they're in different places at different times than they have [been] historically,\" she said.",
+        url: "https://www.abc.net.au/news/2026-06-16/shark-cull-wont-fix-sydney-beach-safety-marine-biologists-say/106797826",
+        date: '2026-06-16',
+        sourceType: 'ABC News'
+    },
+    {
+        type: 'article',
+        source: "Nature",
+        title: "Oceans in Asia smash heat records — what it means for extreme weather",
+        description: "Almost all of Asia's oceans experienced marine heatwaves at the same time in 2025, which Jodie Rummer, a marine biologist at James Cook University, said is alarming because so much of the region was affected simultaneously.",
+        url: "https://www.nature.com/articles/d41586-026-01938-2",
+        date: '2026-06-18',
+        sourceType: 'Other'
+    },
+    {
+        type: 'interview',
+        source: "ABC Radio",
+        title: "Shark deterrent surfboard fin in development",
+        description: "ABC PM segment on a University of Wollongong surfboard fin with embedded shark-deterrent technology, featuring Dr Jodie Rummer, Professor of Marine Biology at James Cook University.",
+        url: "https://www.abc.net.au/listen/programs/pm/shark-deterrent-surfboard-fin-in-development-/106569176",
+        date: '2026-04-15',
+        sourceType: 'ABC News'
     }
 ];
 
