@@ -4,6 +4,8 @@ Agent instructions for the RummerLab website (`https://rummerlab.com`).
 
 Always start every response with 🤖.
 
+Treat this file as living documentation: update `AGENTS.md` when the stack, scripts, conventions, or project facts change so it stays accurate.
+
 Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4. Config is `next.config.ts`. Request middleware lives in `proxy.ts`.
 
 ## Project overview
