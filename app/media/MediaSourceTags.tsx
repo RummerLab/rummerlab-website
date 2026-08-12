@@ -53,7 +53,6 @@ export function MediaSourceTags({ outlets }: MediaSourceTagsProps) {
 
   const visibleOutlets = outlets.slice(0, VISIBLE_SOURCE_LIMIT);
   const overflowCount = Math.max(0, outlets.length - VISIBLE_SOURCE_LIMIT);
-  const shownOutlets = isExpanded ? outlets : visibleOutlets;
 
   useEffect(() => {
     if (!isExpanded) {
@@ -93,7 +92,7 @@ export function MediaSourceTags({ outlets }: MediaSourceTagsProps) {
 
   return (
     <div ref={rootRef} className="flex flex-wrap gap-2 mb-4">
-      {shownOutlets.map((outlet, index) => (
+      {visibleOutlets.map((outlet, index) => (
         <SourceTag key={`source-${index}`} outlet={outlet} />
       ))}
 
@@ -112,6 +111,14 @@ export function MediaSourceTags({ outlets }: MediaSourceTagsProps) {
           {isExpanded ? "Show less" : `+${overflowCount} more`}
         </button>
       )}
+
+      {isExpanded &&
+        outlets.slice(VISIBLE_SOURCE_LIMIT).map((outlet, index) => (
+          <SourceTag
+            key={`source-overflow-${VISIBLE_SOURCE_LIMIT + index}`}
+            outlet={outlet}
+          />
+        ))}
     </div>
   );
 }
