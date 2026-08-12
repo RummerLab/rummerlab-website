@@ -10,7 +10,9 @@ Stack: Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4. Config is 
 
 ## Project overview
 
-Marine biology lab site for Professor Jodie Rummer at James Cook University: research, team, publications, media, podcast, gallery, and Physioshark.
+Marine biology lab site for Professor Jodie Rummer at James Cook University: research, team, publications, media, podcast, blog, gallery, and Physioshark.
+
+Podcast episodes live in `_podcast-episodes/` and render at `/podcast` and `/podcast/[slug]`. Lab blog posts live in `_blog/` and render at `/blog` and `/blog/[slug]`.
 
 Sister sites: [jodierummer.com](https://jodierummer.com), [physioshark.org](https://physioshark.org). Spell **RummerLab** with no space.
 
