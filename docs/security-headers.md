@@ -48,7 +48,7 @@ After changing headers:
 curl.exe -sI https://rummerlab.com
 ```
 
-Check [securityheaders.com](https://securityheaders.com/?q=rummerlab.com) and smoke-test homepage, a podcast article, contact (Maps), Physioshark (map iframe), and `/api/scholar/ynWS968AAAAJ`.
+Check [securityheaders.com](https://securityheaders.com/?q=rummerlab.com) and smoke-test homepage, a podcast article, a blog post, contact (Maps), Physioshark (map iframe), and `/api/scholar/ynWS968AAAAJ`.
 
 ## CORS (not a security-header audit item)
 
