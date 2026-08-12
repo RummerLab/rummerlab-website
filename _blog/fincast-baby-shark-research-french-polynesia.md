@@ -1,20 +1,11 @@
 ---
 date: "2026-06-15T18:43:00+10:00"
-coverImage: "/images/podcast/debaere-et-al-2025-j-fish-biology/blacktip-reef-shark-belly-button.jpg"
-coverImageAlt: "Neonatal blacktip reef shark belly showing an umbilical scar from Physioshark fieldwork"
+coverImage: "/images/blog/fincast-baby-shark-research-french-polynesia.webp"
+coverImageAlt: "FINcast podcast cover art with The FINstitute"
 title: "Baby shark research in French Polynesia, on FINcast"
 excerpt: "Professor Jodie Rummer joined FINcast | Shark Conservation to talk about newborn reef sharks in French Polynesia — the Physioshark work RummerLab does on Mo'orea with science4reefs."
 podcast: "FINcast | Shark Conservation"
 spotify: "https://open.spotify.com/episode/68PWxjmxwxTTfaLzCrzOPI"
-gallery:
-  - src: "/images/podcast/debaere-et-al-2025-j-fish-biology/blacktip-reef-shark-belly-button.jpg"
-    alt: "Blacktip reef shark belly with healed umbilical scar"
-    caption: "Neonatal blacktip reef shark, Physioshark fieldwork"
-    credit: "Photo: Laura Boderke on behalf of Physioshark"
-  - src: "/images/podcast/debaere-et-al-2025-j-fish-biology/blacktip-reef-shark-belly-button-measurement.jpg"
-    alt: "Researcher measuring the umbilical scar on a neonatal blacktip reef shark"
-    caption: "Measuring an umbilical scar on a newborn blacktip reef shark"
-    credit: "Photo: Laura Boderke on behalf of Physioshark"
 ---
 
 On 15 June 2026, Professor Jodie Rummer appeared on *[FINcast | Shark Conservation](https://open.spotify.com/episode/68PWxjmxwxTTfaLzCrzOPI)* for the episode **Baby shark research In French Polynesia | Prof. Jodie Rummer**.
