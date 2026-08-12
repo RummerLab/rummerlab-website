@@ -66,8 +66,8 @@ const OUTLET_COLORS: Record<string, SourceTagColors> = {
     textColor: "text-sky-900 dark:text-sky-200",
   },
   "The Australian": {
-    bgColor: "bg-slate-200 dark:bg-slate-700",
-    textColor: "text-slate-900 dark:text-slate-100",
+    bgColor: "bg-blue-200 dark:bg-blue-950",
+    textColor: "text-blue-950 dark:text-blue-100",
   },
   "The Independent": {
     bgColor: "bg-red-100 dark:bg-red-900",
