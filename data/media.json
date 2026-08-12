@@ -264,11 +264,17 @@
     "type": "article",
     "source": "The Conversation",
     "title": "Sharks freeze when you turn them upside down – and there's no good reason why",
-    "description": "Research explores tonic immobility in sharks, rays and their relatives.",
+    "description": "Rather than a clever survival tactic, tonic immobility might just be evolutionary baggage.",
     "url": "https://theconversation.com/sharks-freeze-when-you-turn-them-upside-down-and-theres-no-good-reason-why-259448",
-    "date": "2025-06-23",
+    "date": "2025-06-24",
     "sourceType": "The Conversation",
     "sources": [
+      {
+        "name": "The Conversation",
+        "url": "https://theconversation.com/mais-pourquoi-certains-requins-freezent-lorsquon-les-retourne-259916",
+        "sourceType": "The Conversation",
+        "title": "Mais pourquoi certains requins « freezent » lorsqu’on les retourne ?"
+      },
       {
         "name": "IFLScience",
         "url": "https://www.iflscience.com/when-you-hack-a-shark-youre-exploiting-a-glitch-billions-of-years-in-the-making-79800",
@@ -800,5 +806,88 @@
     "url": "https://www.marineconservation.org.au/open-letter-from-scientists-deforestation-harms-the-gbr/",
     "date": "2025-10-27",
     "sourceType": "Other"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "Sharks come in many different shapes and sizes. But they all follow a centuries-old mathematical rule",
+    "description": "A new study shows sharks follow the two-thirds scaling law almost perfectly, with surface area scaling to body volume raised to the power of 0.64.",
+    "url": "https://theconversation.com/sharks-come-in-many-different-shapes-and-sizes-but-they-all-follow-a-centuries-old-mathematical-rule-259050",
+    "date": "2025-06-18",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "Warm is the new norm for the Great Barrier Reef – and a likely El Niño raises red flags",
+    "description": "The scale of climate threat is beyond the tools we have to manage the Great Barrier Reef. New measures and sustained effort are needed.",
+    "url": "https://theconversation.com/warm-is-the-new-norm-for-the-great-barrier-reef-and-a-likely-el-nino-raises-red-flags-206750",
+    "date": "2023-06-07",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "Tiny aquatic athletes: how baby Nemo can 'just keeping swimming' from the open ocean to the reef",
+    "description": "New research reveals baby clownfish like Nemo are incredible athletes, able to swim 10-50 body lengths per second on their journey back to the reef.",
+    "url": "https://theconversation.com/tiny-aquatic-athletes-how-baby-nemo-can-just-keeping-swimming-from-the-open-ocean-to-the-reef-205126",
+    "date": "2023-05-11",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "What the next Australian government must do to save the Great Barrier Reef",
+    "description": "Efforts to save the reef are not tackling the main cause: climate change. Strong federal leadership is needed to avert the climate crisis.",
+    "url": "https://theconversation.com/what-the-next-australian-government-must-do-to-save-the-great-barrier-reef-182861",
+    "date": "2022-05-12",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "Adapt, move, or die: repeated coral bleaching leaves wildlife on the Great Barrier Reef with few options",
+    "description": "The reef is suffering environmental conditions so extreme that scientists are struggling to simulate these scenarios in laboratories.",
+    "url": "https://theconversation.com/adapt-move-or-die-repeated-coral-bleaching-leaves-wildlife-on-the-great-barrier-reef-with-few-options-179570",
+    "date": "2022-03-21",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "It might be the world's biggest ocean, but the mighty Pacific is in peril",
+    "description": "The Pacific Ocean produces oxygen, helps regulate the weather, and provides food and livelihoods, but its delicate ecology is under threat.",
+    "url": "https://theconversation.com/it-might-be-the-worlds-biggest-ocean-but-the-mighty-pacific-is-in-peril-150745",
+    "date": "2020-12-06",
+    "sourceType": "The Conversation",
+    "sources": [
+      {
+        "name": "The Conversation",
+        "url": "https://theconversation.com/le-pacifique-il-a-beau-etre-le-plus-grand-ocean-du-monde-son-ecosysteme-est-en-peril-153147",
+        "sourceType": "The Conversation",
+        "title": "Le Pacifique : il a beau être le plus grand océan du monde, son écosystème est en péril"
+      },
+      {
+        "name": "The Conversation",
+        "url": "https://theconversation.com/samudra-pasifik-terbesar-di-dunia-namun-dalam-bahaya-152691",
+        "sourceType": "The Conversation",
+        "title": "Samudra Pasifik: terbesar di dunia namun dalam bahaya"
+      },
+      {
+        "name": "The Conversation",
+        "url": "https://theconversation.com/que-le-ocurre-al-pacifico-el-oceano-mas-grande-del-mundo-esta-en-peligro-151507",
+        "sourceType": "The Conversation",
+        "title": "¿Qué le ocurre al Pacífico? El océano más grande del mundo está en peligro"
+      }
+    ]
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "I studied what happens to reef fish after coral bleaching. What I saw still makes me nauseous",
+    "description": "World-first results on reef fish after bleaching; from a personal perspective, what Jodie saw will stay with her for a long time.",
+    "url": "https://theconversation.com/i-studied-what-happens-to-reef-fish-after-coral-bleaching-what-i-saw-still-makes-me-nauseous-134247",
+    "date": "2020-03-27",
+    "sourceType": "The Conversation"
   }
 ]
