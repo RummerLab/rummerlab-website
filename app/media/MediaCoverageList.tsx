@@ -8,6 +8,13 @@ import { MediaSourceTags } from "./MediaSourceTags";
 
 const DEFAULT_LIMIT = 100;
 
+const MEDIA_TYPE_LABELS: Record<MediaItem["type"], string> = {
+  article: "News article",
+  interview: "Interview",
+  podcast: "Podcast",
+  press: "Press release",
+};
+
 const hasValidUrl = (url?: string): boolean => {
   if (!url || typeof url !== "string") return false;
   const trimmed = url.trim();
@@ -95,6 +102,11 @@ export function MediaCoverageList(props: Props) {
             <div className="flex flex-col md:flex-row">
               {article.image && <ArticleImage image={article.image} />}
               <div className="flex-1 p-6">
+                <div className="mb-3">
+                  <span className="inline-block px-2 py-0.5 text-xs font-semibold uppercase tracking-wide rounded-sm bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                    {MEDIA_TYPE_LABELS[article.type]}
+                  </span>
+                </div>
                 <MediaSourceTags outlets={outlets} />
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   {urlOk ? (
