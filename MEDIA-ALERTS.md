@@ -4,7 +4,7 @@ Agent workflow for one-off (or batch) processing of media/news alerts in `athlet
 
 **Trigger:** the user asks you to read this file and process the mailbox (or a named email / PDF / digest).
 
-Always start every response with 🤖. Follow [`AGENTS.md`](AGENTS.md) for stack, spelling (**RummerLab** one word), and Mo'orea / science4reefs fieldwork rules.
+Follow [`AGENTS.md`](AGENTS.md) for stack, spelling (**RummerLab** one word), and Mo'orea / science4reefs fieldwork rules.
 
 Treat this file as living documentation: update it when the mailbox sources, `media.json` shape, or notification rules change.
 
