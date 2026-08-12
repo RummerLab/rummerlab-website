@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { DEFAULT_SCHOLAR_ID } from "@/lib/news";
-import type { MediaItem } from "@/types/media";
+import { getMediaSources, type MediaItem } from "@/types/media";
 import { ArticleImage } from "./ArticleImage";
 
 const DEFAULT_LIMIT = 100;
@@ -27,7 +27,7 @@ const getSourceColors = (sourceType: string): { bgColor: string; textColor: stri
   }
 };
 
-const hasValidUrl = (url: string): boolean => {
+const hasValidUrl = (url?: string): boolean => {
   if (!url || typeof url !== "string") return false;
   const trimmed = url.trim();
   if (!trimmed) return false;
@@ -103,7 +103,7 @@ export function MediaCoverageList(props: Props) {
   return (
     <div className="grid gap-8">
       {sortedItems.map((article, index) => {
-        const { bgColor, textColor } = getSourceColors(article.sourceType);
+        const outlets = getMediaSources(article);
         const urlOk = hasValidUrl(article.url);
 
         return (
@@ -114,11 +114,36 @@ export function MediaCoverageList(props: Props) {
             <div className="flex flex-col md:flex-row">
               {article.image && <ArticleImage image={article.image} />}
               <div className="flex-1 p-6">
-                <span
-                  className={`inline-block px-2 py-1 text-sm font-medium ${bgColor} ${textColor} rounded-sm mb-4`}
-                >
-                  {article.source}
-                </span>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {outlets.map((outlet) => {
+                    const { bgColor, textColor } = getSourceColors(
+                      outlet.sourceType ?? article.sourceType
+                    );
+                    const outletUrlOk = hasValidUrl(outlet.url);
+                    const tagClassName = `inline-block px-2 py-1 text-sm font-medium ${bgColor} ${textColor} rounded-sm`;
+
+                    if (!outletUrlOk) {
+                      return (
+                        <span key={outlet.name} className={tagClassName}>
+                          {outlet.name}
+                        </span>
+                      );
+                    }
+
+                    return (
+                      <a
+                        key={outlet.name}
+                        href={outlet.url}
+                        className={`${tagClassName} hover:opacity-80 transition-opacity`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${outlet.name} (opens in new tab)`}
+                      >
+                        {outlet.name}
+                      </a>
+                    );
+                  })}
+                </div>
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   {urlOk ? (
                     <a

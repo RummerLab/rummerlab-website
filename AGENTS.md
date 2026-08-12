@@ -46,6 +46,7 @@ If you suspect a security issue, run `snyk test`.
 - Await `params` and `searchParams`. Use the platform `fetch` API (not `node-fetch`).
 - Early returns, DRY, `handle` prefix on event handlers (`handleClick`).
 - Style with Tailwind. Support light and dark classes already used on the site.
+- Media cards live in `data/media.ts`. `url` is optional. Use `sources` for syndications of the same story; the primary `source`/`url` should be the strongest public outlet. Clickable source tags open that outlet's URL.
 - Use `git mv` when moving files.
 - Complete the change: no TODOs or placeholders.
 
