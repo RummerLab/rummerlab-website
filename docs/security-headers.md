@@ -30,6 +30,7 @@ The enforcing CSP covers:
 - **Embeds:** Google Maps (contact page), OpenStreetMap umap (Physioshark page)
 - **Images:** All hostnames in `next.config.ts` `images.remotePatterns`
 - **Styles/scripts:** `'unsafe-inline'` for Next.js hydration and Tailwind (nonce-based CSP is a future improvement)
+- **Dev only:** `'unsafe-eval'` is added to `script-src` when `NODE_ENV !== 'production'` so React's development tooling works; production builds never include it
 
 The scholar embed widget (`/embed/scholar.js`) is loaded on **external** collaborator sites; their CSP applies there, not ours.
 
