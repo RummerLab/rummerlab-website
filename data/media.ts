@@ -443,6 +443,51 @@ export const mediaItems: MediaItem[] = [
         url: "https://www.abc.net.au/listen/programs/pm/shark-deterrent-surfboard-fin-in-development-/106569176",
         date: '2026-04-15',
         sourceType: 'ABC News'
+    },
+    {
+        type: 'article',
+        source: "Cosmos Magazine",
+        title: "Childhood dreams of breathing underwater inspired fish physiology career",
+        description: "A gift of snorkelling gear and a trip to Florida was all it took to hook 8-year-old Jodie Rummer into marine science. \"Wow, that was it for me!\" recalls Rummer, now Professor of Marine Science at James Cook University.",
+        url: "https://cosmosmagazine.com/nature/marine-life/jodie-rummer-fish-physiology/",
+        date: '2025-08-17',
+        sourceType: 'Other'
+    },
+    {
+        type: 'article',
+        source: "news.com.au",
+        title: "Shark culling protects politicians more than people, experts say as calls for a cull reignite",
+        description: "James Cook University professor of marine biology Jodie Rummer said, \"I think that we've had enough lessons in all of science and all of biology that show us that when we remove predators from an ecosystem then it disrupts the whole ecosystem … and it takes us decades, if not a century, to fix it.\"",
+        url: "https://www.news.com.au/technology/science/animals/shark-culling-protects-politicians-more-than-people-experts-say-as-calls-for-a-cull-reignite/news-story/a584820c799b4c99326bed1ab69c9741",
+        date: '2026-06-21',
+        sourceType: 'Other'
+    },
+    {
+        type: 'article',
+        source: "RNZ",
+        title: "Shark cull will not improve beach safety or reduce attacks, marine biologists say",
+        description: "James Cook University professor of marine biology Jodie Rummer said there was \"no scientific evidence that culling programs work to remove problematic animals\" and that sharks are \"in different places at different times than they have [been] historically.\"",
+        url: "https://www.rnz.co.nz/news/world/598308/shark-cull-will-not-improve-beach-safety-or-reduce-attacks-marine-biologists-say",
+        date: '2026-06-16',
+        sourceType: 'Other'
+    },
+    {
+        type: 'article',
+        source: "Popular Mechanics",
+        title: "Scientists Found a Creature That's Breaking the Rules of Reproduction",
+        description: "\"Reproduction is the ultimate investment … you are literally building new life from scratch,\" Jodie Rummer, senior author of the James Cook University walking-shark study, said. \"We expected that when sharks make this complex egg, their energy use would shoot up.\" There was no uptick: \"it was completely flat.\"",
+        url: "https://www.popularmechanics.com/science/animals/a70081203/walking-shark-reproduction/",
+        date: '2026-01-27',
+        sourceType: 'Other'
+    },
+    {
+        type: 'article',
+        source: "Frontiers in Fish Science",
+        title: "Inclusive science for a changing ocean: Gender equity in elasmobranch research",
+        description: "A Perspective co-authored by Jodie L. Rummer arguing that gender equity and diverse leadership are essential to the intellectual robustness of shark and ray science, not optional extras.",
+        url: "https://www.frontiersin.org/journals/fish-science/articles/10.3389/frish.2026.1816786/full",
+        date: '2026-06-23',
+        sourceType: 'Research Highlight'
     }
 ];
 
