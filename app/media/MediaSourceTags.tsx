@@ -78,7 +78,7 @@ export function MediaSourceTags({ outlets, fallbackSourceType }: MediaSourceTags
     <div className="flex flex-wrap gap-2 mb-4">
       {visibleOutlets.map((outlet, index) => (
         <SourceTag
-          key={`${outlet.name}-${outlet.url ?? index}`}
+          key={`source-${index}`}
           outlet={outlet}
           fallbackSourceType={fallbackSourceType}
         />
@@ -103,7 +103,7 @@ export function MediaSourceTags({ outlets, fallbackSourceType }: MediaSourceTags
             <div className="flex flex-wrap gap-2">
               {overflowOutlets.map((outlet, index) => (
                 <SourceTag
-                  key={`${outlet.name}-${outlet.url ?? `overflow-${index}`}`}
+                  key={`source-overflow-${VISIBLE_SOURCE_LIMIT + index}`}
                   outlet={outlet}
                   fallbackSourceType={fallbackSourceType}
                 />

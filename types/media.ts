@@ -37,7 +37,28 @@ export const getMediaSources = (item: MediaItem): MediaSource[] => {
         title: item.title,
     };
 
-    return [primary, ...(item.sources ?? [])];
+    const outlets = [primary, ...(item.sources ?? [])];
+    const seenExact = new Set<string>();
+    const seenNames = new Set<string>();
+
+    // Keep same-name outlets when they have distinct URLs (e.g. Conversation language editions).
+    // Drop duplicates that only repeat the outlet name without a new link.
+    return outlets.filter((outlet) => {
+        const url = outlet.url?.trim() || '';
+        const exactKey = `${outlet.name}::${url}`;
+
+        if (seenExact.has(exactKey)) {
+            return false;
+        }
+
+        if (!url && seenNames.has(outlet.name)) {
+            return false;
+        }
+
+        seenExact.add(exactKey);
+        seenNames.add(outlet.name);
+        return true;
+    });
 };
 
 export interface RSSItem {
