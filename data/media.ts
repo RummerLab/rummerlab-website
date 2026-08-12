@@ -115,10 +115,6 @@ const walkingSharkSyndicates: MediaSource[] = [
         url: 'https://www.miragenews.com/walking-sharks-breaking-biology-reproduction-1603062/',
         title: 'Walking Sharks Breaking Biology Reproduction Rules',
     },
-    {
-        name: 'Cairns Post',
-        title: 'Epaulet sharks defy biological norms',
-    },
 ]
 
 export const mediaItems: MediaItem[] = [
@@ -191,6 +187,15 @@ export const mediaItems: MediaItem[] = [
         url: 'https://www.youtube.com/watch?v=uD67tHh3RWA',
         date: '2026-02-26',
         sourceType: 'Science Podcast',
+    },
+    {
+        type: 'article',
+        source: 'Cairns Post',
+        title: 'Cairns Post coverage',
+        description: 'Media coverage featuring Dr. Jodie Rummer',
+        url: '',
+        date: '2026-01-16',
+        sourceType: 'Other',
     },
     {
         type: 'article',
@@ -304,6 +309,16 @@ export const mediaItems: MediaItem[] = [
         url: 'https://www.theguardian.com/environment/2025/oct/29/climate-change-global-heating-warming-oceans-uncharted-future-australia',
         date: '2025-10-29',
         sourceType: 'The Guardian',
+    },
+    {
+        type: 'article',
+        source: 'Oceanographic Magazine',
+        title: 'Epaulette shark research in Oceanographic Magazine',
+        description:
+            "Feature coverage of RummerLab epaulette shark research highlighting the team's long-running work on climate change, reef sharks, and accessible ocean science.",
+        url: 'https://oceanographicmagazine.com/',
+        date: '2021-10-22',
+        sourceType: 'Other',
     },
     {
         type: 'article',
