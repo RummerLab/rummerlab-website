@@ -231,6 +231,32 @@
         "name": "Mirage News",
         "url": "https://www.miragenews.com/walking-sharks-breaking-biology-reproduction-1603062/",
         "title": "Walking Sharks Breaking Biology Reproduction Rules"
+      },
+      {
+        "name": "Greek Reporter",
+        "url": "https://greekreporter.com/2026/01/23/walking-sharks-challenge-reproduction/",
+        "title": "Walking Sharks Challenge What Scientists Thought About Reproduction"
+      },
+      {
+        "name": "Hinchinbrook Life",
+        "url": "https://www.hinchinbrooklife.com/article/walking-sharks-defy-reproductive-expectations",
+        "title": "Walking Sharks Defy Reproductive Expectations"
+      },
+      {
+        "name": "Northern Territory News",
+        "title": "Epaulet sharks defy biological norms by breeding without extra energy"
+      },
+      {
+        "name": "The Courier Mail",
+        "title": "Epaulet sharks defy biological norms by breeding without extra energy"
+      },
+      {
+        "name": "Townsville Bulletin",
+        "title": "Epaulet sharks defy biological norms by breeding without extra energy"
+      },
+      {
+        "name": "Cairns Post",
+        "title": "Epaulet sharks defy biological norms by breeding without extra energy"
       }
     ]
   },
@@ -238,10 +264,29 @@
     "type": "article",
     "source": "The Conversation",
     "title": "Sharks freeze when you turn them upside down – and there's no good reason why",
-    "description": "Research explores tonic immobility in sharks, rays and their relatives.",
+    "description": "Rather than a clever survival tactic, tonic immobility might just be evolutionary baggage.",
     "url": "https://theconversation.com/sharks-freeze-when-you-turn-them-upside-down-and-theres-no-good-reason-why-259448",
-    "date": "2025-06-23",
-    "sourceType": "The Conversation"
+    "date": "2025-06-24",
+    "sourceType": "The Conversation",
+    "sources": [
+      {
+        "name": "The Conversation",
+        "url": "https://theconversation.com/mais-pourquoi-certains-requins-freezent-lorsquon-les-retourne-259916",
+        "sourceType": "The Conversation",
+        "title": "Mais pourquoi certains requins « freezent » lorsqu’on les retourne ?"
+      },
+      {
+        "name": "IFLScience",
+        "url": "https://www.iflscience.com/when-you-hack-a-shark-youre-exploiting-a-glitch-billions-of-years-in-the-making-79800",
+        "title": "When You Hack A Shark, You're Exploiting A Glitch Billions Of Years In The Making"
+      },
+      {
+        "name": "James Cook University",
+        "url": "https://www.jcu.edu.au/news/releases/2025/june/playing-dead-overrated-for-sharks,-rays",
+        "title": "'Playing dead' overrated for sharks, rays",
+        "sourceType": "Research Highlight"
+      }
+    ]
   },
   {
     "type": "article",
@@ -265,6 +310,26 @@
         "name": "The Independent",
         "url": "https://www.independent.co.uk/news/world/australasia/australia-shark-attacks-nsw-beach-closure-b2903621.html",
         "title": "Australia closes dozens of beaches after fourth shark attack in 48 hours: 'Just go to a local pool'"
+      },
+      {
+        "name": "Koran Jakarta",
+        "url": "https://koran-jakarta.com/2026-01-20/serangan-hiu-terjadi-empat-kali-dalam-48-jam-di-pantai-australia-warga-diminta-hindari-pantai",
+        "title": "Serangan Hiu Terjadi Empat Kali dalam 48 Jam di Pantai Australia, Warga Diminta Hindari Pantai"
+      },
+      {
+        "name": "Liputan 6",
+        "url": "https://www.liputan6.com/global/read/6261219/terjadi-empat-serangan-hiu-dalam-48-jam-otoritas-new-south-wales-imbau-warga-jauhi-pantai",
+        "title": "Terjadi Empat Serangan Hiu dalam 48 Jam, Otoritas New South Wales Imbau Warga Jauhi Pantai"
+      },
+      {
+        "name": "CNBC Indonesia",
+        "url": "https://www.cnbcindonesia.com/news/20260120154224-4-703767/tetangga-ri-darurat-hiu-4-orang-diterkam-dalam-48-jam-terakhir",
+        "title": "Tetangga RI Darurat Hiu, 4 Orang Diterkam dalam 48 Jam Terakhir"
+      },
+      {
+        "name": "Harian Jogja",
+        "title": "4 Kasus Teror Hiu dalam 48 Jam di Australia, Warga Diminta Jauhi Laut",
+        "url": "https://news.harianjogja.com/r-1243268/4-kasus-teror-hiu-dalam-48-jam-di-australia-warga-diminta-jauhi-laut"
       }
     ]
   },
@@ -275,7 +340,21 @@
     "description": "From 2040 onwards the average year for marine ecosystems is likely to be more extreme than the worst years experienced up until 2015, researchers say",
     "url": "https://www.theguardian.com/environment/2025/oct/29/climate-change-global-heating-warming-oceans-uncharted-future-australia",
     "date": "2025-10-29",
-    "sourceType": "The Guardian"
+    "sourceType": "The Guardian",
+    "sources": [
+      {
+        "name": "Island Times",
+        "title": "Marine wildlife fleeing to poles due to global heating as Australian oceans face 'uncharted' future"
+      },
+      {
+        "name": "Democratic Underground",
+        "title": "For Oz Oceans, \"The Past Is No Longer A Good Guide To The Future\" - Impacts By 2040 Well Beyond Worst Seen Through 2015"
+      },
+      {
+        "name": "MSN UK",
+        "title": "Marine wildlife fleeing to poles due to global heating as Australian oceans face 'uncharted' future"
+      }
+    ]
   },
   {
     "type": "article",
@@ -409,12 +488,29 @@
     "sourceType": "ABC News"
   },
   {
-    "type": "interview",
-    "source": "WIN News",
-    "title": "Coral reefs and conference coverage featuring Dr Jodie Rummer",
-    "description": "Regional WIN News coverage from the Australian Coral Reef Society conference in Townsville, featuring Jodie Rummer as ACRS President on coral reefs and climate action.",
+    "type": "press",
+    "source": "The National Tribune",
+    "title": "National reef community converges on Townsville",
+    "description": "As Australian Coral Reef Society president, Jodie Rummer said Townsville is where reef science meets policy ahead of the ACRS annual conference.",
     "date": "2025-09-17",
-    "sourceType": "Other"
+    "sourceType": "Other",
+    "url": "https://www.nationaltribune.com.au/national-reef-community-converges-on-townsville/",
+    "sources": [
+      {
+        "name": "James Cook University",
+        "title": "National reef community converges on Townsville",
+        "sourceType": "Research Highlight"
+      },
+      {
+        "name": "Mirage News",
+        "url": "https://www.miragenews.com/national-reef-community-converges-on-townsville-1534789/",
+        "title": "National Reef Community Converges On Townsville"
+      },
+      {
+        "name": "WIN News",
+        "title": "Coral reefs and conference coverage featuring Dr Jodie Rummer"
+      }
+    ]
   },
   {
     "type": "interview",
@@ -650,5 +746,148 @@
         "title": "Crude awakening: Crude oil exposure under warming scenarios alters escape performance and metabolic enzyme activity in Pomacentrus amboinensis"
       }
     ]
+  },
+  {
+    "type": "article",
+    "source": "ABC News",
+    "title": "Clean-up underway after 'devastating' industrial spill in Far North Queensland",
+    "description": "Jodie Rummer said kerosene dissolved in water could cause \"immediate shock\" to fish and invertebrates after the Smiths Creek spill near Trinity Inlet.",
+    "url": "https://www.abc.net.au/news/2025-09-30/clean-up-underway-after-boral-spill-at-smiths-creek-in-cairns/105835936",
+    "date": "2025-09-30",
+    "sourceType": "ABC News",
+    "sources": [
+      {
+        "name": "MSN Australia",
+        "title": "Clean-up underway after 'devastating' industrial spill in Far North Queensland"
+      }
+    ]
+  },
+  {
+    "type": "press",
+    "source": "James Cook University",
+    "title": "Newborn sharks swim like 'ninjas' to avoid predator attacks",
+    "description": "JCU research supervised by Jodie Rummer shows newborn blacktip reef sharks use warm nursery waters to boost escape performance from predators.",
+    "url": "https://www.jcu.edu.au/news/releases/2025/august/newborn-sharks-swim-like-ninjas-to-avoid-predator-attacks",
+    "date": "2025-08-27",
+    "sourceType": "Research Highlight"
+  },
+  {
+    "type": "article",
+    "source": "9News",
+    "title": "Four attacks in 48 hours: Why the risk of a bull shark bite is so high at the moment",
+    "description": "Professor Jodie Rummer explained bull sharks tolerate brackish water after heavy rain and move in and out of river mouths and turbid coastal waters.",
+    "url": "https://www.nine.com.au/australia-news/nsw/bull-shark-attacks-weather-conditions-explained-20260120-p5nvj1.html",
+    "date": "2026-01-20",
+    "sourceType": "Other"
+  },
+  {
+    "type": "article",
+    "source": "9News",
+    "title": "Shark alarm drives morning swimmers to shore in Sydney",
+    "description": "After Coogee Beach shark alarms, Professor Jodie Rummer said bull sharks are among the few species that tolerate brackish post-storm water.",
+    "url": "https://www.nine.com.au/australia-news/nsw/shark-alarm-goes-off-coogee-beach-sydney-reports-of-bull-shark-20260122-p5nw2k.html",
+    "date": "2026-01-22",
+    "sourceType": "Other"
+  },
+  {
+    "type": "article",
+    "source": "ABC News",
+    "title": "After a horror week of shark attacks, how do we sift facts from fear?",
+    "description": "Julia Baird quotes Professor Jodie Rummer: \"Sharks do not target people.\"",
+    "url": "https://www.abc.net.au/news/2026-01-25/horror-week-shark-bites-attack-nsw-facts-fears-risk/106260980",
+    "date": "2026-01-25",
+    "sourceType": "ABC News"
+  },
+  {
+    "type": "press",
+    "source": "Australian Marine Conservation Society",
+    "title": "Open Letter from Scientists: Deforestation Harms the GBR",
+    "description": "Professor Jodie Rummer is among more than 100 scientists calling for EPBC Act reforms to end deforestation in Great Barrier Reef catchments.",
+    "url": "https://www.marineconservation.org.au/open-letter-from-scientists-deforestation-harms-the-gbr/",
+    "date": "2025-10-27",
+    "sourceType": "Other"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "Sharks come in many different shapes and sizes. But they all follow a centuries-old mathematical rule",
+    "description": "A new study shows sharks follow the two-thirds scaling law almost perfectly, with surface area scaling to body volume raised to the power of 0.64.",
+    "url": "https://theconversation.com/sharks-come-in-many-different-shapes-and-sizes-but-they-all-follow-a-centuries-old-mathematical-rule-259050",
+    "date": "2025-06-18",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "Warm is the new norm for the Great Barrier Reef – and a likely El Niño raises red flags",
+    "description": "The scale of climate threat is beyond the tools we have to manage the Great Barrier Reef. New measures and sustained effort are needed.",
+    "url": "https://theconversation.com/warm-is-the-new-norm-for-the-great-barrier-reef-and-a-likely-el-nino-raises-red-flags-206750",
+    "date": "2023-06-07",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "Tiny aquatic athletes: how baby Nemo can 'just keeping swimming' from the open ocean to the reef",
+    "description": "New research reveals baby clownfish like Nemo are incredible athletes, able to swim 10-50 body lengths per second on their journey back to the reef.",
+    "url": "https://theconversation.com/tiny-aquatic-athletes-how-baby-nemo-can-just-keeping-swimming-from-the-open-ocean-to-the-reef-205126",
+    "date": "2023-05-11",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "What the next Australian government must do to save the Great Barrier Reef",
+    "description": "Efforts to save the reef are not tackling the main cause: climate change. Strong federal leadership is needed to avert the climate crisis.",
+    "url": "https://theconversation.com/what-the-next-australian-government-must-do-to-save-the-great-barrier-reef-182861",
+    "date": "2022-05-12",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "Adapt, move, or die: repeated coral bleaching leaves wildlife on the Great Barrier Reef with few options",
+    "description": "The reef is suffering environmental conditions so extreme that scientists are struggling to simulate these scenarios in laboratories.",
+    "url": "https://theconversation.com/adapt-move-or-die-repeated-coral-bleaching-leaves-wildlife-on-the-great-barrier-reef-with-few-options-179570",
+    "date": "2022-03-21",
+    "sourceType": "The Conversation"
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "It might be the world's biggest ocean, but the mighty Pacific is in peril",
+    "description": "The Pacific Ocean produces oxygen, helps regulate the weather, and provides food and livelihoods, but its delicate ecology is under threat.",
+    "url": "https://theconversation.com/it-might-be-the-worlds-biggest-ocean-but-the-mighty-pacific-is-in-peril-150745",
+    "date": "2020-12-06",
+    "sourceType": "The Conversation",
+    "sources": [
+      {
+        "name": "The Conversation",
+        "url": "https://theconversation.com/le-pacifique-il-a-beau-etre-le-plus-grand-ocean-du-monde-son-ecosysteme-est-en-peril-153147",
+        "sourceType": "The Conversation",
+        "title": "Le Pacifique : il a beau être le plus grand océan du monde, son écosystème est en péril"
+      },
+      {
+        "name": "The Conversation",
+        "url": "https://theconversation.com/samudra-pasifik-terbesar-di-dunia-namun-dalam-bahaya-152691",
+        "sourceType": "The Conversation",
+        "title": "Samudra Pasifik: terbesar di dunia namun dalam bahaya"
+      },
+      {
+        "name": "The Conversation",
+        "url": "https://theconversation.com/que-le-ocurre-al-pacifico-el-oceano-mas-grande-del-mundo-esta-en-peligro-151507",
+        "sourceType": "The Conversation",
+        "title": "¿Qué le ocurre al Pacífico? El océano más grande del mundo está en peligro"
+      }
+    ]
+  },
+  {
+    "type": "article",
+    "source": "The Conversation",
+    "title": "I studied what happens to reef fish after coral bleaching. What I saw still makes me nauseous",
+    "description": "World-first results on reef fish after bleaching; from a personal perspective, what Jodie saw will stay with her for a long time.",
+    "url": "https://theconversation.com/i-studied-what-happens-to-reef-fish-after-coral-bleaching-what-i-saw-still-makes-me-nauseous-134247",
+    "date": "2020-03-27",
+    "sourceType": "The Conversation"
   }
 ]

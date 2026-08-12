@@ -21,20 +21,24 @@ const IMAGE_HOSTS = [
   'https://images.theconversation.com',
 ] as const;
 
+/** React DevTools needs eval() in development; never allow it in production. */
+const SCRIPT_SRC = [
+  'script-src',
+  "'self'",
+  "'unsafe-inline'",
+  ...(process.env.NODE_ENV !== 'production' ? ["'unsafe-eval'"] : []),
+  'https://www.googletagmanager.com',
+  'https://www.google-analytics.com',
+  'https://va.vercel-scripts.com',
+].join(' ');
+
 const CSP_DIRECTIVES = [
   "default-src 'self'",
   "base-uri 'self'",
   "form-action 'self'",
   "object-src 'none'",
   "frame-ancestors 'self'",
-  [
-    'script-src',
-    "'self'",
-    "'unsafe-inline'",
-    'https://www.googletagmanager.com',
-    'https://www.google-analytics.com',
-    'https://va.vercel-scripts.com',
-  ].join(' '),
+  SCRIPT_SRC,
   ["style-src", "'self'", "'unsafe-inline'"].join(' '),
   ["font-src", "'self'", 'data:'].join(' '),
   [
