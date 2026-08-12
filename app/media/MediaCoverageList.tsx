@@ -4,28 +4,9 @@ import { useMemo, useState } from "react";
 import { DEFAULT_SCHOLAR_ID } from "@/lib/news";
 import { getMediaSources, type MediaItem } from "@/types/media";
 import { ArticleImage } from "./ArticleImage";
+import { MediaSourceTags } from "./MediaSourceTags";
 
 const DEFAULT_LIMIT = 100;
-
-const getSourceColors = (sourceType: string): { bgColor: string; textColor: string } => {
-  switch (sourceType) {
-    case "The Conversation":
-      return {
-        bgColor: "bg-blue-100 dark:bg-blue-900",
-        textColor: "text-blue-800 dark:text-blue-200",
-      };
-    case "The Guardian":
-      return {
-        bgColor: "bg-green-100 dark:bg-green-900",
-        textColor: "text-green-800 dark:text-green-200",
-      };
-    default:
-      return {
-        bgColor: "bg-purple-100 dark:bg-purple-900",
-        textColor: "text-purple-800 dark:text-purple-200",
-      };
-  }
-};
 
 const hasValidUrl = (url?: string): boolean => {
   if (!url || typeof url !== "string") return false;
@@ -114,36 +95,10 @@ export function MediaCoverageList(props: Props) {
             <div className="flex flex-col md:flex-row">
               {article.image && <ArticleImage image={article.image} />}
               <div className="flex-1 p-6">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {outlets.map((outlet) => {
-                    const { bgColor, textColor } = getSourceColors(
-                      outlet.sourceType ?? article.sourceType
-                    );
-                    const outletUrlOk = hasValidUrl(outlet.url);
-                    const tagClassName = `inline-block px-2 py-1 text-sm font-medium ${bgColor} ${textColor} rounded-sm`;
-
-                    if (!outletUrlOk) {
-                      return (
-                        <span key={outlet.name} className={tagClassName}>
-                          {outlet.name}
-                        </span>
-                      );
-                    }
-
-                    return (
-                      <a
-                        key={outlet.name}
-                        href={outlet.url}
-                        className={`${tagClassName} hover:opacity-80 transition-opacity`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`${outlet.name} (opens in new tab)`}
-                      >
-                        {outlet.name}
-                      </a>
-                    );
-                  })}
-                </div>
+                <MediaSourceTags
+                  outlets={outlets}
+                  fallbackSourceType={article.sourceType}
+                />
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   {urlOk ? (
                     <a
