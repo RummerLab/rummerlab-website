@@ -15,7 +15,7 @@ RummerLab combines ecological, evolutionary, and conservation physiology to unde
 - [Team](https://rummerlab.com/team): Lab members, roles, and researcher profiles
 - [Publications](https://rummerlab.com/publications): Academic publications and research outputs
 - [Collaborators](https://rummerlab.com/collaborators): Partner researchers and institutions
-- [Physioshark Project](https://rummerlab.com/physioshark-project): Flagship project on newborn and juvenile reef sharks and climate change
+- [Physioshark Project](https://rummerlab.com/physioshark-project): Flagship project on newborn and juvenile reef sharks on Mo'orea, French Polynesia, in collaboration with science4reefs
 - [Podcast](https://rummerlab.com/podcast): Athletes of the Reef podcast episodes
 - [Media](https://rummerlab.com/media): Press coverage and media appearances
 - [Gallery](https://rummerlab.com/gallery): Photos from fieldwork and research
