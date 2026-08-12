@@ -313,10 +313,10 @@ export const mediaItems: MediaItem[] = [
     {
         type: 'article',
         source: 'Oceanographic Magazine',
-        title: 'Epaulette shark research in Oceanographic Magazine',
+        title: 'Walking sharks',
         description:
-            "Feature coverage of RummerLab epaulette shark research highlighting the team's long-running work on climate change, reef sharks, and accessible ocean science.",
-        url: 'https://oceanographicmagazine.com/',
+            "Oceanographic Magazine issue 21 (October 2021) feature by Carolyn Wheeler and Jodie Rummer: on the Great Barrier Reef lives the world's only walking shark, a species that may help explain how sharks deal with climate change.",
+        url: 'https://oceanographicmagazine.com/features/walking-sharks/',
         date: '2021-10-22',
         sourceType: 'Other',
     },
