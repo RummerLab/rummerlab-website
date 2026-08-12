@@ -1,29 +1,10 @@
 "use client";
 
 import { useId } from "react";
-import type { MediaItem, MediaSource } from "@/types/media";
+import type { MediaSource } from "@/types/media";
+import { getSourceTagColors } from "./sourceTagColors";
 
 const VISIBLE_SOURCE_LIMIT = 4;
-
-const getSourceColors = (sourceType: string): { bgColor: string; textColor: string } => {
-  switch (sourceType) {
-    case "The Conversation":
-      return {
-        bgColor: "bg-blue-100 dark:bg-blue-900",
-        textColor: "text-blue-800 dark:text-blue-200",
-      };
-    case "The Guardian":
-      return {
-        bgColor: "bg-green-100 dark:bg-green-900",
-        textColor: "text-green-800 dark:text-green-200",
-      };
-    default:
-      return {
-        bgColor: "bg-purple-100 dark:bg-purple-900",
-        textColor: "text-purple-800 dark:text-purple-200",
-      };
-  }
-};
 
 const hasValidUrl = (url?: string): boolean => {
   if (!url || typeof url !== "string") return false;
@@ -39,11 +20,10 @@ const hasValidUrl = (url?: string): boolean => {
 
 interface SourceTagProps {
   outlet: MediaSource;
-  fallbackSourceType: MediaItem["sourceType"];
 }
 
-function SourceTag({ outlet, fallbackSourceType }: SourceTagProps) {
-  const { bgColor, textColor } = getSourceColors(outlet.sourceType ?? fallbackSourceType);
+function SourceTag({ outlet }: SourceTagProps) {
+  const { bgColor, textColor } = getSourceTagColors(outlet.name);
   const tagClassName = `inline-block px-2 py-1 text-sm font-medium ${bgColor} ${textColor} rounded-sm`;
 
   if (!hasValidUrl(outlet.url)) {
@@ -65,10 +45,9 @@ function SourceTag({ outlet, fallbackSourceType }: SourceTagProps) {
 
 interface MediaSourceTagsProps {
   outlets: MediaSource[];
-  fallbackSourceType: MediaItem["sourceType"];
 }
 
-export function MediaSourceTags({ outlets, fallbackSourceType }: MediaSourceTagsProps) {
+export function MediaSourceTags({ outlets }: MediaSourceTagsProps) {
   const tooltipId = useId();
   const visibleOutlets = outlets.slice(0, VISIBLE_SOURCE_LIMIT);
   const overflowOutlets = outlets.slice(VISIBLE_SOURCE_LIMIT);
@@ -77,11 +56,7 @@ export function MediaSourceTags({ outlets, fallbackSourceType }: MediaSourceTags
   return (
     <div className="flex flex-wrap gap-2 mb-4">
       {visibleOutlets.map((outlet, index) => (
-        <SourceTag
-          key={`source-${index}`}
-          outlet={outlet}
-          fallbackSourceType={fallbackSourceType}
-        />
+        <SourceTag key={`source-${index}`} outlet={outlet} />
       ))}
 
       {overflowCount > 0 && (
@@ -105,7 +80,6 @@ export function MediaSourceTags({ outlets, fallbackSourceType }: MediaSourceTags
                 <SourceTag
                   key={`source-overflow-${VISIBLE_SOURCE_LIMIT + index}`}
                   outlet={outlet}
-                  fallbackSourceType={fallbackSourceType}
                 />
               ))}
             </div>

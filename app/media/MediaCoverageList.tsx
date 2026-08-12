@@ -95,10 +95,7 @@ export function MediaCoverageList(props: Props) {
             <div className="flex flex-col md:flex-row">
               {article.image && <ArticleImage image={article.image} />}
               <div className="flex-1 p-6">
-                <MediaSourceTags
-                  outlets={outlets}
-                  fallbackSourceType={article.sourceType}
-                />
+                <MediaSourceTags outlets={outlets} />
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                   {urlOk ? (
                     <a
