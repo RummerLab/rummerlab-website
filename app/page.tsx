@@ -44,10 +44,6 @@ export default function Home() {
               />
             </div>
             
-            <RummerLabMark
-              className="mb-6 rounded-2xl bg-white/90 px-4 py-3 shadow-lg backdrop-blur-sm"
-              imageClassName="h-auto w-52 sm:w-64 md:w-72"
-            />
             <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
               <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-blue-400 to-cyan-400">
                 RummerLab
@@ -81,6 +77,10 @@ export default function Home() {
         <section className="py-20 bg-linear-to-b from-gray-900 to-gray-950">
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-16">
+              <RummerLabMark
+                className="mb-6 rounded-2xl bg-white/90 px-4 py-3 shadow-lg backdrop-blur-sm"
+                imageClassName="h-auto w-52 sm:w-64 md:w-72"
+              />
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Our Mission</h2>
               <div className="h-1 w-20 bg-blue-500 mx-auto mb-10"></div>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
