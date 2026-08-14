@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { PublicationsCards } from "@/components/PublicationsCards"
+import { PaperCitation } from '@/components/PaperCitation';
 import Link from 'next/link';
-import { getPapers } from '@/lib/papers';
+import { getPaperDisplayName, getPapers } from '@/lib/papers';
 
 export const metadata: Metadata = {
   title: "Publications | RummerLab",
@@ -29,21 +30,28 @@ export default async function Publications() {
           <div className="max-w-4xl mx-auto">
             <div className="space-y-3">
               {papers.map((paper) => {
+                const displayName = getPaperDisplayName(paper);
                 return (
                   <div
                     key={paper.filename}
                     className="bg-white dark:bg-gray-900 rounded-lg shadow-md hover:shadow-lg transition-shadow p-4 md:p-6"
                   >
-                    <Link
-                      href={paper.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-between group"
-                    >
-                      <span className="text-gray-900 dark:text-gray-100 font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex-1">
-                        {paper.name}
-                      </span>
-                      <span className="ml-4 text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex items-start justify-between gap-4 group">
+                      <div className="flex-1 min-w-0">
+                        {paper.title ? (
+                          <PaperCitation paper={paper} headingLevel="h3" linkClassName="text-gray-900 dark:text-gray-100 font-medium" />
+                        ) : (
+                          <Link
+                            href={paper.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-900 dark:text-gray-100 font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                          >
+                            {displayName}
+                          </Link>
+                        )}
+                      </div>
+                      <span className="ml-4 text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                         <svg
                           className="w-5 h-5"
                           fill="none"
@@ -59,7 +67,7 @@ export default async function Publications() {
                           />
                         </svg>
                       </span>
-                    </Link>
+                    </div>
                   </div>
                 );
               })}
