@@ -47,9 +47,10 @@ If you suspect a security issue, run `snyk test`.
 - Early returns, DRY, `handle` prefix on event handlers (`handleClick`).
 - Style with Tailwind. Support light and dark classes already used on the site.
 - Media cards live in `data/media.json`. Helpers stay in `data/media.ts`. `url` is optional. Use `sources` for syndications of the same story; the primary `source`/`url` should be the strongest public outlet. Clickable source tags open that outlet's URL.
+- Hosted PDFs live in `public/papers/`. Listing and featured selection live in `lib/papers.ts`. Featured papers are the newest by year in the filename. Sister sites consume `GET /api/papers` and `GET /api/papers/featured`.
 - Mailbox catch-up for Google Alerts / digests / Isentia PDFs: follow [`MEDIA-ALERTS.md`](MEDIA-ALERTS.md).
 - Use `git mv` when moving files.
-- Complete the change: no TODOs or placeholders.
+- Complete the change: no TODOs or placeholders. File a GitHub issue for follow-up work instead of leaving TODO comments or README notes.
 
 ## Images
 

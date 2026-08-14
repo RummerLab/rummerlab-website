@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { PublicationsCards } from "@/components/PublicationsCards"
 import Link from 'next/link';
-import fs from 'fs';
-import path from 'path';
+import { getPapers } from '@/lib/papers';
 
 export const metadata: Metadata = {
   title: "Publications | RummerLab",
@@ -10,35 +9,6 @@ export const metadata: Metadata = {
 }
 
 export const dynamic = "force-dynamic";
-
-const getYearFromFilename = (filename: string): number => {
-  const match = filename.match(/\b(19|20)\d{2}\b/);
-  return match ? Number(match[0]) : 0;
-};
-
-const getPapers = (): string[] => {
-  const papersDirectory = path.join(process.cwd(), 'public', 'papers');
-  
-  if (!fs.existsSync(papersDirectory)) {
-    return [];
-  }
-
-  const files = fs.readdirSync(papersDirectory);
-  return files
-    .filter((file) => file.toLowerCase().endsWith('.pdf'))
-    .sort((a, b) => {
-      const yearDiff = getYearFromFilename(b) - getYearFromFilename(a);
-      if (yearDiff !== 0) {
-        return yearDiff;
-      }
-      return a.localeCompare(b);
-    });
-};
-
-const formatPaperName = (filename: string): string => {
-  // Remove .pdf extension
-  return filename.replace(/\.pdf$/i, '');
-};
 
 export default async function Publications() {
   const papers = getPapers();
@@ -59,22 +29,19 @@ export default async function Publications() {
           <div className="max-w-4xl mx-auto">
             <div className="space-y-3">
               {papers.map((paper) => {
-                const paperName = formatPaperName(paper);
-                const paperUrl = `/papers/${encodeURIComponent(paper)}`;
-
                 return (
                   <div
-                    key={paper}
+                    key={paper.filename}
                     className="bg-white dark:bg-gray-900 rounded-lg shadow-md hover:shadow-lg transition-shadow p-4 md:p-6"
                   >
                     <Link
-                      href={paperUrl}
+                      href={paper.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-between group"
                     >
                       <span className="text-gray-900 dark:text-gray-100 font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex-1">
-                        {paperName}
+                        {paper.name}
                       </span>
                       <span className="ml-4 text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
                         <svg
