@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getFeaturedPapers } from '@/lib/papers';
 
 const researchAreas = [
   {
@@ -38,24 +39,8 @@ const researchAreas = [
   }
 ];
 
-const featuredPublications = [
-  {
-    title: "Exposure of clownfish larvae to suspended sediment levels found on the Great Barrier Reef: Impacts on gill structure and microbiome",
-    authors: "Hess, S., et al.",
-    journal: "Scientific Reports",
-    year: "2023",
-    link: "#"
-  },
-  {
-    title: "Behavioural thermoregulation in a temperature-sensitive coral reef fish",
-    authors: "Nay, T., et al.",
-    journal: "Coral Reefs",
-    year: "2023",
-    link: "#"
-  }
-];
-
 export default function ResearchPage() {
+  const featuredPublications = getFeaturedPapers(4);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header Section */}
@@ -99,30 +84,33 @@ export default function ResearchPage() {
       </div>
 
       {/* Featured Publications Section */}
-      <section className="mt-16 bg-white dark:bg-gray-900 rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Featured Publications</h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {featuredPublications.map((pub, index) => (
-            <div key={index} className="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6">
-              <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
-                <Link href={pub.link} className="hover:text-blue-600 dark:hover:text-blue-400">
-                  {pub.title}
-                </Link>
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-2">{pub.authors}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">{pub.journal} ({pub.year})</p>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-8">
-          <Link 
-            href="/publications"
-            className="inline-block bg-blue-600 text-white hover:text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200"
-          >
-            View All Publications
-          </Link>
-        </div>
-      </section>
+      {featuredPublications.length > 0 && (
+        <section className="mt-16 bg-white dark:bg-gray-900 rounded-lg p-8">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Featured Publications</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {featuredPublications.map((pub) => (
+              <div key={pub.filename} className="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                  <Link href={pub.url} className="hover:text-blue-600 dark:hover:text-blue-400">
+                    {pub.name}
+                  </Link>
+                </h3>
+                {pub.year ? (
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{pub.year}</p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link 
+              href="/publications"
+              className="inline-block bg-blue-600 text-white hover:text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200"
+            >
+              View All Publications
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Research Impact Section */}
       <section className="mt-16 bg-white dark:bg-gray-900 rounded-lg p-8">
