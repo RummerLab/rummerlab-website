@@ -1,0 +1,59 @@
+{
+  "Spaet, Mourier, and Rummer 2026.pdf": {
+    "title": "Inclusive Science for a changing ocean: gender equity in elasmobranch research",
+    "authors": ["Julia L. Y. Spaet", "Johann Mourier", "Jodie L. Rummer"],
+    "year": 2026,
+    "journal": "Frontiers in Fish Science",
+    "volume": "4",
+    "doi": "10.3389/frish.2026.1816786",
+    "published": "2026-08-14",
+    "abstract": "Persistent inequities in marine science continue to shape who leads research, whose work is most visible, and which questions are prioritised. In elasmobranch science, a field often defined by intensive fieldwork and long-standing cultural norms, these dynamics have direct consequences for scientific capacity and conservation outcomes. Drawing on a decade of global publication data alongside existing scholarship, this Perspective evaluates how gender representation has changed within elasmobranch research and where structural barriers remain. Authorship patterns across more than twelve thousand peer reviewed publications indicate meaningful gains in participation by women, particularly at early career stages and in lead authorship. Progression into sustained senior authorship position remains uneven, reflecting institutional and cultural constraints rather than lack of expertise. These patterns align with broader evidence of leaky career pathways that continue to privilege narrow models of authority. Rather than framing equity as a matter of representation alone, we argue that inclusion is fundamental to the intellectual robustness of elasmobranch science. Diverse leadership expands the scope of inquiry, strengthens collaboration, and improves conservation relevance. As pressures on shark and ray populations intensify, retaining and empowering diverse scientific talent is not optional. It is essential. We call for coordinated structural reform across institutions, funding systems, publishing practices, and field operations to ensure that elasmobranch science reflects the diversity of expertise required to meet accelerating ocean challenges."
+  },
+  "Debaere et al., 2025 J Fish Biology.pdf": {
+    "title": "The costs and healing rates of minor injuries in neonatal reef sharks",
+    "authors": [
+      "Shamil F. Debaere",
+      "Ornella C. Weideli",
+      "Ryan Daly",
+      "Elena M. C. Milanesi",
+      "José E. Trujillo",
+      "Ian A. Bouyoucos",
+      "Johann Mourier",
+      "Andrew Chin",
+      "Serge Planes",
+      "Gudrun De Boeck",
+      "Jodie L. Rummer"
+    ],
+    "year": 2025,
+    "journal": "Journal of Fish Biology",
+    "doi": "10.1111/jfb.16059"
+  },
+  "Dubuc et al., 2025 JEB.pdf": {
+    "title": "Harnessing physiological research for smarter environmental policy",
+    "authors": [
+      "Alexia Dubuc",
+      "Courtney M. Burns",
+      "Shamil F. Debaere",
+      "Carmen Dobszewicz",
+      "Joel H. Gayford",
+      "Jodie L. Rummer"
+    ],
+    "year": 2025,
+    "journal": "Journal of Experimental Biology",
+    "doi": "10.1242/jeb.249867"
+  },
+  "Gayford and Rummer, 2025 Reviews in Fish Biology and Fisheries.pdf": {
+    "title": "Tonic immobility in cartilaginous fishes (Chondrichthyes): function, evolutionary history, and future directions",
+    "authors": ["Joel H. Gayford", "Jodie L. Rummer"],
+    "year": 2025,
+    "journal": "Reviews in Fish Biology and Fisheries",
+    "doi": "10.1007/s11160-025-09958-3"
+  },
+  "Wheeler et al., 2025 Biology Open.pdf": {
+    "title": "Assessing the metabolic and physiological costs of oviparity in the epaulette shark (Hemiscyllium ocellatum)",
+    "authors": ["Carolyn R. Wheeler", "Cynthia A. Awruch", "John W. Mandelman", "Jodie L. Rummer"],
+    "year": 2025,
+    "journal": "Biology Open",
+    "doi": "10.1242/bio.062076"
+  }
+}

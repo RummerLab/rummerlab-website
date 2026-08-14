@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { PaperCitation } from '@/components/PaperCitation';
 import { getFeaturedPapers } from '@/lib/papers';
 
 const researchAreas = [
@@ -90,14 +91,24 @@ export default function ResearchPage() {
           <div className="grid md:grid-cols-2 gap-8">
             {featuredPublications.map((pub) => (
               <div key={pub.filename} className="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6">
-                <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
-                  <Link href={pub.url} className="hover:text-blue-600 dark:hover:text-blue-400">
-                    {pub.name}
-                  </Link>
-                </h3>
-                {pub.year ? (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{pub.year}</p>
-                ) : null}
+                {pub.title ? (
+                  <PaperCitation
+                    paper={pub}
+                    headingLevel="h3"
+                    linkClassName="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2"
+                  />
+                ) : (
+                  <>
+                    <h3 className="font-semibold text-lg text-gray-900 dark:text-gray-100 mb-2">
+                      <Link href={pub.url} className="hover:text-blue-600 dark:hover:text-blue-400">
+                        {pub.name}
+                      </Link>
+                    </h3>
+                    {pub.year ? (
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{pub.year}</p>
+                    ) : null}
+                  </>
+                )}
               </div>
             ))}
           </div>
