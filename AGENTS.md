@@ -66,3 +66,23 @@ Use `next/image`. Prefer WebP via the optimizer.
 - Never commit secrets or `.env*` files.
 - Sanitize user input (`sanitize-html` is already used).
 - Headers are defined in code and documented in `docs/security-headers.md`. Keep them in sync with Cloudflare.
+
+
+## Dependency tooling (Next.js)
+
+Follow current Next.js docs for ESLint and TypeScript — do **not** merge Dependabot majors that the Next.js / `typescript-eslint` stack does not support yet.
+
+- **TypeScript**: stay on **5.9.x** (Next.js requires ≥5.1; `typescript-eslint` does not support TypeScript 7 yet).
+- **ESLint**: stay on **9.x** with Next.js flat config (`eslint-config-next/core-web-vitals` + `typescript` via `defineConfig`). ESLint 10 still breaks plugins shipped through `eslint-config-next`.
+- Before changing ESLint/TypeScript majors, read the Next.js ESLint docs, upgrading guide, and the target major migration guide.
+- Prefer Dependabot `ignore` rules for `eslint` and `typescript` semver-major until official support lands.
+
+### Framework upgrades
+
+```bash
+npx @next/codemod@canary upgrade latest
+npx @tailwindcss/upgrade
+```
+
+After either upgrade: run `npm run lint` and `npm run build`, fix failures, and update this file if versions/scripts change.
+
