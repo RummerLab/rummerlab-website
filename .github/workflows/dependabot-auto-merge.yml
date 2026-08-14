@@ -1,0 +1,220 @@
+# Dependabot & Snyk auto-merge with validation
+# Pinned (2026-08-14): checkout@v7.0.1 setup-node@v7.0.0 fetch-metadata@v3.1.0
+
+name: Dependabot & Snyk auto-merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: dep-automerge-${{ github.repository }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  classify:
+    name: Classify bot PR
+    runs-on: ubuntu-latest
+    if: >
+      github.event.pull_request.draft == false &&
+      (
+        github.actor == 'dependabot[bot]' ||
+        (
+          contains(github.event.pull_request.head.ref, 'snyk-fix-') &&
+          startsWith(github.event.pull_request.title, '[Snyk]')
+        )
+      )
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      kind: ${{ steps.bot.outputs.kind }}
+      eligible_update: ${{ steps.gate.outputs.eligible_update }}
+    steps:
+      - name: Classify bot source
+        id: bot
+        env:
+          ACTOR: ${{ github.actor }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          set -euo pipefail
+          if [ "$ACTOR" = "dependabot[bot]" ]; then
+            echo "kind=dependabot" >> "$GITHUB_OUTPUT"
+          elif [[ "$HEAD_REF" == *snyk-fix-* ]] && [[ "$TITLE" == \[Snyk\]* ]]; then
+            echo "kind=snyk" >> "$GITHUB_OUTPUT"
+          else
+            echo "Ineligible actor/branch/title" >&2
+            exit 1
+          fi
+
+      - name: Confirm dependency-manifest / lockfile-only changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          files="$(gh api "repos/${OWNER}/${REPO}/pulls/${PR}/files" --paginate --jq '.[].filename')"
+          if [ -z "$files" ]; then
+            echo "Empty file list; refusing" >&2
+            exit 1
+          fi
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            base="$(basename "$f")"
+            case "$base" in
+              package.json|package-lock.json|npm-shrinkwrap.json|yarn.lock|pnpm-lock.yaml|bun.lock|bun.lockb) ;;
+              requirements.txt|requirements-dev.txt|Pipfile|Pipfile.lock|poetry.lock|pyproject.toml|uv.lock|constraints.txt) ;;
+              renovate.json|renovate.json5|dependabot.yml) ;;
+              *)
+                echo "Non-dependency path changed: $f" >&2
+                exit 1
+                ;;
+            esac
+            case "$f" in
+              .github/workflows/*|.github/actions/*|**/action.yml|**/action.yaml)
+                echo "Workflow/action path changed: $f" >&2
+                exit 1
+                ;;
+            esac
+          done <<< "$files"
+
+      - name: Dependabot metadata
+        if: steps.bot.outputs.kind == 'dependabot'
+        id: metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Gate update type (Dependabot)
+        id: gate_dependabot
+        if: steps.bot.outputs.kind == 'dependabot'
+        env:
+          DEP_NAMES: ${{ steps.metadata.outputs.dependency-names }}
+          UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
+        run: |
+          set -euo pipefail
+          echo "dependency-names=${DEP_NAMES}"
+          echo "update-type=${UPDATE_TYPE}"
+          if printf '%s' "$DEP_NAMES" | grep -Eiq '(^|,)github/gh-aw-actions(/|$)'; then
+            echo "Skipping github/gh-aw-actions (managed by gh aw compile)." >&2
+            echo "eligible_update=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          case "$UPDATE_TYPE" in
+            version-update:semver-patch|version-update:semver-minor)
+              echo "eligible_update=true" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "Major/unknown update; not eligible for auto-merge." >&2
+              echo "eligible_update=false" >> "$GITHUB_OUTPUT"
+              ;;
+          esac
+
+      - name: Gate update type (Snyk)
+        id: gate_snyk
+        if: steps.bot.outputs.kind == 'snyk'
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          set -euo pipefail
+          if echo "$TITLE" | grep -Eiq 'from[[:space:]]+v?[0-9]+\.[0-9]+\.[0-9]+[[:space:]]+to[[:space:]]+v?[0-9]+\.[0-9]+\.[0-9]+'; then
+            from="$(echo "$TITLE" | sed -E 's/.*[Ff]rom[[:space:]]+v?([0-9]+)\.[0-9]+\.[0-9]+[[:space:]]+[Tt]o[[:space:]]+v?[0-9]+\.[0-9]+\.[0-9]+.*/\1/')"
+            to="$(echo "$TITLE" | sed -E 's/.*[Ff]rom[[:space:]]+v?[0-9]+\.[0-9]+\.[0-9]+[[:space:]]+[Tt]o[[:space:]]+v?([0-9]+)\.[0-9]+\.[0-9]+.*/\1/')"
+            if [ "$to" -gt "$from" ]; then
+              echo "eligible_update=false" >> "$GITHUB_OUTPUT"
+            else
+              echo "eligible_update=true" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "Could not parse Snyk semver pair; refusing auto-merge." >&2
+            echo "eligible_update=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Export eligibility
+        id: gate
+        env:
+          DEP_ELIGIBLE: ${{ steps.gate_dependabot.outputs.eligible_update }}
+          SNYK_ELIGIBLE: ${{ steps.gate_snyk.outputs.eligible_update }}
+        run: |
+          set -euo pipefail
+          val="${DEP_ELIGIBLE:-}"
+          if [ -z "$val" ]; then
+            val="${SNYK_ELIGIBLE:-false}"
+          fi
+          echo "eligible_update=${val}" >> "$GITHUB_OUTPUT"
+
+  validate:
+    name: Validate dependency update
+    needs: classify
+    if: needs.classify.outputs.eligible_update == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout PR commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+      - name: Production build
+        run: npm run build
+
+  auto-merge:
+    name: Enable auto-merge
+    needs: [classify, validate]
+    if: >
+      needs.classify.outputs.eligible_update == 'true' &&
+      needs.validate.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Skip if blocking reviews / conflicts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          pr_json="$(gh api "repos/${OWNER}/${REPO}/pulls/${PR}")"
+          mergeable="$(printf '%s' "$pr_json" | jq -r '.mergeable')"
+          if [ "$mergeable" = "false" ]; then
+            echo "PR not mergeable; skipping auto-merge enablement." >&2
+            exit 0
+          fi
+          reviews="$(gh api "repos/${OWNER}/${REPO}/pulls/${PR}/reviews" --paginate)"
+          changes_requested="$(printf '%s' "$reviews" | jq '[.[] | select(.state=="CHANGES_REQUESTED")] | length')"
+          if [ "$changes_requested" -gt 0 ]; then
+            echo "CHANGES_REQUESTED; skipping." >&2
+            exit 0
+          fi
+          echo "proceed=true" >> "$GITHUB_ENV"
+
+      - name: Enable auto-merge (squash; wait for required checks)
+        if: env.proceed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          set -euo pipefail
+          gh pr merge --auto --squash "$PR_URL"
+          echo "Auto-merge enabled. GitHub will merge only after all required checks pass."
