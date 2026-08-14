@@ -25,12 +25,12 @@ export const PaperCitation = ({
 
   return (
     <div>
-      <Heading className={linkClassName}>
+      <Heading>
         <Link
           href={paper.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-blue-600 dark:hover:text-blue-400"
+          className={`hover:text-blue-600 dark:hover:text-blue-400${linkClassName ? ` ${linkClassName}` : ''}`}
         >
           {displayName}
         </Link>
