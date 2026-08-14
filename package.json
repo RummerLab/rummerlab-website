@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "token": "ts-node --project tsconfig.script.json scripts/get-long-lived-token.ts",
     "check-token": "ts-node --project tsconfig.script.json scripts/check-token.ts",
-    "resize-images": "ts-node --project tsconfig.script.json scripts/resize-images.ts"
+    "resize-images": "ts-node --project tsconfig.script.json scripts/resize-images.ts",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@11ty/gray-matter": "^3.0.0",
@@ -42,12 +43,12 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "@types/sanitize-html": "^2.16.1",
-    "eslint": "^10",
+    "eslint": "^9.39.5",
     "eslint-config-next": "16.3.0",
     "postcss": "^8.5.26",
     "tailwindcss": "^4.3.3",
     "ts-node": "^10.9.2",
-    "typescript": "^7"
+    "typescript": "^5.9.3"
   },
   "overrides": {
     "@types/react": "19.2.18",
