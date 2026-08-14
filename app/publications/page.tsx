@@ -11,6 +11,11 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
+const getYearFromFilename = (filename: string): number => {
+  const match = filename.match(/\b(19|20)\d{2}\b/);
+  return match ? Number(match[0]) : 0;
+};
+
 const getPapers = (): string[] => {
   const papersDirectory = path.join(process.cwd(), 'public', 'papers');
   
@@ -21,7 +26,13 @@ const getPapers = (): string[] => {
   const files = fs.readdirSync(papersDirectory);
   return files
     .filter((file) => file.toLowerCase().endsWith('.pdf'))
-    .sort();
+    .sort((a, b) => {
+      const yearDiff = getYearFromFilename(b) - getYearFromFilename(a);
+      if (yearDiff !== 0) {
+        return yearDiff;
+      }
+      return a.localeCompare(b);
+    });
 };
 
 const formatPaperName = (filename: string): string => {
