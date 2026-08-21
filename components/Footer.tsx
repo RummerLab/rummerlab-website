@@ -104,6 +104,26 @@ export default function Footer() {
                 <span className="sr-only">Physioshark Project</span>
               </a>
               <a
+                href="https://fenuafindex.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all duration-200"
+                aria-label="Fenua FINdex"
+                title="Visit Fenua FINdex"
+              >
+                <div className="relative w-6 h-6 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-200">
+                  <Image
+                    src="https://fenuafindex.com/FenuaFINdex_icon.svg"
+                    alt="Fenua FINdex Logo"
+                    fill
+                    className="object-contain"
+                    sizes="24px"
+                    unoptimized
+                  />
+                </div>
+                <span className="sr-only">Fenua FINdex</span>
+              </a>
+              <a
                 href="https://bsky.app/profile/physiologyfish.bsky.social/"
                 target="_blank"
                 rel="noopener noreferrer"
