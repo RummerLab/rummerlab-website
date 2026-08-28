@@ -71,10 +71,11 @@ export function PublicationsList(props: Props) {
   };
 
   return (
-    <div className="max-w-7xl mx-auto my-8">
+    <div className="mx-auto my-8 max-w-7xl">
       <div className="mb-12 text-center">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Publications</h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400">
+        <h2 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">Google Scholar</h2>
+        <div className="mx-auto mb-4 h-1 w-20 rounded-full bg-blue-500" />
+        <p className="text-lg text-muted">
           {total > 0 ? `${total} Scientific Papers` : `${publications.length} Scientific Papers`}
         </p>
       </div>
@@ -104,7 +105,8 @@ export function PublicationsList(props: Props) {
               return (
                 <li
                   key={publication?.author_pub_id ?? publicationId ?? index}
-                  className="bg-gray-50 dark:bg-gray-800 shadow-lg rounded-xl p-6 list-none transition-all duration-200 hover:shadow-xl h-full flex flex-col"
+                  className="view-reveal flex h-full list-none flex-col rounded-xl border border-gray-200/60 bg-surface-elevated p-6 shadow-lg transition-all duration-300 hover-lift dark:border-gray-800/60"
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{title}</h3>
                   <div className="mb-3 grow">

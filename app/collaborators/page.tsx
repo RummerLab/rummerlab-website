@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { AnimatedCollaborators } from '../../components/AnimatedCollaborators';
+import { PageShell } from '@/components/layout/PageShell';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { ContentCard } from '@/components/layout/ContentCard';
 
 export const metadata: Metadata = {
     title: "Collaborators",
@@ -10,16 +13,19 @@ export const dynamic = "force-dynamic";
   
 export default function Collaborators() {
     return (
-        <div className="max-w-4xl mx-auto px-4 py-8">
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8">Collaborators</h1>
+        <PageShell narrow>
+            <PageHeader
+                title="Collaborators"
+                subtitle="Our research collaborators from around the world"
+            />
             
-            <div className="mb-12">
+            <div className="mb-12 view-reveal">
                 <AnimatedCollaborators />
             </div>
 
-            <div className="space-y-12">
-                <section>
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Oceania</h2>
+            <div className="space-y-8">
+                <ContentCard reveal>
+                    <h2 className="mb-4 text-2xl font-semibold text-gray-900 dark:text-gray-100">Oceania</h2>
                     <div className="prose prose-lg max-w-none dark:prose-invert">
                         <p className="text-gray-600 dark:text-gray-300">
                             <a href="http://www.coralcoe.org.au/researchers/philip-munday" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Prof. Philip Munday</a> (James Cook University, ARC CoECRS)<br />
@@ -41,10 +47,10 @@ export default function Collaborators() {
                             <a href="http://www.criobe.pf/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Prof. Serge Planes</a> (Centre de Recherches Insulaire et Observatoire de l&apos;Environnement (CRIOBE) Moorea, Polynésie française)
                         </p>
                     </div>
-                </section>
+                </ContentCard>
 
-                <section>
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Europe</h2>
+                <ContentCard reveal>
+                    <h2 className="mb-4 text-2xl font-semibold text-gray-900 dark:text-gray-100">Europe</h2>
                     <div className="prose prose-lg max-w-none dark:prose-invert">
                         <p className="text-gray-600 dark:text-gray-300">
                             <a href="http://christinecouturier.webs.com/" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Christine Couturier</a> (University of Oslo, Norway)<br />
@@ -60,10 +66,10 @@ export default function Collaborators() {
                             <a href="https://scholar.google.fr/citations?user=bXpyrNAAAAAJ&amp;hl=en" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Dominique Roche</a> (University of Neuchâtel, Switzerland)
                         </p>
                     </div>
-                </section>
+                </ContentCard>
 
-                <section>
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">North America</h2>
+                <ContentCard reveal>
+                    <h2 className="mb-4 text-2xl font-semibold text-gray-900 dark:text-gray-100">North America</h2>
                     <div className="prose prose-lg max-w-none dark:prose-invert">
                         <p className="text-gray-600 dark:text-gray-300">
                             <a href="http://www.dixsonlab.com/"></a><a href="http://legacy.wlu.ca/homepage.php?grp_id=13895&amp;ct_id=4189&amp;f_id=1" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Jonathan Wilson</a> (Wilfrid Laurier University, Canada &amp; Ecofisiologia, CIMAR Porto Portugal)<br />
@@ -80,20 +86,17 @@ export default function Collaborators() {
                             <a href="http://www.vims.edu/people/brill_rw/index.php" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Dr. Rich Brill</a> (Virginia Institute of Marine Science, NOAA)
                         </p>
                     </div>
-                </section>
+                </ContentCard>
 
-                <section>
-                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Asia</h2>
+                <ContentCard reveal>
+                    <h2 className="mb-4 text-2xl font-semibold text-gray-900 dark:text-gray-100">Asia</h2>
                     <div className="prose prose-lg max-w-none dark:prose-invert">
                         <p className="text-gray-600 dark:text-gray-300">
                             <a href="http://yuyangshuhong@hotmail.com" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">Prof. Shuhong Wang</a> (University of Jimei, China)
                         </p>
                     </div>
-                </section>
+                </ContentCard>
             </div>
-        </div>
+        </PageShell>
     )
 }
-
-// https://tailwindui.com/components/marketing/sections/team-sections
-// Our Team / Our Collaborators

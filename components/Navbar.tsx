@@ -149,7 +149,7 @@ export default function Navbar() {
                     <div className="hidden md:flex md:items-center md:space-x-6">
                         <Link 
                             href="/"
-                            className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                            className="link-underline text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                         >
                             Home
                         </Link>
@@ -170,10 +170,10 @@ export default function Navbar() {
                                         <FaChevronDown className={`ml-1 h-3 w-3 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
                                     </button>
                                     <div 
-                                        className={`absolute left-0 top-full pt-2 w-48 z-50 transition-all duration-200 origin-top-left ${
+                                        className={`absolute left-0 top-full pt-2 w-48 z-50 transition-all duration-200 origin-top-left translate-y-0 ${
                                             activeDropdown === item.label 
-                                                ? 'opacity-100 visible scale-100' 
-                                                : 'opacity-0 invisible scale-95 pointer-events-none'
+                                                ? 'opacity-100 visible scale-100 translate-y-0' 
+                                                : 'opacity-0 invisible scale-95 -translate-y-1 pointer-events-none'
                                         }`}
                                     >
                                         <div className="rounded-md shadow-lg bg-white dark:bg-gray-900 py-1" role="menu">
@@ -194,7 +194,7 @@ export default function Navbar() {
                                 <Link 
                                     key={item.href}
                                     href={item.href as string} 
-                                    className="text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                    className="link-underline text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                                 >
                                     {item.label}
                                 </Link>

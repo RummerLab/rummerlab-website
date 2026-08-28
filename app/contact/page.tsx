@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { FaInstagram, FaYoutube, FaEnvelope, FaMapMarkerAlt, FaFacebook } from 'react-icons/fa';
 import { SiBluesky } from 'react-icons/si';
+import { PageShell } from '@/components/layout/PageShell';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { ContentCard } from '@/components/layout/ContentCard';
 
 export default function ContactPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -48,19 +51,11 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Header */}
-      <div className="mb-16 bg-white dark:bg-gray-900 rounded-xl p-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Get in touch with the RummerLab team
-          </h1>
-        </div>
-      </div>
+    <PageShell narrow>
+      <PageHeader title="Get in touch with the RummerLab team" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Contact Information */}
-        <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <ContentCard reveal>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Contact Information</h2>
           
           <div className="space-y-6">
@@ -113,7 +108,7 @@ export default function ContactPage() {
                   href="https://www.instagram.com/rummerlab/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-pink-500 dark:text-gray-400 dark:hover:text-pink-400 transition-colors"
+                  className="text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
                   aria-label="Follow us on Instagram"
                   title="Follow us on Instagram"
                 >
@@ -133,7 +128,7 @@ export default function ContactPage() {
                   href="https://www.youtube.com/@Physioshark"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 transition-colors"
+                  className="text-gray-500 transition-colors hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
                   aria-label="Follow us on YouTube"
                   title="Subscribe to our YouTube channel"
                 >
@@ -142,10 +137,9 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
-        </section>
+        </ContentCard>
 
-        {/* Quick Contact Form */}
-        <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+        <ContentCard reveal>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Send us a Message</h2>
           
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -229,11 +223,10 @@ export default function ContactPage() {
               {isLoading ? 'Sending...' : 'Send Message'}
             </button>
           </form>
-        </section>
+        </ContentCard>
       </div>
 
-      {/* Map Section */}
-      <section className="mt-12 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+      <ContentCard reveal className="mt-12">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Location</h2>
         <div className="aspect-w-16 aspect-h-9">
           {isMounted && (
@@ -252,7 +245,7 @@ export default function ContactPage() {
             <div className="w-full h-[450px] bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse" />
           )}
         </div>
-      </section>
-    </div>
+      </ContentCard>
+    </PageShell>
   );
-} 
+}

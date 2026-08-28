@@ -52,6 +52,22 @@ If you suspect a security issue, run `snyk test`.
 - Use `git mv` when moving files.
 - Complete the change: no TODOs or placeholders. File a GitHub issue for follow-up work instead of leaving TODO comments or README notes.
 
+## Layout and styling
+
+Theme tokens and animation utilities live in `app/globals.css` (`@theme`, `@plugin "@tailwindcss/typography"`, `@plugin "tailwindcss-animate"`).
+
+Shared layout primitives in `components/layout/`:
+
+- `PageShell` — page wrapper with gradient background (`narrow`, `wide` variants)
+- `PageHeader` — centered title, subtitle, animated accent bar
+- `ContentCard` — elevated card with `hover-lift` and optional `view-reveal` scroll animation
+- `ArticleCard` — blog/podcast listing cards
+- `ButtonLink` — primary, secondary, and outline-white CTA links
+
+Prefer CSS animations (`animate-fade-in`, `animate-fade-in-up`, `view-reveal`, `hover-lift`, `link-underline`) over new JS animation libraries. Respect `prefers-reduced-motion`. Homepage plankton (`components/ui/plankton.tsx`) and existing framer-motion homepage effects stay as-is.
+
+Use `cn()` from `lib/utils.ts` only.
+
 ## Images
 
 Use `next/image`. Prefer WebP via the optimizer.

@@ -3,6 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PaperCitation } from '@/components/PaperCitation';
 import { getFeaturedPapers } from '@/lib/papers';
+import { PageShell } from '@/components/layout/PageShell';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { ContentCard } from '@/components/layout/ContentCard';
+import { ButtonLink } from '@/components/layout/ButtonLink';
 
 const researchAreas = [
   {
@@ -43,22 +47,15 @@ const researchAreas = [
 export default function ResearchPage() {
   const featuredPublications = getFeaturedPapers(4);
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Header Section */}
-      <div className="mb-16 bg-white dark:bg-gray-900 rounded-lg p-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Our Research</h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            The RummerLab focuses on understanding marine ecosystems and their response to environmental changes,
-            with particular emphasis on fish physiology and conservation.
-          </p>
-        </div>
-      </div>
+    <PageShell>
+      <PageHeader
+        title="Our Research"
+        subtitle="The RummerLab focuses on understanding marine ecosystems and their response to environmental changes, with particular emphasis on fish physiology and conservation."
+      />
 
-      {/* Research Areas */}
-      <div className="space-y-16">
+      <div className="space-y-12">
         {researchAreas.map((area, index) => (
-          <section key={index} className="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+          <ContentCard key={index} reveal className="overflow-hidden p-0" style={{ animationDelay: `${index * 100}ms` }}>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="relative h-64 md:h-auto">
                 <Image
@@ -80,17 +77,20 @@ export default function ResearchPage() {
                 </ul>
               </div>
             </div>
-          </section>
+          </ContentCard>
         ))}
       </div>
 
-      {/* Featured Publications Section */}
       {featuredPublications.length > 0 && (
-        <section className="mt-16 bg-white dark:bg-gray-900 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Featured Publications</h2>
-          <div className="grid md:grid-cols-2 gap-8">
+        <ContentCard reveal className="mt-12">
+          <h2 className="mb-2 text-3xl font-bold text-gray-900 dark:text-gray-100">Featured Publications</h2>
+          <div className="mx-auto mb-8 h-1 w-20 rounded-full bg-blue-500" />
+          <div className="grid gap-8 md:grid-cols-2">
             {featuredPublications.map((pub) => (
-              <div key={pub.filename} className="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6">
+              <div
+                key={pub.filename}
+                className="rounded-xl border border-gray-200/60 bg-gray-50/50 p-6 dark:border-gray-800/60 dark:bg-gray-800/50"
+              >
                 {pub.title ? (
                   <PaperCitation
                     paper={pub}
@@ -112,20 +112,15 @@ export default function ResearchPage() {
               </div>
             ))}
           </div>
-          <div className="text-center mt-8">
-            <Link 
-              href="/publications"
-              className="inline-block bg-blue-600 text-white hover:text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors duration-200"
-            >
-              View All Publications
-            </Link>
+          <div className="mt-8 text-center">
+            <ButtonLink href="/publications">View All Publications</ButtonLink>
           </div>
-        </section>
+        </ContentCard>
       )}
 
-      {/* Research Impact Section */}
-      <section className="mt-16 bg-white dark:bg-gray-900 rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Research Impact</h2>
+      <ContentCard reveal className="mt-12">
+        <h2 className="mb-2 text-3xl font-bold text-gray-900 dark:text-gray-100">Research Impact</h2>
+        <div className="mx-auto mb-6 h-1 w-20 rounded-full bg-blue-500" />
         <div className="prose prose-lg max-w-none dark:prose-invert">
           <p className="text-gray-800 dark:text-gray-300">
             Our research contributes to understanding and protecting marine ecosystems in the face of environmental change.
@@ -138,26 +133,26 @@ export default function ResearchPage() {
             <li className="text-gray-800 dark:text-gray-300">Train the next generation of marine scientists</li>
           </ul>
         </div>
-      </section>
+      </ContentCard>
 
-      {/* Collaborations Section */}
-      <section className="mt-16 bg-white dark:bg-gray-900 rounded-lg p-8">
-        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Research Collaborations</h2>
+      <ContentCard reveal className="mt-12">
+        <h2 className="mb-2 text-3xl font-bold text-gray-900 dark:text-gray-100">Research Collaborations</h2>
+        <div className="mx-auto mb-8 h-1 w-20 rounded-full bg-blue-500" />
         <div className="grid gap-6">
-          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Academic Partners</h3>
-            <p className="text-gray-600 dark:text-gray-300">Leading universities and research institutions</p>
+          <div className="rounded-xl border border-gray-200/60 bg-gray-50/50 p-4 dark:border-gray-800/60 dark:bg-gray-800/50">
+            <h3 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">Academic Partners</h3>
+            <p className="text-muted">Leading universities and research institutions</p>
           </div>
-          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Conservation Organizations</h3>
-            <p className="text-gray-600 dark:text-gray-300">Environmental and marine conservation groups</p>
+          <div className="rounded-xl border border-gray-200/60 bg-gray-50/50 p-4 dark:border-gray-800/60 dark:bg-gray-800/50">
+            <h3 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">Conservation Organizations</h3>
+            <p className="text-muted">Environmental and marine conservation groups</p>
           </div>
-          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Government Agencies</h3>
-            <p className="text-gray-600 dark:text-gray-300">Environmental protection and marine resource management</p>
+          <div className="rounded-xl border border-gray-200/60 bg-gray-50/50 p-4 dark:border-gray-800/60 dark:bg-gray-800/50">
+            <h3 className="mb-2 font-semibold text-gray-900 dark:text-gray-100">Government Agencies</h3>
+            <p className="text-muted">Environmental protection and marine resource management</p>
           </div>
         </div>
-      </section>
-    </div>
+      </ContentCard>
+    </PageShell>
   );
-} 
+}

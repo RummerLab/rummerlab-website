@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { ContentImage } from '@/components/ContentImage';
+import { PageShell } from '@/components/layout/PageShell';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { ContentCard } from '@/components/layout/ContentCard';
 
 export const metadata: Metadata = {
     title: "Future Environments Research",
@@ -8,21 +11,16 @@ export const metadata: Metadata = {
 
 export default function FutureEnvironments() {
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {/* Hero Section */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-8 mb-12">
-                <div className="max-w-3xl mx-auto text-center">
-                    <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Future Ocean Environments</h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-300">
-                        Investigating how marine life will adapt and survive in future ocean conditions shaped by climate change.
-                    </p>
-                </div>
-            </div>
+        <PageShell>
+            <PageHeader
+                title="Future Ocean Environments"
+                subtitle="Investigating how marine life will adapt and survive in future ocean conditions shaped by climate change."
+            />
 
             <div className="grid lg:grid-cols-3 gap-8">
                 {/* Main Content */}
                 <div className="lg:col-span-2 space-y-8">
-                    <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+                    <ContentCard reveal>
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">RESEARCH THEME - Future Ocean Conditions</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <p className="text-gray-600 dark:text-gray-300">Our research focuses on understanding how marine organisms will respond to future ocean conditions, particularly the combined effects of warming, acidification, and deoxygenation. We use cutting-edge techniques to simulate future ocean environments and study organismal responses across multiple generations.</p>
@@ -56,9 +54,9 @@ export default function FutureEnvironments() {
                                 <p className="text-gray-600 dark:text-gray-300">We are currently investigating how marine species might adapt to multiple environmental stressors over multiple generations, providing crucial insights for conservation and management strategies.</p>
                             </div>
                         </div>
-                    </section>
+                    </ContentCard>
 
-                    <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+                    <ContentCard reveal>
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Methodology & Approach</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
@@ -70,12 +68,12 @@ export default function FutureEnvironments() {
                             </div>
                             <p className="text-gray-600 dark:text-gray-300">Our research employs state-of-the-art experimental systems to simulate future ocean conditions, combined with cutting-edge physiological and molecular techniques to understand organismal responses.</p>
                         </div>
-                    </section>
+                    </ContentCard>
                 </div>
 
                 {/* Sidebar */}
                 <div className="lg:col-span-1 space-y-8">
-                    <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                    <ContentCard reveal className="p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Key Findings</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
@@ -107,9 +105,9 @@ export default function FutureEnvironments() {
                                 </div>
                             </li>
                         </ul>
-                    </aside>
+                    </ContentCard>
 
-                    <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                    <ContentCard reveal className="p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Conservation Implications</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
                             <ContentImage
@@ -120,9 +118,9 @@ export default function FutureEnvironments() {
                             />
                         </div>
                         <p className="text-gray-600 dark:text-gray-300">Our findings help inform conservation strategies and policy decisions for protecting marine ecosystems in a changing climate.</p>
-                    </aside>
+                    </ContentCard>
                 </div>
             </div>
-        </div>
+        </PageShell>
     );
 }

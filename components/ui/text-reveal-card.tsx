@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState, memo } from "react";
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/utils";
 
 // Generate star data outside component to avoid calling Math.random during render
 const generateStarData = () => {

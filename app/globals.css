@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+@plugin "tailwindcss-animate";
 
 /*
   Tailwind v4 hover fix
@@ -7,6 +9,23 @@
   work on all devices (including touch screens) by using &:hover directly.
 */
 @custom-variant hover (&:hover);
+
+@theme {
+  --color-brand: var(--color-blue-600);
+  --color-brand-light: var(--color-cyan-400);
+  --color-surface: var(--color-white);
+  --color-surface-elevated: var(--color-white);
+  --color-muted: var(--color-gray-600);
+  --radius-card: 0.75rem;
+  --shadow-card: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --width-page: 80rem;
+  --width-content: 48rem;
+
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+  --animate-accent-grow: accent-grow 0.6s ease-out forwards;
+  --animate-view-fade-in-up: view-fade-in-up linear both;
+}
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -39,8 +58,53 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-surface-elevated: var(--color-gray-900);
+    }
+  }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes accent-grow {
+  from {
+    width: 0;
+  }
+  to {
+    width: 5rem;
+  }
+}
+
+@keyframes view-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /*
   Prose/article content styling - only apply to content sections, not globally.
@@ -81,5 +145,63 @@
   .prose a,
   article a {
     @apply text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 no-underline cursor-pointer;
+  }
+
+  .text-muted {
+    @apply text-gray-600 dark:text-gray-300;
+  }
+
+  .bg-surface-elevated {
+    @apply bg-white dark:bg-gray-900;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .link-underline {
+    @apply relative inline-block;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute left-1/2 bottom-0 h-0.5 w-0 bg-blue-600 dark:bg-blue-400 transition-all duration-200;
+    transform: translateX(-50%);
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  .view-reveal {
+  }
+
+  @supports (animation-timeline: view()) {
+    .view-reveal {
+      animation: view-fade-in-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 30%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in,
+    .animate-fade-in-up,
+    .animate-accent-grow,
+    .view-reveal,
+    .hover-lift:hover {
+      animation: none !important;
+      transform: none !important;
+      transition: none !important;
+    }
+
+    .link-underline::after {
+      transition: none !important;
+    }
   }
 }
