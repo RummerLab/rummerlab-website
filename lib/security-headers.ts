@@ -7,6 +7,7 @@
 const IMAGE_HOSTS = [
   'https://physioshark.org',
   'https://jodierummer.com',
+  'https://fenuafindex.com',
   'https://scholar.googleusercontent.com',
   'https://*.cdninstagram.com',
   'https://platform-lookaside.fbsbx.com',
