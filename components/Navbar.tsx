@@ -71,6 +71,28 @@ export default function Navbar() {
             ariaLabel: "Visit Physioshark website"
         },
         {
+            href: "https://fenuafindex.com",
+            icon: () => (
+                <div className="relative w-5 h-5 group" title="Visit Fenua FINdex">
+                    <Image
+                        src="https://fenuafindex.com/FenuaFINdex_icon.svg"
+                        alt="Fenua FINdex Logo"
+                        fill
+                        className="object-contain opacity-60 group-hover:opacity-100 transition-all duration-200"
+                        sizes="20px"
+                    />
+                    <div 
+                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
+                        style={{
+                            backgroundColor: 'rgb(37, 99, 235)',
+                            mixBlendMode: 'screen',
+                        }}
+                    />
+                </div>
+            ),
+            ariaLabel: "Visit Fenua FINdex"
+        },
+        {
             href: "https://bsky.app/profile/physiologyfish.bsky.social/",
             icon: SiBluesky as IconType,
             ariaLabel: "Follow us on Bluesky",
