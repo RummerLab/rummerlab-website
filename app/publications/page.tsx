@@ -1,59 +1,70 @@
 import type { Metadata } from 'next';
-import { PublicationsCards } from "@/components/PublicationsCards"
+import { PublicationsCards } from '@/components/PublicationsCards';
 import { PaperCitation } from '@/components/PaperCitation';
 import Link from 'next/link';
 import { getPaperDisplayName, getPapers } from '@/lib/papers';
+import { PageShell } from '@/components/layout/PageShell';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { ContentCard } from '@/components/layout/ContentCard';
 
 export const metadata: Metadata = {
-  title: "Publications | RummerLab",
+  title: 'Publications | RummerLab',
   description: 'Research papers and publications from RummerLab',
-}
+};
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default async function Publications() {
   const papers = getPapers();
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <PageShell>
+      <PageHeader
+        title="Publications"
+        subtitle="Research papers and scientific publications from RummerLab"
+      />
+
       <PublicationsCards />
-      
-      {/* Papers Section */}
+
       {papers.length > 0 && (
-        <div className="max-w-7xl mx-auto my-12 pt-12 border-t border-gray-200 dark:border-gray-700">
+        <ContentCard reveal className="mt-12">
           <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Papers</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
-              {papers.length} PDF Papers Available
-            </p>
+            <h2 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">PDF Papers</h2>
+            <div className="mx-auto mb-4 h-1 w-20 rounded-full bg-blue-500" />
+            <p className="text-lg text-muted">{papers.length} PDF Papers Available</p>
           </div>
-          <div className="max-w-4xl mx-auto">
+          <div className="mx-auto max-w-4xl">
             <div className="space-y-3">
-              {papers.map((paper) => {
+              {papers.map((paper, index) => {
                 const displayName = getPaperDisplayName(paper);
                 return (
                   <div
                     key={paper.filename}
-                    className="bg-white dark:bg-gray-900 rounded-lg shadow-md hover:shadow-lg transition-shadow p-4 md:p-6"
+                    className="view-reveal rounded-xl border border-gray-200/60 bg-gray-50/50 p-4 transition-all duration-300 hover-lift dark:border-gray-800/60 dark:bg-gray-800/50 md:p-6"
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="flex items-start justify-between gap-4 group">
-                      <div className="flex-1 min-w-0">
+                    <div className="group flex items-start justify-between gap-4">
+                      <div className="min-w-0 flex-1">
                         {paper.title ? (
-                          <PaperCitation paper={paper} headingLevel="h3" linkClassName="text-gray-900 dark:text-gray-100 font-medium" />
+                          <PaperCitation
+                            paper={paper}
+                            headingLevel="h3"
+                            linkClassName="font-medium text-gray-900 dark:text-gray-100"
+                          />
                         ) : (
                           <Link
                             href={paper.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-900 dark:text-gray-100 font-medium group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                            className="font-medium text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400"
                           >
                             {displayName}
                           </Link>
                         )}
                       </div>
-                      <span className="ml-4 text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                      <span className="ml-4 shrink-0 text-blue-600 opacity-0 transition-opacity group-hover:opacity-100 dark:text-blue-400">
                         <svg
-                          className="w-5 h-5"
+                          className="h-5 w-5"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -73,8 +84,8 @@ export default async function Publications() {
               })}
             </div>
           </div>
-        </div>
+        </ContentCard>
       )}
-    </div>
-  )
+    </PageShell>
+  );
 }

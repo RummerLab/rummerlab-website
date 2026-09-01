@@ -3,65 +3,73 @@ import Image from 'next/image';
 import { SiBluesky, SiResearchgate, SiGooglescholar } from 'react-icons/si';
 import { FaInstagram, FaFacebook, FaYoutube } from 'react-icons/fa';
 
+const footerLinkClass =
+  'link-underline text-gray-600 transition-colors duration-200 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400';
+
+const socialIconClass =
+  'text-gray-400 opacity-60 transition-all duration-200 hover:text-blue-600 hover:opacity-100 dark:hover:text-blue-400';
+
 export default function Footer() {
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Contact</h3>
+    <footer className="border-t border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="animate-fade-in">
+            <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Contact</h3>
             <p className="text-gray-600 dark:text-gray-400">
-              <a 
+              <a
                 href="https://www.jcu.edu.au/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-blue-600 dark:hover:text-blue-400"
+                className={footerLinkClass}
               >
                 James Cook University
-              </a><br />
-              Townsville, QLD 4811<br />
+              </a>
+              <br />
+              Townsville, QLD 4811
+              <br />
               Australia
             </p>
           </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Links</h3>
+
+          <div className="animate-fade-in" style={{ animationDelay: '100ms' }}>
+            <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/research" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                <Link href="/research" className={footerLinkClass}>
                   Research Areas
                 </Link>
               </li>
               <li>
-                <Link href="/publications" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                <Link href="/publications" className={footerLinkClass}>
                   Publications
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                <Link href="/blog" className={footerLinkClass}>
                   Blog
                 </Link>
               </li>
               <li>
-                <Link href="/podcast" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                <Link href="/podcast" className={footerLinkClass}>
                   Podcast
                 </Link>
               </li>
               <li>
-                <Link href="/team" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                <Link href="/team" className={footerLinkClass}>
                   Team
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                <Link href="/contact" className={footerLinkClass}>
                   Contact
                 </Link>
               </li>
             </ul>
           </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Connect</h3>
+
+          <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
+            <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Connect</h3>
             <div className="flex flex-wrap gap-4">
               <a
                 href="https://jodierummer.com"
@@ -71,7 +79,7 @@ export default function Footer() {
                 aria-label="Jodie Rummer&apos;s Website"
                 title="Visit Jodie Rummer&apos;s website"
               >
-                <div className="relative w-6 h-6 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-200">
+                <div className="relative h-6 w-6 opacity-60 transition-all duration-200 hover:opacity-100">
                   <Image
                     src="https://jodierummer.com/favicon.png"
                     alt="Jodie Rummer Logo"
@@ -91,12 +99,12 @@ export default function Footer() {
                 aria-label="Physioshark Project"
                 title="Visit Physioshark Project website"
               >
-                <div className="relative w-6 h-6 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-200">
+                <div className="relative h-6 w-6 opacity-60 transition-all duration-200 hover:opacity-100">
                   <Image
                     src="https://physioshark.org/Physioshark_icon.svg"
                     alt="Physioshark Logo"
                     fill
-                    className="object-contain brightness-0 dark:brightness-100 dark:invert opacity-60 hover:brightness-100 dark:hover:invert-0 hover:opacity-100 transition-all duration-200"
+                    className="object-contain brightness-0 dark:brightness-100 dark:invert"
                     sizes="24px"
                     unoptimized
                   />
@@ -111,7 +119,7 @@ export default function Footer() {
                 aria-label="Fenua FINdex"
                 title="Visit Fenua FINdex"
               >
-                <div className="relative w-6 h-6 filter grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all duration-200">
+                <div className="relative h-6 w-6 opacity-60 transition-all duration-200 hover:opacity-100">
                   <Image
                     src="https://fenuafindex.com/FenuaFINdex_icon.svg"
                     alt="Fenua FINdex Logo"
@@ -127,7 +135,7 @@ export default function Footer() {
                 href="https://bsky.app/profile/physiologyfish.bsky.social/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#0085ff] opacity-60 hover:opacity-100 transition-all duration-200"
+                className={socialIconClass}
                 aria-label="Bluesky"
                 title="Follow us on Bluesky"
               >
@@ -138,7 +146,7 @@ export default function Footer() {
                 href="https://www.instagram.com/rummerlab/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#E4405F] opacity-60 hover:opacity-100 transition-all duration-200"
+                className={socialIconClass}
                 aria-label="Instagram"
                 title="Follow us on Instagram"
               >
@@ -149,7 +157,7 @@ export default function Footer() {
                 href="https://www.facebook.com/rummerlab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#1877F2] opacity-60 hover:opacity-100 transition-all duration-200"
+                className={socialIconClass}
                 aria-label="Facebook"
                 title="Follow us on Facebook"
               >
@@ -160,29 +168,29 @@ export default function Footer() {
                 href="https://www.youtube.com/@Physioshark"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#FF0000] opacity-60 hover:opacity-100 transition-all duration-200"
+                className={socialIconClass}
                 aria-label="YouTube"
                 title="Subscribe to our YouTube channel"
               >
                 <FaYoutube className="h-6 w-6" />
                 <span className="sr-only">YouTube</span>
               </a>
-              <a 
-                href="https://www.researchgate.net/profile/Jodie-Rummer" 
-                target="_blank" 
+              <a
+                href="https://www.researchgate.net/profile/Jodie-Rummer"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#00CCBB] opacity-60 hover:opacity-100 transition-all duration-200"
+                className={socialIconClass}
                 aria-label="ResearchGate"
                 title="Visit ResearchGate profile"
               >
                 <SiResearchgate className="h-6 w-6" />
                 <span className="sr-only">ResearchGate</span>
               </a>
-              <a 
-                href="https://scholar.google.com/citations?user=ynWS968AAAAJ" 
-                target="_blank" 
+              <a
+                href="https://scholar.google.com/citations?user=ynWS968AAAAJ"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 filter grayscale hover:grayscale-0 hover:text-[#4285F4] opacity-60 hover:opacity-100 transition-all duration-200"
+                className={socialIconClass}
                 aria-label="Google Scholar"
                 title="Visit Google Scholar profile"
               >
@@ -192,8 +200,8 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        
-        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800">
+
+        <div className="mt-8 animate-fade-in border-t border-gray-200 pt-8 dark:border-gray-800" style={{ animationDelay: '300ms' }}>
           <p className="text-center text-gray-500 dark:text-gray-400">
             © {new Date().getFullYear()} RummerLab. All rights reserved.
           </p>
@@ -202,4 +210,3 @@ export default function Footer() {
     </footer>
   );
 }
-

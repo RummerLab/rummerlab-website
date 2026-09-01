@@ -97,7 +97,8 @@ export function MediaCoverageList(props: Props) {
         return (
           <article
             key={`${article.sourceType}-${article.url || article.title}-${index}`}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-xs overflow-hidden"
+            className="view-reveal overflow-hidden rounded-xl border border-gray-200/60 bg-surface-elevated shadow-lg transition-all duration-300 hover-lift dark:border-gray-800/60"
+            style={{ animationDelay: `${index * 60}ms` }}
           >
             <div className="flex flex-col md:flex-row">
               {article.image && <ArticleImage image={article.image} />}

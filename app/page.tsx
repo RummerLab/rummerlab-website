@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { AnimatedCollaborators } from '../components/AnimatedCollaborators';
 import { RummerLabMark } from '../components/RummerLabMark';
 import { TextReveal } from '../components/TextReveal';
@@ -9,6 +8,7 @@ import { TracingBeam } from '../components/ui/tracing-beam';
 import { ResearchCard } from '../components/ResearchCard';
 import ScrollDownArrow from '../components/ScrollDownArrow';
 import SupportOurResearch from '../components/SupportOurResearch';
+import { ButtonLink } from '@/components/layout/ButtonLink';
 
 export default function Home() {
   return (
@@ -52,21 +52,22 @@ export default function Home() {
             <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-8">
               Pioneering research on marine life adaptation in changing environments
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 mt-6 relative z-30">
-              <Link 
-                href="/research" 
-                className="px-8 py-3 bg-blue-600/80 hover:bg-blue-600 text-white hover:text-white font-medium rounded-lg transition-all duration-200 shadow-lg hover:shadow-blue-500/30 relative z-30"
+            <div className="relative z-30 mt-6 flex flex-col gap-4 sm:flex-row">
+              <ButtonLink
+                href="/research"
+                className="relative z-30"
                 aria-label="View our research areas and projects"
               >
                 Our Research
-              </Link>
-              <Link 
-                href="/join" 
-                className="px-8 py-3 bg-transparent hover:bg-white/10 text-white hover:text-white border border-white/30 font-medium rounded-lg transition-all duration-200 relative z-30"
+              </ButtonLink>
+              <ButtonLink
+                href="/join"
+                variant="outline-white"
+                className="relative z-30"
                 aria-label="Learn about joining our team"
               >
                 Join Our Team
-              </Link>
+              </ButtonLink>
             </div>
           </div>
           
@@ -82,7 +83,7 @@ export default function Home() {
                 imageClassName="h-auto w-52 sm:w-64 md:w-72"
               />
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Our Mission</h2>
-              <div className="h-1 w-20 bg-blue-500 mx-auto mb-10"></div>
+              <div className="mx-auto mb-10 h-1 w-20 animate-accent-grow rounded-full bg-blue-500"></div>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 RummerLab, led by Dr. Jodie Rummer, focuses on researching the physiological
                 processes and adaptations of aquatic animals in response to environmental
@@ -100,7 +101,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Research Areas</h2>
-              <div className="h-1 w-20 bg-blue-500 mx-auto mb-10"></div>
+              <div className="mx-auto mb-10 h-1 w-20 animate-accent-grow rounded-full bg-blue-500"></div>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
                 Our main research focus lies in the ecological, evolutionary, and conservation physiology in fishes.
               </p>
@@ -152,7 +153,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
                 Featured Projects
               </h2>
-              <div className="h-1 w-24 bg-linear-to-r from-blue-500 to-cyan-400 mx-auto mb-10"></div>
+              <div className="mx-auto mb-10 h-1 w-24 animate-accent-grow rounded-full bg-linear-to-r from-blue-500 to-cyan-400" />
               <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
                 Explore our groundbreaking research initiatives focused on understanding and protecting marine ecosystems
               </p>
@@ -190,7 +191,7 @@ export default function Home() {
           <div className="max-w-6xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Our Collaborators</h2>
-              <div className="h-1 w-20 bg-blue-500 mx-auto mb-10"></div>
+              <div className="mx-auto mb-10 h-1 w-20 animate-accent-grow rounded-full bg-blue-500"></div>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
                 We work with leading researchers and institutions around the world.
               </p>

@@ -17,6 +17,10 @@ const config: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'fenuafindex.com',
+      },
+      {
+        protocol: 'https',
         hostname: 'scholar.googleusercontent.com',
       },
       {

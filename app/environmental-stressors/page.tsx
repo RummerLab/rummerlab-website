@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
 import { ContentImage } from '@/components/ContentImage';
+import { PageShell } from '@/components/layout/PageShell';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { ContentCard } from '@/components/layout/ContentCard';
 
 export const metadata: Metadata = {
     title: "Whole-animal responses to environmental stress",
@@ -8,21 +11,16 @@ export const metadata: Metadata = {
 
 export default function EnvironmentalStresses() {
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {/* Hero Section */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl p-8 mb-12">
-                <div className="max-w-3xl mx-auto text-center">
-                    <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Whole-animal responses to environmental stress</h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-300">
-                        Understanding how marine organisms respond and adapt to environmental stressors is crucial for predicting and mitigating the impacts of climate change.
-                    </p>
-                </div>
-            </div>
+        <PageShell>
+            <PageHeader
+                title="Whole-animal responses to environmental stress"
+                subtitle="Understanding how marine organisms respond and adapt to environmental stressors is crucial for predicting and mitigating the impacts of climate change."
+            />
 
             <div className="grid lg:grid-cols-3 gap-8">
                 {/* Main Content */}
                 <div className="lg:col-span-2 space-y-8">
-                    <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+                    <ContentCard reveal>
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">RESEARCH THEME - Whole-animal responses to environmental stress</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <p className="text-gray-600 dark:text-gray-300">Early in my research career, I conducted a rigorous assessment of the physiological responses to decompression stress caused by fishing, injuries resulting from swim bladder overexpansion and gas embolisms. This seminal research has been well cited and is utilized as a model for fisheries management surrounding catch-and-release protocols and conservation organizations worldwide.</p>
@@ -60,9 +58,9 @@ export default function EnvironmentalStresses() {
                             <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mt-8 mb-4">Thermal Acclimation Studies</h3>
                             <p className="text-gray-600 dark:text-gray-300">I have also made conclusions as to the temporal scale of thermal acclimation and metabolic performance in coral reef fishes and how this relates to temperature preference, a link crucial to developing management strategies for the conservation of marine biodiversity and the sustainable use of marine fisheries, especially in the advent of climate change.</p>
                         </div>
-                    </section>
+                    </ContentCard>
 
-                    <section className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8">
+                    <ContentCard reveal>
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Larval Fish Research</h2>
                         <div className="prose prose-lg max-w-none dark:prose-invert">
                             <div className="my-8 relative h-64 rounded-lg overflow-hidden">
@@ -74,12 +72,12 @@ export default function EnvironmentalStresses() {
                             </div>
                             <p className="text-gray-600 dark:text-gray-300">While much of my whole-animal work has been done on adult fishes, I have integrated several studies on larval fishes into my program. I recently collaborated with Dr. Shaun Killen to understand the tradeoffs between dominant behaviours and aerobic metabolic scope in larval coral reef damselfish.</p>
                         </div>
-                    </section>
+                    </ContentCard>
                 </div>
 
                 {/* Sidebar */}
                 <div className="lg:col-span-1 space-y-8">
-                    <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                    <ContentCard reveal className="p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Highlights</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-4">
@@ -111,9 +109,9 @@ export default function EnvironmentalStresses() {
                                 </div>
                             </li>
                         </ul>
-                    </aside>
+                    </ContentCard>
 
-                    <aside className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                    <ContentCard reveal className="p-6">
                         <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Research Impact</h3>
                         <div className="relative h-40 mb-4 rounded-lg overflow-hidden">
                             <ContentImage
@@ -124,9 +122,9 @@ export default function EnvironmentalStresses() {
                             />
                         </div>
                         <p className="text-gray-600 dark:text-gray-300">Our research contributes to understanding and protecting marine ecosystems in the face of environmental change.</p>
-                    </aside>
+                    </ContentCard>
                 </div>
             </div>
-        </div>
+        </PageShell>
     );
 }

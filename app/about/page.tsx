@@ -113,7 +113,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Who We Are</h2>
-            <div className="h-1 w-20 bg-blue-500 mx-auto" />
+            <div className="mx-auto h-1 w-20 animate-accent-grow rounded-full bg-blue-500" />
           </div>
 
           <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
@@ -158,7 +158,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">What We Study</h2>
-            <div className="h-1 w-20 bg-blue-500 mx-auto mb-6" />
+            <div className="mx-auto mb-6 h-1 w-20 animate-accent-grow rounded-full bg-blue-500" />
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
               Our research threads together physiology, ecology, and conservation across three
               interconnected themes.
@@ -215,7 +215,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Values</h2>
-            <div className="h-1 w-20 bg-blue-500 mx-auto" />
+            <div className="mx-auto h-1 w-20 animate-accent-grow rounded-full bg-blue-500" />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
