@@ -153,7 +153,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
                 Featured Projects
               </h2>
-            <div className="mx-auto mb-10 h-1 w-24 animate-accent-grow rounded-full bg-linear-to-r from-blue-500 to-cyan-400"></div>
+              <div className="mx-auto mb-10 h-1 w-24 animate-accent-grow rounded-full bg-linear-to-r from-blue-500 to-cyan-400" />
               <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-12">
                 Explore our groundbreaking research initiatives focused on understanding and protecting marine ecosystems
               </p>

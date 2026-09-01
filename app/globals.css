@@ -88,10 +88,10 @@
 
 @keyframes accent-grow {
   from {
-    width: 0;
+    transform: scaleX(0);
   }
   to {
-    width: 5rem;
+    transform: scaleX(1);
   }
 }
 
@@ -153,6 +153,10 @@
 
   .bg-surface-elevated {
     @apply bg-white dark:bg-gray-900;
+  }
+
+  .animate-accent-grow {
+    transform-origin: center;
   }
 
   .hover-lift {

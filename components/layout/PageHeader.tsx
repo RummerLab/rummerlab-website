@@ -36,7 +36,7 @@ export function PageHeader({
           </div>
         )}
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">{title}</h1>
-        <div className="h-1 animate-accent-grow rounded-full bg-blue-500" />
+        <div className="mx-auto h-1 w-20 animate-accent-grow rounded-full bg-blue-500" />
         {subtitle && (
           <p className="text-xl text-muted">{subtitle}</p>
         )}
