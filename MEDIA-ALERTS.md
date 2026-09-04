@@ -14,7 +14,7 @@ Treat this file as living documentation: update it when the mailbox sources, `me
 2. Read Inbox media alerts and related forwards.
 3. Extract credible coverage of **Jodie Rummer**, **RummerLab**, **Physioshark**, or **Athletes of the Reef**.
 4. Add or collate items in [`data/media.json`](data/media.json) (helpers in [`data/media.ts`](data/media.ts), types in [`types/media.ts`](types/media.ts)).
-5. `npm run lint` and `npm run build`.
+5. `pnpm run lint` and `pnpm run build`.
 6. Commit, push, and open a PR on [RummerLab/rummerlab-website](https://github.com/RummerLab/rummerlab-website).
 7. Notify Luen + Jodie **only** when the email produced new catalogue items; then archive processed mail.
 
@@ -93,8 +93,8 @@ Do not invent URLs, dates, or quotes. Leave existing items unless they are clear
 2. Run and fix:
 
 ```bash
-npm run lint
-npm run build
+pnpm run lint
+pnpm run build
 ```
 
 3. Ensure the diff has no secrets, tokens, or private URLs.
