@@ -67,7 +67,7 @@ jobs:
             [ -z "$f" ] && continue
             base="$(basename "$f")"
             case "$base" in
-              package.json|package-lock.json|npm-shrinkwrap.json|yarn.lock|pnpm-lock.yaml|bun.lock|bun.lockb) ;;
+              package.json|pnpm-lock.yaml|npm-shrinkwrap.json|pnpm-lock.yaml|pnpm-lock.yaml|bun.lock|bun.lockb) ;;
               requirements.txt|requirements-dev.txt|Pipfile|Pipfile.lock|poetry.lock|pyproject.toml|uv.lock|constraints.txt) ;;
               renovate.json|renovate.json5|dependabot.yml) ;;
               *)
@@ -161,20 +161,24 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
 
       - name: Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: '22'
-          cache: npm
+          cache: pnpm
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
       - name: Production build
-        run: npm run build
+        run: pnpm run build
 
   auto-merge:
     name: Enable auto-merge

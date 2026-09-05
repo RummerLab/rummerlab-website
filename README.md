@@ -92,19 +92,19 @@ HTTP security headers (HSTS, X-Frame-Options, CSP, etc.) are defined in code and
 ## Development
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## Build
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ## Linting
 
 ```bash
-npm run lint
+pnpm run lint
 ```
 
 ## Updating Dependencies
@@ -112,8 +112,8 @@ npm run lint
 Note that this can break the code.
 
 ```bash
-npx npm-check-updates -u
-npm install
+pnpm exec npm-check-updates -u
+pnpm install
 ```
 
 ## Environment Setup
