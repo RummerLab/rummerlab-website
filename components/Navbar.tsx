@@ -6,8 +6,9 @@ import { FaInstagram, FaFacebook, FaChevronDown } from "react-icons/fa"
 import { SiBluesky } from "react-icons/si"
 import { useState } from "react"
 import { IconType } from "react-icons"
-import type { ReactElement } from 'react'
+import type { ReactElement } from "react"
 import { RummerLabMark } from "@/components/RummerLabMark"
+import { SocialIconLink, socialLogoImageClassName } from "./SocialIconLink"
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -18,99 +19,134 @@ export default function Navbar() {
         setActiveDropdown(null)
     }
 
-    type SocialLink = {
-        href: string;
-        icon: IconType | (() => ReactElement);
-        ariaLabel: string;
-        title?: string;
+    type LogoSocialLink = {
+        href: string
+        ariaLabel: string
+        title: string
+        isLogo: true
+        renderIcon: (sizeClass: string) => ReactElement
     }
+
+    type BrandSocialLink = {
+        href: string
+        ariaLabel: string
+        title: string
+        isLogo?: false
+        hoverColorClass: string
+        icon: IconType
+    }
+
+    type SocialLink = LogoSocialLink | BrandSocialLink
 
     const socialLinks: SocialLink[] = [
         {
             href: "https://jodierummer.com",
-            icon: () => (
-                <div className="relative w-5 h-5 group" title="Visit Jodie Rummer's website">
+            ariaLabel: "Visit Jodie Rummer's website",
+            title: "Visit Jodie Rummer's website",
+            isLogo: true,
+            renderIcon: (sizeClass: string) => (
+                <span className={`relative block ${sizeClass}`}>
                     <Image
                         src="https://jodierummer.com/favicon.png"
-                        alt="Jodie Rummer Logo"
+                        alt=""
                         fill
-                        className="object-contain opacity-60 group-hover:opacity-100 transition-all duration-200 brightness-0 dark:brightness-100 dark:invert"
-                        sizes="20px"
+                        className={socialLogoImageClassName}
+                        sizes="24px"
+                        unoptimized
                     />
-                    <div 
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-                        style={{
-                            backgroundColor: 'rgb(37, 99, 235)',
-                            mixBlendMode: 'screen',
-                        }}
-                    />
-                </div>
+                </span>
             ),
-            ariaLabel: "Visit Jodie Rummer&apos;s website"
         },
         {
             href: "https://physioshark.org",
-            icon: () => (
-                <div className="relative w-5 h-5 group" title="Visit Physioshark Project website">
+            ariaLabel: "Visit Physioshark website",
+            title: "Visit Physioshark Project website",
+            isLogo: true,
+            renderIcon: (sizeClass: string) => (
+                <span className={`relative block ${sizeClass}`}>
                     <Image
                         src="https://physioshark.org/Physioshark_icon.svg"
-                        alt="Physioshark Logo"
+                        alt=""
                         fill
-                        className="object-contain opacity-60 group-hover:opacity-100 transition-all duration-200 brightness-0 dark:brightness-100 dark:invert"
-                        sizes="20px"
+                        className={socialLogoImageClassName}
+                        sizes="24px"
+                        unoptimized
                     />
-                    <div 
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-                        style={{
-                            backgroundColor: 'rgb(37, 99, 235)',
-                            mixBlendMode: 'screen',
-                        }}
-                    />
-                </div>
+                </span>
             ),
-            ariaLabel: "Visit Physioshark website"
         },
         {
             href: "https://fenuafindex.com",
-            icon: () => (
-                <div className="relative w-5 h-5 group" title="Visit Fenua FINdex">
+            ariaLabel: "Visit Fenua FINdex",
+            title: "Visit Fenua FINdex",
+            isLogo: true,
+            renderIcon: (sizeClass: string) => (
+                <span className={`relative block ${sizeClass}`}>
                     <Image
                         src="https://fenuafindex.com/FenuaFINdex_icon.svg"
-                        alt="Fenua FINdex Logo"
+                        alt=""
                         fill
-                        className="object-contain opacity-60 group-hover:opacity-100 transition-all duration-200"
-                        sizes="20px"
+                        className={socialLogoImageClassName}
+                        sizes="24px"
+                        unoptimized
                     />
-                    <div 
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
-                        style={{
-                            backgroundColor: 'rgb(37, 99, 235)',
-                            mixBlendMode: 'screen',
-                        }}
-                    />
-                </div>
+                </span>
             ),
-            ariaLabel: "Visit Fenua FINdex"
         },
         {
             href: "https://bsky.app/profile/physiologyfish.bsky.social/",
             icon: SiBluesky as IconType,
             ariaLabel: "Follow us on Bluesky",
-            title: "Follow us on Bluesky"
+            title: "Follow us on Bluesky",
+            hoverColorClass: "hover:text-[#0085ff] focus-visible:text-[#0085ff]",
         },
         {
             href: "https://www.instagram.com/rummerlab/",
             icon: FaInstagram as IconType,
             ariaLabel: "Follow us on Instagram",
-            title: "Follow us on Instagram"
+            title: "Follow us on Instagram",
+            hoverColorClass: "hover:text-[#E4405F] focus-visible:text-[#E4405F]",
         },
         {
             href: "https://www.facebook.com/rummerlab",
             icon: FaFacebook as IconType,
             ariaLabel: "Follow us on Facebook",
-            title: "Follow us on Facebook"
-        }
+            title: "Follow us on Facebook",
+            hoverColorClass: "hover:text-[#1877F2] focus-visible:text-[#1877F2]",
+        },
     ]
+
+    const renderSocialIcon = (link: SocialLink, iconSizeClass: string) => {
+        if (link.isLogo) {
+            return (
+                <SocialIconLink
+                    key={link.href}
+                    href={link.href}
+                    ariaLabel={link.ariaLabel}
+                    title={link.title}
+                    isLogo
+                    onClick={handleLinkClick}
+                >
+                    {link.renderIcon(iconSizeClass)}
+                </SocialIconLink>
+            )
+        }
+
+        const Icon = link.icon
+
+        return (
+            <SocialIconLink
+                key={link.href}
+                href={link.href}
+                ariaLabel={link.ariaLabel}
+                title={link.title}
+                hoverColorClass={link.hoverColorClass}
+                onClick={handleLinkClick}
+            >
+                <Icon className={iconSizeClass} aria-hidden="true" />
+            </SocialIconLink>
+        )
+    }
 
     const navItems = [
         { 
@@ -226,28 +262,7 @@ export default function Navbar() {
 
                     {/* Social Icons - Desktop */}
                     <div className="hidden md:flex items-center space-x-4">
-                        {socialLinks.map((link) => {
-                            const Icon = link.icon
-                            return (
-                                <Link 
-                                    key={link.href}
-                                    href={link.href} 
-                                    className={typeof Icon === 'function' && !('$$typeof' in Icon) 
-                                        ? "text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-200" 
-                                        : "text-gray-500 transition-all duration-200"
-                                    }
-                                    aria-label={link.ariaLabel}
-                                    title={link.title}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {typeof Icon === 'function' && !('$$typeof' in Icon) ? 
-                                        <Icon /> : 
-                                        <Icon className="h-5 w-5 opacity-60 hover:opacity-100 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200" />
-                                    }
-                                </Link>
-                            )
-                        })}
+                        {socialLinks.map((link) => renderSocialIcon(link, "h-5 w-5"))}
                     </div>
 
                     {/* Mobile menu button */}
@@ -322,29 +337,7 @@ export default function Navbar() {
                     ))}
                 </div>
                 <div className="flex justify-center space-x-4 pb-3 border-t border-gray-200 dark:border-gray-800 pt-4">
-                    {socialLinks.map((link) => {
-                        const Icon = link.icon
-                        return (
-                            <Link 
-                                key={link.href}
-                                href={link.href} 
-                                className={typeof Icon === 'function' && !('$$typeof' in Icon) 
-                                    ? "transition-all duration-200" 
-                                    : "text-gray-500 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-200 group"
-                                }
-                                onClick={handleLinkClick}
-                                aria-label={link.ariaLabel}
-                                title={link.title}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {typeof Icon === 'function' && !('$$typeof' in Icon) ? 
-                                    <Icon /> : 
-                                    <Icon className="h-6 w-6 opacity-60 group-hover:opacity-100 transition-opacity duration-200" />
-                                }
-                            </Link>
-                        )
-                    })}
+                    {socialLinks.map((link) => renderSocialIcon(link, "h-6 w-6"))}
                 </div>
             </div>
         </nav>

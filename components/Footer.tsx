@@ -2,12 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SiBluesky, SiResearchgate, SiGooglescholar } from 'react-icons/si';
 import { FaInstagram, FaFacebook, FaYoutube } from 'react-icons/fa';
+import { SocialIconLink, socialLogoImageClassName } from './SocialIconLink';
 
 const footerLinkClass =
   'link-underline text-gray-600 transition-colors duration-200 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400';
-
-const socialIconClass =
-  'text-gray-400 opacity-60 transition-all duration-200 hover:text-blue-600 hover:opacity-100 dark:hover:text-blue-400';
 
 export default function Footer() {
   return (
@@ -71,132 +69,122 @@ export default function Footer() {
           <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
             <h3 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Connect</h3>
             <div className="flex flex-wrap gap-4">
-              <a
+              <SocialIconLink
                 href="https://jodierummer.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-all duration-200"
-                aria-label="Jodie Rummer&apos;s Website"
-                title="Visit Jodie Rummer&apos;s website"
+                ariaLabel="Jodie Rummer's Website"
+                title="Visit Jodie Rummer's website"
+                isLogo
               >
-                <div className="relative h-6 w-6 opacity-60 transition-all duration-200 hover:opacity-100">
+                <span className="relative block h-6 w-6">
                   <Image
                     src="https://jodierummer.com/favicon.png"
-                    alt="Jodie Rummer Logo"
+                    alt=""
                     fill
-                    className="object-contain"
+                    className={socialLogoImageClassName}
                     sizes="24px"
                     unoptimized
                   />
-                </div>
+                </span>
                 <span className="sr-only">Jodie Rummer&apos;s Website</span>
-              </a>
-              <a
+              </SocialIconLink>
+
+              <SocialIconLink
                 href="https://physioshark.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-all duration-200"
-                aria-label="Physioshark Project"
+                ariaLabel="Physioshark Project"
                 title="Visit Physioshark Project website"
+                isLogo
               >
-                <div className="relative h-6 w-6 opacity-60 transition-all duration-200 hover:opacity-100">
+                <span className="relative block h-6 w-6">
                   <Image
                     src="https://physioshark.org/Physioshark_icon.svg"
-                    alt="Physioshark Logo"
+                    alt=""
                     fill
-                    className="object-contain brightness-0 dark:brightness-100 dark:invert"
+                    className={socialLogoImageClassName}
                     sizes="24px"
                     unoptimized
                   />
-                </div>
+                </span>
                 <span className="sr-only">Physioshark Project</span>
-              </a>
-              <a
+              </SocialIconLink>
+
+              <SocialIconLink
                 href="https://fenuafindex.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-all duration-200"
-                aria-label="Fenua FINdex"
+                ariaLabel="Fenua FINdex"
                 title="Visit Fenua FINdex"
+                isLogo
               >
-                <div className="relative h-6 w-6 opacity-60 transition-all duration-200 hover:opacity-100">
+                <span className="relative block h-6 w-6">
                   <Image
                     src="https://fenuafindex.com/FenuaFINdex_icon.svg"
-                    alt="Fenua FINdex Logo"
+                    alt=""
                     fill
-                    className="object-contain"
+                    className={socialLogoImageClassName}
                     sizes="24px"
                     unoptimized
                   />
-                </div>
+                </span>
                 <span className="sr-only">Fenua FINdex</span>
-              </a>
-              <a
+              </SocialIconLink>
+
+              <SocialIconLink
                 href="https://bsky.app/profile/physiologyfish.bsky.social/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialIconClass}
-                aria-label="Bluesky"
+                ariaLabel="Bluesky"
                 title="Follow us on Bluesky"
+                hoverColorClass="hover:text-[#0085ff] focus-visible:text-[#0085ff]"
               >
-                <SiBluesky className="h-6 w-6" />
+                <SiBluesky className="h-6 w-6" aria-hidden="true" />
                 <span className="sr-only">Bluesky</span>
-              </a>
-              <a
+              </SocialIconLink>
+
+              <SocialIconLink
                 href="https://www.instagram.com/rummerlab/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialIconClass}
-                aria-label="Instagram"
+                ariaLabel="Instagram"
                 title="Follow us on Instagram"
+                hoverColorClass="hover:text-[#E4405F] focus-visible:text-[#E4405F]"
               >
-                <FaInstagram className="h-6 w-6" />
+                <FaInstagram className="h-6 w-6" aria-hidden="true" />
                 <span className="sr-only">Instagram</span>
-              </a>
-              <a
+              </SocialIconLink>
+
+              <SocialIconLink
                 href="https://www.facebook.com/rummerlab"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialIconClass}
-                aria-label="Facebook"
+                ariaLabel="Facebook"
                 title="Follow us on Facebook"
+                hoverColorClass="hover:text-[#1877F2] focus-visible:text-[#1877F2]"
               >
-                <FaFacebook className="h-6 w-6" />
+                <FaFacebook className="h-6 w-6" aria-hidden="true" />
                 <span className="sr-only">Facebook</span>
-              </a>
-              <a
+              </SocialIconLink>
+
+              <SocialIconLink
                 href="https://www.youtube.com/@Physioshark"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialIconClass}
-                aria-label="YouTube"
+                ariaLabel="YouTube"
                 title="Subscribe to our YouTube channel"
+                hoverColorClass="hover:text-[#FF0000] focus-visible:text-[#FF0000]"
               >
-                <FaYoutube className="h-6 w-6" />
+                <FaYoutube className="h-6 w-6" aria-hidden="true" />
                 <span className="sr-only">YouTube</span>
-              </a>
-              <a
+              </SocialIconLink>
+
+              <SocialIconLink
                 href="https://www.researchgate.net/profile/Jodie-Rummer"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialIconClass}
-                aria-label="ResearchGate"
+                ariaLabel="ResearchGate"
                 title="Visit ResearchGate profile"
+                hoverColorClass="hover:text-[#00CCBB] focus-visible:text-[#00CCBB]"
               >
-                <SiResearchgate className="h-6 w-6" />
+                <SiResearchgate className="h-6 w-6" aria-hidden="true" />
                 <span className="sr-only">ResearchGate</span>
-              </a>
-              <a
+              </SocialIconLink>
+
+              <SocialIconLink
                 href="https://scholar.google.com/citations?user=ynWS968AAAAJ"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={socialIconClass}
-                aria-label="Google Scholar"
+                ariaLabel="Google Scholar"
                 title="Visit Google Scholar profile"
+                hoverColorClass="hover:text-[#4285F4] focus-visible:text-[#4285F4]"
               >
-                <SiGooglescholar className="h-6 w-6" />
+                <SiGooglescholar className="h-6 w-6" aria-hidden="true" />
                 <span className="sr-only">Google Scholar</span>
-              </a>
+              </SocialIconLink>
             </div>
           </div>
         </div>
