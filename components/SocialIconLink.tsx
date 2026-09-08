@@ -1,4 +1,5 @@
 import type { MouseEventHandler, ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 /** Classes for logo images that stay B&W until hover reveals original colour */
 export const socialLogoImageClassName =
@@ -36,16 +37,14 @@ export const SocialIconLink = ({
       title={title}
       onClick={onClick}
       tabIndex={0}
-      className={[
+      className={cn(
         'inline-flex items-center justify-center text-gray-500 opacity-60 transition-all duration-200',
         'hover:opacity-100 focus-visible:opacity-100',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
         'dark:text-gray-400',
         isLogo ? 'group' : hoverColorClass,
         className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      )}
     >
       {children}
     </a>
