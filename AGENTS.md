@@ -112,6 +112,23 @@ pnpm exec @tailwindcss/upgrade
 After either upgrade: run `pnpm run lint` and `pnpm run build`, fix failures, and update this file if versions/scripts change.
 
 
+## Git remotes and publishing
+
+Canonical repo: **`RummerLab/rummerlab-website`** (`upstream`).
+
+In this clone, remotes are typically:
+
+- `upstream` → `https://github.com/RummerLab/rummerlab-website.git` (canonical)
+- `origin` → `https://github.com/Luen/rummerlab-website.git` (personal fork)
+
+**Always publish to upstream**, not only the Luen/`origin` fork:
+
+- Prefer opening a pull request against `RummerLab/rummerlab-website`.
+- Or commit/push directly to `upstream` when that is the agreed workflow.
+- Do **not** treat a push to `origin` (Luen) as done — that commit will not appear on the RummerLab repo until it is pushed or PR’d upstream.
+
+When creating branches for review: push them to `upstream` (or open a PR with base `RummerLab/rummerlab-website`), then share the RummerLab PR URL.
+
 ## Pull requests
 
 Before merging any pull request:
