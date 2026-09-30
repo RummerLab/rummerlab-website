@@ -82,6 +82,14 @@ export const getPapers = (options?: { origin?: string }): Paper[] => {
     .sort(comparePapers);
 };
 
+/** Peer-reviewed journal articles (excludes book chapters / encyclopedia entries). */
+export const getJournalPapers = (options?: { origin?: string }): Paper[] =>
+  getPapers(options).filter((paper) => !paper.book);
+
+/** Book chapters, encyclopedia entries, and other non-journal publications. */
+export const getOtherPapers = (options?: { origin?: string }): Paper[] =>
+  getPapers(options).filter((paper) => Boolean(paper.book));
+
 export const getFeaturedPapersPage = (
   limit = DEFAULT_FEATURED_LIMIT,
   options?: { origin?: string },

@@ -1,10 +1,12 @@
-import type { Metadata } from 'next';
-import { PageShell } from '@/components/layout/PageShell';
-import { PageHeader } from '@/components/layout/PageHeader';
+import { FeaturedCoverImages } from '@/components/publications/FeaturedCoverImages';
+import { OtherPublications } from '@/components/publications/OtherPublications';
 import { PublicationsBrowser } from '@/components/publications/PublicationsBrowser';
 import { PublicationsLinks } from '@/components/publications/PublicationsLinks';
-import { getPapers } from '@/lib/papers';
+import { PageHeader } from '@/components/layout/PageHeader';
+import { PageShell } from '@/components/layout/PageShell';
+import { getJournalPapers, getOtherPapers } from '@/lib/papers';
 import { getScholarProfileMetrics } from '@/lib/scholar-profile';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Publications | RummerLab',
@@ -15,7 +17,8 @@ export const metadata: Metadata = {
 export const revalidate = 86400;
 
 export default async function Publications() {
-  const papers = getPapers();
+  const journalPapers = getJournalPapers();
+  const otherPapers = getOtherPapers();
   const metrics = await getScholarProfileMetrics();
 
   return (
@@ -25,9 +28,14 @@ export default async function Publications() {
         subtitle="Research papers and scientific publications from RummerLab"
       />
 
-      <PublicationsLinks metrics={metrics} paperCount={papers.length} />
+      <PublicationsLinks
+        metrics={metrics}
+        paperCount={journalPapers.length + otherPapers.length}
+      />
 
-      <PublicationsBrowser papers={papers} />
+      <PublicationsBrowser papers={journalPapers} />
+      <OtherPublications papers={otherPapers} />
+      <FeaturedCoverImages />
     </PageShell>
   );
 }
