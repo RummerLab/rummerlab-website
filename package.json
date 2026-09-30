@@ -12,6 +12,7 @@
     "check-token": "ts-node --project tsconfig.script.json scripts/check-token.ts",
     "resize-images": "ts-node --project tsconfig.script.json scripts/resize-images.ts",
     "extract-paper-metadata": "python scripts/extract-paper-metadata.py",
+    "enrich-papers-scholar": "python scripts/enrich-papers-scholar.py",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {

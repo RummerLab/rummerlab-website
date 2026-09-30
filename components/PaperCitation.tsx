@@ -3,7 +3,8 @@ import {
   getPaperDisplayName,
   getPaperDoiUrl,
   type Paper,
-} from '@/lib/papers';
+} from '@/lib/paper-shared';
+import { sanitizePaperTitleHtml } from '@/lib/paper-title';
 
 interface PaperCitationProps {
   paper: Paper;
@@ -18,6 +19,7 @@ export const PaperCitation = ({
 }: PaperCitationProps) => {
   const Heading = headingLevel;
   const displayName = getPaperDisplayName(paper);
+  const titleHtml = sanitizePaperTitleHtml(paper.title ?? displayName);
   const citationParts = [
     paper.journal ? paper.journal : paper.book,
     paper.year ? String(paper.year) : null,
@@ -31,9 +33,8 @@ export const PaperCitation = ({
           target="_blank"
           rel="noopener noreferrer"
           className={`hover:text-blue-600 dark:hover:text-blue-400${linkClassName ? ` ${linkClassName}` : ''}`}
-        >
-          {displayName}
-        </Link>
+          dangerouslySetInnerHTML={{ __html: titleHtml }}
+        />
       </Heading>
       {paper.authors?.length ? (
         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
