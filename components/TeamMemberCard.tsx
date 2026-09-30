@@ -47,9 +47,10 @@ export function TeamMemberCard({ member, index = 0, priority = false }: TeamMemb
       <div className="p-6">
         <div className="flex flex-col space-y-2">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">{member.name}</h2>
-          {member.title && (
-            <h3 className="text-lg text-gray-700 dark:text-gray-300">{member.title}</h3>
-          )}
+          {member.title &&
+            member.title.trim().toLowerCase() !== member.role.trim().toLowerCase() && (
+              <h3 className="text-lg text-gray-700 dark:text-gray-300">{member.title}</h3>
+            )}
           <h3 className="text-lg font-medium text-blue-600 dark:text-blue-400">{member.role}</h3>
 
           {member.affiliations && member.affiliations.length > 0 && (

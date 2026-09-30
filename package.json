@@ -16,6 +16,7 @@
     "resize-images": "ts-node --project tsconfig.script.json scripts/resize-images.ts",
     "extract-paper-metadata": "python scripts/extract-paper-metadata.py",
     "enrich-papers-scholar": "python scripts/enrich-papers-scholar.py",
+    "sync-collaborators-scholar": "ts-node --project tsconfig.script.json scripts/sync-collaborators-scholar.ts",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
