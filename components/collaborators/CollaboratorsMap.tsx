@@ -5,8 +5,8 @@ import maplibregl, { AttributionControl, type Map as MapLibreMap, type MapLayerM
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { collaboratorLocations } from '@/data/collaborator-locations';
 
-const AUTO_ROTATE_INTERVAL = 4000;
-const ROTATION_DEGREES = 25;
+const AUTO_ROTATE_INTERVAL = 12000;
+const ROTATION_DEGREES = 40;
 const DEFAULT_CENTER: [number, number] = [146.761, -19.329];
 const DEFAULT_ZOOM = 1.2;
 
@@ -32,6 +32,9 @@ export const CollaboratorsMap = () => {
   );
 
   useEffect(() => {
+    // Re-enable after React Strict Mode remounts (cleanup sets this to false).
+    rotationEnabledRef.current = true;
+
     const POPUP_STYLE_ID = 'rummerlab-collaborators-popup-style';
     if (typeof document !== 'undefined' && !document.getElementById(POPUP_STYLE_ID)) {
       const style = document.createElement('style');
@@ -74,6 +77,10 @@ export const CollaboratorsMap = () => {
 
     if (!mapContainerRef.current) return;
 
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const clearPendingRotation = () => {
       if (!mapRef.current || !rotationHandlerRef.current) return;
       mapRef.current.off('moveend', rotationHandlerRef.current);
@@ -82,7 +89,7 @@ export const CollaboratorsMap = () => {
     clearRotationHandlerRef.current = clearPendingRotation;
 
     const scheduleRotation = () => {
-      if (!mapRef.current || !rotationEnabledRef.current) return;
+      if (!mapRef.current || !rotationEnabledRef.current || prefersReducedMotion) return;
 
       const mapInstance = mapRef.current;
       const currentCenter = mapInstance.getCenter();
@@ -225,7 +232,12 @@ export const CollaboratorsMap = () => {
         pitch: 0,
         bearing: 0,
       });
-      scheduleRotation();
+
+      // Start spinning once the map is idle so jumpTo does not cancel the first easeTo.
+      map.once('idle', () => {
+        if (!rotationEnabledRef.current) return;
+        scheduleRotation();
+      });
     });
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'top-right');

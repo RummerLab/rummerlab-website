@@ -38,18 +38,6 @@ export const getYearFromFilename = (filename: string): number | null => {
 export const getPaperDisplayName = (paper: Pick<Paper, 'title' | 'name'>): string =>
   paper.title ?? paper.name;
 
-/** Strip markup for safe use in aria-labels and plain-text contexts. */
-export const getPaperPlainTitle = (title: string): string =>
-  title
-    .replace(/<[^>]*>/g, '')
-    .replace(/&nbsp;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;|&apos;/gi, "'")
-    .trim();
-
 /**
  * Only allow same-origin `/papers/...` PDF paths (blocks javascript: and external schemes).
  */

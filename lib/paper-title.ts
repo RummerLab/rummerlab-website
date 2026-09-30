@@ -46,3 +46,12 @@ export const sanitizePaperTitleHtml = (title: string): string => {
     allowedAttributes: {},
   });
 };
+
+/** Plain text for aria-labels — strips all markup via sanitize-html (no regex unescape). */
+export const getPaperPlainTitle = (title: string): string =>
+  sanitizeHtml(title, {
+    allowedTags: [],
+    allowedAttributes: {},
+  })
+    .replace(/\s+/g, ' ')
+    .trim();
