@@ -1,0 +1,352 @@
+{
+  "updatedFromScholarAt": "2026-09-30",
+  "note": "Curated collaborators list for /collaborators. Affiliations and Scholar IDs refreshed from Google Scholar coauthors (ynWS968AAAAJ). Historical collaborators without a current Scholar coauthor link are retained. Re-run: pnpm run sync-collaborators-scholar",
+  "regions": [
+    {
+      "id": "oceania",
+      "title": "Oceania",
+      "people": [
+        {
+          "name": "Andrew Chin, PhD",
+          "affiliation": "College of Science and Engineering, James Cook University",
+          "url": "https://scholar.google.com/citations?user=IOodUNIAAAAJ",
+          "scholarId": "IOodUNIAAAAJ"
+        },
+        {
+          "name": "Bridie J.M. Allan",
+          "affiliation": "Department of Marine Science Otago University",
+          "url": "https://scholar.google.com/citations?user=uMGpMmYAAAAJ",
+          "scholarId": "uMGpMmYAAAAJ"
+        },
+        {
+          "name": "Colin Simpfendorfer",
+          "affiliation": "James Cook University",
+          "url": "https://scholar.google.com/citations?user=oPR2ItwAAAAJ",
+          "scholarId": "oPR2ItwAAAAJ"
+        },
+        {
+          "name": "Connor Gervais",
+          "affiliation": "South Australian Research and Development Institute (SARDI)",
+          "url": "https://scholar.google.com/citations?user=4fg3TXQAAAAJ",
+          "scholarId": "4fg3TXQAAAAJ"
+        },
+        {
+          "name": "Craig E Franklin",
+          "affiliation": "Professor, School of Biological Sciences, The University of Queensland",
+          "url": "https://scholar.google.com/citations?user=I6gqjg8AAAAJ",
+          "scholarId": "I6gqjg8AAAAJ"
+        },
+        {
+          "name": "Dr Ian M. McLeod",
+          "affiliation": "James Cook University",
+          "url": "https://scholar.google.com/citations?user=AOiKX2cAAAAJ",
+          "scholarId": "AOiKX2cAAAAJ"
+        },
+        {
+          "name": "Dr. Alistair Cheal",
+          "affiliation": "Reef Fish Ecologist, Australian Institute of Marine Science",
+          "url": "https://scholar.google.com/citations?user=HiZ4jTIAAAAJ",
+          "scholarId": "HiZ4jTIAAAAJ"
+        },
+        {
+          "name": "Dr. Amelia Wenger",
+          "affiliation": "Wildlife Conservation Society; University of Queensland",
+          "url": "https://scholar.google.com/citations?user=ZneF9GQAAAAJ",
+          "scholarId": "ZneF9GQAAAAJ"
+        },
+        {
+          "name": "Dr. Andrea Morash",
+          "affiliation": "Mount Allison University (formerly CSIRO / University of Tasmania)"
+        },
+        {
+          "name": "Dr. Andy Hoey",
+          "affiliation": "James Cook University"
+        },
+        {
+          "name": "Dr. Fatima Iftikar",
+          "affiliation": "University of Auckland"
+        },
+        {
+          "name": "Dr. Katharina Fabricius",
+          "affiliation": "Senior Principal Research Scientist, Australian Institute of Marine Science",
+          "url": "https://scholar.google.com/citations?user=AqHxsRMAAAAJ",
+          "scholarId": "AqHxsRMAAAAJ"
+        },
+        {
+          "name": "Dr. Naomi Gardiner",
+          "affiliation": "Marine Biology & Aquaculture, College of Science & Engineering, James Cook University",
+          "url": "https://scholar.google.com/citations?user=IHS97ZUAAAAJ",
+          "scholarId": "IHS97ZUAAAAJ"
+        },
+        {
+          "name": "Dr. Sue-Ann Watson",
+          "affiliation": "Associate Professor, James Cook University and Senior Scientist & Curator Queensland Museum",
+          "url": "https://scholar.google.com/citations?user=NOKsFI4AAAAJ",
+          "scholarId": "NOKsFI4AAAAJ"
+        },
+        {
+          "name": "Dr. Tracy Ainsworth",
+          "affiliation": "Associate Professor, Scientia Fellow, The University of New South Wales, Australia",
+          "url": "https://scholar.google.com/citations?user=4TIgWEsAAAAJ",
+          "scholarId": "4TIgWEsAAAAJ"
+        },
+        {
+          "name": "Geoffrey P Jones",
+          "affiliation": "College of Science & Engineering, & Centre of Excellence for Coral Reef Stud, James Cook Univ",
+          "url": "https://scholar.google.com/citations?user=k1KOA9YAAAAJ",
+          "scholarId": "k1KOA9YAAAAJ"
+        },
+        {
+          "name": "Kevin Hultine",
+          "affiliation": "Department of Research, Conservation and Collections",
+          "url": "https://scholar.google.com/citations?user=04hEUKIAAAAJ",
+          "scholarId": "04hEUKIAAAAJ"
+        },
+        {
+          "name": "Mark Meekan",
+          "affiliation": "Principal Research Scientist, Australian Institute of Marine Science ",
+          "url": "https://scholar.google.com/citations?user=eTMPHXgAAAAJ",
+          "scholarId": "eTMPHXgAAAAJ"
+        },
+        {
+          "name": "Michelle Heupel",
+          "affiliation": "University of Tasmania",
+          "url": "https://scholar.google.com/citations?user=Myv0DeYAAAAJ",
+          "scholarId": "Myv0DeYAAAAJ"
+        },
+        {
+          "name": "Ms. Yoland Bosiger",
+          "affiliation": "James Cook University / BBC Ocean"
+        },
+        {
+          "name": "Nann Fangue",
+          "affiliation": "Professor of Physiological Ecology",
+          "url": "https://scholar.google.com/citations?user=PboAGsMAAAAJ",
+          "scholarId": "PboAGsMAAAAJ"
+        },
+        {
+          "name": "Prof. Anthony Hickey",
+          "affiliation": "University of Auckland",
+          "url": "https://unidirectory.auckland.ac.nz/profile/a-hickey"
+        },
+        {
+          "name": "Prof. Gillian Renshaw",
+          "affiliation": "Griffith University",
+          "url": "https://www.griffith.edu.au/health/school-allied-health-sciences/staff/associate-professor-gillian-renshaw"
+        },
+        {
+          "name": "Prof. Mark McCormick",
+          "affiliation": "James Cook University",
+          "url": "https://research.jcu.edu.au/portfolio/mark.mccormick/"
+        },
+        {
+          "name": "Prof. Morgan Pratchett",
+          "affiliation": "James Cook University",
+          "url": "https://research.jcu.edu.au/portfolio/morgan.pratchett/"
+        },
+        {
+          "name": "Prof. Philip Munday",
+          "affiliation": "Professorial Research Fellow, James Cook University",
+          "url": "https://scholar.google.com/citations?user=3dv-t-kAAAAJ",
+          "scholarId": "3dv-t-kAAAAJ"
+        },
+        {
+          "name": "Prof. Serge Planes",
+          "affiliation": "CRIOBE, Mo'orea, French Polynesia",
+          "url": "https://www.criobe.pf/"
+        },
+        {
+          "name": "Prof. Timothy Clark",
+          "affiliation": "Professor, Deakin University, Geelong, Australia",
+          "url": "https://scholar.google.com/citations?user=WLbkTNsAAAAJ",
+          "scholarId": "WLbkTNsAAAAJ"
+        },
+        {
+          "name": "Tiffany Nay",
+          "affiliation": "ARC CoE Coral Reef Studies, James Cook University",
+          "url": "https://scholar.google.com/citations?user=o-jc0zYAAAAJ",
+          "scholarId": "o-jc0zYAAAAJ"
+        },
+        {
+          "name": "Wayne Bennett",
+          "affiliation": "Professor of Physiology",
+          "url": "https://scholar.google.com/citations?user=RsyJKNQAAAAJ",
+          "scholarId": "RsyJKNQAAAAJ"
+        }
+      ]
+    },
+    {
+      "id": "europe",
+      "title": "Europe",
+      "people": [
+        {
+          "name": "Dr. Christine Couturier",
+          "affiliation": "University of Oslo, Norway"
+        },
+        {
+          "name": "Dr. Gabrielle Miller",
+          "affiliation": "James Cook University & University of Oldenburg, Germany",
+          "url": "https://scholar.google.com/citations?user=mvmRCecAAAAJ"
+        },
+        {
+          "name": "Dr. Johann Mourier",
+          "affiliation": "Université de Montpellier, MARBEC",
+          "url": "https://scholar.google.com/citations?user=0vsAZJIAAAAJ",
+          "scholarId": "0vsAZJIAAAAJ"
+        },
+        {
+          "name": "Dr. Michael Berenbrink",
+          "affiliation": "University of Liverpool, UK"
+        },
+        {
+          "name": "Dr. Rui Rosa",
+          "affiliation": "Faculty of Sciences, University of Lisbon (FCUL)",
+          "url": "https://scholar.google.com/citations?user=2HWZ6zEAAAAJ",
+          "scholarId": "2HWZ6zEAAAAJ"
+        },
+        {
+          "name": "Prof. Claudiu Supuran",
+          "affiliation": "Università degli Studi di Firenze"
+        },
+        {
+          "name": "Prof. David McKenzie",
+          "affiliation": "CNRS Montpellier, UMR 9190 Marbec",
+          "url": "https://scholar.google.com/citations?user=_HrIjR4AAAAJ",
+          "scholarId": "_HrIjR4AAAAJ"
+        },
+        {
+          "name": "Prof. Göran Nilsson",
+          "affiliation": "Professor of Biology, Department of Biosciences, University of Oslo",
+          "url": "https://scholar.google.com/citations?user=8MN1OdEAAAAJ",
+          "scholarId": "8MN1OdEAAAAJ"
+        },
+        {
+          "name": "Prof. John Steffensen",
+          "affiliation": "Professor, Univer. of Copenhagen, Dept. of Biology, Marine Biology",
+          "url": "https://scholar.google.com/citations?user=u5gepo8AAAAJ",
+          "scholarId": "u5gepo8AAAAJ"
+        },
+        {
+          "name": "Prof. Shaun Killen",
+          "affiliation": "Professor of Ecophysiology, SBOHVM, University of Glasgow",
+          "url": "https://scholar.google.com/citations?user=gXBATE4AAAAJ",
+          "scholarId": "gXBATE4AAAAJ"
+        }
+      ]
+    },
+    {
+      "id": "north-america",
+      "title": "North America",
+      "people": [
+        {
+          "name": "Andrew Esbaugh",
+          "affiliation": "University of Texas at Austin, Marine Science Institute",
+          "url": "https://scholar.google.com/citations?user=H73aVRAAAAAJ",
+          "scholarId": "H73aVRAAAAAJ"
+        },
+        {
+          "name": "Douglas Chivers",
+          "affiliation": "Professor of Biology, University of Saskatchewan",
+          "url": "https://scholar.google.com/citations?user=wvMZlxMAAAAJ",
+          "scholarId": "wvMZlxMAAAAJ"
+        },
+        {
+          "name": "Dr. Danielle Dixson",
+          "affiliation": "University of Delaware",
+          "url": "https://scholar.google.com/citations?user=p9RD2kYAAAAJ",
+          "scholarId": "p9RD2kYAAAAJ"
+        },
+        {
+          "name": "Dr. Dominique Roche",
+          "affiliation": "Senior Policy Advisor, Social Sciences and Humanities Research Council of Canada",
+          "url": "https://scholar.google.com/citations?user=bXpyrNAAAAAJ",
+          "scholarId": "bXpyrNAAAAAJ"
+        },
+        {
+          "name": "Dr. Jacob Johansen",
+          "affiliation": "Ass Research Professor, Hawaii Institute of Marine Biology, University of Hawaii Manoa",
+          "url": "https://scholar.google.com/citations?user=BtTdd18AAAAJ",
+          "scholarId": "BtTdd18AAAAJ"
+        },
+        {
+          "name": "Dr. John Hyde",
+          "affiliation": "NOAA Southwest Fisheries Science Center, USA"
+        },
+        {
+          "name": "Dr. John Mandelman",
+          "affiliation": "New England Aquarium"
+        },
+        {
+          "name": "Dr. Jonathan Stecyk",
+          "affiliation": "Professor, University of Alaska Anchorage",
+          "url": "https://scholar.google.com/citations?user=qdtQ5swAAAAJ",
+          "scholarId": "qdtQ5swAAAAJ"
+        },
+        {
+          "name": "Dr. Jonathan Wilson",
+          "affiliation": "Wilfrid Laurier University, Canada"
+        },
+        {
+          "name": "Dr. Martin Tresguerres",
+          "affiliation": "Scripps Institution of Oceanography, UC San Diego"
+        },
+        {
+          "name": "Dr. Rich Brill",
+          "affiliation": "Virginia Institute of Marine Science / NOAA"
+        },
+        {
+          "name": "Dr. Sandra Binning",
+          "affiliation": "Associate professor, University of Montreal, Canada",
+          "url": "https://scholar.google.com/citations?user=SiXcv4kAAAAJ",
+          "scholarId": "SiXcv4kAAAAJ"
+        },
+        {
+          "name": "Patricia Schulte",
+          "affiliation": "University of British Columbia",
+          "url": "https://scholar.google.com/citations?user=FLlAjfcAAAAJ",
+          "scholarId": "FLlAjfcAAAAJ"
+        },
+        {
+          "name": "Prof. Colin Brauner",
+          "affiliation": "University of British Columbia"
+        },
+        {
+          "name": "Prof. David Randall",
+          "affiliation": "University of British Columbia; City University of Hong Kong"
+        },
+        {
+          "name": "Prof. Maud Ferrari",
+          "affiliation": "Professor, University of Saskatchewan",
+          "url": "https://scholar.google.com/citations?user=ErD7jHAAAAAJ",
+          "scholarId": "ErD7jHAAAAAJ"
+        },
+        {
+          "name": "Prof. Tony Farrell",
+          "affiliation": "University of British Columbia"
+        },
+        {
+          "name": "Steven J. Cooke",
+          "affiliation": "Canada Research Professor, Carleton University",
+          "url": "https://scholar.google.com/citations?user=CAlipoMAAAAJ",
+          "scholarId": "CAlipoMAAAAJ"
+        }
+      ]
+    },
+    {
+      "id": "asia",
+      "title": "Asia & Middle East",
+      "people": [
+        {
+          "name": "Matthew Mitchell",
+          "affiliation": "Postdoctoral Fellow, New York University Abu Dhabi",
+          "url": "https://scholar.google.com/citations?user=wBajPoUAAAAJ",
+          "scholarId": "wBajPoUAAAAJ"
+        },
+        {
+          "name": "Prof. Shuhong Wang",
+          "affiliation": "Jimei University, China"
+        }
+      ]
+    }
+  ]
+}

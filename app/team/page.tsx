@@ -22,6 +22,7 @@ interface TeamSectionProps {
   members: TeamMember[];
   priorityCount?: number;
   compact?: boolean;
+  featured?: boolean;
 }
 
 const TeamSection = ({
@@ -31,6 +32,7 @@ const TeamSection = ({
   members,
   priorityCount = 0,
   compact = false,
+  featured = false,
 }: TeamSectionProps) => {
   if (members.length === 0) return null;
 
@@ -49,9 +51,11 @@ const TeamSection = ({
 
       <div
         className={
-          compact
-            ? 'grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4'
-            : 'grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3'
+          featured
+            ? 'grid grid-cols-1 gap-8'
+            : compact
+              ? 'grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4'
+              : 'grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3'
         }
       >
         {members.map((member, index) => (
@@ -60,6 +64,7 @@ const TeamSection = ({
             member={member}
             index={index}
             priority={index < priorityCount}
+            featured={featured}
           />
         ))}
       </div>
@@ -131,6 +136,7 @@ export default function TeamPage() {
         title="Principal Investigator"
         members={chiefInvestigators}
         priorityCount={1}
+        featured
       />
 
       <TeamSection
