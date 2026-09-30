@@ -11,6 +11,7 @@
     "token": "ts-node --project tsconfig.script.json scripts/get-long-lived-token.ts",
     "check-token": "ts-node --project tsconfig.script.json scripts/check-token.ts",
     "resize-images": "ts-node --project tsconfig.script.json scripts/resize-images.ts",
+    "extract-paper-metadata": "python scripts/extract-paper-metadata.py",
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
