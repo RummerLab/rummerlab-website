@@ -28,7 +28,8 @@ The enforcing CSP covers:
 
 - **Analytics:** Google Analytics (`@next/third-parties`), Vercel Analytics, Speed Insights
 - **Embeds:** Google Maps (contact page), OpenStreetMap umap (Physioshark page)
-- **Images:** All hostnames in `next.config.ts` `images.remotePatterns` (mirrored in `IMAGE_HOSTS` in [lib/security-headers.ts](../lib/security-headers.ts))
+- **Maps (MapLibre):** `maps.wanderstories.space` + Carto basemap CDN in `connect-src` / `img-src` / `font-src`; `worker-src 'self' blob:` for MapLibre workers
+- **Images:** All hostnames in `next.config.ts` `images.remotePatterns` (mirrored in `IMAGE_HOSTS` in [lib/security-headers.ts](../lib/security-headers.ts)). Includes `scholar.google.com` for default Scholar avatars (`/citations/images/avatar_scholar_256.png`) when googleusercontent photo URLs redirect.
 - **Styles/scripts:** `'unsafe-inline'` for Next.js hydration and Tailwind (nonce-based CSP is a future improvement)
 - **Development only:** `'unsafe-eval'` is added to `script-src` when `NODE_ENV !== 'production'` so React DevTools work; it is never allowed in production
 

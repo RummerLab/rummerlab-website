@@ -2,6 +2,7 @@ import Link from 'next/link';
 import {
   getPaperDisplayName,
   getPaperDoiUrl,
+  getSafePaperPdfHref,
   type Paper,
 } from '@/lib/paper-shared';
 import { sanitizePaperTitleHtml } from '@/lib/paper-title';
@@ -20,6 +21,8 @@ export const PaperCitation = ({
   const Heading = headingLevel;
   const displayName = getPaperDisplayName(paper);
   const titleHtml = sanitizePaperTitleHtml(paper.title ?? displayName);
+  const pdfHref = getSafePaperPdfHref(paper.url);
+  const doiHref = paper.doi ? getPaperDoiUrl(paper.doi) : null;
   const citationParts = [
     paper.journal ? paper.journal : paper.book,
     paper.year ? String(paper.year) : null,
@@ -28,13 +31,20 @@ export const PaperCitation = ({
   return (
     <div>
       <Heading>
-        <Link
-          href={paper.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`hover:text-blue-600 dark:hover:text-blue-400${linkClassName ? ` ${linkClassName}` : ''}`}
-          dangerouslySetInnerHTML={{ __html: titleHtml }}
-        />
+        {pdfHref ? (
+          <Link
+            href={pdfHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`hover:text-blue-600 dark:hover:text-blue-400${linkClassName ? ` ${linkClassName}` : ''}`}
+            dangerouslySetInnerHTML={{ __html: titleHtml }}
+          />
+        ) : (
+          <span
+            className={linkClassName || undefined}
+            dangerouslySetInnerHTML={{ __html: titleHtml }}
+          />
+        )}
       </Heading>
       {paper.authors?.length ? (
         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
@@ -46,10 +56,10 @@ export const PaperCitation = ({
           {citationParts.join(', ')}
         </p>
       ) : null}
-      {paper.doi ? (
+      {doiHref ? (
         <p className="mt-2 text-sm">
           <Link
-            href={getPaperDoiUrl(paper.doi)}
+            href={doiHref}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"

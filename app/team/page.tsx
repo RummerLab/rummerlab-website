@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { TeamMemberCard } from '@/components/TeamMemberCard';
-import { CollaboratorsMap } from '@/components/team/CollaboratorsMap';
 import { ContentCard } from '@/components/layout/ContentCard';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { PageShell } from '@/components/layout/PageShell';
@@ -151,7 +150,8 @@ export default function TeamPage() {
             Collaborators
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-muted">
-            Partner researchers and collaborators around the world. See the full list on our{' '}
+            Partner researchers working closely with the lab. Explore the full network and map on
+            our{' '}
             <Link
               href="/collaborators"
               className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
@@ -163,10 +163,8 @@ export default function TeamPage() {
           <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" />
         </div>
 
-        <CollaboratorsMap />
-
         {collaborators.length > 0 && (
-          <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
             {collaborators.map((member, index) => (
               <TeamMemberCard key={member.name} member={member} index={index} />
             ))}

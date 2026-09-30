@@ -3,6 +3,8 @@ import { HiExternalLink } from 'react-icons/hi';
 import { sanitizePaperTitleHtml } from '@/lib/paper-title';
 import {
   getPaperDoiUrl,
+  getPaperPlainTitle,
+  getSafePaperPdfHref,
   type Paper,
 } from '@/lib/paper-shared';
 
@@ -36,8 +38,11 @@ export const OtherPublications = ({ papers }: OtherPublicationsProps) => {
 
       <ul className="mx-auto max-w-4xl space-y-6">
         {papers.map((paper) => {
+          const plainTitle = getPaperPlainTitle(paper.title ?? paper.name);
           const titleHtml = sanitizePaperTitleHtml(paper.title ?? paper.name);
           const venue = paper.book ?? paper.journal ?? 'Publication';
+          const pdfHref = getSafePaperPdfHref(paper.url);
+          const doiHref = paper.doi ? getPaperDoiUrl(paper.doi) : null;
 
           return (
             <li
@@ -56,25 +61,27 @@ export const OtherPublications = ({ papers }: OtherPublicationsProps) => {
                 <p className="mt-2 text-sm text-muted">{formatAuthors(paper.authors)}</p>
               )}
               <div className="mt-3 flex flex-wrap gap-3 text-sm">
-                <Link
-                  href={paper.url}
-                  className="inline-flex items-center gap-1 font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                  aria-label={`Download PDF for ${paper.title ?? paper.name}`}
-                >
-                  PDF
-                </Link>
-                {paper.doi && (
+                {pdfHref ? (
+                  <Link
+                    href={pdfHref}
+                    className="inline-flex items-center gap-1 font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                    aria-label={`Download PDF for ${plainTitle}`}
+                  >
+                    PDF
+                  </Link>
+                ) : null}
+                {doiHref ? (
                   <a
-                    href={getPaperDoiUrl(paper.doi)}
+                    href={doiHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
-                    aria-label={`Open DOI for ${paper.title ?? paper.name}`}
+                    aria-label={`Open DOI for ${plainTitle}`}
                   >
                     DOI
                     <HiExternalLink className="h-3.5 w-3.5" aria-hidden />
                   </a>
-                )}
+                ) : null}
               </div>
             </li>
           );

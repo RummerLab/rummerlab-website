@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { AnimatedCollaborators } from '../../components/AnimatedCollaborators';
+import { CollaboratorsMap } from '@/components/collaborators/CollaboratorsMap';
 import { PageShell } from '@/components/layout/PageShell';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { ContentCard } from '@/components/layout/ContentCard';
@@ -13,17 +14,33 @@ export const dynamic = "force-dynamic";
   
 export default function Collaborators() {
     return (
-        <PageShell narrow>
+        <PageShell>
             <PageHeader
                 title="Collaborators"
                 subtitle="Our research collaborators from around the world"
             />
+
+            <section className="mb-16" aria-labelledby="collaborators-map-heading">
+                <div className="mb-8 text-center">
+                    <h2
+                        id="collaborators-map-heading"
+                        className="text-3xl font-bold tracking-[0.12em] text-gray-900 dark:text-gray-100 sm:text-4xl"
+                    >
+                        Global Network
+                    </h2>
+                    <p className="mx-auto mt-3 max-w-2xl text-muted">
+                        Institutions and partners collaborating with RummerLab worldwide.
+                    </p>
+                    <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" />
+                </div>
+                <CollaboratorsMap />
+            </section>
             
             <div className="mb-12 view-reveal">
                 <AnimatedCollaborators />
             </div>
 
-            <div className="space-y-8">
+            <div className="mx-auto max-w-3xl space-y-8">
                 <ContentCard reveal>
                     <h2 className="mb-4 text-2xl font-semibold text-gray-900 dark:text-gray-100">Oceania</h2>
                     <div className="prose prose-lg max-w-none dark:prose-invert">

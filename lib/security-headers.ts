@@ -8,6 +8,7 @@ const IMAGE_HOSTS = [
   'https://physioshark.org',
   'https://jodierummer.com',
   'https://fenuafindex.com',
+  'https://scholar.google.com',
   'https://scholar.googleusercontent.com',
   'https://*.cdninstagram.com',
   'https://platform-lookaside.fbsbx.com',
@@ -41,12 +42,21 @@ const CSP_DIRECTIVES = [
   "frame-ancestors 'self'",
   SCRIPT_SRC,
   ["style-src", "'self'", "'unsafe-inline'"].join(' '),
-  ["font-src", "'self'", 'data:'].join(' '),
+  [
+    'font-src',
+    "'self'",
+    'data:',
+    'https://tiles.basemaps.cartocdn.com',
+    'https://*.basemaps.cartocdn.com',
+  ].join(' '),
   [
     'img-src',
     "'self'",
     'data:',
     'blob:',
+    'https://maps.wanderstories.space',
+    'https://tiles.basemaps.cartocdn.com',
+    'https://*.basemaps.cartocdn.com',
     ...IMAGE_HOSTS,
   ].join(' '),
   [
@@ -56,7 +66,13 @@ const CSP_DIRECTIVES = [
     'https://*.google-analytics.com',
     'https://vitals.vercel-insights.com',
     'https://va.vercel-insights.com',
+    // MapLibre collaborators globe (style, tiles, sprites, glyphs)
+    'https://maps.wanderstories.space',
+    'https://tiles.basemaps.cartocdn.com',
+    'https://*.basemaps.cartocdn.com',
   ].join(' '),
+  // MapLibre creates Web Workers from blob: URLs
+  ["worker-src", "'self'", 'blob:'].join(' '),
   [
     'frame-src',
     "'self'",

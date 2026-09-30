@@ -6,6 +6,7 @@ import { HiExternalLink } from 'react-icons/hi';
 import { sanitizePaperTitleHtml } from '@/lib/paper-title';
 import {
   getPaperDoiUrl,
+  getSafePaperPdfHref,
   getPaperScholarUrl,
   type Paper,
 } from '@/lib/paper-shared';
@@ -14,6 +15,17 @@ import { PaperMetrics } from '@/components/publications/PaperMetrics';
 interface PublicationsBrowserProps {
   papers: Paper[];
 }
+
+interface YearFilterOption {
+  id: string;
+  label: string;
+  /** Inclusive year range; omitted for "all". */
+  minYear?: number;
+  maxYear?: number;
+}
+
+/** Years at or above this stay as individual filter chips; older years group by decade. */
+const RECENT_YEAR_FLOOR = 2020;
 
 const formatAuthors = (authors: string[]): string => {
   if (authors.length === 0) return 'Unknown authors';
@@ -35,21 +47,69 @@ const formatAuthors = (authors: string[]): string => {
   return `${first.join(', ')}, … ${rest.join(', ')}`;
 };
 
-export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
-  const [selectedYear, setSelectedYear] = useState<string>('all');
+const buildYearFilters = (paperYears: number[]): YearFilterOption[] => {
+  const unique = Array.from(new Set(paperYears)).sort((a, b) => b - a);
+  const recent = unique.filter((year) => year >= RECENT_YEAR_FLOOR);
+  const older = unique.filter((year) => year < RECENT_YEAR_FLOOR);
 
-  const years = useMemo(() => {
-    const unique = Array.from(
-      new Set(papers.map((paper) => paper.year).filter((year): year is number => year != null)),
-    ).sort((a, b) => b - a);
-    return ['all', ...unique.map(String)];
+  const decadeRanges = new Map<number, { min: number; max: number }>();
+  for (const year of older) {
+    const decadeStart = Math.floor(year / 10) * 10;
+    const existing = decadeRanges.get(decadeStart);
+    if (existing) {
+      existing.min = Math.min(existing.min, year);
+      existing.max = Math.max(existing.max, year);
+    } else {
+      decadeRanges.set(decadeStart, { min: year, max: year });
+    }
+  }
+
+  const decades = [...decadeRanges.entries()]
+    .sort((a, b) => b[0] - a[0])
+    .map(([, range]) => ({
+      id: `${range.min}-${range.max}`,
+      label: `${range.min}–${range.max}`,
+      minYear: range.min,
+      maxYear: range.max,
+    }));
+
+  return [
+    { id: 'all', label: 'All Years' },
+    ...recent.map((year) => ({
+      id: String(year),
+      label: String(year),
+      minYear: year,
+      maxYear: year,
+    })),
+    ...decades,
+  ];
+};
+
+const paperMatchesFilter = (paper: Paper, filter: YearFilterOption): boolean => {
+  if (filter.id === 'all') return true;
+  if (paper.year == null || filter.minYear == null || filter.maxYear == null) return false;
+  return paper.year >= filter.minYear && paper.year <= filter.maxYear;
+};
+
+export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
+  const [selectedFilterId, setSelectedFilterId] = useState<string>('all');
+
+  const yearFilters = useMemo(() => {
+    const years = papers
+      .map((paper) => paper.year)
+      .filter((year): year is number => year != null);
+    return buildYearFilters(years);
   }, [papers]);
 
-  const filtered = useMemo(() => {
-    if (selectedYear === 'all') return papers;
-    const year = Number(selectedYear);
-    return papers.filter((paper) => paper.year === year);
-  }, [papers, selectedYear]);
+  const activeFilter = useMemo(
+    () => yearFilters.find((filter) => filter.id === selectedFilterId) ?? yearFilters[0],
+    [yearFilters, selectedFilterId],
+  );
+
+  const filtered = useMemo(
+    () => papers.filter((paper) => paperMatchesFilter(paper, activeFilter)),
+    [papers, activeFilter],
+  );
 
   const byYear = useMemo(() => {
     const groups = new Map<number, Paper[]>();
@@ -64,38 +124,40 @@ export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
       .map(([year, yearPapers]) => ({ year, papers: yearPapers }));
   }, [filtered]);
 
-  const handleYearClick = (year: string) => {
-    setSelectedYear(year);
+  const handleFilterClick = (filterId: string) => {
+    setSelectedFilterId(filterId);
   };
 
-  const handleYearKeyDown = (event: KeyboardEvent<HTMLButtonElement>, year: string) => {
+  const handleFilterKeyDown = (event: KeyboardEvent<HTMLButtonElement>, filterId: string) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      handleYearClick(year);
+      handleFilterClick(filterId);
     }
   };
 
   return (
     <section>
       <div className="mb-8 flex flex-wrap justify-center gap-2">
-        {years.map((year) => {
-          const isActive = selectedYear === year;
+        {yearFilters.map((filter) => {
+          const isActive = selectedFilterId === filter.id;
           return (
             <button
-              key={year}
+              key={filter.id}
               type="button"
-              onClick={() => handleYearClick(year)}
-              onKeyDown={(event) => handleYearKeyDown(event, year)}
+              onClick={() => handleFilterClick(filter.id)}
+              onKeyDown={(event) => handleFilterKeyDown(event, filter.id)}
               tabIndex={0}
               aria-pressed={isActive}
-              aria-label={year === 'all' ? 'Show all years' : `Filter year ${year}`}
+              aria-label={
+                filter.id === 'all' ? 'Show all years' : `Filter years ${filter.label}`
+              }
               className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                 isActive
                   ? 'bg-blue-600 text-white dark:bg-blue-500'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700'
               }`}
             >
-              {year === 'all' ? 'All Years' : year}
+              {filter.label}
             </button>
           );
         })}
@@ -115,9 +177,9 @@ export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
               {group.papers.map((paper) => {
                 const titleHtml = sanitizePaperTitleHtml(paper.title ?? paper.name);
                 const venue = paper.journal || paper.book;
-                const viewUrl = paper.doi
-                  ? getPaperDoiUrl(paper.doi)
-                  : paper.url;
+                const pdfHref = getSafePaperPdfHref(paper.url);
+                const doiHref = paper.doi ? getPaperDoiUrl(paper.doi) : null;
+                const viewUrl = doiHref ?? pdfHref;
                 const scholarUrl = paper.scholar_pub_id
                   ? getPaperScholarUrl(paper.scholar_pub_id)
                   : null;
@@ -134,13 +196,17 @@ export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
                         </p>
 
                         <h3 className="text-base font-semibold leading-relaxed text-gray-900 dark:text-gray-50">
-                          <Link
-                            href={paper.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:text-blue-600 dark:hover:text-blue-400"
-                            dangerouslySetInnerHTML={{ __html: titleHtml }}
-                          />
+                          {pdfHref ? (
+                            <Link
+                              href={pdfHref}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:text-blue-600 dark:hover:text-blue-400"
+                              dangerouslySetInnerHTML={{ __html: titleHtml }}
+                            />
+                          ) : (
+                            <span dangerouslySetInnerHTML={{ __html: titleHtml }} />
+                          )}
                         </h3>
 
                         <div className="flex flex-wrap items-center gap-2 text-sm">
@@ -167,24 +233,28 @@ export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
                             <span className="text-muted">({paper.year})</span>
                           ) : null}
 
-                          <Link
-                            href={viewUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-900/40"
-                          >
-                            View
-                            <HiExternalLink className="h-3 w-3" aria-hidden="true" />
-                          </Link>
+                          {viewUrl ? (
+                            <Link
+                              href={viewUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100 dark:bg-blue-950/40 dark:text-blue-300 dark:hover:bg-blue-900/40"
+                            >
+                              View
+                              <HiExternalLink className="h-3 w-3" aria-hidden="true" />
+                            </Link>
+                          ) : null}
 
-                          <Link
-                            href={paper.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
-                          >
-                            PDF
-                          </Link>
+                          {pdfHref ? (
+                            <Link
+                              href={pdfHref}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                            >
+                              PDF
+                            </Link>
+                          ) : null}
 
                           {scholarUrl ? (
                             <Link
