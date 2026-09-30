@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AttributionControl,
   GlobeControl,
@@ -12,7 +12,11 @@ import {
   type MapLayerMouseEvent,
 } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { collaboratorLocations } from '@/data/collaborator-locations';
+import { CollaboratorLocationModal } from '@/components/collaborators/CollaboratorLocationModal';
+import {
+  collaboratorLocations,
+  type CollaboratorLocation,
+} from '@/data/collaborator-locations';
 
 // Next.js does not emit the worker's shared sibling; serve both from /public/maplibre.
 setWorkerUrl('/maplibre/maplibre-gl-worker.mjs');
@@ -31,8 +35,10 @@ export const CollaboratorsMap = () => {
   const popupRef = useRef<Popup | null>(null);
   const handlePointEnterRef = useRef<((event: MapLayerMouseEvent) => void) | null>(null);
   const handlePointLeaveRef = useRef<(() => void) | null>(null);
+  const handlePointClickRef = useRef<((event: MapLayerMouseEvent) => void) | null>(null);
   const clearRotationHandlerRef = useRef<(() => void) | null>(null);
   const scheduleRotationRef = useRef<(() => void) | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<CollaboratorLocation | null>(null);
 
   const totalCollaborators = useMemo(
     () => collaboratorLocations.reduce((sum, location) => sum + location.n, 0),
@@ -146,6 +152,8 @@ export const CollaboratorsMap = () => {
           university: location.university,
           country: location.country,
           count: location.n,
+          lon: location.lon,
+          lat: location.lat,
         },
       })),
     };
@@ -222,7 +230,7 @@ export const CollaboratorsMap = () => {
             `<div>
               <div class="collaborators-popup-title">${university}</div>
               <div class="collaborators-popup-subtitle">${country}</div>
-              <div class="collaborators-popup-metric">${count} collaborator${count > 1 ? 's' : ''}</div>
+              <div class="collaborators-popup-metric">${count} collaborator${count > 1 ? 's' : ''} · click for details</div>
             </div>`,
           )
           .addTo(map);
@@ -235,10 +243,36 @@ export const CollaboratorsMap = () => {
       };
       handlePointLeaveRef.current = handlePointLeave;
 
+      const handlePointClick = (event: MapLayerMouseEvent) => {
+        const feature = event.features?.[0];
+        if (!feature?.properties) return;
+
+        const { university, country, count, lon, lat } = feature.properties as {
+          university: string;
+          country: string;
+          count: number;
+          lon: number;
+          lat: number;
+        };
+
+        handleUserInteractionStart();
+        popup.remove();
+        setSelectedLocation({
+          university,
+          country,
+          n: count,
+          lon,
+          lat,
+        });
+      };
+      handlePointClickRef.current = handlePointClick;
+
       map.on('mouseenter', 'collaborator-core', handlePointEnter);
       map.on('mouseleave', 'collaborator-core', handlePointLeave);
       map.on('mouseenter', 'collaborator-glow', handlePointEnter);
       map.on('mouseleave', 'collaborator-glow', handlePointLeave);
+      map.on('click', 'collaborator-core', handlePointClick);
+      map.on('click', 'collaborator-glow', handlePointClick);
 
       map.jumpTo({
         center: DEFAULT_CENTER,
@@ -269,6 +303,7 @@ export const CollaboratorsMap = () => {
       if (mapRef.current) {
         const handlePointEnter = handlePointEnterRef.current;
         const handlePointLeave = handlePointLeaveRef.current;
+        const handlePointClick = handlePointClickRef.current;
         if (handlePointEnter) {
           mapRef.current.off('mouseenter', 'collaborator-core', handlePointEnter);
           mapRef.current.off('mouseenter', 'collaborator-glow', handlePointEnter);
@@ -276,6 +311,10 @@ export const CollaboratorsMap = () => {
         if (handlePointLeave) {
           mapRef.current.off('mouseleave', 'collaborator-core', handlePointLeave);
           mapRef.current.off('mouseleave', 'collaborator-glow', handlePointLeave);
+        }
+        if (handlePointClick) {
+          mapRef.current.off('click', 'collaborator-core', handlePointClick);
+          mapRef.current.off('click', 'collaborator-glow', handlePointClick);
         }
         mapRef.current.off('mousedown', handleUserInteractionStart);
         mapRef.current.off('touchstart', handleUserInteractionStart);
@@ -309,6 +348,10 @@ export const CollaboratorsMap = () => {
       if (!rotationEnabledRef.current) return;
       scheduleRotationRef.current?.();
     });
+  };
+
+  const handleCloseModal = () => {
+    setSelectedLocation(null);
   };
 
   return (
@@ -345,6 +388,14 @@ export const CollaboratorsMap = () => {
           </div>
         ))}
       </div>
+
+      {selectedLocation && (
+        <CollaboratorLocationModal
+          location={selectedLocation}
+          isOpen
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 };

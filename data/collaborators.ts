@@ -37,3 +37,31 @@ export const getCollaboratorHref = (person: CollaboratorPerson): string | undefi
   }
   return undefined;
 };
+
+const normalizeInstitution = (value: string): string =>
+  value
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .replace(/\b(university|universite|universidade|universidad|the|of|and|at)\b/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+/** Match curated collaborators whose affiliation relates to a map institution. */
+export const getCollaboratorsForInstitution = (university: string): CollaboratorPerson[] => {
+  const needle = normalizeInstitution(university);
+  if (!needle) return [];
+
+  const needleTokens = needle.split(' ').filter((token) => token.length > 2);
+  const people = collaboratorsCatalog.regions.flatMap((region) => region.people);
+
+  return people.filter((person) => {
+    const haystack = normalizeInstitution(person.affiliation);
+    if (!haystack) return false;
+    if (haystack.includes(needle) || needle.includes(haystack)) return true;
+    const matchedTokens = needleTokens.filter((token) => haystack.includes(token));
+    return matchedTokens.length >= Math.min(2, needleTokens.length);
+  });
+};
