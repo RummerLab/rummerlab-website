@@ -1,21 +1,34 @@
 'use client';
 
 import { useEffect, useMemo, useRef } from 'react';
-import maplibregl, { AttributionControl, type Map as MapLibreMap, type MapLayerMouseEvent } from 'maplibre-gl';
+import {
+  AttributionControl,
+  GlobeControl,
+  Map,
+  NavigationControl,
+  Popup,
+  setWorkerUrl,
+  type Map as MapLibreMap,
+  type MapLayerMouseEvent,
+} from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { collaboratorLocations } from '@/data/collaborator-locations';
 
+// Next.js does not emit the worker's shared sibling; serve both from /public/maplibre.
+setWorkerUrl('/maplibre/maplibre-gl-worker.mjs');
+
 const AUTO_ROTATE_INTERVAL = 12000;
 const ROTATION_DEGREES = 40;
-const DEFAULT_CENTER: [number, number] = [146.761, -19.329];
-const DEFAULT_ZOOM = 1.2;
+const DEFAULT_CENTER: [number, number] = [20, 10];
+const DEFAULT_ZOOM = 1.35;
+const DEFAULT_PROJECTION = { type: 'mercator' as const };
 
 export const CollaboratorsMap = () => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const rotationEnabledRef = useRef(true);
   const rotationHandlerRef = useRef<(() => void) | null>(null);
-  const popupRef = useRef<maplibregl.Popup | null>(null);
+  const popupRef = useRef<Popup | null>(null);
   const handlePointEnterRef = useRef<((event: MapLayerMouseEvent) => void) | null>(null);
   const handlePointLeaveRef = useRef<(() => void) | null>(null);
   const clearRotationHandlerRef = useRef<(() => void) | null>(null);
@@ -137,7 +150,7 @@ export const CollaboratorsMap = () => {
       })),
     };
 
-    const map = new maplibregl.Map({
+    const map = new Map({
       container: mapContainerRef.current,
       style: 'https://maps.wanderstories.space/gl/dark-gl-style/style.json',
       center: DEFAULT_CENTER,
@@ -152,7 +165,8 @@ export const CollaboratorsMap = () => {
     mapRef.current = map;
 
     map.on('style.load', () => {
-      map.setProjection({ type: 'globe' });
+      // Flat mercator by default; GlobeControl lets visitors switch to globe.
+      map.setProjection(DEFAULT_PROJECTION);
       map.addSource('collaborators', {
         type: 'geojson',
         data: collaboratorGeoJson,
@@ -184,7 +198,7 @@ export const CollaboratorsMap = () => {
         },
       });
 
-      const popup = new maplibregl.Popup({
+      const popup = new Popup({
         closeButton: false,
         offset: 12,
         className: 'collaborators-popup',
@@ -233,15 +247,15 @@ export const CollaboratorsMap = () => {
         bearing: 0,
       });
 
-      // Start spinning once the map is idle so jumpTo does not cancel the first easeTo.
+      // Start panning once the map is idle so jumpTo does not cancel the first easeTo.
       map.once('idle', () => {
         if (!rotationEnabledRef.current) return;
         scheduleRotation();
       });
     });
 
-    map.addControl(new maplibregl.NavigationControl({ showCompass: true }), 'top-right');
-    map.addControl(new maplibregl.GlobeControl(), 'top-right');
+    map.addControl(new NavigationControl({ showCompass: true }), 'top-right');
+    map.addControl(new GlobeControl(), 'top-right');
     map.addControl(new AttributionControl({ compact: false }));
 
     map.on('mousedown', handleUserInteractionStart);
@@ -282,7 +296,7 @@ export const CollaboratorsMap = () => {
     rotationEnabledRef.current = true;
     clearRotationHandlerRef.current?.();
     map.stop();
-    map.setProjection({ type: 'globe' });
+    map.setProjection(DEFAULT_PROJECTION);
     map.easeTo({
       center: DEFAULT_CENTER,
       zoom: DEFAULT_ZOOM,
@@ -304,7 +318,7 @@ export const CollaboratorsMap = () => {
           ref={mapContainerRef}
           className="h-[420px] w-full overflow-hidden rounded-2xl sm:h-[480px]"
           role="img"
-          aria-label="Interactive globe showing RummerLab collaborator institutions"
+          aria-label="Interactive map showing RummerLab collaborator institutions"
         />
         <button
           type="button"

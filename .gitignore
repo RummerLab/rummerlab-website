@@ -128,4 +128,6 @@ dist
 
 
 public/sitemap.xml
+# Copied from node_modules by scripts/copy-maplibre-worker.mjs (MapLibre v6 / Next.js)
+public/maplibre/
 next-env.d.ts
