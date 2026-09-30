@@ -71,7 +71,7 @@ const CSP_DIRECTIVES = [
     'https://tiles.basemaps.cartocdn.com',
     'https://*.basemaps.cartocdn.com',
   ].join(' '),
-  // MapLibre creates Web Workers from blob: URLs
+  // MapLibre may create Web Workers from blob: URLs (kept for compatibility)
   ["worker-src", "'self'", 'blob:'].join(' '),
   [
     'frame-src',
