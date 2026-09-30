@@ -190,24 +190,24 @@ export default function Navbar() {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur-xs border-b border-gray-200 dark:border-gray-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16">
-                    <div className="flex items-center">
-                        <Link href="/" className="flex items-center gap-2.5 group" aria-label="RummerLab home">
+                <div className="flex h-16 items-center justify-between gap-3">
+                    <div className="flex shrink-0 items-center">
+                        <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="RummerLab home">
                             <RummerLabMark
                                 className="shrink-0 rounded-md bg-white p-0.5 shadow-sm ring-1 ring-black/5"
                                 imageClassName="h-8 w-auto sm:h-9"
                             />
-                            <span className="text-2xl font-bold text-gray-900 dark:text-gray-50 bg-clip-text text-transparent bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 dark:from-blue-400 dark:via-cyan-300 dark:to-blue-400 bg-size-[200%_100%] bg-position-[0%_50%] group-hover:bg-position-[100%_50%] transition-all duration-500 ease-in-out">
+                            <span className="bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 bg-size-[200%_100%] bg-position-[0%_50%] bg-clip-text text-2xl font-bold text-transparent text-gray-900 transition-all duration-500 ease-in-out group-hover:bg-position-[100%_50%] dark:from-blue-400 dark:via-cyan-300 dark:to-blue-400 dark:text-gray-50">
                                 RummerLab
                             </span>
                         </Link>
                     </div>
 
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex md:items-center md:space-x-6">
+                    {/* Desktop Navigation — lg+ so brand never collides with links at mid widths */}
+                    <div className="hidden min-w-0 flex-1 items-center justify-end gap-x-1 lg:flex xl:gap-x-3">
                         <Link 
                             href="/"
-                            className="link-underline text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                            className="link-underline rounded-md px-2.5 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-blue-900/20 dark:hover:text-blue-400 xl:px-3"
                         >
                             Home
                         </Link>
@@ -220,7 +220,7 @@ export default function Navbar() {
                                     onMouseLeave={() => setActiveDropdown(null)}
                                 >
                                     <button
-                                        className="flex items-center text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer"
+                                        className="flex cursor-pointer items-center rounded-md px-2.5 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-blue-900/20 dark:hover:text-blue-400 xl:px-3"
                                         onClick={() => setActiveDropdown(activeDropdown === item.label ? null : item.label)}
                                         aria-expanded={activeDropdown === item.label}
                                     >
@@ -228,18 +228,18 @@ export default function Navbar() {
                                         <FaChevronDown className={`ml-1 h-3 w-3 transition-transform duration-200 ${activeDropdown === item.label ? 'rotate-180' : ''}`} />
                                     </button>
                                     <div 
-                                        className={`absolute left-0 top-full pt-2 w-48 z-50 transition-all duration-200 origin-top-left translate-y-0 ${
+                                        className={`absolute left-0 top-full z-50 w-48 origin-top-left translate-y-0 pt-2 transition-all duration-200 ${
                                             activeDropdown === item.label 
-                                                ? 'opacity-100 visible scale-100 translate-y-0' 
-                                                : 'opacity-0 invisible scale-95 -translate-y-1 pointer-events-none'
+                                                ? 'visible translate-y-0 scale-100 opacity-100' 
+                                                : 'invisible pointer-events-none -translate-y-1 scale-95 opacity-0'
                                         }`}
                                     >
-                                        <div className="rounded-md shadow-lg bg-white dark:bg-gray-900 py-1" role="menu">
+                                        <div className="rounded-md bg-white py-1 shadow-lg dark:bg-gray-900" role="menu">
                                             {item.items.map((subItem) => (
                                                 <Link
                                                     key={subItem.href}
                                                     href={subItem.href}
-                                                    className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 transition-colors duration-200"
+                                                    className="block px-4 py-2 text-sm text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-blue-900/20 dark:hover:text-blue-400"
                                                     onClick={handleLinkClick}
                                                 >
                                                     {subItem.label}
@@ -252,7 +252,7 @@ export default function Navbar() {
                                 <Link 
                                     key={item.href}
                                     href={item.href as string} 
-                                    className="link-underline text-gray-700 hover:text-blue-600 hover:bg-blue-50 dark:text-gray-200 dark:hover:text-blue-400 dark:hover:bg-blue-900/20 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                                    className="link-underline rounded-md px-2.5 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-gray-200 dark:hover:bg-blue-900/20 dark:hover:text-blue-400 xl:px-3"
                                 >
                                     {item.label}
                                 </Link>
@@ -260,16 +260,16 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    {/* Social Icons - Desktop */}
-                    <div className="hidden md:flex items-center space-x-4">
+                    {/* Social Icons — xl+ so they never squeeze the brand/nav */}
+                    <div className="hidden shrink-0 items-center space-x-4 xl:flex">
                         {socialLinks.map((link) => renderSocialIcon(link, "h-5 w-5"))}
                     </div>
 
-                    {/* Mobile menu button */}
-                    <div className="md:hidden flex items-center">
+                    {/* Mobile / tablet menu button */}
+                    <div className="flex shrink-0 items-center lg:hidden">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-gray-50 dark:hover:bg-gray-800 transition-colors duration-200"
+                            className="inline-flex items-center justify-center rounded-md p-2 text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-gray-50"
                         >
                             <span className="sr-only">Open main menu</span>
                             <svg
@@ -296,7 +296,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile menu */}
-            <div className={`${isMenuOpen ? 'block' : 'hidden'} md:hidden bg-white dark:bg-gray-950 border-t border-gray-200 dark:border-gray-800`}>
+            <div className={`${isMenuOpen ? 'block' : 'hidden'} border-t border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950 lg:hidden`}>
                 <div className="px-2 pt-2 pb-3 space-y-1">
                     <Link 
                         href="/"
