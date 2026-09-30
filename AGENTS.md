@@ -47,7 +47,8 @@ If you suspect a security issue, run `snyk test`.
 - Early returns, DRY, `handle` prefix on event handlers (`handleClick`).
 - Style with Tailwind. Support light and dark classes already used on the site.
 - Media cards live in `data/media.json`. Helpers stay in `data/media.ts`. `url` is optional. Use `sources` for syndications of the same story; the primary `source`/`url` should be the strongest public outlet. Clickable source tags open that outlet's URL.
-- Hosted PDFs live in `public/papers/`. Listing and featured selection live in `lib/papers.ts`. Citation metadata (title, authors, journal, DOI, abstract) lives in `data/papers.json` keyed by PDF filename and is merged into API responses. Featured papers are the newest by year in the filename. Sister sites consume `GET /api/papers` and `GET /api/papers/featured`. After adding PDFs, refresh metadata with `pnpm run extract-paper-metadata` (reads PDF text/info, Crossref-enriches DOIs, preserves curated overrides).
+- Hosted PDFs live in `public/papers/`. Listing and featured selection live in `lib/papers.ts` (`getJournalPapers` / `getOtherPapers`). Citation metadata (title, authors, journal, DOI, abstract, `scholar_pub_id`) lives in `data/papers.json` keyed by PDF filename and is merged into API responses. Prefer author names like `Jodie L. Rummer`. Featured papers are the newest by year in the filename. Sister sites consume `GET /api/papers` and `GET /api/papers/featured`. After adding PDFs, run `pnpm run extract-paper-metadata` then `pnpm run enrich-papers-scholar` (Crossref + Scholar ID matching; preserves curated overrides). Featured journal covers live in `data/publication-covers.ts` (optional images under `public/images/covers/`).
+- Team page sections are partitioned in `lib/team.ts` (PI, current members, collaborators, past/alumni). Collaborator map points live in `data/collaborator-locations.ts` (`maplibre-gl` globe on `/collaborators`).
 - Mailbox catch-up for Google Alerts / digests / Isentia PDFs: follow [`MEDIA-ALERTS.md`](MEDIA-ALERTS.md).
 - Use `git mv` when moving files.
 - Complete the change: no TODOs or placeholders. File a GitHub issue for follow-up work instead of leaving TODO comments or README notes.
@@ -135,3 +136,13 @@ Before merging any pull request:
 
 1. **Read all comments** on the PR — conversation comments, review comments (including those on specific lines), and bot comments. Address or acknowledge them. Do not merge while review feedback is unresolved.
 2. **Wait for CI to complete successfully.** GitHub Actions (and other required checks) on the PR must finish and pass. Do not merge while checks are pending, failed, cancelled, or skipped when they are required. If CI fails, fix the cause and wait for a green run before merging.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

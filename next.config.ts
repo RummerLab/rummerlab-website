@@ -21,6 +21,10 @@ const config: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'scholar.google.com',
+      },
+      {
+        protocol: 'https',
         hostname: 'scholar.googleusercontent.com',
       },
       {

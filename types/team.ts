@@ -1,7 +1,7 @@
 export interface TeamMember {
   name: string;
   title: string;
-  role: 'Chief Investigator' | 'Partner Researcher' | 'Postdoctoral Researcher' | 'PhD Candidate' | 'Masters Student' | 'Undergraduate Researcher' | 'Volunteer';
+  role: string;
   email: string;
   startDate: string;
   endDate: string | null;
@@ -45,4 +45,4 @@ export interface TeamMember {
 export interface TeamSection {
   title: string;
   members: TeamMember[];
-} 
+}

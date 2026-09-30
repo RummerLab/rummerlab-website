@@ -12,6 +12,10 @@ export interface PaperMetadataRecord {
   volume?: string;
   issue?: string;
   pages?: string;
+  /** Google Scholar author_pub_id, e.g. ynWS968AAAAJ:XXXX */
+  scholar_pub_id?: string;
+  /** Citation count from Scholar at last enrichment (UI may refresh live). */
+  scholar_citations?: number;
 }
 
 export type PaperMetadataByFilename = Record<string, PaperMetadataRecord>;

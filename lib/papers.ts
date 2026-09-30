@@ -1,43 +1,26 @@
 import fs from 'fs';
 import path from 'path';
 import { getPaperMetadata, type PaperMetadataRecord } from '@/data/papers';
+import {
+  DEFAULT_FEATURED_LIMIT,
+  getPaperDisplayName,
+  getYearFromFilename,
+  type Paper,
+  type PapersPage,
+} from '@/lib/paper-shared';
 
-export interface Paper {
-  filename: string;
-  name: string;
-  year: number | null;
-  url: string;
-  title?: string;
-  authors?: string[];
-  journal?: string;
-  book?: string;
-  doi?: string;
-  abstract?: string;
-  published?: string;
-  volume?: string;
-  issue?: string;
-  pages?: string;
-}
-
-export interface PapersPage {
-  total: number;
-  limit: number;
-  papers: Paper[];
-}
-
-export const PAPERS_ORIGIN = 'https://rummerlab.com';
-export const DEFAULT_FEATURED_LIMIT = 5;
-
-export const getYearFromFilename = (filename: string): number | null => {
-  const match = filename.match(/\b(19|20)\d{2}\b/);
-  return match ? Number(match[0]) : null;
-};
-
-export const getPaperDisplayName = (paper: Pick<Paper, 'title' | 'name'>): string =>
-  paper.title ?? paper.name;
-
-export const getPaperDoiUrl = (doi: string): string =>
-  doi.startsWith('http') ? doi : `https://doi.org/${doi}`;
+export type { Paper, PapersPage } from '@/lib/paper-shared';
+export {
+  DEFAULT_FEATURED_LIMIT,
+  getPaperDisplayName,
+  getPaperDoiUrl,
+  getPaperScholarUrl,
+  getYearFromFilename,
+  JODIE_SCHOLAR_ID,
+  JODIE_SCHOLAR_PROFILE_URL,
+  PAPERS_ORIGIN,
+  RUMMERLAB_GITHUB_URL,
+} from '@/lib/paper-shared';
 
 const comparePapers = (a: Paper, b: Paper): number => {
   const yearDiff = (b.year ?? 0) - (a.year ?? 0);
@@ -78,6 +61,10 @@ const mergePaperMetadata = (
     ...(metadata?.volume ? { volume: metadata.volume } : {}),
     ...(metadata?.issue ? { issue: metadata.issue } : {}),
     ...(metadata?.pages ? { pages: metadata.pages } : {}),
+    ...(metadata?.scholar_pub_id ? { scholar_pub_id: metadata.scholar_pub_id } : {}),
+    ...(typeof metadata?.scholar_citations === 'number'
+      ? { scholar_citations: metadata.scholar_citations }
+      : {}),
   };
 };
 
@@ -94,6 +81,14 @@ export const getPapers = (options?: { origin?: string }): Paper[] => {
     .map((filename) => mergePaperMetadata(filename, getPaperMetadata(filename), options))
     .sort(comparePapers);
 };
+
+/** Peer-reviewed journal articles (excludes book chapters / encyclopedia entries). */
+export const getJournalPapers = (options?: { origin?: string }): Paper[] =>
+  getPapers(options).filter((paper) => !paper.book);
+
+/** Book chapters, encyclopedia entries, and other non-journal publications. */
+export const getOtherPapers = (options?: { origin?: string }): Paper[] =>
+  getPapers(options).filter((paper) => Boolean(paper.book));
 
 export const getFeaturedPapersPage = (
   limit = DEFAULT_FEATURED_LIMIT,
