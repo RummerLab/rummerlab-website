@@ -1,13 +1,21 @@
 import type { Author } from '@/types/scholarly';
 import * as https from 'node:https';
 import { URL } from 'node:url';
+import { DEFAULT_SCHOLAR_ID } from '@/lib/news';
 
 const API_BASE = 'https://api.rummerlab.com';
 
-const FETCH_OPTIONS = {
-  next: { revalidate: 604800 }, // 1 week
-  signal: AbortSignal.timeout(15000),
-} as const;
+export { DEFAULT_SCHOLAR_ID };
+
+const FETCH_REVALIDATE_SECONDS = 604800; // 1 week
+const FETCH_TIMEOUT_MS = 15_000;
+
+/** Per-request options — AbortSignal must not be module-scoped or it expires after first timeout. */
+const getFetchOptions = () =>
+  ({
+    next: { revalidate: FETCH_REVALIDATE_SECONDS },
+    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+  }) as const;
 
 const GSCHOLAR_TIMEOUT_MS = 15_000;
 
@@ -101,7 +109,7 @@ export async function getScholarByName(name: string) {
   if (!name) {
     throw new Error('Name is empty');
   }
-  const listRes = await fetch(`${API_BASE}/scholars`, FETCH_OPTIONS);
+  const listRes = await fetch(`${API_BASE}/scholars`, getFetchOptions());
   if (!listRes.ok) {
     const errBody = await listRes.json().catch(() => ({}));
     throw new Error(
@@ -167,7 +175,7 @@ export async function getPublicationsPage(params: { scholarId: string; limit?: n
   )}&offset=${encodeURIComponent(String(offset))}`;
 
   try {
-    const response = await fetch(url, FETCH_OPTIONS);
+    const response = await fetch(url, getFetchOptions());
     if (!response.ok) {
       return { id: scholarId, total: 0, limit, offset, publications: [] } as const;
     }
@@ -185,24 +193,27 @@ export async function getPublicationsPage(params: { scholarId: string; limit?: n
   }
 }
 
-/** Scholar IDs from API (GET /scholars). */
+/** Scholar IDs from API (GET /scholars), with known-lab fallback if the list is unreachable. */
 export async function getAllowedScholarIds(): Promise<string[]> {
   try {
-    const response = await fetch(`${API_BASE}/scholars`, FETCH_OPTIONS);
+    const response = await fetch(`${API_BASE}/scholars`, getFetchOptions());
     if (!response.ok) {
       const errBody = await response.json().catch(() => ({}));
       console.error(
         'Scholars list failed: %s',
         (errBody as { error?: string })?.error ?? response.status
       );
-      return [];
+      return [DEFAULT_SCHOLAR_ID];
     }
     const json = (await response.json()) as { scholars?: string[] };
     const list = json?.scholars;
-    return Array.isArray(list) ? list : [];
+    if (Array.isArray(list) && list.length > 0) {
+      return list;
+    }
+    return [DEFAULT_SCHOLAR_ID];
   } catch (error) {
     console.error('Error fetching scholar list:', error);
-    return [];
+    return [DEFAULT_SCHOLAR_ID];
   }
 }
 
