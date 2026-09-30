@@ -36,7 +36,7 @@ pnpm run lint
 pnpm run build
 ```
 
-If you suspect a security issue, run `snyk test`.
+If you suspect a security issue, run `snyk test`. Transitive CVEs with no npm release yet are remediated under `pnpm.patchedDependencies` (`patches/`) and documented in `.snyk` until upstream packages ship fixed versions.
 
 ## Conventions
 

@@ -1,0 +1,19 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-BRACES-19963945:
+    - '*':
+        reason: >-
+          Remediated via pnpm patch from micromatch/braces#72 (MAX_DEPTH nesting
+          limit); no npm release yet
+        expires: 2027-09-30T00:00:00.000Z
+        created: 2026-09-30T04:41:26.228Z
+  SNYK-JS-DEEPMERGE-19964053:
+    - '*':
+        reason: >-
+          Remediated via pnpm patch from TehShrike/deepmerge#274 (__proto__
+          forbid); no npm release yet
+        expires: 2027-09-30T00:00:00.000Z
+        created: 2026-09-30T04:41:29.467Z
+patch: {}
