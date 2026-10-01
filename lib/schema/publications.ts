@@ -8,11 +8,17 @@ import {
   type Paper,
 } from '@/lib/paper-shared';
 import { getPaperDetailPath, getPaperDetailUrl } from '@/lib/paper-shared';
+import { getPaperPlainTitle } from '@/lib/paper-title';
 import type { PaperMetrics } from '@/lib/paper-metrics';
 
 const LAB_NAME = 'RummerLab';
 const LAB_URL = PAPERS_ORIGIN;
 const PI_NAME = 'Jodie L. Rummer';
+
+const plainPaperName = (paper: Paper): string =>
+  getPaperPlainTitle(getPaperDisplayName(paper));
+
+const plainText = (value: string): string => getPaperPlainTitle(value);
 
 export const buildOrganizationSchema = () => ({
   '@context': 'https://schema.org',
@@ -36,7 +42,7 @@ export const buildOrganizationSchema = () => ({
 const authorList = (authors: string[] | undefined) =>
   (authors ?? []).map((name) => ({
     '@type': 'Person' as const,
-    name,
+    name: plainText(name),
   }));
 
 const citationInteraction = (metrics: PaperMetrics | undefined) => {
@@ -53,7 +59,7 @@ export const buildScholarlyArticleSchema = (
   paper: Paper,
   metrics?: PaperMetrics | null,
 ): Record<string, unknown> => {
-  const headline = getPaperDisplayName(paper);
+  const headline = plainPaperName(paper);
   const detailUrl = getPaperDetailUrl(paper.filename);
   const pdfHref = getSafePaperPdfHref(paper.url);
   const pdfUrl = pdfHref ? `${PAPERS_ORIGIN}${pdfHref}` : undefined;
@@ -77,18 +83,18 @@ export const buildScholarlyArticleSchema = (
   }
 
   if (paper.abstract) {
-    schema.abstract = paper.abstract;
+    schema.abstract = plainText(paper.abstract);
   }
 
   if (paper.journal) {
     schema.isPartOf = {
       '@type': 'Periodical',
-      name: paper.journal,
+      name: plainText(paper.journal),
     };
   } else if (paper.book) {
     schema.isPartOf = {
       '@type': 'Book',
-      name: paper.book,
+      name: plainText(paper.book),
     };
   }
 
@@ -142,7 +148,7 @@ export const buildPublicationsListingSchema = (papers: Paper[]) => ({
           '@type': 'ListItem',
           position: index + 1,
           url: `${LAB_URL}${getPaperDetailPath(paper.filename)}`,
-          name: getPaperDisplayName(paper),
+          name: plainPaperName(paper),
         })),
       },
     },
