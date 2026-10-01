@@ -10,14 +10,11 @@ Location: Townsville, Australia
 
 /* THANKS */
 Physioshark Project: https://physioshark.org/
-science4reefs: https://www.science4reefs-cnrs.com/
+Fenua FINdex: https://fenuafindex.com/
 
 /* SITE */
-Last update: 2026/10/01
 Language: English
 Doctype: HTML5
 Standards: HTML5, CSS3, Schema.org
 Components: Next.js, React, TypeScript, Tailwind CSS
-Software: Visual Studio Code / Cursor
-IDE: Cursor
 Source: https://github.com/RummerLab/rummerlab-website
