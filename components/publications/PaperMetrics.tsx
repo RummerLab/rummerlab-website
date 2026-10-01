@@ -1,62 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { FaQuoteLeft } from 'react-icons/fa';
 import { HiTrendingUp } from 'react-icons/hi';
 import { SiGooglescholar } from 'react-icons/si';
+import type { PaperMetrics as PaperMetricsData } from '@/lib/paper-metrics';
 
 interface PaperMetricsProps {
-  doi?: string;
-  /** Fallback Scholar citation count from enrichment. */
-  scholarCitationsFallback?: number;
+  metrics: PaperMetricsData | null;
 }
 
-interface MetricsState {
-  crossref: number;
-  altmetric: number;
-  gscholar: number;
-}
-
-export const PaperMetrics = ({ doi, scholarCitationsFallback = 0 }: PaperMetricsProps) => {
-  const [metrics, setMetrics] = useState<MetricsState>({
-    crossref: 0,
-    altmetric: 0,
-    gscholar: scholarCitationsFallback,
-  });
-
-  useEffect(() => {
-    if (!doi) return;
-
-    let cancelled = false;
-
-    const handleLoad = async () => {
-      try {
-        const response = await fetch(
-          `/api/papers/metrics?doi=${encodeURIComponent(doi)}`,
-          { headers: { Accept: 'application/json' } },
-        );
-        if (!response.ok) return;
-        const data = (await response.json()) as Partial<MetricsState>;
-        if (cancelled) return;
-        setMetrics({
-          crossref: typeof data.crossref === 'number' ? data.crossref : 0,
-          altmetric: typeof data.altmetric === 'number' ? data.altmetric : 0,
-          gscholar:
-            typeof data.gscholar === 'number' && data.gscholar > 0
-              ? data.gscholar
-              : scholarCitationsFallback,
-        });
-      } catch {
-        // Keep fallback Scholar citations if live metrics fail.
-      }
-    };
-
-    void handleLoad();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [doi, scholarCitationsFallback]);
+export const PaperMetrics = ({ metrics }: PaperMetricsProps) => {
+  if (!metrics) return null;
 
   const items = [
     {

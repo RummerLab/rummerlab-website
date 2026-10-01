@@ -48,12 +48,12 @@ const loadScholarProfileMetrics = async (
   }
 };
 
-/** Cached weekly — gscholar payload is large; avoid refetching every request. */
+/** Cached daily — aligned with publications page ISR. */
 export const getScholarProfileMetrics = (
   scholarId = DEFAULT_SCHOLAR_ID,
 ): Promise<ScholarProfileMetrics> =>
   unstable_cache(
     () => loadScholarProfileMetrics(scholarId),
     ['scholar-profile-metrics', scholarId],
-    { revalidate: 604800 },
+    { revalidate: 86400 },
   )();

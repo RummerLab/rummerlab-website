@@ -6,6 +6,7 @@ import {
   getSafePaperPdfHref,
   type Paper,
 } from '@/lib/paper-shared';
+import { getPaperDetailPath } from '@/lib/paper-shared';
 
 interface OtherPublicationsProps {
   papers: Paper[];
@@ -51,22 +52,27 @@ export const OtherPublications = ({ papers }: OtherPublicationsProps) => {
                 {paper.year ? `${paper.year} · ` : ''}
                 {venue}
               </p>
-              <h3
-                className="mt-1 text-lg font-semibold text-gray-900 dark:text-gray-100"
-                dangerouslySetInnerHTML={{ __html: titleHtml }}
-              />
+              <h3 className="mt-1 text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <Link
+                  href={getPaperDetailPath(paper.filename)}
+                  className="hover:text-blue-600 dark:hover:text-blue-400"
+                  dangerouslySetInnerHTML={{ __html: titleHtml }}
+                />
+              </h3>
               {paper.authors && paper.authors.length > 0 && (
                 <p className="mt-2 text-sm text-muted">{formatAuthors(paper.authors)}</p>
               )}
               <div className="mt-3 flex flex-wrap gap-3 text-sm">
                 {pdfHref ? (
-                  <Link
+                  <a
                     href={pdfHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                     aria-label="Download PDF"
                   >
                     PDF
-                  </Link>
+                  </a>
                 ) : null}
                 {doiHref ? (
                   <a
