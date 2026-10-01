@@ -84,6 +84,7 @@ export default function TeamPage() {
         subtitle="Meet the dedicated researchers, students, and staff of the RummerLab."
         logoSrc="/images/rummerlab_logo_transparent.png"
         logoAlt="RummerLab Logo"
+        invertLogoInDark
       />
 
       <div className="mx-auto mb-8 max-w-3xl">

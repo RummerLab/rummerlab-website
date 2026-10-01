@@ -18,7 +18,7 @@ export const PaperMetrics = ({ metrics }: PaperMetricsProps) => {
       value: metrics.crossref,
       label: 'Crossref',
       icon: FaQuoteLeft,
-      className: 'text-blue-500',
+      className: 'text-blue-500 dark:text-blue-400',
       show: metrics.crossref > 0,
     },
     {
@@ -26,7 +26,7 @@ export const PaperMetrics = ({ metrics }: PaperMetricsProps) => {
       value: metrics.altmetric,
       label: 'Altmetric',
       icon: HiTrendingUp,
-      className: 'text-emerald-500',
+      className: 'text-emerald-500 dark:text-emerald-400',
       show: metrics.altmetric > 0,
     },
     {
@@ -34,7 +34,7 @@ export const PaperMetrics = ({ metrics }: PaperMetricsProps) => {
       value: metrics.gscholar,
       label: 'GScholar',
       icon: SiGooglescholar,
-      className: 'text-orange-500',
+      className: 'text-orange-500 dark:text-orange-400',
       show: metrics.gscholar > 0,
     },
   ].filter((item) => item.show);

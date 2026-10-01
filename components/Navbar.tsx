@@ -194,8 +194,8 @@ export default function Navbar() {
                     <div className="flex shrink-0 items-center">
                         <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="RummerLab home">
                             <RummerLabMark
-                                className="shrink-0 rounded-md bg-white p-0.5 shadow-sm ring-1 ring-black/5"
-                                imageClassName="h-8 w-auto sm:h-9"
+                                className="shrink-0 rounded-md bg-white p-0.5 shadow-sm ring-1 ring-black/5 dark:bg-gray-900 dark:ring-white/10"
+                                imageClassName="h-8 w-auto sm:h-9 dark:brightness-0 dark:invert"
                             />
                             <span className="bg-linear-to-r from-blue-600 via-cyan-500 to-blue-600 bg-size-[200%_100%] bg-position-[0%_50%] bg-clip-text text-2xl font-bold text-transparent text-gray-900 transition-all duration-500 ease-in-out group-hover:bg-position-[100%_50%] dark:from-blue-400 dark:via-cyan-300 dark:to-blue-400 dark:text-gray-50">
                                 RummerLab
