@@ -33,8 +33,11 @@ After code changes, run and fix:
 
 ```bash
 pnpm run lint
+pnpm run test
 pnpm run build
 ```
+
+Unit tests use Vitest (`lib/**/*.test.ts`). Prefer covering pure helpers that guard URLs, HTML sanitization, and machine-readable serialization.
 
 If you suspect a security issue, run `snyk test`. Transitive CVEs with no npm release yet are remediated under `pnpm.patchedDependencies` (`patches/`) and documented in `.snyk` until upstream packages ship fixed versions.
 

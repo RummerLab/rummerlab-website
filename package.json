@@ -10,6 +10,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "copy-maplibre-worker": "node ./scripts/copy-maplibre-worker.mjs",
     "token": "ts-node --project tsconfig.script.json scripts/get-long-lived-token.ts",
     "check-token": "ts-node --project tsconfig.script.json scripts/check-token.ts",
@@ -55,7 +57,8 @@
     "postcss": "^8.5.26",
     "tailwindcss": "^4.3.3",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "3.2.4"
   },
   "overrides": {
     "@types/react": "19.2.18",
