@@ -10,10 +10,13 @@ import {
   getPaperScholarUrl,
   type Paper,
 } from '@/lib/paper-shared';
+import { getPaperDetailPath } from '@/lib/paper-shared';
 import { PaperMetrics } from '@/components/publications/PaperMetrics';
+import { resolvePaperMetrics, type PaperMetrics as PaperMetricsData } from '@/lib/paper-metrics';
 
 interface PublicationsBrowserProps {
   papers: Paper[];
+  metricsByDoi: Record<string, PaperMetricsData>;
 }
 
 interface YearFilterOption {
@@ -91,7 +94,7 @@ const paperMatchesFilter = (paper: Paper, filter: YearFilterOption): boolean => 
   return paper.year >= filter.minYear && paper.year <= filter.maxYear;
 };
 
-export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
+export const PublicationsBrowser = ({ papers, metricsByDoi }: PublicationsBrowserProps) => {
   const [selectedFilterId, setSelectedFilterId] = useState<string>('all');
 
   const yearFilters = useMemo(() => {
@@ -196,17 +199,11 @@ export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
                         </p>
 
                         <h3 className="text-base font-semibold leading-relaxed text-gray-900 dark:text-gray-50">
-                          {pdfHref ? (
-                            <Link
-                              href={pdfHref}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="hover:text-blue-600 dark:hover:text-blue-400"
-                              dangerouslySetInnerHTML={{ __html: titleHtml }}
-                            />
-                          ) : (
-                            <span dangerouslySetInnerHTML={{ __html: titleHtml }} />
-                          )}
+                          <Link
+                            href={getPaperDetailPath(paper.filename)}
+                            className="hover:text-blue-600 dark:hover:text-blue-400"
+                            dangerouslySetInnerHTML={{ __html: titleHtml }}
+                          />
                         </h3>
 
                         <div className="flex flex-wrap items-center gap-2 text-sm">
@@ -234,7 +231,7 @@ export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
                           ) : null}
 
                           {viewUrl ? (
-                            <Link
+                            <a
                               href={viewUrl}
                               target="_blank"
                               rel="noopener noreferrer"
@@ -242,36 +239,39 @@ export const PublicationsBrowser = ({ papers }: PublicationsBrowserProps) => {
                             >
                               View
                               <HiExternalLink className="h-3 w-3" aria-hidden="true" />
-                            </Link>
+                            </a>
                           ) : null}
 
                           {pdfHref ? (
-                            <Link
+                            <a
                               href={pdfHref}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
                             >
                               PDF
-                            </Link>
+                            </a>
                           ) : null}
 
                           {scholarUrl ? (
-                            <Link
+                            <a
                               href={scholarUrl}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="inline-flex items-center gap-1 rounded-md bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 hover:bg-orange-100 dark:bg-orange-950/30 dark:text-orange-300 dark:hover:bg-orange-900/40"
                             >
                               Scholar
-                            </Link>
+                            </a>
                           ) : null}
                         </div>
                       </div>
 
                       <PaperMetrics
-                        doi={paper.doi}
-                        scholarCitationsFallback={paper.scholar_citations ?? 0}
+                        metrics={resolvePaperMetrics(
+                          metricsByDoi,
+                          paper.doi,
+                          paper.scholar_citations ?? 0,
+                        )}
                       />
                     </div>
                   </article>

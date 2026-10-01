@@ -13,7 +13,8 @@ RummerLab combines ecological, evolutionary, and conservation physiology to unde
 - [Future Environments](https://rummerlab.com/future-environments): Research on performance and adaptation under future ocean conditions
 - [Conservation](https://rummerlab.com/conservation): Evidence-based strategies to protect aquatic species and ecosystems
 - [Team](https://rummerlab.com/team): Lab members, roles, and researcher profiles
-- [Publications](https://rummerlab.com/publications): Academic publications and research outputs
+- [Publications](https://rummerlab.com/publications): Academic publications and research outputs (listing refreshes daily; each paper has a detail page at `/publications/[slug]` where slug is the PDF filename without `.pdf`, URL-encoded)
+- [Publications RSS](https://rummerlab.com/publications/feed.xml): Machine-readable feed of all papers (title, abstract, DOI, PDF enclosure, link to detail page)
 - [Collaborators](https://rummerlab.com/collaborators): Partner researchers and institutions
 - [Physioshark Project](https://rummerlab.com/physioshark-project): Flagship project on newborn and juvenile reef sharks on Mo'orea, French Polynesia, in collaboration with science4reefs
 - [Podcast](https://rummerlab.com/podcast): Athletes of the Reef — lab science podcast episodes with show notes and episode pages under `/podcast/[slug]`
@@ -23,6 +24,12 @@ RummerLab combines ecological, evolutionary, and conservation physiology to unde
 - [Join](https://rummerlab.com/join): Opportunities to join the lab
 - [Contact](https://rummerlab.com/contact): Contact information for the lab
 - [Donations](https://rummerlab.com/donations): Support Baby Sharks in a Changing World and related research
+
+## Machine-readable APIs (JSON)
+- `GET https://rummerlab.com/api/papers` — full publication list with metadata, PDF URLs, and `detailUrl` for each paper (revalidates daily)
+- `GET https://rummerlab.com/api/papers/featured?limit=5` — newest featured papers with `detailUrl`
+- `GET https://rummerlab.com/api/papers/metrics?doi={doi}` — Crossref, Altmetric, and Google Scholar citation counts for a DOI (revalidates daily)
+- Open-access PDFs are served at `https://rummerlab.com/papers/{filename}` (URL-encoded filename)
 
 ## Optional
 - [humans.txt](https://rummerlab.com/humans.txt): People behind the site (creator Luen Warneke; lab lead Professor Jodie L. Rummer)

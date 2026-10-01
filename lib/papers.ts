@@ -5,6 +5,9 @@ import {
   DEFAULT_FEATURED_LIMIT,
   getPaperDisplayName,
   getYearFromFilename,
+  getPaperDetailUrl,
+  getPaperSlug,
+  PAPERS_ORIGIN,
   type Paper,
   type PapersPage,
 } from '@/lib/paper-shared';
@@ -12,9 +15,12 @@ import {
 export type { Paper, PapersPage } from '@/lib/paper-shared';
 export {
   DEFAULT_FEATURED_LIMIT,
+  getPaperDetailPath,
+  getPaperDetailUrl,
   getPaperDisplayName,
   getPaperDoiUrl,
   getPaperScholarUrl,
+  getPaperSlug,
   getYearFromFilename,
   JODIE_SCHOLAR_ID,
   JODIE_SCHOLAR_PROFILE_URL,
@@ -36,6 +42,11 @@ const toPaperUrl = (filename: string, origin?: string): string => {
     return `${origin}/papers/${encoded}`;
   }
   return `/papers/${encoded}`;
+};
+
+export const getPaperBySlug = (slug: string, options?: { origin?: string }): Paper | undefined => {
+  const decoded = decodeURIComponent(slug);
+  return getPapers(options).find((paper) => getPaperSlug(paper.filename) === decoded);
 };
 
 const mergePaperMetadata = (
@@ -111,3 +122,12 @@ export const getFeaturedPapers = (
 ): Paper[] => {
   return getFeaturedPapersPage(limit, options).papers;
 };
+
+export interface ApiPaper extends Paper {
+  detailUrl: string;
+}
+
+export const toApiPaper = (paper: Paper, origin = PAPERS_ORIGIN): ApiPaper => ({
+  ...paper,
+  detailUrl: getPaperDetailUrl(paper.filename, origin),
+});

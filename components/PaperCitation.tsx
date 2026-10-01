@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {
   getPaperDisplayName,
   getPaperDoiUrl,
@@ -32,7 +31,7 @@ export const PaperCitation = ({
     <div>
       <Heading>
         {pdfHref ? (
-          <Link
+          <a
             href={pdfHref}
             target="_blank"
             rel="noopener noreferrer"
@@ -58,14 +57,14 @@ export const PaperCitation = ({
       ) : null}
       {doiHref ? (
         <p className="mt-2 text-sm">
-          <Link
+          <a
             href={doiHref}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
           >
             DOI
-          </Link>
+          </a>
         </p>
       ) : null}
     </div>

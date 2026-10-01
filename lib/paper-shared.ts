@@ -68,3 +68,13 @@ export const getPaperDoiUrl = (doi: string): string | null => {
 
 export const getPaperScholarUrl = (scholarPubId: string): string =>
   `https://scholar.google.com/citations?view_op=view_citation&hl=en&user=${JODIE_SCHOLAR_ID}&citation_for_view=${encodeURIComponent(scholarPubId)}`;
+
+/** URL slug for `/publications/[slug]` (filename without `.pdf`). */
+export const getPaperSlug = (filename: string): string =>
+  filename.replace(/\.pdf$/i, '');
+
+export const getPaperDetailPath = (filename: string): string =>
+  `/publications/${encodeURIComponent(getPaperSlug(filename))}`;
+
+export const getPaperDetailUrl = (filename: string, origin = PAPERS_ORIGIN): string =>
+  `${origin}${getPaperDetailPath(filename)}`;
