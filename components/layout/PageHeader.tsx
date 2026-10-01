@@ -8,6 +8,8 @@ interface PageHeaderProps {
   logoSrc?: string;
   logoAlt?: string;
   logoClassName?: string;
+  /** Invert monochrome logos for dark backgrounds (e.g. RummerLab wordmark). */
+  invertLogoInDark?: boolean;
   children?: ReactNode;
   className?: string;
 }
@@ -18,6 +20,7 @@ export function PageHeader({
   logoSrc,
   logoAlt = '',
   logoClassName,
+  invertLogoInDark = false,
   children,
   className,
 }: PageHeaderProps) {
@@ -30,13 +33,16 @@ export function PageHeader({
               src={logoSrc}
               alt={logoAlt}
               fill
-              className="object-contain"
+              className={cn(
+                'object-contain',
+                invertLogoInDark && 'dark:brightness-0 dark:invert',
+              )}
               priority
             />
           </div>
         )}
         <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100">{title}</h1>
-        <div className="mx-auto h-1 w-20 animate-accent-grow rounded-full bg-blue-500" />
+        <div className="mx-auto h-1 w-20 animate-accent-grow rounded-full bg-blue-500 dark:bg-blue-400" />
         {subtitle && (
           <p className="text-xl text-muted">{subtitle}</p>
         )}

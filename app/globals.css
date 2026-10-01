@@ -61,7 +61,20 @@
 
   @media (prefers-color-scheme: dark) {
     :root {
+      color-scheme: dark;
+      --color-surface: var(--color-gray-950);
       --color-surface-elevated: var(--color-gray-900);
+      --color-muted: var(--color-gray-300);
+      --shadow-card: 0 10px 15px -3px rgb(0 0 0 / 0.45), 0 4px 6px -4px rgb(0 0 0 / 0.35),
+        0 0 0 1px rgb(255 255 255 / 0.06);
+    }
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+      border-color: var(--color-gray-700, currentcolor);
     }
   }
 }
