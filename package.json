@@ -48,7 +48,7 @@
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^26.4.0",
-    "@types/nodemailer": "^8.0.1",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.5",
     "@types/sanitize-html": "^2.16.1",
