@@ -25,6 +25,7 @@ RummerLab combines ecological, evolutionary, and conservation physiology to unde
 - [Donations](https://rummerlab.com/donations): Support Baby Sharks in a Changing World and related research
 
 ## Optional
+- [humans.txt](https://rummerlab.com/humans.txt): People behind the site (creator Luen Warneke; lab lead Professor Jodie L. Rummer)
 - [Dr. Jodie Rummer](https://jodierummer.com/): Personal site for Professor Jodie Rummer
 - [Physioshark Project](https://physioshark.org/): Dedicated Physioshark Project website
 - [GitHub repository](https://github.com/RummerLab/rummerlab-website): Source code for this website
