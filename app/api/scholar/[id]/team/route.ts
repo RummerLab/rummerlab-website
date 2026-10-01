@@ -1,14 +1,12 @@
 import { NextResponse } from 'next/server';
 import teamData from '@/data/team.json';
+import { getBlueskyProfileUrl, toAbsoluteHttpUrl } from '@/lib/external-url';
 import { type TeamMember } from '@/types/team';
 import { NextRequest } from 'next/server';
 
 // https://rummerlab.com/api/scholar/ynWS968AAAAJ/team
 
-const ensureHttps = (url: string | undefined): string => {
-  if (!url) return '';
-  return url.startsWith('http') ? url : `https://${url}`;
-};
+const ensureHttps = (url: string | undefined): string => toAbsoluteHttpUrl(url) ?? '';
 
 interface TeamLinks {
   personalWebsite?: string;
@@ -38,7 +36,7 @@ const constructServiceUrls = (links: TeamLinks = {}) => {
     orcid: links.orcid ? `https://orcid.org/${links.orcid}` : '',
     // Keep original social media URLs
     x: links.x ? `https://x.com/${links.x}` : '',
-    bluesky: links.bluesky || '',
+    bluesky: getBlueskyProfileUrl(links.bluesky) ?? '',
     facebook: ensureHttps(links.facebook),
     instagram: ensureHttps(links.instagram),
     linkedin: ensureHttps(links.linkedin),

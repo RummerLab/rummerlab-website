@@ -129,7 +129,7 @@
     "image": "/images/team/team-dr-ian-bouyoucos-profile.jpg",
     "alt": "Dr. Ian Bouyoucos, Research Collaborator",
     "links": {
-      "personalWebsite": "ianbouyoucos.com"
+      "personalWebsite": "https://ianbouyoucos.com"
     },
     "affiliations": [
       {
@@ -254,7 +254,7 @@
     "image": "/images/team/team-dr-ornella-weideli-profile.jpg",
     "alt": "Dr. Ornella Weideli, Research Collaborator",
     "links": {
-      "personalWebsite": "ornellaweideli.com"
+      "personalWebsite": "https://ornellaweideli.com"
     },
     "affiliations": [],
     "education": [
@@ -1226,8 +1226,8 @@
     "alt": "Courtney Burns, Undergraduate Researcher",
     "links": {
       "personalWebsite": null,
-      "labWebsite": "rummerlab.com",
-      "projectWebsite": "physioshark.com",
+      "labWebsite": "https://rummerlab.com",
+      "projectWebsite": "https://physioshark.com",
       "researchGateSlug": null,
       "googleScholarId": null,
       "x": null,
@@ -1431,9 +1431,9 @@
     "image": "/images/team/joel-gayford.jpg",
     "alt": "Joel Gayford, PhD Candidate",
     "links": {
-      "personalWebsite": "sharkmeasurements.com",
-      "labWebsite": "rummerlab.com",
-      "projectWebsite": "physioshark.com",
+      "personalWebsite": "https://sharkmeasurements.com",
+      "labWebsite": "https://rummerlab.com",
+      "projectWebsite": "https://physioshark.com",
       "researchGateSlug": "Joel-Gayford",
       "googleScholarId": "z5EfQDcAAAAJ",
       "x": null,
@@ -1830,8 +1830,8 @@
     "alt": "Emma Olivia Tormalm, Volunteer at the RummerLab",
     "links": {
       "personalWebsite": "",
-      "labWebsite": "rummerlab.com",
-      "projectWebsite": "physioshark.com",
+      "labWebsite": "https://rummerlab.com",
+      "projectWebsite": "https://physioshark.com",
       "researchGateSlug": null,
       "googleScholarId": null,
       "x": "physioshark",
@@ -1928,8 +1928,8 @@
     "alt": "Miriam Zanforlin, Masters Student",
     "links": {
       "personalWebsite": null,
-      "labWebsite": "rummerlab.com",
-      "projectWebsite": "physioshark.com",
+      "labWebsite": "https://rummerlab.com",
+      "projectWebsite": "https://physioshark.com",
       "researchGateSlug": null,
       "googleScholarId": null,
       "x": null,
