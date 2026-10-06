@@ -33,7 +33,9 @@ Process **Inbox** unless a thread is clearly related. Read **full bodies and att
 
 | Source | How to find |
 | --- | --- |
-| Google Alerts | `from:googlealerts-noreply@google.com` OR `subject:"Google Alert"` |
+| Google Alert Daily Digest | `from:googlealerts-noreply@google.com` AND `subject:"Google Alert - Daily Digest"` (main Inbox backlog; one message may bundle multiple alert queries — apply include/skip per linked story) |
+| Google Alerts (other) | `from:googlealerts-noreply@google.com` OR `subject:"Google Alert"` (name-specific subjects such as `Google Alert - Dr Jodie Rummer`) |
+| Daily research watch | `from:athletesofthereef@gmail.com` AND `subject:"Daily research watch"` (Alex Morgan automated scan; process Inbox copies for Jodie/lab media mentions — skip pure field-literature flags with no media angle) |
 | RummerLab media digest | `subject:"RummerLab media digest"` (from the [media-alerts](https://github.com/RummerLab/media-alerts) Docker digest) |
 | Scholar alerts | `from:scholaralerts-noreply@google.com` (only if about Jodie/lab media; still do not edit Scholar unless asked) |
 | Jodie | `jodie.rummer@jcu.edu.au` and other addresses you find |
