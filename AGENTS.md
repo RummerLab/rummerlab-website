@@ -56,6 +56,16 @@ If you suspect a security issue, run `snyk test`. Transitive CVEs with no npm re
 - Use `git mv` when moving files.
 - Complete the change: no TODOs or placeholders. File a GitHub issue for follow-up work instead of leaving TODO comments or README notes.
 
+## Asset filenames (SEO)
+
+When adding media or downloads to the repo (audio, video, press PDFs, images from Downloads/WhatsApp/email, etc.), **always rename before committing**. Never keep generic client names (`WhatsApp Audio…`, `shark attacks.pdf`, `IMG_1234.jpg`).
+
+- Use lowercase **kebab-case** with descriptive keywords: who/what, outlet or topic, and a date when known (`YYYY-MM-DD` or `YYYY-MM`).
+- Prefer the correct extension for the content (e.g. `.m4a` for audio-only MP4/M4A).
+- Press/media PDFs that are not journal papers: host under `public/media/` with SEO names (e.g. `bbc-wildlife-shark-attacks-australia-jodie-rummer-2026-09-16.pdf`) and point `data/media.json` `url` at the public URL when there is no stronger durable outlet link.
+- Journal PDFs in `public/papers/` keep the existing author/year naming used by the publications pipeline; still avoid opaque or spaces-heavy dump names when adding new files.
+- Examples: `bbc-wildlife-shark-attacks-australia-jodie-rummer-2026-09-16.pdf`, `jodie-rummer-abc-interview-2026-06-16.m4a`.
+
 ## Layout and styling
 
 Theme tokens and animation utilities live in `app/globals.css` (`@theme`, `@plugin "@tailwindcss/typography"`, `@plugin "tailwindcss-animate"`).
