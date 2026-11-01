@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@11ty/gray-matter": "^3.0.0",
-    "@next/third-parties": "16.3.8",
+    "@next/third-parties": "16.4.3",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "cheerio": "^1.2.0",
