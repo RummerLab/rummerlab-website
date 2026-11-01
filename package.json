@@ -32,7 +32,7 @@
     "maplibre-gl": "^6.16.0",
     "next": "16.4.3",
     "next-sitemap": "^4.2.3",
-    "nodemailer": "^10.0.15",
+    "nodemailer": "^10.1.4",
     "react": "19.3.1",
     "react-dom": "19.3.0",
     "react-icons": "^5.7.0",
