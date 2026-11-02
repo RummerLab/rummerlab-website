@@ -9,4 +9,13 @@ ignore:
           limit); no npm release yet
         expires: 2027-09-30T00:00:00.000Z
         created: 2026-09-30T04:41:26.228Z
+  SNYK-JS-PICOMATCH-21248802:
+    - '*':
+        reason: >-
+          No npm release yet for CVE-2026-112366 (open upstream PRs only).
+          picomatch is reached only via next-sitemap / fast-glob / micromatch
+          at build time with developer-controlled patterns; no untrusted glob
+          input is accepted at runtime
+        expires: 2027-05-03T00:00:00.000Z
+        created: 2026-11-03T00:00:00.000Z
 patch: {}

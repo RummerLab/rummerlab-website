@@ -1,3 +1,5 @@
+const SAME_ORIGIN_BASE = 'https://same-origin.invalid';
+
 /**
  * Turn a website field into an absolute http(s) URL.
  * Bare domains like `sharkmeasurements.com` become `https://sharkmeasurements.com`.
@@ -15,8 +17,15 @@ export const toAbsoluteHttpUrl = (value: string | undefined | null): string | nu
     if (candidate.startsWith('//')) {
       candidate = `https:${candidate}`;
     } else if (candidate.startsWith('/')) {
-      // Same-origin path — leave for callers that need internal links.
-      return candidate;
+      // Same-origin path for internal links. Browsers read `/\host` or `/<tab>/host`
+      // as protocol-relative, so resolve it and reject anything that leaves the origin.
+      try {
+        const parsed = new URL(candidate, SAME_ORIGIN_BASE);
+        if (parsed.origin !== SAME_ORIGIN_BASE) return null;
+        return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+      } catch {
+        return null;
+      }
     } else {
       candidate = `https://${candidate.replace(/^\/+/, '')}`;
     }
@@ -25,7 +34,8 @@ export const toAbsoluteHttpUrl = (value: string | undefined | null): string | nu
   try {
     const parsed = new URL(candidate);
     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return null;
-    return parsed.toString();
+    // Rebuild from URL components so callers never reuse the raw input string.
+    return `${parsed.protocol}//${parsed.host}${parsed.pathname}${parsed.search}${parsed.hash}`;
   } catch {
     return null;
   }

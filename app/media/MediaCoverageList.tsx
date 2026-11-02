@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { toAbsoluteHttpUrl } from "@/lib/external-url";
 import { DEFAULT_SCHOLAR_ID } from "@/lib/news";
 import { getMediaSources, type MediaItem } from "@/types/media";
 import { ArticleImage } from "./ArticleImage";
@@ -13,18 +14,6 @@ const MEDIA_TYPE_LABELS: Record<MediaItem["type"], string> = {
   interview: "Interview",
   podcast: "Podcast",
   press: "Press release",
-};
-
-const hasValidUrl = (url?: string): boolean => {
-  if (!url || typeof url !== "string") return false;
-  const trimmed = url.trim();
-  if (!trimmed) return false;
-  try {
-    const parsed = new URL(trimmed);
-    return parsed.protocol === "http:" || parsed.protocol === "https:";
-  } catch {
-    return false;
-  }
 };
 
 type Props = {
@@ -92,11 +81,11 @@ export function MediaCoverageList(props: Props) {
     <div className="grid gap-8">
       {sortedItems.map((article, index) => {
         const outlets = getMediaSources(article);
-        const urlOk = hasValidUrl(article.url);
+        const safeUrl = toAbsoluteHttpUrl(article.url);
 
         return (
           <article
-            key={`${article.sourceType}-${article.url || article.title}-${index}`}
+            key={`${article.sourceType}-${safeUrl || article.title}-${index}`}
             className="view-reveal overflow-hidden rounded-xl border border-gray-200/60 bg-surface-elevated shadow-lg transition-all duration-300 hover-lift dark:border-gray-800/60"
             style={{ animationDelay: `${index * 60}ms` }}
           >
@@ -110,9 +99,9 @@ export function MediaCoverageList(props: Props) {
                 </div>
                 <MediaSourceTags outlets={outlets} />
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                  {urlOk ? (
+                  {safeUrl ? (
                     <a
-                      href={article.url}
+                      href={safeUrl}
                       className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
                       target="_blank"
                       rel="noopener noreferrer"
