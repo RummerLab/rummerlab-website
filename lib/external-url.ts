@@ -25,7 +25,8 @@ export const toAbsoluteHttpUrl = (value: string | undefined | null): string | nu
   try {
     const parsed = new URL(candidate);
     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return null;
-    return parsed.toString();
+    // Rebuild from URL components so callers never reuse the raw input string.
+    return `${parsed.protocol}//${parsed.host}${parsed.pathname}${parsed.search}${parsed.hash}`;
   } catch {
     return null;
   }

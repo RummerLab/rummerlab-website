@@ -1,22 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { toAbsoluteHttpUrl } from "@/lib/external-url";
 import type { MediaSource } from "@/types/media";
 import { getSourceTagColors } from "./sourceTagColors";
 
 const VISIBLE_SOURCE_LIMIT = 4;
-
-const hasValidUrl = (url?: string): boolean => {
-  if (!url || typeof url !== "string") return false;
-  const trimmed = url.trim();
-  if (!trimmed) return false;
-  try {
-    const parsed = new URL(trimmed);
-    return parsed.protocol === "http:" || parsed.protocol === "https:";
-  } catch {
-    return false;
-  }
-};
 
 interface SourceTagProps {
   outlet: MediaSource;
@@ -25,14 +14,15 @@ interface SourceTagProps {
 function SourceTag({ outlet }: SourceTagProps) {
   const { bgColor, textColor } = getSourceTagColors(outlet.name);
   const tagClassName = `inline-block px-2 py-1 text-sm font-medium ${bgColor} ${textColor} rounded-sm`;
+  const safeUrl = toAbsoluteHttpUrl(outlet.url);
 
-  if (!hasValidUrl(outlet.url)) {
+  if (!safeUrl) {
     return <span className={tagClassName}>{outlet.name}</span>;
   }
 
   return (
     <a
-      href={outlet.url}
+      href={safeUrl}
       className={`${tagClassName} hover:opacity-80 transition-opacity`}
       target="_blank"
       rel="noopener noreferrer"
