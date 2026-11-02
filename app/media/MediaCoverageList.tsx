@@ -23,15 +23,10 @@ type Props = {
   initialOffset?: number;
 };
 
-const sanitizeMediaItem = (item: MediaItem): MediaItem => ({
-  ...item,
-  url: toAbsoluteHttpUrl(item.url) ?? undefined,
-});
-
 export function MediaCoverageList(props: Props) {
   const { initialItems, initialTotal, initialLimit = DEFAULT_LIMIT, initialOffset = 0 } = props;
 
-  const [items, setItems] = useState<MediaItem[]>(() => initialItems.map(sanitizeMediaItem));
+  const [items, setItems] = useState<MediaItem[]>(initialItems);
   const [total, setTotal] = useState<number>(initialTotal);
   const [limit, setLimit] = useState<number>(initialLimit);
   const [offset, setOffset] = useState<number>(initialOffset);
@@ -68,7 +63,7 @@ export function MediaCoverageList(props: Props) {
         media?: MediaItem[];
       };
 
-      const newItems = Array.isArray(data.media) ? data.media.map(sanitizeMediaItem) : [];
+      const newItems = Array.isArray(data.media) ? data.media : [];
       if (newItems.length === 0) {
         return;
       }

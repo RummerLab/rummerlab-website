@@ -16,6 +16,16 @@ describe('toAbsoluteHttpUrl', () => {
 
   it('preserves same-origin paths', () => {
     expect(toAbsoluteHttpUrl('/papers/example.pdf')).toBe('/papers/example.pdf');
+    expect(toAbsoluteHttpUrl('/media/a.pdf?x=1#p2')).toBe('/media/a.pdf?x=1#p2');
+  });
+
+  it('rejects paths that browsers resolve to another origin', () => {
+    expect(toAbsoluteHttpUrl('/\\evil.com')).toBeNull();
+    expect(toAbsoluteHttpUrl('/\t/evil.com')).toBeNull();
+  });
+
+  it('drops credentials when rebuilding absolute URLs', () => {
+    expect(toAbsoluteHttpUrl('https://user:pass@example.com/a')).toBe('https://example.com/a');
   });
 
   it('rejects empty, javascript, and mailto values', () => {
