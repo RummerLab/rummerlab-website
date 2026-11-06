@@ -105,7 +105,7 @@ This repo uses **pnpm** (`packageManager` in `package.json`).
 
 - Install: `pnpm install` (do not use npm/yarn for installs in this repo).
 - Scripts: `pnpm run <script>` / `pnpm exec <bin>`.
-- Lockfile: `pnpm-lock.yaml` only â€” do not commit `package-lock.json` or `yarn.lock`.
+- Lockfile: `pnpm-lock.yaml` only — do not commit `package-lock.json` or `yarn.lock`.
 - Local disk: pnpm's content-addressable store shares package contents across checkouts on the same machine.
 ## Dependency tooling (Next.js)
 
@@ -114,7 +114,7 @@ Follow current Next.js docs for ESLint and TypeScript — do **not** merge Depen
 - **TypeScript**: stay on **5.9.x** (Next.js requires ≥5.1; `typescript-eslint` does not support TypeScript 7 yet).
 - **ESLint**: stay on **9.x** with Next.js flat config (`eslint-config-next/core-web-vitals` + `typescript` via `defineConfig`). ESLint 10 still breaks plugins shipped through `eslint-config-next`.
 - Before changing ESLint/TypeScript majors, read the Next.js ESLint docs, upgrading guide, and the target major migration guide.
-- Prefer Dependabot `ignore` rules for `eslint` and `typescript` semver-major until official support lands.
+- Dependabot groups `minor` and `patch` updates while opening individual PRs for all `major` updates; verify Next.js / `typescript-eslint` compatibility before merging major bumps.
 
 ### Framework upgrades
 

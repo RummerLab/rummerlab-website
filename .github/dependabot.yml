@@ -1,17 +1,21 @@
+# Dependabot version updates: https://docs.github.com/code-security/dependabot/dependabot-version-updates
+# Minor and patch updates are grouped per ecosystem; major updates open individual PRs.
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "monthly"
-    ignore:
-      # Next.js / typescript-eslint support ESLint 9 and TypeScript 5.x (not 7 yet)
-      - dependency-name: "eslint"
-        update-types: ["version-update:semver-major"]
-      - dependency-name: "typescript"
-        update-types: ["version-update:semver-major"]
+      interval: 'monthly'
+    target-branch: 'main'
+    groups:
+      minor-and-patch:
+        update-types: ['minor', 'patch']
 
-  - package-ecosystem: "github-actions"
-    directory: "/"
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "monthly"
+      interval: 'monthly'
+    target-branch: 'main'
+    groups:
+      minor-and-patch:
+        update-types: ['minor', 'patch']
