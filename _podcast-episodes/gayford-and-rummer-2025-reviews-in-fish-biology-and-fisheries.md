@@ -3,15 +3,19 @@ date: "2026-02-10T12:00:00+10:00"
 journal: "Reviews in Fish Biology and Fisheries"
 journalUrl: "https://link.springer.com/journal/11160"
 doi: "10.1007/s11160-025-09958-3"
-coverImage: "/images/podcast/gayford-and-rummer-2025-reviews-in-fish-biology-and-fisheries/tonic-immobility-in-sharks.jpg"
-coverImageAlt: "Tonic immobility in sharks - research by Gayford and Rummer reframing the hypnosis paradox"
+coverImage: "/images/podcast/gayford-and-rummer-2025-reviews-in-fish-biology-and-fisheries/athletes-of-the-reef-episode-3-hypnosis-paradox-cover-art.jpg"
+coverImageAlt: "Athletes of the Reef episode 3 cover art: The Hypnosis Paradox, why some sharks will not play dead, with an illustrated shark"
 title: "003 - The hypnosis paradox: why some sharks will not play dead"
 excerpt: "Episode 3 of Athletes of the Reef dives into 2025 research by Joel H. Gayford and Jodie L. Rummer in Reviews in Fish Biology and Fisheries, reframing tonic immobility in sharks as evolutionary baggage rather than adaptation."
 paper: "/papers/Gayford et al., 2025 Reviews in Fish Biology and Fisheries.pdf"
 podcast: "Athletes of the Reef"
 spotify: "https://open.spotify.com/episode/05xTKDzttAw7kXqMESYYSp?si=zvE1GzLET-G2heUnDrH6Fg"
 youtube: "https://www.youtube.com/watch?v=yUqPFDK3QbU"
-gallery: []
+gallery:
+  - src: "/images/podcast/gayford-and-rummer-2025-reviews-in-fish-biology-and-fisheries/tonic-immobility-in-sharks.jpg"
+    alt: "Tonic immobility in sharks"
+    caption: "Tonic immobility in sharks"
+    credit: ""
 ---
 
 ## The hypnosis paradox: why some sharks will not play dead
